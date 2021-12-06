@@ -1,0 +1,8 @@
+#+LaTeX_CLASS: scrartcl
+#+LaTeX_CLASS_OPTIONS: [letterpaper]
+#+LaTeX_HEADER: \KOMAoptions{parskip=half}
+#+LaTeX_HEADER: \usepackage{mlmodern}
+#+LaTeX_HEADER: \usepackage[T1]{fontenc}
+#+LaTeX_HEADER: \usepackage[margin=2.5cm,includehead=true,includefoot=true,centering]{geometry}
+#+LaTeX_HEADER: \usepackage[linguistics]{forest}
+#+LaTeX_HEADER: \usepackage{gb4e}

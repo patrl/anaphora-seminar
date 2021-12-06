@@ -1,0 +1,56 @@
+#+title: MIT anaphora seminar (Spring 2022)
+#+date:
+#+bibliography: ../bibliography/master.bib
+#+setupfile: latex-template.org
+#+author: Patrick D. Elliott
+
+* Topics (tbc)
+
+Last updated: "[2021-12-06 12:30]"
+
+** Discourse referents and dynamic notions of content
+
+- [cite:@Heim1982]
+- [cite:@GroenendijkStokhof1991]
+- [cite:@Chierchia1995]
+  
+** Integrating dynamic and compositional semantics
+
+- [cite:@GroenendijkStokhof1990]
+- [cite:@Muskens1996]
+- [cite:@Charlow2014]
+  
+** Predictive dynamics
+
+- [cite:@Schlenker2010]
+- [cite:@Schlenker2009]
+- [cite:@Schlenker2008]
+  
+** Plurality and maximality
+
+- [cite:@vandenBerg1996]
+- [cite:@Brasoveanu2007]
+- [cite:@Keshet2018]
+  
+** Dynamic inquisitive semantics
+
+- [cite:@DotlacilRoelofsen2019]
+  
+** Dynamic semantics and the grammar
+
+- [cite:@Chierchia2020]
+- [cite:@Schlenker2005]
+ 
+  
+* References
+  
+#+print_bibliography:
+
+# Local Variables:
+# time-stamp-line-limit: 1000
+# time-stamp-format: "[%Y-%m-%d %H:%M]"
+# time-stamp-active: t
+# time-stamp-start: "Last updated: \""
+# time-stamp-end: "\""
+# eval: (add-hook 'before-save-hook (lambda () (if (y-or-n-p "update timestamp?") (time-stamp))) nil t)
+# End:
