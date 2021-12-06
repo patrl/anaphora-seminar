@@ -6,7 +6,7 @@
 
 * Topics (tbc)
 
-Last updated: "[2021-12-06 12:30]"
+Last updated: "[2021-12-06 12:39]"
 
 ** Discourse referents and dynamic notions of content
 
@@ -35,6 +35,7 @@ Last updated: "[2021-12-06 12:30]"
 ** Dynamic inquisitive semantics
 
 - [cite:@DotlacilRoelofsen2019]
+- [cite:@DotlacilRoelofsen2021]
   
 ** Dynamic semantics and the grammar
 
