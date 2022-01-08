@@ -1,0 +1,78 @@
+# Created 2022-01-08 Sat 16:53
+#+title: MIT anaphora seminar (Spring 2022)
+#+author: Patrick D. Elliott
+#+bibliography: ../bibliography/master.bib
+#+setupfile: latex-template.org
+#+cite_export: csl
+
+* Topics (tbc)
+
+Last updated: "[2022-01-08 Sat 16:52]" 
+
+** Discourse referents and dynamic notions of content
+
+- ([[citeproc_bib_item_10][Heim 1982]])
+- ([[citeproc_bib_item_9][Groenendijk and Stokhof 1991]])
+- ([[citeproc_bib_item_4][Chierchia 1995]])
+
+** Integrating dynamic and compositional semantics
+
+- ([[citeproc_bib_item_8][Groenendijk and Stokhof 1990]])
+- ([[citeproc_bib_item_12][Muskens 1996]])
+- ([[citeproc_bib_item_3][Charlow 2014]])
+
+** Predictive dynamics
+
+- ([[citeproc_bib_item_16][Schlenker 2010]])
+- ([[citeproc_bib_item_15][Schlenker 2009]])
+- ([[citeproc_bib_item_14][Schlenker 2008]])
+
+** Plurality and maximality
+
+- ([[citeproc_bib_item_1][van den Berg 1996]])
+- ([[citeproc_bib_item_2][Brasoveanu 2007]])
+- ([[citeproc_bib_item_11][Keshet 2018]])
+
+** Dynamic inquisitive semantics
+
+- ([[citeproc_bib_item_7][Dotlačil and Roelofsen 2019]])
+- ([[citeproc_bib_item_6][Dotlacil and Roelofsen 2021]])
+
+** Dynamic semantics and the grammar
+
+- ([[citeproc_bib_item_5][Chierchia 2020]])
+- ([[citeproc_bib_item_13][Schlenker 2005]])
+
+* References
+
+<<citeproc_bib_item_1>>Berg, M. H. van den. 1996. “Some Aspects of the Internal Structure of Discourse. The Dynamics of Nominal Anaphora.” https://dare.uva.nl/search?arno.record.id=7073.
+
+<<citeproc_bib_item_2>>Brasoveanu, Adrian. 2007. “Structured Nominal and Modal Reference.” PhD thesis, Rutgers University - Graduate School - New Brunswick.
+
+<<citeproc_bib_item_3>>Charlow, Simon. 2014. “On the Semantics of Exceptional Scope.” PhD thesis, New Brunswick: Rutgers University.
+
+<<citeproc_bib_item_4>>Chierchia, Gennaro. 1995. /Dynamics of Meaning - Anaphora, Presupposition, and the Theory of Grammar/. Chicago: University of Chicago Press.
+
+<<citeproc_bib_item_5>>———. 2020. “Origins of Weak Crossover - When Dynamic Semantics Meets Event Semantics.” /Natural Language Semantics/, no. 28: 23–76.
+
+<<citeproc_bib_item_6>>Dotlacil, Jakub, and Floris Roelofsen. 2021. “A Dynamic Semantics of Single-Wh and Multiple-Wh Questions.” /Semantics and Linguistic Theory/ 30 (0, 0): 376–95. https://doi.org/10.3765/salt.v30i0.4839.
+
+<<citeproc_bib_item_7>>Dotlačil, Jakub, and Floris Roelofsen. 2019. “Dynamic Inquisitive Semantics: Anaphora and Questions.” /Proceedings of Sinn Und Bedeutung/, July, 365–82 Pages. https://doi.org/10.18148/SUB/2019.V23I1.538.
+
+<<citeproc_bib_item_8>>Groenendijk, Jeroen, and Martin Stokhof. 1990. “Dynamic Montague Grammar.” Report. https://eprints.illc.uva.nl/id/eprint/1148/.
+
+<<citeproc_bib_item_9>>———. 1991. “Dynamic Predicate Logic.” /Linguistics and Philosophy/ 14 (1): 39–100. https://www.jstor.org/stable/25001418.
+
+<<citeproc_bib_item_10>>Heim, Irene. 1982. “The Semantics of Definite and Indefinite Noun Phrases.” PhD thesis, University of Massachusetts - Amherst.
+
+<<citeproc_bib_item_11>>Keshet, Ezra. 2018. “Dynamic Update Anaphora Logic - A Simple Analysis of Complex Anaphora.” /Journal of Semantics/ 35 (2): 263–303. https://doi.org/10.1093/jos/ffx020.
+
+<<citeproc_bib_item_12>>Muskens, Reinhard. 1996. “Combining Montague Semantics and Discourse Representation.” /Linguistics and Philosophy/ 19 (2): 143–86. https://doi.org/10.1007/BF00635836.
+
+<<citeproc_bib_item_13>>Schlenker, Philippe. 2005. “Non-Redundancy: Towards a Semantic Reinterpretation of Binding Theory.” /Natural Language Semantics/ 13 (1): 1–92. https://doi.org/10.1007/s11050-004-2440-1.
+
+<<citeproc_bib_item_14>>———. 2008. “Be Articulate: A Pragmatic Theory of Presupposition Projection.” /Theoretical Linguistics/ 34 (3). https://doi.org/10.1515/THLI.2008.013.
+
+<<citeproc_bib_item_15>>———. 2009. “Local Contexts.” /Semantics and Pragmatics/ 2 (July). https://doi.org/10.3765/sp.2.3.
+
+<<citeproc_bib_item_16>>———. 2010. “Local Contexts and Local Meanings.” /Philosophical Studies: An International Journal for Philosophy in the Analytic Tradition/ 151 (1): 115–42. https://doi.org/10.2307/40856594.

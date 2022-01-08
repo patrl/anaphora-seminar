@@ -7,8 +7,7 @@
 
 * Topics (tbc)
 
-
-Last updated: "[2022-01-08 16:50]"
+Last updated: "[2022-01-08 16:53]" 
 
 ** Discourse referents and dynamic notions of content
 
@@ -44,7 +43,6 @@ Last updated: "[2022-01-08 16:50]"
 - [cite:@Chierchia2020]
 - [cite:@Schlenker2005]
  
-  
 * References
   
 #+print_bibliography:
@@ -59,7 +57,7 @@ Last updated: "[2022-01-08 16:50]"
 # time-stamp-start: "Last updated: \""
 # time-stamp-end: "\""
 # eval: (add-hook 'before-save-hook (lambda () (if (y-or-n-p "update timestamp?") (time-stamp))) nil t)
-# eval: (add-hook 'before-save-hook (lambda () (if (y-or-n-p "export?") (org-md-export-to-markdown))) nil t)
+# eval: (add-hook 'before-save-hook (lambda () (if (y-or-n-p "export?") (org-org-export-to-org))) nil t)
 # End:
 
 
