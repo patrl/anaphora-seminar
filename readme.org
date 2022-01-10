@@ -1,4 +1,4 @@
-# Created 2022-01-08 Sat 16:59
+# Created 2022-01-10 Mon 13:44
 #+title: MIT anaphora seminar (Spring 2022)
 #+author: Patrick D. Elliott
 #+bibliography: ../bibliography/master.bib
@@ -7,7 +7,7 @@
 
 * Topics (tbc)
 
-Last updated: "[2022-01-08 Sat 16:56]" 
+Last updated: "[2022-01-10 Mon 13:44]" 
 
 ** Discourse referents and dynamic notions of content
 
@@ -20,29 +20,30 @@ Last updated: "[2022-01-08 Sat 16:56]"
 ** Integrating dynamic and compositional semantics
 
 - ([[citeproc_bib_item_14][Groenendijk and Stokhof 1990]])
-- ([[citeproc_bib_item_21][Muskens 1996]])
+- ([[citeproc_bib_item_22][Muskens 1996]])
 - ([[citeproc_bib_item_3][Charlow 2014]])
 
 ** Negation and disjunction
 
-- ([[citeproc_bib_item_26][Simons 1996]])
-- ([[citeproc_bib_item_19][Krahmer and Muskens 1995]])
+- ([[citeproc_bib_item_27][Simons 1996]])
+- ([[citeproc_bib_item_20][Krahmer and Muskens 1995]])
 - ([[citeproc_bib_item_12][Gotham 2019]])
+- ([[citeproc_bib_item_17][Hofmann 2019]])
 
 ** Predictive dynamics
 
-- ([[citeproc_bib_item_25][Schlenker 2010]])
-- ([[citeproc_bib_item_24][Schlenker 2009]])
-- ([[citeproc_bib_item_23][Schlenker 2008]])
+- ([[citeproc_bib_item_26][Schlenker 2010]])
+- ([[citeproc_bib_item_25][Schlenker 2009]])
+- ([[citeproc_bib_item_24][Schlenker 2008]])
 - ([[citeproc_bib_item_4][Charlow 2019]])
 - ([[citeproc_bib_item_11][Elliott 2020b]])
-- ([[citeproc_bib_item_20][Mandelkern 2020]])
+- ([[citeproc_bib_item_21][Mandelkern 2020]])
 
 ** Plurality and maximality
 
 - ([[citeproc_bib_item_1][van den Berg 1996]])
 - ([[citeproc_bib_item_2][Brasoveanu 2007]])
-- ([[citeproc_bib_item_18][Keshet 2018]])
+- ([[citeproc_bib_item_19][Keshet 2018]])
 
 ** Dynamic inquisitive semantics
 
@@ -58,11 +59,11 @@ Last updated: "[2022-01-08 Sat 16:56]"
 
 *** Binding theory
 
-- ([[citeproc_bib_item_22][Schlenker 2005]])
+- ([[citeproc_bib_item_23][Schlenker 2005]])
 
 *** Weak islands and intervention effects
 
-- ([[citeproc_bib_item_17][Honcoop 1998]])
+- ([[citeproc_bib_item_18][Honcoop 1998]])
 
 * References
 
@@ -98,22 +99,24 @@ Last updated: "[2022-01-08 Sat 16:56]"
 
 <<citeproc_bib_item_16>>Heim, Irene. 1982. “The Semantics of Definite and Indefinite Noun Phrases.” PhD thesis, University of Massachusetts - Amherst.
 
-<<citeproc_bib_item_17>>Honcoop, Martin. 1998. “Dynamic Excursions on Weak Islands.” PhD thesis, University of Leiden.
+<<citeproc_bib_item_17>>Hofmann, Lisa. 2019. “The Anaphoric Potential of Indefinites under Negation and Disjunction.” In /Proceedings of the 22nd Amsterdam Colloquium/, edited by Julian J. Schlöder, Dean McHugh, and Floris Roelofsen, 181–90.
 
-<<citeproc_bib_item_18>>Keshet, Ezra. 2018. “Dynamic Update Anaphora Logic - A Simple Analysis of Complex Anaphora.” /Journal of Semantics/ 35 (2): 263–303. https://doi.org/10.1093/jos/ffx020.
+<<citeproc_bib_item_18>>Honcoop, Martin. 1998. “Dynamic Excursions on Weak Islands.” PhD thesis, University of Leiden.
 
-<<citeproc_bib_item_19>>Krahmer, Emiel, and Reinhard Muskens. 1995. “Negation and Disjunction in Discourse Representation Theory.” /Journal of Semantics/ 12 (4): 357–76. https://doi.org/10.1093/jos/12.4.357.
+<<citeproc_bib_item_19>>Keshet, Ezra. 2018. “Dynamic Update Anaphora Logic - A Simple Analysis of Complex Anaphora.” /Journal of Semantics/ 35 (2): 263–303. https://doi.org/10.1093/jos/ffx020.
 
-<<citeproc_bib_item_20>>Mandelkern, Matthew. 2020. “Witnesses.” Unpublished manuscript. Oxford: Unpublished manuscript.
+<<citeproc_bib_item_20>>Krahmer, Emiel, and Reinhard Muskens. 1995. “Negation and Disjunction in Discourse Representation Theory.” /Journal of Semantics/ 12 (4): 357–76. https://doi.org/10.1093/jos/12.4.357.
 
-<<citeproc_bib_item_21>>Muskens, Reinhard. 1996. “Combining Montague Semantics and Discourse Representation.” /Linguistics and Philosophy/ 19 (2): 143–86. https://doi.org/10.1007/BF00635836.
+<<citeproc_bib_item_21>>Mandelkern, Matthew. 2020. “Witnesses.” Unpublished manuscript. Oxford: Unpublished manuscript.
 
-<<citeproc_bib_item_22>>Schlenker, Philippe. 2005. “Non-Redundancy: Towards a Semantic Reinterpretation of Binding Theory.” /Natural Language Semantics/ 13 (1): 1–92. https://doi.org/10.1007/s11050-004-2440-1.
+<<citeproc_bib_item_22>>Muskens, Reinhard. 1996. “Combining Montague Semantics and Discourse Representation.” /Linguistics and Philosophy/ 19 (2): 143–86. https://doi.org/10.1007/BF00635836.
 
-<<citeproc_bib_item_23>>———. 2008. “Be Articulate: A Pragmatic Theory of Presupposition Projection.” /Theoretical Linguistics/ 34 (3). https://doi.org/10.1515/THLI.2008.013.
+<<citeproc_bib_item_23>>Schlenker, Philippe. 2005. “Non-Redundancy: Towards a Semantic Reinterpretation of Binding Theory.” /Natural Language Semantics/ 13 (1): 1–92. https://doi.org/10.1007/s11050-004-2440-1.
 
-<<citeproc_bib_item_24>>———. 2009. “Local Contexts.” /Semantics and Pragmatics/ 2 (July). https://doi.org/10.3765/sp.2.3.
+<<citeproc_bib_item_24>>———. 2008. “Be Articulate: A Pragmatic Theory of Presupposition Projection.” /Theoretical Linguistics/ 34 (3). https://doi.org/10.1515/THLI.2008.013.
 
-<<citeproc_bib_item_25>>———. 2010. “Local Contexts and Local Meanings.” /Philosophical Studies: An International Journal for Philosophy in the Analytic Tradition/ 151 (1): 115–42. https://doi.org/10.2307/40856594.
+<<citeproc_bib_item_25>>———. 2009. “Local Contexts.” /Semantics and Pragmatics/ 2 (July). https://doi.org/10.3765/sp.2.3.
 
-<<citeproc_bib_item_26>>Simons, Mandy. 1996. “Disjunction and Anaphora.” /Semantics and Linguistic Theory/ 6 (0, 0): 245–60. https://doi.org/10.3765/salt.v6i0.2760.
+<<citeproc_bib_item_26>>———. 2010. “Local Contexts and Local Meanings.” /Philosophical Studies: An International Journal for Philosophy in the Analytic Tradition/ 151 (1): 115–42. https://doi.org/10.2307/40856594.
+
+<<citeproc_bib_item_27>>Simons, Mandy. 1996. “Disjunction and Anaphora.” /Semantics and Linguistic Theory/ 6 (0, 0): 245–60. https://doi.org/10.3765/salt.v6i0.2760.
