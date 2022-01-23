@@ -1,4 +1,4 @@
-# Created 2022-01-10 Mon 13:44
+# Created 2022-01-23 Sun 17:12
 #+title: MIT anaphora seminar (Spring 2022)
 #+author: Patrick D. Elliott
 #+bibliography: ../bibliography/master.bib
@@ -7,43 +7,56 @@
 
 * Topics (tbc)
 
-Last updated: "[2022-01-10 Mon 13:44]" 
+Last updated: "[2022-01-23 Sun 17:12]" 
 
 ** Discourse referents and dynamic notions of content
 
 - ([[citeproc_bib_item_16][Heim 1982]])
+  Foundational work developing /file-change semantics/ (see chapter 3). Proposes that the meaning of a sentence in natural language is a function from files to files; proposes a concomitant enrichment of Stalnakerian contexts.
 - ([[citeproc_bib_item_15][Groenendijk and Stokhof 1991]])
-- ([[citeproc_bib_item_13][Groenendijk, Stokhof, and Veltman 1996]])
+  Develops a semantics for a first-order calculus which gets to the heart of dynamic treatments of anaphora; the extension of a formula is a /relation between assignments/, as opposed to a set of assignments.
 - ([[citeproc_bib_item_7][Dekker 1994]])
-- ([[citeproc_bib_item_5][Chierchia 1995]])
+  Develops a logic with a syntactic distinction between variables and pronouns.
+- ([[citeproc_bib_item_27][Rothschild and Yalcin 2016]])
+  Investigation of logical properties of dynamic theories, and what counts as a truly /dynamic/ semantics.
 
 ** Integrating dynamic and compositional semantics
 
 - ([[citeproc_bib_item_14][Groenendijk and Stokhof 1990]])
-- ([[citeproc_bib_item_22][Muskens 1996]])
+- ([[citeproc_bib_item_5][Chierchia 1995]])
+- ([[citeproc_bib_item_24][Muskens 1996]])
 - ([[citeproc_bib_item_3][Charlow 2014]])
+- ([[citeproc_bib_item_4][Charlow 2019]])
 
 ** Negation and disjunction
 
-- ([[citeproc_bib_item_27][Simons 1996]])
-- ([[citeproc_bib_item_20][Krahmer and Muskens 1995]])
+- ([[citeproc_bib_item_32][Simons 1996]])
+- ([[citeproc_bib_item_22][Krahmer and Muskens 1995]])
 - ([[citeproc_bib_item_12][Gotham 2019]])
 - ([[citeproc_bib_item_17][Hofmann 2019]])
 
+** Modality and modal subordination
+
+- ([[citeproc_bib_item_13][Groenendijk, Stokhof, and Veltman 1996]])
+- ([[citeproc_bib_item_21][Kibble 1994]])
+- ([[citeproc_bib_item_26][Roberts 1989]])
+
 ** Predictive dynamics
 
-- ([[citeproc_bib_item_26][Schlenker 2010]])
-- ([[citeproc_bib_item_25][Schlenker 2009]])
-- ([[citeproc_bib_item_24][Schlenker 2008]])
+- ([[citeproc_bib_item_31][Schlenker 2010]])
+- ([[citeproc_bib_item_30][Schlenker 2009]])
+- ([[citeproc_bib_item_29][Schlenker 2008]])
 - ([[citeproc_bib_item_4][Charlow 2019]])
 - ([[citeproc_bib_item_11][Elliott 2020b]])
-- ([[citeproc_bib_item_21][Mandelkern 2020]])
+- ([[citeproc_bib_item_23][Mandelkern 2020]])
 
 ** Plurality and maximality
 
 - ([[citeproc_bib_item_1][van den Berg 1996]])
+- ([[citeproc_bib_item_25][Nouwen 2003]])
 - ([[citeproc_bib_item_2][Brasoveanu 2007]])
 - ([[citeproc_bib_item_19][Keshet 2018]])
+- ([[citeproc_bib_item_20][Keshet 2019]])
 
 ** Dynamic inquisitive semantics
 
@@ -52,6 +65,7 @@ Last updated: "[2022-01-10 Mon 13:44]"
 
 ** Dynamic semantics and the grammar
 
+
 *** Crossover
 
 - ([[citeproc_bib_item_6][Chierchia 2020]])
@@ -59,7 +73,7 @@ Last updated: "[2022-01-10 Mon 13:44]"
 
 *** Binding theory
 
-- ([[citeproc_bib_item_23][Schlenker 2005]])
+- ([[citeproc_bib_item_28][Schlenker 2005]])
 
 *** Weak islands and intervention effects
 
@@ -105,18 +119,28 @@ Last updated: "[2022-01-10 Mon 13:44]"
 
 <<citeproc_bib_item_19>>Keshet, Ezra. 2018. “Dynamic Update Anaphora Logic - A Simple Analysis of Complex Anaphora.” /Journal of Semantics/ 35 (2): 263–303. https://doi.org/10.1093/jos/ffx020.
 
-<<citeproc_bib_item_20>>Krahmer, Emiel, and Reinhard Muskens. 1995. “Negation and Disjunction in Discourse Representation Theory.” /Journal of Semantics/ 12 (4): 357–76. https://doi.org/10.1093/jos/12.4.357.
+<<citeproc_bib_item_20>>———. 2019. “Dynamic Unioning Plural Logic.” In /Proceedings of the 20th Amsterdam Colloquium, 2015/.
 
-<<citeproc_bib_item_21>>Mandelkern, Matthew. 2020. “Witnesses.” Unpublished manuscript. Oxford: Unpublished manuscript.
+<<citeproc_bib_item_21>>Kibble, Rodger. 1994. “Dynamics of Epistemic Modality and Anaphora.” In /International Workshop on Computational Semantics/, 121–30.
 
-<<citeproc_bib_item_22>>Muskens, Reinhard. 1996. “Combining Montague Semantics and Discourse Representation.” /Linguistics and Philosophy/ 19 (2): 143–86. https://doi.org/10.1007/BF00635836.
+<<citeproc_bib_item_22>>Krahmer, Emiel, and Reinhard Muskens. 1995. “Negation and Disjunction in Discourse Representation Theory.” /Journal of Semantics/ 12 (4): 357–76. https://doi.org/10.1093/jos/12.4.357.
 
-<<citeproc_bib_item_23>>Schlenker, Philippe. 2005. “Non-Redundancy: Towards a Semantic Reinterpretation of Binding Theory.” /Natural Language Semantics/ 13 (1): 1–92. https://doi.org/10.1007/s11050-004-2440-1.
+<<citeproc_bib_item_23>>Mandelkern, Matthew. 2020. “Witnesses.” Unpublished manuscript. Oxford: Unpublished manuscript.
 
-<<citeproc_bib_item_24>>———. 2008. “Be Articulate: A Pragmatic Theory of Presupposition Projection.” /Theoretical Linguistics/ 34 (3). https://doi.org/10.1515/THLI.2008.013.
+<<citeproc_bib_item_24>>Muskens, Reinhard. 1996. “Combining Montague Semantics and Discourse Representation.” /Linguistics and Philosophy/ 19 (2): 143–86. https://doi.org/10.1007/BF00635836.
 
-<<citeproc_bib_item_25>>———. 2009. “Local Contexts.” /Semantics and Pragmatics/ 2 (July). https://doi.org/10.3765/sp.2.3.
+<<citeproc_bib_item_25>>Nouwen, R. W. F. 2003. “Plural Pronominal Anaphora in Context : Dynamic Aspects of Quantification.” Dissertation. November 21, 2003. http://localhost/handle/1874/630.
 
-<<citeproc_bib_item_26>>———. 2010. “Local Contexts and Local Meanings.” /Philosophical Studies: An International Journal for Philosophy in the Analytic Tradition/ 151 (1): 115–42. https://doi.org/10.2307/40856594.
+<<citeproc_bib_item_26>>Roberts, Craige. 1989. “Modal Subordination and Pronominal Anaphora in Discourse.” /Linguistics and Philosophy/ 12 (6): 683–721. https://www.jstor.org/stable/25001367.
 
-<<citeproc_bib_item_27>>Simons, Mandy. 1996. “Disjunction and Anaphora.” /Semantics and Linguistic Theory/ 6 (0, 0): 245–60. https://doi.org/10.3765/salt.v6i0.2760.
+<<citeproc_bib_item_27>>Rothschild, Daniel, and Seth Yalcin. 2016. “Three Notions of Dynamicness in Language.” /Linguistics and Philosophy/ 39 (4): 333–55. https://doi.org/10.1007/s10988-016-9188-1.
+
+<<citeproc_bib_item_28>>Schlenker, Philippe. 2005. “Non-Redundancy: Towards a Semantic Reinterpretation of Binding Theory.” /Natural Language Semantics/ 13 (1): 1–92. https://doi.org/10.1007/s11050-004-2440-1.
+
+<<citeproc_bib_item_29>>———. 2008. “Be Articulate: A Pragmatic Theory of Presupposition Projection.” /Theoretical Linguistics/ 34 (3). https://doi.org/10.1515/THLI.2008.013.
+
+<<citeproc_bib_item_30>>———. 2009. “Local Contexts.” /Semantics and Pragmatics/ 2 (July). https://doi.org/10.3765/sp.2.3.
+
+<<citeproc_bib_item_31>>———. 2010. “Local Contexts and Local Meanings.” /Philosophical Studies: An International Journal for Philosophy in the Analytic Tradition/ 151 (1): 115–42. https://doi.org/10.2307/40856594.
+
+<<citeproc_bib_item_32>>Simons, Mandy. 1996. “Disjunction and Anaphora.” /Semantics and Linguistic Theory/ 6 (0, 0): 245–60. https://doi.org/10.3765/salt.v6i0.2760.

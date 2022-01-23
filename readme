@@ -7,21 +7,26 @@
 
 * Topics (tbc)
 
-Last updated: "[2022-01-10 13:44]" 
+Last updated: "[2022-01-23 17:12]" 
 
 ** Discourse referents and dynamic notions of content
 
 - [cite:@Heim1982]
+  Foundational work developing /file-change semantics/ (see chapter 3). Proposes that the meaning of a sentence in natural language is a function from files to files; proposes a concomitant enrichment of Stalnakerian contexts.
 - [cite:@GroenendijkStokhof1991]
-- [cite:@GroenendijkEtAl1996]
+  Develops a semantics for a first-order calculus which gets to the heart of dynamic treatments of anaphora; the extension of a formula is a /relation between assignments/, as opposed to a set of assignments.
 - [cite:@Dekker1994]
-- [cite:@Chierchia1995]
+  Develops a logic with a syntactic distinction between variables and pronouns.
+- [cite:@RothschildYalcin2016]
+  Investigation of logical properties of dynamic theories, and what counts as a truly /dynamic/ semantics.
   
 ** Integrating dynamic and compositional semantics
 
 - [cite:@GroenendijkStokhof1990]
+- [cite:@Chierchia1995]
 - [cite:@Muskens1996]
 - [cite:@Charlow2014]
+- [cite:@Charlow2019]
   
 ** Negation and disjunction
 
@@ -29,6 +34,12 @@ Last updated: "[2022-01-10 13:44]"
 - [cite:@KrahmerMuskens1995]
 - [cite:@Gotham2019]
 - [cite:@Hofmann2019]
+  
+** Modality and modal subordination
+
+- [cite:@GroenendijkEtAl1996]
+- [cite:@Kibble1994]
+- [cite:@Roberts1989]
   
 ** Predictive dynamics
 
@@ -54,6 +65,7 @@ Last updated: "[2022-01-10 13:44]"
   
 ** Dynamic semantics and the grammar
 
+
 *** Crossover
 
 - [cite:@Chierchia2020]
@@ -71,6 +83,7 @@ Last updated: "[2022-01-10 13:44]"
   
 #+print_bibliography:
 
+
 * File local variables                                             :noexport:
 
 # Local Variables:
@@ -81,7 +94,7 @@ Last updated: "[2022-01-10 13:44]"
 # time-stamp-start: "Last updated: \""
 # time-stamp-end: "\""
 # eval: (add-hook 'before-save-hook (lambda () (if (y-or-n-p "update timestamp?") (time-stamp))) nil t)
-# eval: (add-hook 'before-save-hook (lambda () (if (y-or-n-p "export?") (org-org-export-to-org))) nil t)
+# eval: (add-hook 'after-save-hook (lambda () (if (y-or-n-p "export?") (org-export-to-file 'org "readme.org"))) nil t)
 # End:
 
 

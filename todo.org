@@ -1,0 +1,7 @@
+#+title: Todo
+#+author: Patrick D. Elliott
+
+* Useful resources
+
+- [[http://danielrothschild.com/esslli2017/][Dynamic semantics and pragmatic alternatives]]
+- [[https://github.com/cb125/Dynamics][GitHub - cb125/Dynamics: NYU Linguistics seminar, spring 2021]]

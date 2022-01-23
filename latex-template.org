@@ -6,3 +6,6 @@
 #+LaTeX_HEADER: \usepackage[margin=2.5cm,includehead=true,includefoot=true,centering]{geometry}
 #+LaTeX_HEADER: \usepackage[linguistics]{forest}
 #+LaTeX_HEADER: \usepackage{gb4e}
+#+LaTeX_HEADER: \usepackage{amsthm}
+#+LaTeX_HEADER:\theoremstyle{definition}
+#+LaTeX_HEADER: \newtheorem{definition}{Definition}[section]
