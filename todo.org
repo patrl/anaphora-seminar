@@ -5,3 +5,7 @@
 
 - [[http://danielrothschild.com/esslli2017/][Dynamic semantics and pragmatic alternatives]]
 - [[https://github.com/cb125/Dynamics][GitHub - cb125/Dynamics: NYU Linguistics seminar, spring 2021]]
+  
+* Staging ground
+
+- [[https://oxford.universitypressscholarship.com/view/10.1093/oso/9780198738831.001.0001/oso-9780198738831-chapter-14][Dynamic Pragmatics, Static Semantics - Oxford Scholarship]]

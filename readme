@@ -1,13 +1,13 @@
 #+title: MIT anaphora seminar (Spring 2022)
 #+date:
 #+bibliography: ../bibliography/master.bib
+#+cite_export: biblatex
 #+setupfile: latex-template.org
-#+cite_export: csl
 #+author: Patrick D. Elliott
 
 * Topics (tbc)
 
-Last updated: "[2022-01-23 17:12]" 
+Last updated: "[2022-01-24 16:05]" 
 
 ** Discourse referents and dynamic notions of content
 
@@ -79,6 +79,31 @@ Last updated: "[2022-01-23 17:12]"
 
 - [cite:@Honcoop1998]
  
+  
+* Schedule
+
+Seminar takes place Mondays 10:00-13:00, in 32-D461.
+
+| date         | topic                                   |
+|--------------+-----------------------------------------|
+| Mon Jan 31   | File change semantics                   |
+| Mon Feb 7    | Dynamic predicate logic                 |
+| Mon Feb 14   | Externally dynamic dynamic semantics i  |
+| +Mon Feb 21+ | *holiday - president's day*             |
+| Tue Feb 22   | Externally dynamic dynamic semantics ii |
+| Mon Feb 28   | Amir on redundancy                      |
+| Mon Mar 7    | Amir on redundancy                      |
+| Mon Mar 14   | Amir on redundancy                      |
+| +Mon Mar 21+ | *holiday - spring break*                |
+| Mon Mar 28   | Plural dynamic semantics i           |
+| Mon Apr 4    | Plural dynamic semantics ii          |
+| Mon Apr 11   | Inquisitive dynamic semantics i      |
+| +Mon Apr 18+ | *holiday - patriot's day*               |
+| Mon Apr 25   | Inquisitive dynamic semantics ii     |
+| Mon May 2    | student presentations                   |
+| Mon May 9    | student presentations                   |
+
+
 * References
   
 #+print_bibliography:
@@ -93,6 +118,8 @@ Last updated: "[2022-01-23 17:12]"
 # time-stamp-active: t
 # time-stamp-start: "Last updated: \""
 # time-stamp-end: "\""
+# org-latex-default-packages-alist: nil
+# org-latex-with-hyperref: nil
 # eval: (add-hook 'before-save-hook (lambda () (if (y-or-n-p "update timestamp?") (time-stamp))) nil t)
 # eval: (add-hook 'after-save-hook (lambda () (if (y-or-n-p "export?") (org-export-to-file 'org "readme.org"))) nil t)
 # End:
