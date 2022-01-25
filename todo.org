@@ -3,9 +3,23 @@
 
 * Useful resources
 
-- [[http://danielrothschild.com/esslli2017/][Dynamic semantics and pragmatic alternatives]]
-- [[https://github.com/cb125/Dynamics][GitHub - cb125/Dynamics: NYU Linguistics seminar, spring 2021]]
+- [[http://danielrothschild.com/esslli2017/][Dynamic semantics and pragmatic alternatives (Matt Mandelkern & Daniel Rothschild)]]
+- [[https://github.com/cb125/Dynamics][GitHub - cb125/Dynamics: NYU Linguistics seminar, spring 2021 (Chris Barker)]]
+- [[https://www.ucl.ac.uk/~ucjtudo/teaching/DR2021.html][Discourse Referents (Yasu Sudo)]]
+- [[http://danielrothschild.com/dynamics1920/][UCL semantics research seminar]]
+- Irene's handouts
   
-* Staging ground
+* TO-READ Stalnaker's paper
 
 - [[https://oxford.universitypressscholarship.com/view/10.1093/oso/9780198738831.001.0001/oso-9780198738831-chapter-14][Dynamic Pragmatics, Static Semantics - Oxford Scholarship]]
+  
+* TO-READ Spector's work
+
+* TO-READ Jan Koepping's work
+
+* TO-READ Hoffman's work
+
+* Topics to cover
+
+** Donkey sentences
+** Bishop sentences
