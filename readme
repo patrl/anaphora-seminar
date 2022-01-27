@@ -4,9 +4,11 @@
 #+cite_export: csl
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
 #+setupfile: latex-template.org
+#+OPTIONS: toc:nil
+#+EXPORT_FILE_NAME: ./docs/index.html
 #+author: Patrick D. Elliott
 
-Last updated: "[2022-01-27 12:32]" 
+Last updated: "[2022-01-27 12:46]" 
 
 * Schedule
 
@@ -185,7 +187,8 @@ Amir's summary of the content:
 # org-latex-default-packages-alist: nil
 # org-latex-with-hyperref: nil
 # eval: (add-hook 'before-save-hook (lambda () (if (y-or-n-p "update timestamp?") (time-stamp))) nil t)
-# eval: (add-hook 'after-save-hook (lambda () (if (y-or-n-p "export?") (org-export-to-file 'org "readme.org"))) nil t)
+# eval: (add-hook 'after-save-hook (lambda () (if (y-or-n-p "export to org?") (org-export-to-file 'org "readme.org"))) nil t)
+# eval: (add-hook 'after-save-hook (lambda nil (if (y-or-n-p "export to html?") (org-html-export-to-html))) nil t)
 # End:
 
 

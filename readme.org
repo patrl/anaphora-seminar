@@ -1,11 +1,13 @@
-# Created 2022-01-27 Thu 12:32
+# Created 2022-01-27 Thu 12:46
+#+options: toc:nil
 #+title: MIT anaphora seminar (Spring 2022)
 #+author: Patrick D. Elliott
 #+bibliography: ../bibliography/master.bib
 #+cite_export: csl
 #+html_head: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
 #+setupfile: latex-template.org
-Last updated: "[2022-01-27 Thu 12:32]" 
+#+export_file_name: ./docs/index.html
+Last updated: "[2022-01-27 Thu 12:46]" 
 
 * Schedule
 
