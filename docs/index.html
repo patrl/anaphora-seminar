@@ -1,0 +1,656 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2022-01-27 Thu 12:29 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>MIT anaphora seminar (Spring 2022)</title>
+<meta name="author" content="Patrick D. Elliott" />
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+</style>
+<link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+</head>
+<body>
+<div id="content" class="content">
+<h1 class="title">MIT anaphora seminar (Spring 2022)</h1>
+<div id="table-of-contents" role="doc-toc">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents" role="doc-toc">
+<ul>
+<li><a href="#orgf5ed8fb">1. Schedule</a></li>
+<li><a href="#org52e25f6">2. Topics</a>
+<ul>
+<li><a href="#fcs">2.1. Week 1: File change semantics</a>
+<ul>
+<li><a href="#org1934514">2.1.1. Recommended readings</a></li>
+<li><a href="#org51313de">2.1.2. Other readings</a></li>
+</ul>
+</li>
+<li><a href="#dpl">2.2. Week 2: Dynamic predicate logic</a>
+<ul>
+<li><a href="#orgc00ce5a">2.2.1. Recommended readings</a></li>
+<li><a href="#orgb1bd991">2.2.2. Optional readings</a></li>
+</ul>
+</li>
+<li><a href="#subsentential">2.3. Week 3: Subsentential dynamics</a>
+<ul>
+<li><a href="#org8988875">2.3.1. Recommended readings</a></li>
+<li><a href="#orgb9a62c8">2.3.2. Optional readings</a></li>
+</ul>
+</li>
+<li><a href="#edds">2.4. Week 4: Externally-dynamic dynamic semantics</a>
+<ul>
+<li><a href="#org928b4b8">2.4.1. Recommended readings</a></li>
+<li><a href="#orgc07c893">2.4.2. Optional readings</a></li>
+</ul>
+</li>
+<li><a href="#oddness">2.5. Week 5-7: Amir Anvari on <i>oddness</i></a>
+<ul>
+<li><a href="#orgddf8b30">2.5.1. References</a></li>
+</ul>
+</li>
+<li><a href="#mod">2.6. Week 8: Modality and modal subordination</a>
+<ul>
+<li><a href="#org3db41eb">2.6.1. Recommended readings</a></li>
+<li><a href="#orgafba24e">2.6.2. Optional readings</a></li>
+</ul>
+</li>
+<li><a href="#quant">2.7. Week 9: Plurality and quantification</a>
+<ul>
+<li><a href="#orgde8a514">2.7.1. Recommeded readings</a></li>
+<li><a href="#org1ec771d">2.7.2. Optional readings</a></li>
+</ul>
+</li>
+<li><a href="#inq">2.8. Week 10: Dynamic inquisitive semantics</a>
+<ul>
+<li><a href="#orgf300687">2.8.1. Recommended readings</a></li>
+</ul>
+</li>
+<li><a href="#gramm">2.9. Week 11: Dynamic semantics and the grammar</a>
+<ul>
+<li><a href="#org9cb34d4">2.9.1. Recommended readings</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#org2f68e50">3. References</a></li>
+</ul>
+</div>
+</div>
+<p>
+Last updated: "<span class="timestamp-wrapper"><span class="timestamp">[2022-01-27 Thu 12:29]</span></span>" 
+</p>
+
+<div id="outline-container-orgf5ed8fb" class="outline-2">
+<h2 id="orgf5ed8fb"><span class="section-number-2">1.</span> Schedule</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Seminar takes place Mondays 10:00-13:00, in 32-D461.
+</p>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">date</th>
+<th scope="col" class="org-left">topic</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left">Mon Jan 31</td>
+<td class="org-left"><a href="#fcs">file change semantics</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Mon Feb 7</td>
+<td class="org-left"><a href="#dpl">dynamic predicate logic</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Mon Feb 14</td>
+<td class="org-left"><a href="#subsentential">subsentential dynamics</a></td>
+</tr>
+
+<tr>
+<td class="org-left"><del>Mon Feb 21</del></td>
+<td class="org-left"><b>holiday - president's day</b></td>
+</tr>
+
+<tr>
+<td class="org-left">Tue Feb 22</td>
+<td class="org-left"><a href="#edds">externally-dynamic dynamic semantics</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Mon Feb 28</td>
+<td class="org-left"><a href="#oddness">Amir Anvari on oddness</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Mon Mar 7</td>
+<td class="org-left"><a href="#oddness">Amir Anvari on oddness</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Mon Mar 14</td>
+<td class="org-left"><a href="#oddness">Amir Anvari on oddness</a></td>
+</tr>
+
+<tr>
+<td class="org-left"><del>Mon Mar 21</del></td>
+<td class="org-left"><b>holiday - spring break</b></td>
+</tr>
+
+<tr>
+<td class="org-left">Mon Mar 28</td>
+<td class="org-left"><a href="#mod">modality and modal subordination</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Mon Apr 4</td>
+<td class="org-left"><a href="#quant">plurality and quantification</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Mon Apr 11</td>
+<td class="org-left"><a href="#inq">inquisitive dynamic semantics</a></td>
+</tr>
+
+<tr>
+<td class="org-left"><del>Mon Apr 18</del></td>
+<td class="org-left"><b>holiday - patriot's day</b></td>
+</tr>
+
+<tr>
+<td class="org-left">Mon Apr 25</td>
+<td class="org-left"><a href="#gramm">dynamic semantics and the grammar</a></td>
+</tr>
+
+<tr>
+<td class="org-left">Mon May 2</td>
+<td class="org-left">Filipe Hisao Kobayashi on postsuppositions</td>
+</tr>
+
+<tr>
+<td class="org-left">Mon May 9</td>
+<td class="org-left">Student presentations</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div id="outline-container-org52e25f6" class="outline-2">
+<h2 id="org52e25f6"><span class="section-number-2">2.</span> Topics</h2>
+<div class="outline-text-2" id="text-2">
+</div>
+<div id="outline-container-fcs" class="outline-3">
+<h3 id="fcs"><span class="section-number-3">2.1.</span> Week 1: File change semantics</h3>
+<div class="outline-text-3" id="text-fcs">
+</div>
+
+<div id="outline-container-org1934514" class="outline-4">
+<h4 id="org1934514"><span class="section-number-4">2.1.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<ul class="org-ul">
+<li>Chapter 3 of (<a href="#citeproc_bib_item_18">Heim 1982</a>).</li>
+<li>(<a href="#citeproc_bib_item_19">Heim 1983</a>)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org51313de" class="outline-4">
+<h4 id="org51313de"><span class="section-number-4">2.1.2.</span> Other readings</h4>
+<div class="outline-text-4" id="text-2-1-2">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_21">Karttunen 1976</a>)</li>
+<li>(<a href="#citeproc_bib_item_28">Lewis 1979</a>)</li>
+<li>(<a href="#citeproc_bib_item_36">Rothschild and Yalcin 2016</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-dpl" class="outline-3">
+<h3 id="dpl"><span class="section-number-3">2.2.</span> Week 2: Dynamic predicate logic</h3>
+<div class="outline-text-3" id="text-dpl">
+</div>
+
+<div id="outline-container-orgc00ce5a" class="outline-4">
+<h4 id="orgc00ce5a"><span class="section-number-4">2.2.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_17">Groenendijk and Stokhof 1991</a>)</li>
+<li>(<a href="#citeproc_bib_item_13">Gillies 2019</a>)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb1bd991" class="outline-4">
+<h4 id="orgb1bd991"><span class="section-number-4">2.2.2.</span> Optional readings</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_7">Dekker 1994</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-subsentential" class="outline-3">
+<h3 id="subsentential"><span class="section-number-3">2.3.</span> Week 3: Subsentential dynamics</h3>
+<div class="outline-text-3" id="text-subsentential">
+</div>
+
+<div id="outline-container-org8988875" class="outline-4">
+<h4 id="org8988875"><span class="section-number-4">2.3.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-2-3-1">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_4">Charlow 2019</a>)</li>
+<li>Part I of (<a href="#citeproc_bib_item_3">Charlow 2014</a>)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgb9a62c8" class="outline-4">
+<h4 id="orgb9a62c8"><span class="section-number-4">2.3.2.</span> Optional readings</h4>
+<div class="outline-text-4" id="text-2-3-2">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_16">Groenendijk and Stokhof 1990</a>)</li>
+<li>(<a href="#citeproc_bib_item_33">Muskens 1996</a>)</li>
+<li>(<a href="#citeproc_bib_item_5">Chierchia 1995</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-edds" class="outline-3">
+<h3 id="edds"><span class="section-number-3">2.4.</span> Week 4: Externally-dynamic dynamic semantics</h3>
+<div class="outline-text-3" id="text-edds">
+</div>
+
+<div id="outline-container-org928b4b8" class="outline-4">
+<h4 id="org928b4b8"><span class="section-number-4">2.4.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-2-4-1">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_11">Elliott 2020b</a>)</li>
+<li>(<a href="#citeproc_bib_item_14">Gotham 2019</a>)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgc07c893" class="outline-4">
+<h4 id="orgc07c893"><span class="section-number-4">2.4.2.</span> Optional readings</h4>
+<div class="outline-text-4" id="text-2-4-2">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_29">Mandelkern 2020</a>)</li>
+<li>(<a href="#citeproc_bib_item_20">Hofmann 2019</a>)</li>
+<li>(<a href="#citeproc_bib_item_38">Simons 1996</a>)</li>
+<li>(<a href="#citeproc_bib_item_27">Krahmer and Muskens 1995</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-oddness" class="outline-3">
+<h3 id="oddness"><span class="section-number-3">2.5.</span> Week 5-7: Amir Anvari on <i>oddness</i></h3>
+<div class="outline-text-3" id="text-oddness">
+<p>
+Amir's summary of the content:
+</p>
+
+<blockquote>
+<p>
+"We will rehearse a host of puzzles that have been discussed in the literature on oddness (Singh 2008, Katzir &amp; Singh 2014, Mayr &amp; Romoli 2016, Mandelkern &amp; Romoli 2018, Marty &amp; Romoli 2021). The ambition is to provide a unified analysis for all these cases. We begin with the classical insight, as formulated by Katzir &amp; Singh (2015), that “a good assertion is one that provides a good answer to a good question”: a good sentence is one that is about something. We explore the idea that the question that a sentence addresses in a given context is one that must be constructed in a principled fashion from sentence itself and its formal alternatives (Katzir 2007, Fox &amp; Katzir 2011). If such a “formal background question” cannot be constructed, the sentence is not about anything and predicted to be odd. We will explore one implementation of this idea in the context of the puzzles mentioned."
+</p>
+</blockquote>
+</div>
+
+<div id="outline-container-orgddf8b30" class="outline-4">
+<h4 id="orgddf8b30"><span class="section-number-4">2.5.1.</span> References</h4>
+<div class="outline-text-4" id="text-2-5-1">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_23">Katzir and Singh 2014</a>)</li>
+<li>(<a href="#citeproc_bib_item_32">Mayr and Romoli 2016</a>)</li>
+<li>(<a href="#citeproc_bib_item_30">Mandelkern and Romoli 2018</a>)</li>
+<li>(<a href="#citeproc_bib_item_31">Marty and Romoli 2021</a>)</li>
+<li>(<a href="#citeproc_bib_item_22">Katzir 2008</a>)</li>
+<li>(<a href="#citeproc_bib_item_12">Fox and Katzir 2011</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-mod" class="outline-3">
+<h3 id="mod"><span class="section-number-3">2.6.</span> Week 8: Modality and modal subordination</h3>
+<div class="outline-text-3" id="text-mod">
+</div>
+
+<div id="outline-container-org3db41eb" class="outline-4">
+<h4 id="org3db41eb"><span class="section-number-4">2.6.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-2-6-1">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_15">Groenendijk, Stokhof, and Veltman 1996</a>)</li>
+<li>(<a href="#citeproc_bib_item_26">Kibble 1994</a>)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-orgafba24e" class="outline-4">
+<h4 id="orgafba24e"><span class="section-number-4">2.6.2.</span> Optional readings</h4>
+<div class="outline-text-4" id="text-2-6-2">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_39">Veltman 1996</a>)</li>
+<li>(<a href="#citeproc_bib_item_35">Roberts 1989</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-quant" class="outline-3">
+<h3 id="quant"><span class="section-number-3">2.7.</span> Week 9: Plurality and quantification</h3>
+<div class="outline-text-3" id="text-quant">
+</div>
+
+<div id="outline-container-orgde8a514" class="outline-4">
+<h4 id="orgde8a514"><span class="section-number-4">2.7.1.</span> Recommeded readings</h4>
+<div class="outline-text-4" id="text-2-7-1">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_1">van den Berg 1996</a>)</li>
+<li>(<a href="#citeproc_bib_item_34">Nouwen 2003</a>)</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-org1ec771d" class="outline-4">
+<h4 id="org1ec771d"><span class="section-number-4">2.7.2.</span> Optional readings</h4>
+<div class="outline-text-4" id="text-2-7-2">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_2">Brasoveanu 2007</a>)</li>
+<li>(<a href="#citeproc_bib_item_24">Keshet 2018</a>)</li>
+<li>(<a href="#citeproc_bib_item_25">Keshet 2019</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-inq" class="outline-3">
+<h3 id="inq"><span class="section-number-3">2.8.</span> Week 10: Dynamic inquisitive semantics</h3>
+<div class="outline-text-3" id="text-inq">
+</div>
+
+<div id="outline-container-orgf300687" class="outline-4">
+<h4 id="orgf300687"><span class="section-number-4">2.8.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-2-8-1">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_9">Dotlačil and Roelofsen 2019</a>)</li>
+<li>(<a href="#citeproc_bib_item_8">Dotlacil and Roelofsen 2021</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-gramm" class="outline-3">
+<h3 id="gramm"><span class="section-number-3">2.9.</span> Week 11: Dynamic semantics and the grammar</h3>
+<div class="outline-text-3" id="text-gramm">
+</div>
+
+<div id="outline-container-org9cb34d4" class="outline-4">
+<h4 id="org9cb34d4"><span class="section-number-4">2.9.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-2-9-1">
+<ul class="org-ul">
+<li>(<a href="#citeproc_bib_item_37">Schlenker 2005</a>)</li>
+<li>(<a href="#citeproc_bib_item_6">Chierchia 2020</a>)</li>
+<li>(<a href="#citeproc_bib_item_10">Elliott 2020a</a>)</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-org2f68e50" class="outline-2">
+<h2 id="org2f68e50"><span class="section-number-2">3.</span> References</h2>
+<div class="outline-text-2" id="text-3">
+<style>.csl-entry{text-indent: -1.5em; margin-left: 1.5em;}</style><div class="csl-bib-body">
+  <div class="csl-entry"><a id="citeproc_bib_item_1"></a>Berg, M. H. van den. 1996. “Some Aspects of the Internal Structure of Discourse. The Dynamics of Nominal Anaphora.” <a href="https://dare.uva.nl/search?arno.record.id=7073">https://dare.uva.nl/search?arno.record.id=7073</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_2"></a>Brasoveanu, Adrian. 2007. “Structured Nominal and Modal Reference.” PhD thesis, Rutgers University - Graduate School - New Brunswick.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_3"></a>Charlow, Simon. 2014. “On the Semantics of Exceptional Scope.” PhD thesis, New Brunswick: Rutgers University.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_4"></a>———. 2019. “Static and Dynamic Exceptional Scope.” lingbuzz/004650.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_5"></a>Chierchia, Gennaro. 1995. <i>Dynamics of Meaning - Anaphora, Presupposition, and the Theory of Grammar</i>. Chicago: University of Chicago Press.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_6"></a>———. 2020. “Origins of Weak Crossover - When Dynamic Semantics Meets Event Semantics.” <i>Natural Language Semantics</i>, no. 28: 23–76.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_7"></a>Dekker, Paul. 1994. “Predicate Logic with Anaphora.” <i>Semantics and Linguistic Theory</i> 4 (November): 79–95. <a href="https://doi.org/10.3765/salt.v4i0.2459">https://doi.org/10.3765/salt.v4i0.2459</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_8"></a>Dotlacil, Jakub, and Floris Roelofsen. 2021. “A Dynamic Semantics of Single-Wh and Multiple-Wh Questions.” <i>Semantics and Linguistic Theory</i> 30 (0, 0): 376–95. <a href="https://doi.org/10.3765/salt.v30i0.4839">https://doi.org/10.3765/salt.v30i0.4839</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_9"></a>Dotlačil, Jakub, and Floris Roelofsen. 2019. “Dynamic Inquisitive Semantics: Anaphora and Questions.” <i>Proceedings of Sinn Und Bedeutung</i>, July, 365–82 Pages. <a href="https://doi.org/10.18148/SUB/2019.V23I1.538">https://doi.org/10.18148/SUB/2019.V23I1.538</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_10"></a>Elliott, Patrick D. 2020a. “Crossover and Accessibility in Dynamic Semantics.” MIT: lingbuzz/005311. <a href="https://ling.auf.net/lingbuzz/005311">https://ling.auf.net/lingbuzz/005311</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_11"></a>———. 2020b. “Towards a Principled Logic of Anaphora.” MIT: lingbuzz/005562. <a href="https://ling.auf.net/lingbuzz/005562">https://ling.auf.net/lingbuzz/005562</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_12"></a>Fox, Danny, and Roni Katzir. 2011. “On the Characterization of Alternatives.” <i>Natural Language Semantics</i> 19 (1): 87–107. <a href="https://doi.org/10.1007/s11050-010-9065-3">https://doi.org/10.1007/s11050-010-9065-3</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_13"></a>Gillies, Anthony S. 2019. “Re-Reading ‘Dynamic Predicate Logic’.” Rutgers University.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_14"></a>Gotham, Matthew. 2019. “Double Negation, Excluded Middle and Accessibility in Dynamic Semanttics.” In <i>Proceedings of the 22nd Amsterdam Colloquium</i>, edited by Julian J. Schlöder, Dean McHugh, and Floris Roelofsen, 142–51.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_15"></a>Groenendijk, Jeroen a. G., Martin J. B. Stokhof, and Frank J. M. M. Veltman. 1996. “Coreference and Modality.” In <i>The Handbook of Contemporary Semantic Theory</i>, 176–216. Blackwell Handbooks in Linguistics. Oxford: Blackwell. <a href="https://dare.uva.nl/search?identifier=c655089e-9fae-4842-90da-30e46f37825b">https://dare.uva.nl/search?identifier=c655089e-9fae-4842-90da-30e46f37825b</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_16"></a>Groenendijk, Jeroen, and Martin Stokhof. 1990. “Dynamic Montague Grammar.” Report. <a href="https://eprints.illc.uva.nl/id/eprint/1148/">https://eprints.illc.uva.nl/id/eprint/1148/</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_17"></a>———. 1991. “Dynamic Predicate Logic.” <i>Linguistics and Philosophy</i> 14 (1): 39–100. <a href="https://www.jstor.org/stable/25001418">https://www.jstor.org/stable/25001418</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_18"></a>Heim, Irene. 1982. “The Semantics of Definite and Indefinite Noun Phrases.” PhD thesis, University of Massachusetts - Amherst.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_19"></a>———. 1983. “File Change Semantics and the Familiarity Theory of Definiteness.” In <i>File Change Semantics and the Familiarity Theory of Definiteness</i>, 164–89. De Gruyter. <a href="https://doi.org/10.1515/9783110852820.164">https://doi.org/10.1515/9783110852820.164</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_20"></a>Hofmann, Lisa. 2019. “The Anaphoric Potential of Indefinites under Negation and Disjunction.” In <i>Proceedings of the 22nd Amsterdam Colloquium</i>, edited by Julian J. Schlöder, Dean McHugh, and Floris Roelofsen, 181–90.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_21"></a>Karttunen, Lauri. 1976. “Discourse Referents.” In <i>Syntax and Semantics Vol. 7</i>, edited by J. D. McCawley, 363–86. Academic Press.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_22"></a>Katzir, Roni. 2008. “Structurally-Defined Alternatives” 30 (6): 669–90. <a href="https://doi.org/10.1007/s10988-008-9029-y">https://doi.org/10.1007/s10988-008-9029-y</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_23"></a>Katzir, Roni, and Raj Singh. 2014. “Hurford Disjunctions - Embedded Exhaustification and Structural Economy.” In <i>Proceedings of Sinn Und Bedeutung 18</i>, edited by Urtzi Etxeberria, Anamaria Fălăuş, Aritz Irurtzun, and Bryan Leferman, 201–16. University of the Basque Country (UPV/EHU).</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_24"></a>Keshet, Ezra. 2018. “Dynamic Update Anaphora Logic - A Simple Analysis of Complex Anaphora.” <i>Journal of Semantics</i> 35 (2): 263–303. <a href="https://doi.org/10.1093/jos/ffx020">https://doi.org/10.1093/jos/ffx020</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_25"></a>———. 2019. “Dynamic Unioning Plural Logic.” In <i>Proceedings of the 20th Amsterdam Colloquium, 2015</i>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_26"></a>Kibble, Rodger. 1994. “Dynamics of Epistemic Modality and Anaphora.” In <i>International Workshop on Computational Semantics</i>, 121–30.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_27"></a>Krahmer, Emiel, and Reinhard Muskens. 1995. “Negation and Disjunction in Discourse Representation Theory.” <i>Journal of Semantics</i> 12 (4): 357–76. <a href="https://doi.org/10.1093/jos/12.4.357">https://doi.org/10.1093/jos/12.4.357</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_28"></a>Lewis, David. 1979. “Scorekeeping in a Language Game.” <i>Journal of Philosophical Logic</i> 8 (1): 339–59. <a href="https://www.jstor.org/stable/30227173">https://www.jstor.org/stable/30227173</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_29"></a>Mandelkern, Matthew. 2020. “Witnesses.” Unpublished manuscript. Oxford: Unpublished manuscript.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_30"></a>Mandelkern, Matthew, and Jacopo Romoli. 2018. “Hurford Conditionals.” <i>Journal of Semantics</i> 35 (2): 357–67. <a href="https://doi.org/10.1093/jos/ffx022">https://doi.org/10.1093/jos/ffx022</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_31"></a>Marty, Paul, and Jacopo Romoli. 2021. “Varieties of Hurford Disjunction.” <a href="https://ling.auf.net/lingbuzz/005755">https://ling.auf.net/lingbuzz/005755</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_32"></a>Mayr, Clemens, and Jacopo Romoli. 2016. “A Puzzle for Theories of Redundancy: Exhaustification, Incrementality, and the Notion of Local Context.” <i>Semantics and Pragmatics</i> 9 (0, 0): 7–1-48. <a href="https://doi.org/10.3765/sp.9.7">https://doi.org/10.3765/sp.9.7</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_33"></a>Muskens, Reinhard. 1996. “Combining Montague Semantics and Discourse Representation.” <i>Linguistics and Philosophy</i> 19 (2): 143–86. <a href="https://doi.org/10.1007/BF00635836">https://doi.org/10.1007/BF00635836</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_34"></a>Nouwen, R. W. F. 2003. “Plural Pronominal Anaphora in Context : Dynamic Aspects of Quantification.” Dissertation. November 21, 2003. <a href="http://localhost/handle/1874/630">http://localhost/handle/1874/630</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_35"></a>Roberts, Craige. 1989. “Modal Subordination and Pronominal Anaphora in Discourse.” <i>Linguistics and Philosophy</i> 12 (6): 683–721. <a href="https://www.jstor.org/stable/25001367">https://www.jstor.org/stable/25001367</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_36"></a>Rothschild, Daniel, and Seth Yalcin. 2016. “Three Notions of Dynamicness in Language.” <i>Linguistics and Philosophy</i> 39 (4): 333–55. <a href="https://doi.org/10.1007/s10988-016-9188-1">https://doi.org/10.1007/s10988-016-9188-1</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_37"></a>Schlenker, Philippe. 2005. “Non-Redundancy: Towards a Semantic Reinterpretation of Binding Theory.” <i>Natural Language Semantics</i> 13 (1): 1–92. <a href="https://doi.org/10.1007/s11050-004-2440-1">https://doi.org/10.1007/s11050-004-2440-1</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_38"></a>Simons, Mandy. 1996. “Disjunction and Anaphora.” <i>Semantics and Linguistic Theory</i> 6 (0, 0): 245–60. <a href="https://doi.org/10.3765/salt.v6i0.2760">https://doi.org/10.3765/salt.v6i0.2760</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_39"></a>Veltman, Frank. 1996. “Defaults in Update Semantics.” <i>Journal of Philosophical Logic</i> 25 (3): 221–61. <a href="https://www.jstor.org/stable/30226572">https://www.jstor.org/stable/30226572</a>.</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Patrick D. Elliott</p>
+<p class="date">Created: 2022-01-27 Thu 12:29</p>
+<p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
