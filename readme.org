@@ -1,14 +1,17 @@
-# Created 2022-01-27 Thu 12:46
+# Created 2022-01-27 Thu 16:27
 #+options: toc:nil
-#+title: MIT topics in semantics seminar (Spring 2022)
-#+subtitle:Discourse referents, inside and out 
+#+title: MIT topics in semantics seminar (spring 2022)
 #+author: Patrick D. Elliott
+#+subtitle: Discourse referents inside and out
 #+bibliography: ../bibliography/master.bib
 #+cite_export: csl
 #+html_head: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
 #+setupfile: latex-template.org
 #+export_file_name: ./docs/index.html
-Last updated: "[2022-01-27 Thu 12:46]" 
+#+caption: Zen garden of the Ryoanji Temple, Kyoto, Japan 1951 (Werner Bischof)
+[[file:./bischof.jpg]]
+
+Last updated: "[2022-01-27 Thu 16:27]" 
 
 * Schedule
 
