@@ -1,5 +1,5 @@
-#+title: MIT anaphora seminar (Spring 2022)
-#+date:
+#+title: MIT topics in semantics seminar (spring 2022)
+#+subtitle: Discourse referents inside and out
 #+bibliography: ../bibliography/master.bib
 #+cite_export: csl
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
@@ -8,7 +8,11 @@
 #+EXPORT_FILE_NAME: ./docs/index.html
 #+author: Patrick D. Elliott
 
-Last updated: "[2022-01-27 12:46]" 
+#+CAPTION: Zen garden of the Ryoanji Temple, Kyoto, Japan 1951 (Werner Bischof)
+#+ATTR_HTML: :width 250 :style border:2px solid black;
+[[../bischof.jpg]]
+
+Last updated: "[2022-01-27 16:09]" 
 
 * Schedule
 

@@ -1,6 +1,7 @@
 # Created 2022-01-27 Thu 12:46
 #+options: toc:nil
-#+title: MIT anaphora seminar (Spring 2022)
+#+title: MIT topics in semantics seminar (Spring 2022)
+#+subtitle:Discourse referents, inside and out 
 #+author: Patrick D. Elliott
 #+bibliography: ../bibliography/master.bib
 #+cite_export: csl
