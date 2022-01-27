@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-01-27 Thu 16:51 -->
+<!-- 2022-01-27 Thu 17:57 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>MIT topics in semantics seminar (spring 2022)</title>
@@ -202,19 +202,54 @@
 <span class="subtitle">Discourse referents inside and out</span>
 </h1>
 
-<div id="orge5d914d" class="figure">
+<div id="org28bac3b" class="figure">
 <p><img src="./bischof.jpg" alt="bischof.jpg" width="250" style="border:2px solid black;" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Zen garden of the Ryoanji Temple, Kyoto, Japan 1951 (Werner Bischof)</p>
 </div>
 
 <p>
-Last updated: "<span class="timestamp-wrapper"><span class="timestamp">[2022-01-27 Thu 16:51]</span></span>" 
+Last updated: "<span class="timestamp-wrapper"><span class="timestamp">[2022-01-27 Thu 17:57]</span></span>" 
 </p>
 
-<div id="outline-container-orgf8db5f8" class="outline-2">
-<h2 id="orgf8db5f8"><span class="section-number-2">1.</span> Schedule</h2>
+<div id="outline-container-orgd03139b" class="outline-2">
+<h2 id="orgd03139b"><span class="section-number-2">1.</span> Course description</h2>
 <div class="outline-text-2" id="text-1">
+<blockquote>
+<p>
+"Consider a device designed to read a text in some natural language,
+interpret it, and store the content in some manner, say, for the purpose
+of being able to answer questions about it. To accomplish this task,
+the machine will have to fulfill at least the following basic requirement.
+It has to be able to build a file that consists of records of all the
+individuals, that is, events, objects, etc., mentioned in the text and, for
+each individual, record whatever is said about it. Of course, for the time being at least, it seems that such a text interpreter is not a practical idea, but this should not discourage us from studying in abstract what kind of capabilities the machine would have to possess, provided that our study
+provides us with some insight into natural language in general." (<a href="#citeproc_bib_item_21">Karttunen 1976</a>)
+</p>
+</blockquote>
+
+<p>
+The notion of a <i>discourse referent</i> emerged from the work of Lauri Karttunen and David Lewis (<a href="#citeproc_bib_item_21">Karttunen 1976</a>; <a href="#citeproc_bib_item_28">Lewis 1979</a>), during a time of general optimism concerning connections between linguistic theory and artifical intelligence research. The central idea is that discourse participants introduce and manipulate <i>variables</i> corresponding to individuals mentioned over the course of a conversation. This powerful idea subsequently informed dynamic approaches to meaning, which essentially model anaphora as a powerful cross-referencing device (<a href="#citeproc_bib_item_18">Heim 1982</a>; <a href="#citeproc_bib_item_17">Groenendijk and Stokhof 1991</a>). Frank Veltman crystalizes the 'slogan' of dynamic approaches to meaning as follows: "You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" (<a href="#citeproc_bib_item_40">Veltman 1996</a>). Irene Heim's foundational work on <i>file change semantics</i> in the 80s lead to an explosion of insightful research applying this central idea to an impressive variety of empirical domains. At the same time, dynamic semantics incorporates powerful propietary mechanisms for manipulating <i>contexts</i> in an apparently arbitrary fashion, and even precompiles these mechanisms into the meanings of logical vocabulary such as "or". In this seminar we'll track developments in dynamic approaches to anaphora, starting from classical theories of (singular) pronouns and their indefinite antecedents, and eventually progressing to intricate theories of modality, plurality, and quantification. In parallel, we'll consider what exactly dynamic semantics commits us to, both as a theory of <i>content</i>, and as a theory of how semantic composition proceeds. A central goal will be a re-assessment of Veltman's slogan, in light of recent work that fine-tunes the division of labour between dynamic semantics and pragmatics (<a href="#citeproc_bib_item_11">Elliott 2020b</a>; <a href="#citeproc_bib_item_29">Mandelkern 2020</a>).  
+</p>
+
+<p>
+One of the themes of the seminar will be linguistic motivations for a <i>rich</i> notion of contexts, which goes beyond a "flat" model of information (<a href="#citeproc_bib_item_39">Stalnaker 1976</a>) and incorporates a notion of <i>aboutness</i>. Mid-way through the semester, we'll take a break from anaphora and consider a set of empirical phenomena which motivate a different kind of enrichment. Thanks to Amir Anvari for providing the following summary: 
+</p>
+
+<blockquote>
+<p>
+"We will rehearse a host of puzzles that have been discussed in the literature on oddness (Singh 2008, Katzir &amp; Singh 2014, Mayr &amp; Romoli 2016, Mandelkern &amp; Romoli 2018, Marty &amp; Romoli 2021). The ambition is to provide a unified analysis for all these cases. We begin with the classical insight, as formulated by Katzir &amp; Singh (2015), that “a good assertion is one that provides a good answer to a good question”: a good sentence is one that is about something. We explore the idea that the question that a sentence addresses in a given context is one that must be constructed in a principled fashion from sentence itself and its formal alternatives (Katzir 2007, Fox &amp; Katzir 2011). If such a “formal background question” cannot be constructed, the sentence is not about anything and predicted to be odd. We will explore one implementation of this idea in the context of the puzzles mentioned."
+</p>
+</blockquote>
+</div>
+</div>
+
+
+
+
+<div id="outline-container-orgedbc17e" class="outline-2">
+<h2 id="orgedbc17e"><span class="section-number-2">2.</span> Schedule</h2>
+<div class="outline-text-2" id="text-2">
 <p>
 Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </p>
@@ -318,18 +353,18 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </div>
 </div>
 
-<div id="outline-container-org50ad49e" class="outline-2">
-<h2 id="org50ad49e"><span class="section-number-2">2.</span> Topics</h2>
-<div class="outline-text-2" id="text-2">
+<div id="outline-container-org9c1269f" class="outline-2">
+<h2 id="org9c1269f"><span class="section-number-2">3.</span> Topics</h2>
+<div class="outline-text-2" id="text-3">
 </div>
 <div id="outline-container-fcs" class="outline-3">
-<h3 id="fcs"><span class="section-number-3">2.1.</span> Week 1: File change semantics</h3>
+<h3 id="fcs"><span class="section-number-3">3.1.</span> Week 1: File change semantics</h3>
 <div class="outline-text-3" id="text-fcs">
 </div>
 
-<div id="outline-container-orgbd7ff44" class="outline-4">
-<h4 id="orgbd7ff44"><span class="section-number-4">2.1.1.</span> Recommended readings</h4>
-<div class="outline-text-4" id="text-2-1-1">
+<div id="outline-container-org33d51c0" class="outline-4">
+<h4 id="org33d51c0"><span class="section-number-4">3.1.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-3-1-1">
 <ul class="org-ul">
 <li>Chapter 3 of (<a href="#citeproc_bib_item_18">Heim 1982</a>).</li>
 <li>(<a href="#citeproc_bib_item_19">Heim 1983</a>)</li>
@@ -337,9 +372,9 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </div>
 </div>
 
-<div id="outline-container-org5963517" class="outline-4">
-<h4 id="org5963517"><span class="section-number-4">2.1.2.</span> Other readings</h4>
-<div class="outline-text-4" id="text-2-1-2">
+<div id="outline-container-org8b96597" class="outline-4">
+<h4 id="org8b96597"><span class="section-number-4">3.1.2.</span> Other readings</h4>
+<div class="outline-text-4" id="text-3-1-2">
 <ul class="org-ul">
 <li>(<a href="#citeproc_bib_item_21">Karttunen 1976</a>)</li>
 <li>(<a href="#citeproc_bib_item_28">Lewis 1979</a>)</li>
@@ -350,13 +385,13 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </div>
 
 <div id="outline-container-dpl" class="outline-3">
-<h3 id="dpl"><span class="section-number-3">2.2.</span> Week 2: Dynamic predicate logic</h3>
+<h3 id="dpl"><span class="section-number-3">3.2.</span> Week 2: Dynamic predicate logic</h3>
 <div class="outline-text-3" id="text-dpl">
 </div>
 
-<div id="outline-container-orgded600b" class="outline-4">
-<h4 id="orgded600b"><span class="section-number-4">2.2.1.</span> Recommended readings</h4>
-<div class="outline-text-4" id="text-2-2-1">
+<div id="outline-container-orga7dc83c" class="outline-4">
+<h4 id="orga7dc83c"><span class="section-number-4">3.2.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-3-2-1">
 <ul class="org-ul">
 <li>(<a href="#citeproc_bib_item_17">Groenendijk and Stokhof 1991</a>)</li>
 <li>(<a href="#citeproc_bib_item_13">Gillies 2019</a>)</li>
@@ -364,9 +399,9 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </div>
 </div>
 
-<div id="outline-container-org1564324" class="outline-4">
-<h4 id="org1564324"><span class="section-number-4">2.2.2.</span> Optional readings</h4>
-<div class="outline-text-4" id="text-2-2-2">
+<div id="outline-container-org7c5be98" class="outline-4">
+<h4 id="org7c5be98"><span class="section-number-4">3.2.2.</span> Optional readings</h4>
+<div class="outline-text-4" id="text-3-2-2">
 <ul class="org-ul">
 <li>(<a href="#citeproc_bib_item_7">Dekker 1994</a>)</li>
 </ul>
@@ -375,13 +410,13 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </div>
 
 <div id="outline-container-subsentential" class="outline-3">
-<h3 id="subsentential"><span class="section-number-3">2.3.</span> Week 3: Subsentential dynamics</h3>
+<h3 id="subsentential"><span class="section-number-3">3.3.</span> Week 3: Subsentential dynamics</h3>
 <div class="outline-text-3" id="text-subsentential">
 </div>
 
-<div id="outline-container-org01a165c" class="outline-4">
-<h4 id="org01a165c"><span class="section-number-4">2.3.1.</span> Recommended readings</h4>
-<div class="outline-text-4" id="text-2-3-1">
+<div id="outline-container-org7f684ec" class="outline-4">
+<h4 id="org7f684ec"><span class="section-number-4">3.3.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-3-3-1">
 <ul class="org-ul">
 <li>(<a href="#citeproc_bib_item_4">Charlow 2019</a>)</li>
 <li>Part I of (<a href="#citeproc_bib_item_3">Charlow 2014</a>)</li>
@@ -389,9 +424,9 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </div>
 </div>
 
-<div id="outline-container-org3028f73" class="outline-4">
-<h4 id="org3028f73"><span class="section-number-4">2.3.2.</span> Optional readings</h4>
-<div class="outline-text-4" id="text-2-3-2">
+<div id="outline-container-org10ea2d4" class="outline-4">
+<h4 id="org10ea2d4"><span class="section-number-4">3.3.2.</span> Optional readings</h4>
+<div class="outline-text-4" id="text-3-3-2">
 <ul class="org-ul">
 <li>(<a href="#citeproc_bib_item_16">Groenendijk and Stokhof 1990</a>)</li>
 <li>(<a href="#citeproc_bib_item_33">Muskens 1996</a>)</li>
@@ -402,13 +437,13 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </div>
 
 <div id="outline-container-edds" class="outline-3">
-<h3 id="edds"><span class="section-number-3">2.4.</span> Week 4: Externally-dynamic dynamic semantics</h3>
+<h3 id="edds"><span class="section-number-3">3.4.</span> Week 4: Externally-dynamic dynamic semantics</h3>
 <div class="outline-text-3" id="text-edds">
 </div>
 
-<div id="outline-container-orgde1662d" class="outline-4">
-<h4 id="orgde1662d"><span class="section-number-4">2.4.1.</span> Recommended readings</h4>
-<div class="outline-text-4" id="text-2-4-1">
+<div id="outline-container-orgdd39a95" class="outline-4">
+<h4 id="orgdd39a95"><span class="section-number-4">3.4.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-3-4-1">
 <ul class="org-ul">
 <li>(<a href="#citeproc_bib_item_11">Elliott 2020b</a>)</li>
 <li>(<a href="#citeproc_bib_item_14">Gotham 2019</a>)</li>
@@ -416,9 +451,9 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </div>
 </div>
 
-<div id="outline-container-orgc9de60b" class="outline-4">
-<h4 id="orgc9de60b"><span class="section-number-4">2.4.2.</span> Optional readings</h4>
-<div class="outline-text-4" id="text-2-4-2">
+<div id="outline-container-org4cebde7" class="outline-4">
+<h4 id="org4cebde7"><span class="section-number-4">3.4.2.</span> Optional readings</h4>
+<div class="outline-text-4" id="text-3-4-2">
 <ul class="org-ul">
 <li>(<a href="#citeproc_bib_item_29">Mandelkern 2020</a>)</li>
 <li>(<a href="#citeproc_bib_item_20">Hofmann 2019</a>)</li>
@@ -430,22 +465,13 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </div>
 
 <div id="outline-container-oddness" class="outline-3">
-<h3 id="oddness"><span class="section-number-3">2.5.</span> Week 5-7: Amir Anvari on <i>oddness</i></h3>
+<h3 id="oddness"><span class="section-number-3">3.5.</span> Week 5-7: Amir Anvari on <i>oddness</i></h3>
 <div class="outline-text-3" id="text-oddness">
-<p>
-Amir's summary of the content:
-</p>
-
-<blockquote>
-<p>
-"We will rehearse a host of puzzles that have been discussed in the literature on oddness (Singh 2008, Katzir &amp; Singh 2014, Mayr &amp; Romoli 2016, Mandelkern &amp; Romoli 2018, Marty &amp; Romoli 2021). The ambition is to provide a unified analysis for all these cases. We begin with the classical insight, as formulated by Katzir &amp; Singh (2015), that “a good assertion is one that provides a good answer to a good question”: a good sentence is one that is about something. We explore the idea that the question that a sentence addresses in a given context is one that must be constructed in a principled fashion from sentence itself and its formal alternatives (Katzir 2007, Fox &amp; Katzir 2011). If such a “formal background question” cannot be constructed, the sentence is not about anything and predicted to be odd. We will explore one implementation of this idea in the context of the puzzles mentioned."
-</p>
-</blockquote>
 </div>
 
-<div id="outline-container-org829321e" class="outline-4">
-<h4 id="org829321e"><span class="section-number-4">2.5.1.</span> References</h4>
-<div class="outline-text-4" id="text-2-5-1">
+<div id="outline-container-org733daeb" class="outline-4">
+<h4 id="org733daeb"><span class="section-number-4">3.5.1.</span> References</h4>
+<div class="outline-text-4" id="text-3-5-1">
 <ul class="org-ul">
 <li>(<a href="#citeproc_bib_item_23">Katzir and Singh 2014</a>)</li>
 <li>(<a href="#citeproc_bib_item_32">Mayr and Romoli 2016</a>)</li>
@@ -459,13 +485,13 @@ Amir's summary of the content:
 </div>
 
 <div id="outline-container-mod" class="outline-3">
-<h3 id="mod"><span class="section-number-3">2.6.</span> Week 8: Modality and modal subordination</h3>
+<h3 id="mod"><span class="section-number-3">3.6.</span> Week 8: Modality and modal subordination</h3>
 <div class="outline-text-3" id="text-mod">
 </div>
 
-<div id="outline-container-orge426e0b" class="outline-4">
-<h4 id="orge426e0b"><span class="section-number-4">2.6.1.</span> Recommended readings</h4>
-<div class="outline-text-4" id="text-2-6-1">
+<div id="outline-container-org74e58a5" class="outline-4">
+<h4 id="org74e58a5"><span class="section-number-4">3.6.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-3-6-1">
 <ul class="org-ul">
 <li>(<a href="#citeproc_bib_item_15">Groenendijk, Stokhof, and Veltman 1996</a>)</li>
 <li>(<a href="#citeproc_bib_item_26">Kibble 1994</a>)</li>
@@ -473,11 +499,11 @@ Amir's summary of the content:
 </div>
 </div>
 
-<div id="outline-container-org45783a9" class="outline-4">
-<h4 id="org45783a9"><span class="section-number-4">2.6.2.</span> Optional readings</h4>
-<div class="outline-text-4" id="text-2-6-2">
+<div id="outline-container-org7c2fd3e" class="outline-4">
+<h4 id="org7c2fd3e"><span class="section-number-4">3.6.2.</span> Optional readings</h4>
+<div class="outline-text-4" id="text-3-6-2">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_39">Veltman 1996</a>)</li>
+<li>(<a href="#citeproc_bib_item_40">Veltman 1996</a>)</li>
 <li>(<a href="#citeproc_bib_item_35">Roberts 1989</a>)</li>
 </ul>
 </div>
@@ -485,13 +511,13 @@ Amir's summary of the content:
 </div>
 
 <div id="outline-container-quant" class="outline-3">
-<h3 id="quant"><span class="section-number-3">2.7.</span> Week 9: Plurality and quantification</h3>
+<h3 id="quant"><span class="section-number-3">3.7.</span> Week 9: Plurality and quantification</h3>
 <div class="outline-text-3" id="text-quant">
 </div>
 
-<div id="outline-container-orgf3e5959" class="outline-4">
-<h4 id="orgf3e5959"><span class="section-number-4">2.7.1.</span> Recommeded readings</h4>
-<div class="outline-text-4" id="text-2-7-1">
+<div id="outline-container-org1e8af95" class="outline-4">
+<h4 id="org1e8af95"><span class="section-number-4">3.7.1.</span> Recommeded readings</h4>
+<div class="outline-text-4" id="text-3-7-1">
 <ul class="org-ul">
 <li>(<a href="#citeproc_bib_item_1">van den Berg 1996</a>)</li>
 <li>(<a href="#citeproc_bib_item_34">Nouwen 2003</a>)</li>
@@ -499,9 +525,9 @@ Amir's summary of the content:
 </div>
 </div>
 
-<div id="outline-container-org15dbc3e" class="outline-4">
-<h4 id="org15dbc3e"><span class="section-number-4">2.7.2.</span> Optional readings</h4>
-<div class="outline-text-4" id="text-2-7-2">
+<div id="outline-container-orgd059597" class="outline-4">
+<h4 id="orgd059597"><span class="section-number-4">3.7.2.</span> Optional readings</h4>
+<div class="outline-text-4" id="text-3-7-2">
 <ul class="org-ul">
 <li>(<a href="#citeproc_bib_item_2">Brasoveanu 2007</a>)</li>
 <li>(<a href="#citeproc_bib_item_24">Keshet 2018</a>)</li>
@@ -512,13 +538,13 @@ Amir's summary of the content:
 </div>
 
 <div id="outline-container-inq" class="outline-3">
-<h3 id="inq"><span class="section-number-3">2.8.</span> Week 10: Dynamic inquisitive semantics</h3>
+<h3 id="inq"><span class="section-number-3">3.8.</span> Week 10: Dynamic inquisitive semantics</h3>
 <div class="outline-text-3" id="text-inq">
 </div>
 
-<div id="outline-container-org957559c" class="outline-4">
-<h4 id="org957559c"><span class="section-number-4">2.8.1.</span> Recommended readings</h4>
-<div class="outline-text-4" id="text-2-8-1">
+<div id="outline-container-org2e52248" class="outline-4">
+<h4 id="org2e52248"><span class="section-number-4">3.8.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-3-8-1">
 <ul class="org-ul">
 <li>(<a href="#citeproc_bib_item_9">Dotlačil and Roelofsen 2019</a>)</li>
 <li>(<a href="#citeproc_bib_item_8">Dotlacil and Roelofsen 2021</a>)</li>
@@ -528,13 +554,13 @@ Amir's summary of the content:
 </div>
 
 <div id="outline-container-gramm" class="outline-3">
-<h3 id="gramm"><span class="section-number-3">2.9.</span> Week 11: Dynamic semantics and the grammar</h3>
+<h3 id="gramm"><span class="section-number-3">3.9.</span> Week 11: Dynamic semantics and the grammar</h3>
 <div class="outline-text-3" id="text-gramm">
 </div>
 
-<div id="outline-container-org49cd06c" class="outline-4">
-<h4 id="org49cd06c"><span class="section-number-4">2.9.1.</span> Recommended readings</h4>
-<div class="outline-text-4" id="text-2-9-1">
+<div id="outline-container-orgaafe56a" class="outline-4">
+<h4 id="orgaafe56a"><span class="section-number-4">3.9.1.</span> Recommended readings</h4>
+<div class="outline-text-4" id="text-3-9-1">
 <ul class="org-ul">
 <li>(<a href="#citeproc_bib_item_37">Schlenker 2005</a>)</li>
 <li>(<a href="#citeproc_bib_item_6">Chierchia 2020</a>)</li>
@@ -546,9 +572,9 @@ Amir's summary of the content:
 </div>
 
 
-<div id="outline-container-org71d05f3" class="outline-2">
-<h2 id="org71d05f3"><span class="section-number-2">3.</span> References</h2>
-<div class="outline-text-2" id="text-3">
+<div id="outline-container-org883d473" class="outline-2">
+<h2 id="org883d473"><span class="section-number-2">4.</span> References</h2>
+<div class="outline-text-2" id="text-4">
 <style>.csl-entry{text-indent: -1.5em; margin-left: 1.5em;}</style><div class="csl-bib-body">
   <div class="csl-entry"><a id="citeproc_bib_item_1"></a>Berg, M. H. van den. 1996. “Some Aspects of the Internal Structure of Discourse. The Dynamics of Nominal Anaphora.” <a href="https://dare.uva.nl/search?arno.record.id=7073">https://dare.uva.nl/search?arno.record.id=7073</a>.</div>
   <div class="csl-entry"><a id="citeproc_bib_item_2"></a>Brasoveanu, Adrian. 2007. “Structured Nominal and Modal Reference.” PhD thesis, Rutgers University - Graduate School - New Brunswick.</div>
@@ -588,14 +614,15 @@ Amir's summary of the content:
   <div class="csl-entry"><a id="citeproc_bib_item_36"></a>Rothschild, Daniel, and Seth Yalcin. 2016. “Three Notions of Dynamicness in Language.” <i>Linguistics and Philosophy</i> 39 (4): 333–55. <a href="https://doi.org/10.1007/s10988-016-9188-1">https://doi.org/10.1007/s10988-016-9188-1</a>.</div>
   <div class="csl-entry"><a id="citeproc_bib_item_37"></a>Schlenker, Philippe. 2005. “Non-Redundancy: Towards a Semantic Reinterpretation of Binding Theory.” <i>Natural Language Semantics</i> 13 (1): 1–92. <a href="https://doi.org/10.1007/s11050-004-2440-1">https://doi.org/10.1007/s11050-004-2440-1</a>.</div>
   <div class="csl-entry"><a id="citeproc_bib_item_38"></a>Simons, Mandy. 1996. “Disjunction and Anaphora.” <i>Semantics and Linguistic Theory</i> 6 (0, 0): 245–60. <a href="https://doi.org/10.3765/salt.v6i0.2760">https://doi.org/10.3765/salt.v6i0.2760</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_39"></a>Veltman, Frank. 1996. “Defaults in Update Semantics.” <i>Journal of Philosophical Logic</i> 25 (3): 221–61. <a href="https://www.jstor.org/stable/30226572">https://www.jstor.org/stable/30226572</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_39"></a>Stalnaker, Robert. 1976. “Propositions,” edited by A. F. MacKay and D. D. Merrill, 79–91. New Haven: Yale University Press.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_40"></a>Veltman, Frank. 1996. “Defaults in Update Semantics.” <i>Journal of Philosophical Logic</i> 25 (3): 221–61. <a href="https://www.jstor.org/stable/30226572">https://www.jstor.org/stable/30226572</a>.</div>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Patrick D. Elliott</p>
-<p class="date">Created: 2022-01-27 Thu 16:51</p>
+<p class="date">Created: 2022-01-27 Thu 17:57</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

@@ -1,4 +1,4 @@
-# Created 2022-01-27 Thu 16:51
+# Created 2022-01-27 Thu 17:57
 #+options: toc:nil
 #+title: MIT topics in semantics seminar (spring 2022)
 #+author: Patrick D. Elliott
@@ -11,7 +11,31 @@
 #+caption: Zen garden of the Ryoanji Temple, Kyoto, Japan 1951 (Werner Bischof)
 [[file:./bischof.jpg]]
 
-Last updated: "[2022-01-27 Thu 16:51]" 
+Last updated: "[2022-01-27 Thu 17:57]" 
+
+* Course description
+
+#+begin_quote
+"Consider a device designed to read a text in some natural language,
+interpret it, and store the content in some manner, say, for the purpose
+of being able to answer questions about it. To accomplish this task,
+the machine will have to fulfill at least the following basic requirement.
+It has to be able to build a file that consists of records of all the
+individuals, that is, events, objects, etc., mentioned in the text and, for
+each individual, record whatever is said about it. Of course, for the time being at least, it seems that such a text interpreter is not a practical idea, but this should not discourage us from studying in abstract what kind of capabilities the machine would have to possess, provided that our study
+provides us with some insight into natural language in general." ([[citeproc_bib_item_21][Karttunen 1976]])
+#+end_quote
+
+The notion of a /discourse referent/ emerged from the work of Lauri Karttunen and David Lewis ([[citeproc_bib_item_21][Karttunen 1976]]; [[citeproc_bib_item_28][Lewis 1979]]), during a time of general optimism concerning connections between linguistic theory and artifical intelligence research. The central idea is that discourse participants introduce and manipulate /variables/ corresponding to individuals mentioned over the course of a conversation. This powerful idea subsequently informed dynamic approaches to meaning, which essentially model anaphora as a powerful cross-referencing device ([[citeproc_bib_item_18][Heim 1982]]; [[citeproc_bib_item_17][Groenendijk and Stokhof 1991]]). Frank Veltman crystalizes the 'slogan' of dynamic approaches to meaning as follows: "You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" ([[citeproc_bib_item_40][Veltman 1996]]). Irene Heim's foundational work on /file change semantics/ in the 80s lead to an explosion of insightful research applying this central idea to an impressive variety of empirical domains. At the same time, dynamic semantics incorporates powerful propietary mechanisms for manipulating /contexts/ in an apparently arbitrary fashion, and even precompiles these mechanisms into the meanings of logical vocabulary such as "or". In this seminar we'll track developments in dynamic approaches to anaphora, starting from classical theories of (singular) pronouns and their indefinite antecedents, and eventually progressing to intricate theories of modality, plurality, and quantification. In parallel, we'll consider what exactly dynamic semantics commits us to, both as a theory of /content/, and as a theory of how semantic composition proceeds. A central goal will be a re-assessment of Veltman's slogan, in light of recent work that fine-tunes the division of labour between dynamic semantics and pragmatics ([[citeproc_bib_item_11][Elliott 2020b]]; [[citeproc_bib_item_29][Mandelkern 2020]]).  
+
+One of the themes of the seminar will be linguistic motivations for a /rich/ notion of contexts, which goes beyond a "flat" model of information ([[citeproc_bib_item_39][Stalnaker 1976]]) and incorporates a notion of /aboutness/. Mid-way through the semester, we'll take a break from anaphora and consider a set of empirical phenomena which motivate a different kind of enrichment. Thanks to Amir Anvari for providing the following summary: 
+
+#+begin_quote
+"We will rehearse a host of puzzles that have been discussed in the literature on oddness (Singh 2008, Katzir & Singh 2014, Mayr & Romoli 2016, Mandelkern & Romoli 2018, Marty & Romoli 2021). The ambition is to provide a unified analysis for all these cases. We begin with the classical insight, as formulated by Katzir & Singh (2015), that “a good assertion is one that provides a good answer to a good question”: a good sentence is one that is about something. We explore the idea that the question that a sentence addresses in a given context is one that must be constructed in a principled fashion from sentence itself and its formal alternatives (Katzir 2007, Fox & Katzir 2011). If such a “formal background question” cannot be constructed, the sentence is not about anything and predicted to be odd. We will explore one implementation of this idea in the context of the puzzles mentioned."
+#+end_quote
+
+
+
 
 * Schedule
 
@@ -90,11 +114,6 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 - ([[citeproc_bib_item_27][Krahmer and Muskens 1995]])
 
 ** Week 5-7: Amir Anvari on /oddness/
-Amir's summary of the content:
-
-#+begin_quote
-"We will rehearse a host of puzzles that have been discussed in the literature on oddness (Singh 2008, Katzir & Singh 2014, Mayr & Romoli 2016, Mandelkern & Romoli 2018, Marty & Romoli 2021). The ambition is to provide a unified analysis for all these cases. We begin with the classical insight, as formulated by Katzir & Singh (2015), that “a good assertion is one that provides a good answer to a good question”: a good sentence is one that is about something. We explore the idea that the question that a sentence addresses in a given context is one that must be constructed in a principled fashion from sentence itself and its formal alternatives (Katzir 2007, Fox & Katzir 2011). If such a “formal background question” cannot be constructed, the sentence is not about anything and predicted to be odd. We will explore one implementation of this idea in the context of the puzzles mentioned."
-#+end_quote
 
 *** References
 
@@ -114,7 +133,7 @@ Amir's summary of the content:
 
 *** Optional readings
 
-- ([[citeproc_bib_item_39][Veltman 1996]])
+- ([[citeproc_bib_item_40][Veltman 1996]])
 - ([[citeproc_bib_item_35][Roberts 1989]])
 
 ** Week 9: Plurality and quantification
@@ -224,4 +243,6 @@ Amir's summary of the content:
 
 <<citeproc_bib_item_38>>Simons, Mandy. 1996. “Disjunction and Anaphora.” /Semantics and Linguistic Theory/ 6 (0, 0): 245–60. https://doi.org/10.3765/salt.v6i0.2760.
 
-<<citeproc_bib_item_39>>Veltman, Frank. 1996. “Defaults in Update Semantics.” /Journal of Philosophical Logic/ 25 (3): 221–61. https://www.jstor.org/stable/30226572.
+<<citeproc_bib_item_39>>Stalnaker, Robert. 1976. “Propositions,” edited by A. F. MacKay and D. D. Merrill, 79–91. New Haven: Yale University Press.
+
+<<citeproc_bib_item_40>>Veltman, Frank. 1996. “Defaults in Update Semantics.” /Journal of Philosophical Logic/ 25 (3): 221–61. https://www.jstor.org/stable/30226572.
