@@ -1,4 +1,4 @@
-# Created 2022-01-27 Thu 16:27
+# Created 2022-01-27 Thu 16:51
 #+options: toc:nil
 #+title: MIT topics in semantics seminar (spring 2022)
 #+author: Patrick D. Elliott
@@ -11,7 +11,7 @@
 #+caption: Zen garden of the Ryoanji Temple, Kyoto, Japan 1951 (Werner Bischof)
 [[file:./bischof.jpg]]
 
-Last updated: "[2022-01-27 Thu 16:27]" 
+Last updated: "[2022-01-27 Thu 16:51]" 
 
 * Schedule
 
