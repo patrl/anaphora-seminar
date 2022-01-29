@@ -1,0 +1,350 @@
+#+title: Files and discourse referents 
+#+author: Patrick D. Elliott 
+#+bibliography: ../../bibliography/master.bib
+#+setupfile: handout-template.org
+#+OPTIONS: ':t
+#+cite_export: biblatex
+
+* Empirical motivations
+
+** Uses of pronouns
+
+Pronouns can be used /deictically/. The sentence in ([[deictic1]]) may be uttered, for example, while pointing at a corgi.
+
+#+name: deictic1
+#+begin_exe
+\ex *It*'s playing outside.
+#+end_exe
+
+Pronouns may also be interpreted as /bound variables/:
+
+#+name: bound1
+#+begin_exe 
+\ex No girl wants to be like *her* mother.
+#+end_exe
+
+An informal paraphrase of the meaning of ([[bound1]]) is: /no girl \(x\) is s.t., \(x\) wants to be like \(x\)'s mother/.
+
+Pronouns can also be /discourse anaphoric/ on an indefinite antecedent as in ([[discourse1]]). This is crucially not the same as the deictic use, as there does not have to be any salient individual present which the pronoun is intended to refer to.
+
+#+name: discourse1
+#+begin_exe
+\ex A boy is waiting outside. Will you talk to *him*? 
+#+end_exe
+
+There are other uses of pronouns too. We'll come back to those later on.
+
+** Pronouns as variables
+
+The received wisom is that /pronouns are variables/ [cite:@HeimKratzer1998;@Montague1973;@Buring2005].
+
+A variable is a simple term whose denotation is dependent on an /assignment/, i.e., a function from variables to individuals. 
+
+- him\(_x \Rightarrow x\)
+- \[\eval[g]{x} = g(x)\]
+
+For the time being, let's assume that assignments are /total functions/ from a stock of variables \(V\) to individuals. Assuming that \(V = \set{x,y,z}\), some possible assignments:
+
+
+\[g_1 := \left[\begin{aligned}[c]
+&x \to \mathtt{bunny}\\
+&y \to \mathtt{louise}\\
+&z \to \mathtt{popeye}
+\end{aligned}
+\right]
+%
+\quad
+%
+g_2 := \left[\begin{aligned}[c]
+&x \to \mathtt{bunny}\\
+&y \to \mathtt{bunny}\\
+&z \to \mathtt{louise}
+\end{aligned}
+\right]
+%
+\quad
+%
+g_3 := \left[\begin{aligned}[c]
+&x \to \mathtt{louise}\\
+&y \to \mathtt{louise}\\
+&z \to \mathtt{louise}
+\end{aligned}
+\right]
+\]
+
+Some impossible assignments:
+
+\[\left[\begin{aligned}[c]
+&x \to \mathtt{bunny}\\
+&y \to \mathtt{louise}\\
+\end{aligned}
+\right]
+%
+\quad
+%
+\left[
+\right]\]
+
+Assignments are assumed to be contextually-furnished, and the information provided by assignments flows /top down/, thanks to how functional applications are interpreted.
+
+\[\eval*[g]{\alpha(\beta)} = \eval*[g]{\alpha}(\eval*[g]{\beta})\]
+
+This models (partially) the deictic use. A sentence with a deictic pronoun translates to a formula with a corresponding free variable. The resulting denotation is fundamentally assignment-sensitive.
+
+\[\eval*[g]{\mathbf{playingOutside}(x)} = \mathtt{playingOutside}(g(x))\]
+
+
+In order to capture the bound-variable use, we introduce a special kind of \(\lambda \)-term - namely, a /functional abstraction/.[fn:1] 
+
+\[\eval*[g]{\lambda x \,.\,\alpha  } = f\text{ such that }f(a) = \eval*[g[x := a]]{\alpha }\] 
+
+The abstraction parameter manipulates the assignment of interpretation.
+
+#+begin_quote
+"We can think of an assignment as a store, albeit an infinite one, that
+assigns values to variables, with the role of \([x := a]\) being that of updating the store." [cite:@Carpenter1998]
+#+end_quote
+
+This captures the /bound variable/ use of pronouns in the way that we're all familiar with, for a sentence such as "every dog chased its tail".
+
+\[\mathbf{everyDog}(\lambda x\,.\,\mathbf{chase}(\mathbf{theTail}(x))(x))\]
+
+\[\eval*[g]{\lambda x\,.\,\mathbf{chase}(\mathbf{theTail}(x))(x))} = f\text{ s.t. }f(a) = \mathtt{chase}(\mathtt{theTail}(a))(a) \]
+
+* Contexts as files
+
+Our account of deictic pronouns is incomplete in a way which relates to how we account for discourse anaphora (what does it mean for an assignment function to be "furnished by the context?").
+
+We'll build on Stalnaker's influential proposal [cite:@Stalnaker1976;@Stalnaker2002] that conversational contexts can be modelled as sets of possible worlds - the worlds that are accepted by the participants of a conversation.
+
+The Stalnakerian notion of context bundles all information into a single format - propositional content.
+
+The ignorance/initial state is logical space \(W\), and the absurd state is the empty set.
+
+Update is defined as follows (in a bivalent setting):
+
+\[c[\alpha] = c \cap \set{w | \eval*[w]{\alpha } = 1}\]
+
+A brief illustration: consider a universe in which the only facts concern whether it's snowing and or raining.
+
+\[W = \set{w_\emptyset , w_s, w_r, w_{sr}}\]
+
+\[\eval*[w,g]{\mathbf{raining}} = 1\text{ iff it's raining in }w\]
+
+\[\set{w | \text{it's raining in }w } = \set{w_r,w_{rs}}\]
+
+\[c[\mathbf{raining}] = W \cap \set{w_r,w_{rs}} = \set{w_r,w_{rs}}\]
+
+The /dynamic/ notion of contexts is a extension of the Stalnakerian notion [cite:@Karttunen1976;@Lewis1979;@Heim1982].
+
+The basic idea is that certain expressions, such as indefinites, trigger a representation consisting of a placeholder/label together with some information associated with that label. 
+
+Consider the following contrast:
+
+#+begin_exe
+\ex David is raconteuring. ??I heard *it* before.<<david1>>
+\ex David is telling *a story*. I heard *it* before.<<david2>>
+#+end_exe
+
+Although an idealization, let's assume, for the sake of argument that the sentences "David is raconteuring" and "David is telling a story" are contextually equivalent.
+
+This means that they should induce the same change in \(c\) - so why is it that ([[david1]]) sounds odd, in comparison to ([[david2]])?
+
+The dynamic solution: content is sensitive not just to what is conveyed, but /how/ it is conveyed.
+
+The sentence "David is telling *a story*" triggers the creation of a new label \(x\), with the information that \(x\) is a story told by David. The subsequent sentence "I heard *it* before" adds the information that the speaker heard \(x\) before.
+
+We can cash out this intuition directly in the meta-language, as follows:
+
+\[\braket{x : \mathtt{story}(x), \mathtt{telling}(x)(\mathtt{david})}\]
+
+A way of modelling this using conceptual primitives we're familiar with: a /file/ is a set of world-assignment pairs (we'll refine this in a little while).
+
+\[F_4 = \set{\braket{w,g} | \mathtt{story}(g(x))(w) \wedge \mathtt{telling}(g(x))(\mathtt{david})(w)}\]
+
+This will be a set consisting of worlds where there exists some story told by David \(s\), paired with assignments where the variable \(x\) is mapped to \(s\).
+
+The file corresponding to "David is raconteuring" will, by conjecture, just contain the following. N.b. that \(g\) isn't mentioned in the predicate.
+
+\[F_5 = \set{\braket{w,g} | \exists x[\mathtt{story}(x)(w) \wedge \mathtt{telling}(x)(\mathtt{david})(w)]}\]
+
+We can now give a useful definition: the /world set/ of a file (following [cite:@Heim1982]).
+
+#+begin_definition
+The world set of a file $F$, $F_w$, is defined as follows:[fn:2]
+
+\[F_w = \set{w | (w,*) \in F}\]
+#+end_definition
+
+\(F_4,w = F_5,w\) - both convey the information that David is telling a story.
+
+- For \(F_5\) this is trivial.
+- For \(F_4\), this is because each world in the file must contain some story \(s\) told by David, so that the paired assignment can map \(x\) to \(s\).  
+  
+Another useful definition is the /satisfaction set/ of a particular world in a file.
+
+#+begin_definition
+The satisfaction set at file \(F\) of a world \(w \in F\), \(\mathbf{sat}_F(w)\), is defined as follows:
+
+\[\mathbf{sat}_F(w) = \set{g | (w,g) \in F}\]
+#+end_definition
+
+\(\mathbf{sat}_F\) maps worlds to the set of the assignments they are paired with in \(F\). 
+
+Every world \(w \in F_5\) is mapped to an empty satisfaction set. 
+
+Each world \(w \in F_4\) is mapped to the set of assignments which map \(x\) to a story told by David in \(w\). N.b. in some worlds, David may tell multiple stories, in which case the satisfaction set will contain many such assignments.
+
+Imagine that the initial context contains at least the following worlds:
+
+- \(w_1\): David tells exactly one story, \(s_1\)
+- \(w_2\): David tells exactly one story, \(s_2\)
+- \(w_{12}\): David tells two stories, \(s_1,s_2\)
+- \(w_{\emptyset }\): David doesn't tell any stories, \(s_1,s_2\)
+  
+The file of the context after an utterance of "David is telling a\(_x\) story", will contain (at least) the following information:
+
+\[F = \begin{aligned}[t]
+&\set{(w_1,g)|g(x) = s_1}\\
+&\cup \set{(w_2,g)|g(x) = s_2}\\
+&\cup \set{(w_{12},g)|g(x) = s_1}\\
+&\cup \set{(w_{12},g)|g(x) = s_2}
+\end{aligned}
+\] 
+
+- \(\mathbf{sat}_F(w_1) = \set{g | g(x) = s_1}\)
+- \(\mathbf{sat}_F(w_2) = \set{g | g(x) = s_2}\)
+- \(\mathbf{sat}_F(w_{12}) = \set{g | g(x) = s_2 \vee g(x) = s_1}\)
+  
+** The domain of a file
+
+Following Heim we'll refine this notion, such that files are not /just/ sets of world-assignment paris, but also come with a domain, i.e., a set of variables.
+
+Formally, files are pairs consisting of a set of world-assignment pairs, and a set of variables (the domain). We'll loosely use /file/ to refer to the first element of the pair and \(\mathbf{dom}(F)\) to pick out the second element.
+
+The following constraint is placed on the relation between the domain of a file and satisfaction sets.
+
+#+name: domain-constraint
+#+begin_exe
+\ex If \(g[x]g'\), and \(x \notin \mathbf{dom}(F)\), then \(g \in \mathbf{sat}_F(w) \iff g' \in \mathbf{sat}_F(w), \forall (w,*) \in F\).
+#+end_exe
+
+The consequence of this condition is a file can't place any conditions on a variable \(x\) that isn't in its domain.
+
+* Novelty and familiarity
+
+So far we haven't said anything about indefinites vs. definites in file change semantics. Here's the intuition we'd like to capture.
+
+Indefinites introduce new labels in the file, and may not add information to existing labels. Considering the following example:
+
+#+name: novelty1
+#+begin_exe
+\ex A man walked in. A man sat down.
+#+end_exe
+
+It seems to be a fact that a sentence like ([[novelty1]]) can convey a file like ([[file1]]) but not like ([[file2]]).
+
+#+begin_exe
+\ex \(\braket{x : \mathtt{man}(x) \wedge \mathtt{walkedIn}(x), y: \mathtt{man}(y) \wedge  \mathtt{satDown}(y)}\)<<file1>>
+\ex \(\braket{x : \mathtt{man}(x) \wedge \mathtt{walkedIn}(x), \mathtt{satDown}(x)}\)<<file2>>
+#+end_exe
+
+One way of understanding this is that "A\(_x\) man sat down" is infelicitous if uttered after "A\(_x\) man walked in", however "A\(_y\) man sat down" is felicitous if uttered after "A\(_x\) man walked in".
+
+As Heim explains, we can check whether or not a variable \(x\) is "unused" in a file, if the file never discriminates between assignments that differ only at \(x\).
+
+#+begin_definition
+Variable \(x\) is /novel/ in file \(F\), \(\mathbf{new}_F(x)\) iff for any two assignments \(g,g'\) s.t., \(g[x]g'\) and for any world \(w\):
+
+\[\braket{w,g} \in F \iff \braket{w,g'} \in F\] 
+#+end_definition
+
+Show how this works.
+
+* Context change potentials, compositionally
+
+First, let's define the type of a /file/. 
+
+\[T := (\set{(s,g)}, \set{v})\]
+
+The essence of file change semantics is that sentences are interpreted conjunctively.
+
+The indefinite article \textit{a} (which comes decorated with a variable \(x\)) has the following meaning; it simply tests whether or not a variable is in the domain of the input file:
+
+\[\text{a}_x \Rightarrow \lambda F : x \notin \mathbf{dom}(F)\,.\,F
+\]
+
+The nuclear restrictor and nuclear scope of the article are interpreted as formulas with free variables.
+
+\[t_x \text{ man} \Rightarrow \lambda F: x \in \mathbf{dom}(F)\,.\,F \cap \set{(w,g)| \mathbf{satDown}}(g(x))(w)\]
+
+\[t_x \text{ sat down} \Rightarrow \lambda F\,.\,F \cap \set{(w,g)|\mathbf{satDown}(g(x))(w)}\]
+
+Dynamic conjunction is just function composition:
+
+#+begin_definition
+Function composition.
+
+\[f; g := \lambda F\,.\,g(f(F))\]
+#+end_definition
+
+#+begin_export latex
+\begin{forest}
+  [{\(\lambda F:\mathbf{new}_{x}(F)\,.\,(F \cap \set{(w,g)| \mathbf{man}(g(x))(w)}) \cap \set{(w,g)|\mathbf{satDown}(g(x))(w)}\)\\\(;\)}
+  [{\(\lambda F:\mathbf{new}_{x}(F)\,.\,F \cap \set{(w,g)| \mathbf{man}(g(x))(w)}\)\\\(;\)}
+    [{\(\lambda F:\mathbf{new}_{x}(F)\,.\,F\)\\a\(_{x}\)}]
+    [{\(\lambda F\,.\,F \cap \set{(w,g)|\mathbf{man}(g(x))(w)}\)\\\(t_{x}\) man}]
+  ]
+    [{\(\lambda F\,.\,F \cap \set{(w,g)|\mathbf{satDown}(g(x))(w)}\)\\\(t_{x}\) sat down}]
+  ]
+\end{forest}
+#+end_export
+
+** TODO note the novelty and familiarity condition place constraints on the domain of the file
+
+** Compositional FCS
+
+Predicate meanings
+
+- \(\lambda x\,.\,\lambda F\,.\,\lambda (w,g)\,.\,F(w,g) \wedge \mathbf{happy}(x)(w)\)\hfill\(e \to T\)
+
+Pronoun meanings:
+
+- \(\text{he}_x \Rightarrow \lambda k\,.\,\lambda F: \neg\ (\mathbf{new}_F(x))\,.\,k(g(x))(F)\)   
+  
+- He left:
+
+- \(\lambda F: \neg\ (\mathbf{new}_F(x))\,.\,\lambda (w,g)\,.\,F(w,g) \wedge \mathbf{happy}(g(x))(w)\)
+
+- Indefinite meanings:
+
+- \(\text{someone}_x \Rightarrow \lambda k\,.\,\lambda F: \mathbf{new}_F(x)\,.\,k(g(x))(F)\)
+  
+Update:
+
+- \(c[\alpha] := \set{(w,g)| \alpha(c)(w,g) = 1}\)
+  
+* Sentential meanings in FCS
+
+* TODO Read Dekker 1996
+
+
+
+
+* References
+
+\printbibliography
+
+
+* File local variables                                             :noexport:
+
+* Footnotes
+[fn:2] We use \(*\) as a wildcard over values (i.e., an implicitly existentially-quantified variable). 
+
+[fn:1] \(g[x := a]\) is the unique assignment that is identical to \(g\), except for mapping \(x\) to \(a\).
+
+# Local Variables:
+# mode: org
+# org-latex-default-packages-alist: nil
+# org-latex-with-hyperref: nil
+# End:

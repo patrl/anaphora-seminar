@@ -1,0 +1,49 @@
+\KOMAoptions{parskip=half}
+
+\usepackage{mlmodern}
+% \usepackage[euler-digits,euler-hat-accent]{eulervm}
+\usepackage[T1]{fontenc}
+
+\usepackage[margin=2.5cm,includehead=true,includefoot=true,centering]{geometry}
+
+\usepackage{stmaryrd,csquotes}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage[linguistics]{forest}
+
+\usepackage{xparse}
+\usepackage{braket}
+\usepackage{pifont}
+
+\usepackage{todonotes}
+
+\usepackage{appendix}
+
+\usepackage[
+  backend=biber
+, bibstyle=biblatex-sp-unified
+, citestyle=sp-authoryear-comp
+, url=true
+, doi=false
+, bibencoding=utf8]{biblatex}
+
+\usepackage{xpatch}
+\makeatletter
+\xpatchcmd{\@maketitle}{\begin{center}}{\begin{flushleft}}{}{}
+\xpatchcmd{\@maketitle}{\end{center}}{\end{flushleft}}{}{}
+\xpatchcmd{\@maketitle}{\begin{tabular}[t]{c}}{\begin{tabular}[t]{@{}l@{}}}{}{}
+\makeatother
+
+\NewDocumentCommand\eval{sO{}O{}m}{%
+  \IfBooleanTF#1
+  {\ensuremath{\left\llbracket{#4}\right\rrbracket^{#2}_{#3}}}
+  {\ensuremath{\left\llbracket\text{#4}\right\rrbracket^{#2}_{#3}}}
+}
+
+\NewDocumentCommand{\sub}{m}{\textsubscript{#1}}
+\NewDocumentCommand{\supscr}{m}{\textsuperscript{#1}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+
+\usepackage{gb4e}
