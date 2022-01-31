@@ -33,13 +33,20 @@ The central idea is that discourse participants introduce and manipulate /variab
 
 This powerful idea subsequently informed dynamic approaches to meaning, which essentially model anaphora as a kind of cross-referencing device [cite:@Heim1982;@GroenendijkStokhof1991].
 
-In this course, we'll primarily be interested in /dynamic semantics/ proper, rather than discourse representation theories [cite:@Kamp1981], which are often grouped under the same umbrella.
+In this course, we'll primarily be interested in /dynamic semantics/ proper, rather than discourse representation theories [cite:@Kamp1981], which are often grouped under the same umbrella.[fn:9]
 
 The dynamic slogan:
 
 #+begin_quote
 "You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" [cite:@Veltman1996].
 #+end_quote
+
+Some initial questions:
+
+- Is the dynamic slogan a good characterization of the dynamic project?
+- What does dynamic semantics commit us to as a theory of subsentential compositionality?
+- Does dynamic semantics provide an /explanatory/ theory of the phenomena it purports to account for? How might it be made more explanatory?
+- Relatedly, what does dynamic semantics teach us about the semantics of logical vocabulary, and how they interact with non-truth-conditional dimensions of meaning?
 
 ** Logistics
 
@@ -58,10 +65,11 @@ The dynamic slogan:
 - Please try to attend class in person if you can, but the meetings are there in case this is impossible or inconvenient.
   * It would be great if you could let me know in advance if you plan to make use of this.
 
-*** Reading for next week    
+*** Reading  
 
-- *Obligatory reading:* Groenendijk and Stokhof's classic paper /dynamic predicate logic/ [cite:@GroenendijkStokhof1991].
-- *Optional reading:* Thony Gillies' /re-reading dynamic predicate logic/ [cite:@Gillies2019].
+- *Obligatory reading for next week:* Groenendijk and Stokhof's classic paper /dynamic predicate logic/ [cite:@GroenendijkStokhof1991].
+- *Optional reading for next week:* Thony Gillies' /re-reading dynamic predicate logic/ [cite:@Gillies2019].
+- Reading for this week's class would've been chapter 3 /Definiteness in file change semantics/ of Irene Heim's dissertation [cite:@Heim1982]. I encourage you to read it if you have time; it's not too long. If you have little time, and want to solidify your understanding of this week's material, you could read Heim's 1983 paper /File change semantics and the familiarity theory of definiteness/ [cite:@Heim1983a].
 
 ** How this class might go
 
@@ -160,7 +168,7 @@ Heim's famous sage plant sentence poses a vivid illustration. Context: /sage pla
 \ex Everyone who bought a sage plant here bought it together with eight others.
 #+end_exe
 
-Other examples making a similar point:
+Other examples making a similar point (from [cite:@Kamp1981] and others):
 
 #+name: ex:bishop
 #+begin_exe
@@ -177,9 +185,11 @@ Other examples making a similar point:
 \ex I have a pen. It's in my bag.
 #+end_exe
 
+Assumption in dynamic semantics: pronouns are /always/ variables. Provide a uniform theory of all of these cases.
+
 ** Background to FCS: Pronouns as variables
 
-The received wisom is that /pronouns are variables/ [cite:@HeimKratzer1998;@Montague1973;@Buring2005].
+The received wisdom in classical semantics is that /pronouns are variables/ [cite:@HeimKratzer1998;@Montague1973;@Buring2005].
 
 A variable is a simple term whose denotation is dependent on an /assignment/, i.e., a function from variables to individuals. 
 
@@ -228,7 +238,7 @@ Some impossible assignments:
 \left[
 \right]\]
 
-Assignments are assumed to be contextually-furnished, and the information provided by assignments flows /top down/, thanks to how functional applications are interpreted.
+Assignments are assumed to be contextually-furnished(?), and the information provided by assignments flows /top down/, thanks to how functional applications are interpreted.
 
 \[\eval*[g]{\alpha(\beta)} = \eval*[g]{\alpha}(\eval*[g]{\beta})\]
 
@@ -260,7 +270,7 @@ This approach has some obvious limitations, in light of examples discussed in th
 
 Our account of deictic pronouns is incomplete in a way which relates to how we account for discourse anaphora (what does it mean for an assignment function to be "furnished by the context?").
 
-We'll build on Stalnaker's influential proposal [cite:@Stalnaker1976;@Stalnaker2002] that conversational contexts can be modelled as sets of possible worlds - the worlds that are accepted by the participants of a conversation.
+We'll build on Stalnaker's influential proposal [cite:@Stalnaker1976;@Stalnaker2002] that conversational contexts can be modeled as sets of possible worlds - the worlds that are accepted by the participants of a conversation.
 
 The Stalnakerian notion of context bundles all information into a single format - propositional content.
 
@@ -311,9 +321,9 @@ The file metaphor: variables correspond to files. Utterances with indefinites an
 "A listener's task of understanding what is being said in the course of a conversation bears relevant similarities to a file clerk's task. Speaking metaphorically, let me say that to understand an utterance is to keep a file which, at every time in the course of the utterance, contains the information that has so far been conveyed by the utterance." [cite:@Heim1983a]
 #+end_quote
 
-** Modelling file contexts
+** Modeling file contexts
 
-A way of modelling this using conceptual primitives we're familiar with: a /file/ is a set of world-assignment pairs (we'll refine this in a little while).
+A way of modeling this using conceptual primitives we're familiar with: a /file/ is a set of world-assignment pairs (we'll refine this in a little while).
 
 \[F_4 = \set{(w,g) | \mathtt{storyToldByDavid}_w(g_x)}\]
 
@@ -518,7 +528,7 @@ If \(c[\phi]\) is defined, then the resulting context is arrived at by picking o
 
 The idea that presuppositional expressions induce a truth-value gap [cite:@Strawson1950] interacts with Stalnaker's bridge - a pragmatic principle - in order to give rise to the prediction that the presuppositions of a sentence \(\phi \) must be entailed by \(c\) in order for \(c[\phi]\) to be defined. 
 
-*** Gratuitious CCPs
+*** Gratuitous CCPs
 
 Alternatively, we might have decided to build the effect of a asserting a sentence \(\phi \) directly into its semantic value, as in ([[ex:ccp1]]):
 
@@ -544,7 +554,7 @@ Recall the "dynamic slogan", mentioned in the class syllabus.
 
 Why wouldn't we want to make this move? A semantics which treats sentence meanings as functions from contexts to contexts gives the semantics a lot of additional expressive power, and fails to capture certain generalizations about how assertions affect the context set.
 
-We won't discuss this in detail today, but the precise reason that these kinds of CCPs are gratutitious is because they are \textit{distributive} and \textit{eliminative}, which means that they admit a /static reformulation/ [cite:@GroenendijkStokhof1991a].
+We won't discuss this in detail today, but the precise reason that these kinds of CCPs are gratutitous is because they are \textit{distributive} and \textit{eliminative}, which means that they admit a /static reformulation/ [cite:@GroenendijkStokhof1991a].
 
 *** Back to novelty and familiarity
 
@@ -604,7 +614,7 @@ At the heart of the account of discourse anaphora is the fact that a sentence wi
 
 If update is successful, the result is an updated context \(c'\), such that \(x\) is no longer novel with respect to.
 
-This is because \(c'\) discrimates between assignments which differ only with respect to \(x\) - \((w,g)\) is in \(c'\), where \(g_x\) is a man who walked in in \(w\), whereas \((w,g')\) isn't in \(c'\), where \(g'\) is any assignment that minimally differs from \(g\) in mapping \(x\) to an individual that isn't a man who walked in in \(w\). 
+This is because \(c'\) discriminates between assignments which differ only with respect to \(x\) - \((w,g)\) is in \(c'\), where \(g_x\) is a man who walked in in \(w\), whereas \((w,g')\) isn't in \(c'\), where \(g'\) is any assignment that minimally differs from \(g\) in mapping \(x\) to an individual that isn't a man who walked in in \(w\). 
 
 \[c'[\text{he}_x\text{ sat down}] = \begin{cases}
 \set{(w,g)|(w,g) \in c' \wedge \mathbf{satDown}_w(g_x)}&\mathbf{fam}_c(x)\\
@@ -764,7 +774,7 @@ Sentenes with indefinites convey non-eliminative updates. In the original FCS /a
 
 This is important, since eliminativity plays an important role in characterizing exactly what it means for a semantics to be "dynamic", together with /distributivity/.
 
-We'll talk more about this in the following weeks.
+We'll talk more about this next week (Heim's FCS is eliminative but non-distributive; DPL is distributive but non-eliminative) [cite:@Benthem1989].
 
 *** Back to tautological updates
 
@@ -1015,7 +1025,21 @@ Falsifying scenario: /99 men own one donkey and don't beat it; one man owns 200 
 
 ** TODO negation and disjunction in FCS
 
-* TODO conclusion
+* Conclusion
+
+We've gone through the basics of FCS, arguably the first real dynamic semantic proposal.
+
+Several issues arose over the course of the discussion:
+
+- What makes FCS /dynamic/, as opposed to a more classic semantics that treats sentence meanings as functions from evaluation points to truth-values?
+- Is the additional expressive power afforded by CCPs in the semantics warranted?
+- Is /novelty/ as a file-level notion unavoidable?
+- How does logical vocabulary such as negation and disjunction interact with anaphora? Does FCS have a satisfying story (hint: it does not).
+- Does dynamic semantics inescapably wed us to a non-standard view of subsentential composition?
+  
+Many of these questions will become more acute next week, as we discuss /Dynamic Predicate Logic/ [cite:@GroenendijkStokhof1991], which eschews a treatment of natural language, in favor of providing a dynamic interpretation for a simple predicate calculus.
+
+This will help us to get to the heart of the dynamic treatment of anaphora, better understand its treatment of logical vocabulary, and the logical properties of the system as a whole.
 
 * Acknowledgements
 
@@ -1033,6 +1057,7 @@ Aside from the cited sources, I owe a particular debt to Yasu Sudo, who first ta
 * File local variables                                             :noexport:
 
 * Footnotes
+[fn:9] See [cite:@Chierchia1995] for a detailed comparison. 
 
 [fn:8] The presentation here is based on discussion in [cite:@Heim2017]. 
 [fn:7] [cite:@Chierchia1995] goes as far as to suggest that a semantics is /dynamic/ iff the meaning of conjunction is function composition. We'll see many reasons to reject this characterization in the following classes.
