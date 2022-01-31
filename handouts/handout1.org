@@ -318,6 +318,12 @@ Familiarity of a variable with respect to a file.
 
 For sentences such as "He\(_x\) sat down"? Ignoring phi features, we can say that pronouns indexed \(x\) require that \(x\) /not/ be novel with respect to the file context, i.e., that the file context places constraints on the identity of \(x\).
 
+As we've discussed, one way in which a variable \(x\) can become familiar with respect to a file context is via a previous assertion involving a variable indexed \(x\).
+
+Heim suggests that variables can also become novel if the file context becomes constrained by salient features of the environment, in order to account for deictic pronouns.
+
+Another possibility: presupposition accommodation? We might revisit this idea in a later class.
+
 ** Presupposition in FCS
 :PROPERTIES:
 :CUSTOM_ID: sec:presupp
@@ -399,11 +405,11 @@ We won't discuss this in detail today, but the precise reason that these kinds o
 
 *** Back to novelty and familiarity
 
-So much for the Stalnakerian view of presuppositions - back to novelty.
+So much for the Stalnakerian view of presuppositions - back to novelty in FCS.
 
 The notion /novelty of a variable with respect to a file/ was crucially defined relative to /files/ rather than individual evaluation points.
 
-Note that there's no way to determine, just by looking at an individual Heimian evaluation point (a world-assignment pair) whether or not a variable is novel with respect to the file at which a sentence is evaluated.
+Note that there's no way to determine, just by looking at individual Heimian evaluation points, whether or not a variable is novel with respect to the file at which a sentence is evaluated.
 
 Since the novelty requirement is taken to be induced by a linguistic feature of particular sentences (i.e., indefiniteness), there is apparently no escape from treating sentences as functions from files to files (i.e., CCPs).
 
@@ -427,7 +433,7 @@ The CCP of a sentence containing a pronoun:
 \ex \(\begin{aligned}[t]
 &\text{He}_x\text{ sat down}\\
 &\Rightarrow \lambda F\,.\,\begin{cases}
-\set{(w,g)|(w,g) \in F \wedge \mathbf{satDown}_w(g_x)}& \neg\ \mathbf{nov}_F(x)\\
+\set{(w,g)|(w,g) \in F \wedge \mathbf{satDown}_w(g_x)}&\mathbf{fam}_F(x)\\
 \text{undefined}&\text{else}  
 \end{cases}
 \end{aligned}\)
@@ -458,7 +464,7 @@ If update is successful, the result is an updated context \(c'\), such that \(x\
 This is because \(c'\) discrimates between assignments which differ only with respect to \(x\) - \((w,g)\) is in \(c'\), where \(g_x\) is a man who walked in in \(w\), whereas \((w,g')\) isn't in \(c'\), where \(g'\) is any assignment that minimally differs from \(g\) in mapping \(x\) to an individual that isn't a man who walked in in \(w\). 
 
 \[c'[\text{he}_x\text{ sat down}] = \begin{cases}
-\set{(w,g)|(w,g) \in c' \wedge \mathbf{satDown}_w(g_x)}&\neg\ \mathbf{nov}_c(x)\\
+\set{(w,g)|(w,g) \in c' \wedge \mathbf{satDown}_w(g_x)}&\mathbf{fam}_c(x)\\
 \text{undefined}&\text{else}
 \end{cases}
 \]
@@ -475,7 +481,7 @@ Since this update is guaranteed to be defined, successive update has the followi
 
 The intuition here is that successive update amounts to passing the context as the file argument of the first sentence, and then passing the resulting output file as the file argument of the second sentence.
 
-We can define an operator to perform successive update. This turns out to just be function composition. We'll write it as \(;\), and it will play a prominent role in FCS.[fn:4] [fn:7]
+We can define an operator to perform successive update. This turns out to just be function composition. We'll write it as \(;\), and it will play a prominent role in FCS.[fn:4][fn:7]
 
 #+begin_definition
 The dynamic sequencing operator \(;\).
@@ -523,8 +529,10 @@ FCS predicts the CCP of ([[ex:comm2]]) to be undefined for /any/ file context.
 It's often assumed that FCS (and dynamic semantics more generally) explains why discourse anaphora displays a left-to-right bias, as illustrated by ([[ex:comm]]).
 
 #+begin_tcolorbox
-It's important to note that all of the results stated so far must be assessed in light of a compositional proposal with sufficient resources for scope-taking. We'll come back to this. 
+It's important to note that all of the results stated so far must be assessed in light of a compositional proposal with sufficient resources for scope-taking. We'll come back to this in a couple of weeks time. 
 #+end_tcolorbox
+
+Before talking about subsentential compositionality (and donkey anaphora!) in FCS, we'll consider a partial variant of FCS.
 
 ** A partial variant
 
@@ -640,9 +648,11 @@ Unfortunately this is incompatible with the semantics of logical vocabulary, and
 
 We'll resurrect this idea when we discuss Elliott's /externally-dynamic dynamic semantics in a couple of weeks time [cite:@Elliott2020g].
 
-** Novelty and presupposition projection
+* Subsentential compositionality in FCS
 
-*** Subsentential compositionality in FCS
+We'll switch back to classical FCS now, although the partial variant will be mentioned from time to time. 
+
+** The indefinite article
 
 A remarkable property of FCS is that the indefinite article itself can be given a CCP (i.e., be treated as a sentence).
 
@@ -650,7 +660,10 @@ This captures the core semantic contribution of indefiniteness - an indefinite a
 
 #+name: ex:ccp-indef
 #+begin_exe
-\ex \(\text{a}^x \Rightarrow \lambda F : \mathbf{nov}_F(x)\,.\,F\)
+\ex \(\text{a}^x \Rightarrow \lambda F\,.\,\begin{cases}
+F&\mathbf{nov}_F(x)\\
+\text{undefined}&\text{else}  
+\end{cases}\)\hfill\(T\)
 #+end_exe
 
 A natural consequence is a treatment of the restrictor and nuclear scope of a determiner as open formulas, just like sentences with pronouns.
@@ -665,15 +678,21 @@ By conjecture, dynamic sequencing is generally available as a composition princi
 
 #+begin_export latex
 \begin{forest}
-  [{\(;\)}
-  [{\(;\)}
-    [{\(T \to T \to T\)\\a\(^{x}\)}]
-    [{\(T \to T \to T\)\\\(t_x\) man}]
+  [{\(T\)\\\(;\)}
+  [{\(T\)\\\(;\)}
+    [{\(T\)\\a\(^{x}\)}]
+    [{\(T\)\\\(t_x\) man}]
   ]
-    [{\(T \to T \to T\)\\\(t_x\) walked in}]
+    [{\(T\)\\\(t_x\) walked in}]
   ]
 \end{forest}
 #+end_export
+
+How to derive this syntactically? One possibility: 
+
+- A determiner indexed \(x\) moves to the edge of the DP, leaving behind a trace \(t_x\).
+- The DP inherits its index from the D head.
+- The DP moves to the edge of the sentence, leaving behind a trace \(t_x\). 
 
 A design feature of FCS is that sentences with indefinites are essentially equivalent to introducing a novel variable, and sequentially adding information to it.
 
@@ -683,88 +702,169 @@ A design feature of FCS is that sentences with indefinites are essentially equiv
 \ex There is someone\(^x\). He\(_x\) is a man. He\(_x\) walked in.
 #+end_exe
 
+This property is responsible for the validity of /Egli's theorem/ in dynamic theories of meaning, including FCS. Egli's theorem states that sentences of the following kind are equivalent.
 
+\[\text{A}^x\text{ man [walked in and sat down]} \iff \text{A}^x\text{ man walked in and he}_x\text{ sat down}\]
 
+We'll talk about Egli's theorem more next week, when we discuss /Dynamic Predicate Logic/ [cite:@GroenendijkStokhof1991].
 
+** Compositionality
 
-** TODO mention concerns about DPs without contingent descriptive content, and adding domains to files
+There are many reasons to be dissatisfied with FCS as a theory of subsentential compositionality. 
 
-* Context change potentials, compositionally
+Every natural language constituent is treated as either (i) a CCP, or (ii) an operator on CCPs. This is a somewhat inflexible mold.
 
-First, let's define the type of a /file/. 
+- To what extent is it compatible with concurrent developments in formal semantics, in the Montagovian tradition?
+- What do predicates mean in FCS?
+- Does dynamic semantics really commit us to specific syntactic transformations? Why?  
+  
+As we'll see next week, dynamic predicate logic sidesteps these questions entirely by shifting focus from natural language to a logical language - specifically, a simple first-order calculus.
 
-\[T := (\set{(s,g)}, \set{v})\]
+There are some virtues to this approach, as an idealization. It will allow us to focus on the logical properties of a dynamic approach to meaning, as well as the semantic contributions of logical vocabulary.
 
-The essence of file change semantics is that sentences are interpreted conjunctively.
+This doesn't mean however that we shouldn't worry about these questions. We'll talk more about dynamic approaches to subsentential compositionality in week 3.
 
-The indefinite article \textit{a} (which comes decorated with a variable \(x\)) has the following meaning; it simply tests whether or not a variable is in the domain of the input file:
+** Quantification and donkey anaphora 
 
-\[\text{a}_x \Rightarrow \lambda F : x \notin \mathbf{dom}(F)\,.\,F
-\]
+*** Interpreting universal statements
 
-The nuclear restrictor and nuclear scope of the article are interpreted as formulas with free variables.
+#+name: ex:cat
+#+begin_exe
+\ex Every cat died.
+#+end_exe
 
-\[t_x \text{ man} \Rightarrow \lambda F: x \in \mathbf{dom}(F)\,.\,F \cap \set{(w,g)| \mathbf{satDown}}(g(x))(w)\]
+In FCS, universal quantifiers are higher-order operators on CCPs, just like other logical vocabulary.
 
-\[t_x \text{ sat down} \Rightarrow \lambda F\,.\,F \cap \set{(w,g)|\mathbf{satDown}(g(x))(w)}\]
+Unlike conjunction however, a quantificational determiner does not trigger simple successive updates, but does something more complex. 
 
-Dynamic conjunction is just function composition:
+One way of cashing out the meaning of quantificational deteminers in FCS is to assume a logical form like the one given in ([[ex:catlf]]), where the indefinite is silent.
+
+#+name: ex:catlf
+#+begin_exe
+\ex every [a\(^x\) cat] [\(t_x\) died]
+#+end_exe
+
+We'll need an auxiliary equivalence relation on assignments.[fn:8]
 
 #+begin_definition
-Function composition.
+\(F\)-equivalence for assignments.
 
-\[f; g := \lambda F\,.\,g(f(F))\]
+\[g \sim_F g' \iff  g_x = g'_x, \forall x \in \set{x | \mathbf{fam}_F(x)}\]
 #+end_definition
 
-#+begin_export latex
-\begin{forest}
-  [{\(\lambda F:\mathbf{new}_{x}(F)\,.\,(F \cap \set{(w,g)| \mathbf{man}(g(x))(w)}) \cap \set{(w,g)|\mathbf{satDown}(g(x))(w)}\)\\\(;\)}
-  [{\(\lambda F:\mathbf{new}_{x}(F)\,.\,F \cap \set{(w,g)| \mathbf{man}(g(x))(w)}\)\\\(;\)}
-    [{\(\lambda F:\mathbf{new}_{x}(F)\,.\,F\)\\a\(_{x}\)}]
-    [{\(\lambda F\,.\,F \cap \set{(w,g)|\mathbf{man}(g(x))(w)}\)\\\(t_{x}\) man}]
-  ]
-    [{\(\lambda F\,.\,F \cap \set{(w,g)|\mathbf{satDown}(g(x))(w)}\)\\\(t_{x}\) sat down}]
-  ]
-\end{forest}
-#+end_export
+Now, the meaning of /every/ (it's complicated).
 
-** TODO note the novelty and familiarity condition place constraints on the domain of the file
+\[\mathbf{every}(p)(q) := \lambda F\,.\,\Set{(w,g)\in F|\begin{aligned}[c]
+&\set{g'|g' \sim_F g \wedge (w,g') \in p(F)}\\
+&\subseteq \set{g'|\exists g''[(w,g'') \in q(p(F)) \wedge  g'' \sim_{p(F)} g']}
+\end{aligned}}\]
 
-** Compositional FCS
+What's happening here? Let's go through it step-by-step.
 
-Predicate meanings
-
-- \(\lambda x\,.\,\lambda F\,.\,\lambda (w,g)\,.\,F(w,g) \wedge \mathbf{happy}(x)(w)\)\hfill\(e \to T\)
-
-Pronoun meanings:
-
-- \(\text{he}_x \Rightarrow \lambda k\,.\,\lambda F: \neg\ (\mathbf{new}_F(x))\,.\,k(g(x))(F)\)   
+- Tentatively update \(F\) with with the restrictor CCP \(p\), returning \(F'\).
+- Tentatively update \(F'\) with the nuclear scope CCP \(q\), returning \(F''\).
+- Now, for each world-assignment pair \((w,g) \in F\), run the following test: 
+  * gather up the assignments \(g'\), such that \((w,g')\) in \(F'\), and \(g' \sim_F g\). Return the /restrictor set/.
+  * gather up those assignments \(g'\), s.t. you can find some \((w,g'')\) in \(F''\), where \(g' \sim_F' g''\). Return the /scope set/.
+  * Check that the /restrictor set/ is a subset of the /scope set/.
+- Only keep those world assignment pairs \((w,g) \in  F\) that pass the test.
   
-- He left:
-
-- \(\lambda F: \neg\ (\mathbf{new}_F(x))\,.\,\lambda (w,g)\,.\,F(w,g) \wedge \mathbf{happy}(g(x))(w)\)
-
-- Indefinite meanings:
-
-- \(\text{someone}_x \Rightarrow \lambda k\,.\,\lambda F: \mathbf{new}_F(x)\,.\,k(g(x))(F)\)
+*** A concrete example
   
-Update:
+In order to understand how this works, it's worth going through a concrete example.
 
-- \(c[\alpha] := \set{(w,g)| \alpha(c)(w,g) = 1}\)
+Consider the following logical space \(W\), with domain \(a,b\):
+
+- \(w_\emptyset \): \(a,b\) are cats; neither died.
+- \(w_a\): \(a\) is a cat and \(b\) is a dog; both died.
+- \(w_b\): \(a,b\) are cats; only \(b\) died.
+- \(w_{ab}\): \(a,b\) are cats, both died.
   
-* Donkey anaphora  
+Given a stock of variables \(x,y\), the initial state is given by taking the product of \(W\) and the set of possible assignments:
+
+\[\Set{\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right],\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right],\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right],\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]}\] 
+
+Intuitively, we want the update /every cat died/ to retain pairs \((w_a,*),(w_{ab},*)\), and eliminate pairs \((w_\emptyset,*),(w_{b},*)\).
+
+Tentatively updating \(c_\top \) with /a\(^x\) cat/ will give us the initial context minus the world assignment pairs where \(x\) gets mapped to a dog.
+
+- \(F' = c_\top - \set{(w_a,[x \to b, y \to a]),(w_a,[x \to b, y \to b])}\)
+  
+Tentatively updating \(F'\) with /\(t_x\) died/ will give us \(F'\) minus (i) the world-assignment pairs where no cats died, and (ii) the world assignment pairs where \(x\) gets mapped to cat that didn't die. 
+
+- \(F'' = F' - \set{(w_\emptyset,*),(w_b,[x \to a, y \to a]),(w_b,[x \to a,y \to b])}\)
+  
+Now we run through the test, for each world assignment pair in \(c_\top\). This will take a long time, but let's just give some illustrative examples.
+
+Let's say we start with an arbitrary pairing \((w_\emptyset,g)\).
+
+ - \(F'\) doesn't eliminate any world assignment pairs \((w_\emptyset,*)\), so the restrictor set is just every possible assignment.  
+ - \(F''\) eliminates /all/ world assignment pairs \((w_\emptyset,*)\), so trivially, the scope set is empty, and our test fails.
+ - All world-assignment pairs \((w_\emptyset ,*)\) are therefore eliminated from the output set, as desired.
+   
+Let's take an arbitrary pairing \((w_b,g)\), and perform our test.
+
+- Again, \(F'\) doesn't eliminate any world assignment pairs \((w_b,*)\), so the restrictor set is just every possible assignment.
+- \(F''\) eliminates \((w_b,g)\) pairs where \(g_x = a\), so we're left with \((w_b,[x \to b, y \to a]),(w_b,[x \to b,y \to b])\). We now check, for every possible assignment, whether either \([x \to b, y \to a]\) or \([x \to b,y \to b]\) assign the same value to \(x\), which is familiar in \(F'\). This will fail for assignments mapping \(x\) to \(a\), and so the test fails.
+- As desired, all world-assignment pairs \((w_b,*)\) are eliminated from the output set.
+  
+Now, what about a world in where the test should pass: \(w_a\). Let's first consider a pairing \((w_a,g)\), where \(g\) maps \(x\) to a \(a\).
+  
+Now let's consider a pairing \((w_a,g)\), where \(g\) maps \(x\) to \(b\).
+
+*** TODO keep going with the example
+
+*** TODO mention proportion problem 
+
+*** TODO mention weak and strong readings
+ 
+*** TODO the equivalence relation is inducing a partition
+
+*** Donkey anaphora
+
+One of the original motivations for FCS was giving a semantic account of pronouns in sentences such as the following.
+
+#+name: ex:donkey
+#+begin_exe
+\ex Every philosopher who had a\(^x\) question asked it\(_x\).
+#+end_exe
+
+Heim takes the desired truth-conditions of this sentence to be that /every philosopher asked every question that they had/.
+
+How do we derive this compositionally? Heim suggests treating /every/ as an operator on CCPs, just like the indefinite article.
+
+
 
 The logical forms for universally quantified sentences are assumed to be like that of sentences with indefinites.
 
-* Logical vocabulary in FCS
+** Logical vocabulary in FCS
 
-** Negation in file change semantics
+*** Negation in file change semantics
 
-* TODO I don't understand how negation blocks anaphora in this framework
-
-* TODO remember to mention destructive update (actually, it doesn't arise)
+*** TODO I don't understand how negation blocks anaphora in this framework
 
 * TODO conclusion
+
+* Acknowledgements
+
+Aside from the cited sources, I owe a particular debt to Yasu Sudo, who first taught me file change semantics on the whiteboard of his office at UCL. Other unpublished resources I've found useful:
+
+- Chris Barker's class on FCS from his [[https://github.com/cb125/Dynamics][NYU dynamic semantics seminar]] in 2021.
+- Irene Heim's handouts from the 2017 installment of Topics in Semantics, MIT.
+- Matt Mandelkern and Daniel Rothschild's [[http://danielrothschild.com/esslli2017/][ESSLLI course notes]] on dynamic semantics.
+- Seth Yalcin's 2013 [[https://www.dropbox.com/s/4id64r39kj4c0q2/Yalcin%202013%20dynamic%20notes.pdf][introductory notes on dynamic semantics]].
 
 * References
 
@@ -773,6 +873,8 @@ The logical forms for universally quantified sentences are assumed to be like th
 * File local variables                                             :noexport:
 
 * Footnotes
+
+[fn:8] The presentation here is based on discussion in [cite:@Heim2017]. 
 [fn:7] [cite:@Chierchia1995] goes as far as to suggest that a semantics is /dynamic/ iff the meaning of conjunction is function composition. We'll see many reasons to reject this characterization in the following classes.
 
 [fn:6] Another possible resolution, which to my knowledge hasn't been explored in any depth, is to adopt a non-Lewisian logical foundation in which certain tautologies can be distinguished, such as truthmaker/situation semantics [cite:@Fine2017;@Fine2017a;@Fine2017b].
@@ -784,7 +886,7 @@ The logical forms for universally quantified sentences are assumed to be like th
 
 [fn:2] We use \(*\) as a wildcard over values (i.e., an implicitly existentially-quantified variable). 
 
-[fn:1] \(g[x := a]\) is the unique assignment that is identical to \(g\), except for mapping \(x\) to \(a\).
+[fn:1] \(g[x \to  a]\) is the unique assignment that is identical to \(g\), except for mapping \(x\) to \(a\).
 
 # Local Variables:
 # mode: org
