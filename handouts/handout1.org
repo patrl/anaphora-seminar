@@ -5,15 +5,105 @@
 #+OPTIONS: ':t
 #+cite_export: biblatex
 
-* TODO introduction
+* Introduction
 
-* Empirical motivations
+** The topic of this seminar
 
-** TODO uniqueness
+#+begin_quote
+"Consider a device designed to read a text in some natural language,
+interpret it, and store the content in some manner, say, for the purpose
+of being able to answer questions about it. To accomplish this task,
+the machine will have to fulfill at least the following basic requirement.
+It has to be able to build a file that consists of records of all the
+individuals, that is, events, objects, etc., mentioned in the text and, for
+each individual, record whatever is said about it. Of course, for the time being at least, it seems that such a text interpreter is not a practical idea, but this should not discourage us from studying in abstract what kind of capabilities the machine would have to possess, provided that our study
+provides us with some insight into natural language in general." [cite:@Karttunen1976]
+#+end_quote
 
-** TODO donkey anaphora
+The notion of a /discourse referent/ emerged from the work of Lauri Karttunen and David Lewis [cite:@Karttunen1976;@Lewis1979], during a time of general optimism concerning connections between linguistic theory and artificial intelligence research.
 
-** Uses of pronouns
+The central idea is that discourse participants introduce and manipulate /variables/ corresponding to individuals mentioned over the course of a conversation.
+
+#+name: example1
+#+begin_exe
+\ex A\(^x\) woman was bitten by a\(^y\) dog.
+\ex She\(_x\) hit it\(_y\).
+\ex It\(_y\) jumped over a\(^z\) fence.
+#+end_exe
+
+This powerful idea subsequently informed dynamic approaches to meaning, which essentially model anaphora as a kind of cross-referencing device [cite:@Heim1982;@GroenendijkStokhof1991].
+
+In this course, we'll primarily be interested in /dynamic semantics/ proper, rather than discourse representation theories [cite:@Kamp1981], which are often grouped under the same umbrella.
+
+The dynamic slogan:
+
+#+begin_quote
+"You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" [cite:@Veltman1996].
+#+end_quote
+
+** Logistics
+
+*** Requirements
+
+- Active participation (*everyone*). 
+- A short paper related to the topics covered in this class (*registered students*)
+- Weekly readings (*everyone*) will be uploaded to the canvas site. Registered students are particularly encouraged to email me with one short question about the reading before the next class.
+- A short presentation at the very end of the semester (*registered students*). The form that this takes is negotiable, but probably one of the following:
+  + A presentation of an existing paper related to the topics we discuss.
+  + A presentation of your own work in progress, leading towards your short paper.
+
+*** Hybrid policy
+
+- Zoom meetings exist for this class, and the links can be accessed via the canvas site (the meeting password is: /dynamic/). 
+- Please try to attend class in person if you can, but the meetings are there in case this is impossible or inconvenient.
+  * It would be great if you could let me know in advance if you plan to make use of this.
+
+*** Reading for next week    
+
+- *Obligatory reading:* Groenendijk and Stokhof's classic paper /dynamic predicate logic/ [cite:@GroenendijkStokhof1991].
+- *Optional reading:* Thony Gillies' /re-reading dynamic predicate logic/ [cite:@Gillies2019].
+
+** How this class might go
+
+| date         | topic                                      |
+|--------------+--------------------------------------------|
+| Mon Jan 31   | file change semantics |
+| Mon Feb 7    | dynamic predicate logic |
+| Mon Feb 14   | subsentential dynamics |
+| +Mon Feb 21+ | *holiday - president's day*                |
+| Tue Feb 22   | externally-dynamic dynamic semantics |
+| Mon Feb 28   | Amir Anvari on oddness |
+| Mon Mar 7    | Amir Anvari on oddness                     |
+| Mon Mar 14   |  Amir Anvari on oddness                   |
+| +Mon Mar 21+ | *holiday - spring break*                   |
+| Mon Mar 28   | modality and modal subordination |
+| Mon Apr 4    | plurality and quantification |
+| Mon Apr 11   | inquisitive dynamic semantics |
+| +Mon Apr 18+ | *holiday - patriot's day*                  |
+| Mon Apr 25   | dynamic semantics and the grammar |
+| Mon May 2    | Filipe Hisao Kobayashi on postsuppositions                      |
+| Mon May 9    | Student presentations                      |
+
+We'll begin with Irene Heim's foundational work on /file change semantics/.
+
+This work - arguably the first real dynamic semantic theory - lead to an explosion of insightful research. 
+
+As we'll see, dynamic semantics incorporates powerful proprietary mechanisms for manipulating /contexts/ in an apparently arbitrary fashion.
+
+It even precompiles these mechanisms into the meanings of logical vocabulary such as "or".
+
+Part of this seminar will involve tracking developments in dynamic approaches to anaphora, starting from classical theories of (singular) pronouns and their indefinite antecedents, and eventually progressing to intricate theories of modality, plurality, and quantification.
+
+In parallel, we'll consider what exactly dynamic semantics commits us to, both as a theory of /content/, and as a theory of how semantic composition proceeds.
+
+A central goal will be a re-assessment of Veltman's slogan, in light of recent work that fine-tunes the division of labor between dynamic semantics and pragmatics [cite:@Elliott2020g;@Mandelkern2020a].  
+  
+One of the themes of the seminar will be linguistic motivations for a /rich/ notion of contexts, which goes beyond a "flat" model of information [cite:@Stalnaker1976] and incorporates a notion of /aboutness/.
+
+Mid-way through the semester, we'll take a break from anaphora and consider a set of empirical phenomena which motivate a different kind of enrichment (Amir Anvari's classes on oddness).
+
+* Linguistic motivations
+** Pronoun puzzles
 
 Pronouns can be used /deictically/. The sentence in ([[deictic1]]) may be uttered, for example, while pointing at a corgi.
 
@@ -38,9 +128,56 @@ Pronouns can also be /discourse anaphoric/ on an indefinite antecedent as in ([[
 \ex A boy is waiting outside. Will you talk to *him*? 
 #+end_exe
 
-There are other uses of pronouns too. We'll come back to those later on.
+In the past, these kinds of cases were taken to involve /coreference/, on the assumption that indefinites had a referential reading.
 
-** Pronouns as variables
+There are some uses of pronouns which do not seem to involve coreference, nor be interpreted as bound variables.
+
+#+name: ex:beg1
+#+begin_exe
+\ex Every philosopher who had *a question* asked *it*.
+#+end_exe
+
+An attempt at solving this puzzle was to posit yet another reading of pronouns as covert definite descriptions (the "E-type" reading) [cite:@Evans1977].
+
+#+name: ex:beg2
+#+begin_exe
+\ex Every philosopher who had *a question* asked *the question that he had*.
+#+end_exe
+
+This was also intended to replace the referential analysis of cases like ([[discourse1]]).
+
+#+name: ex:beg3
+#+begin_exe
+\ex A boy is waiting outside. Will you talk to *the boy waiting outside*?
+#+end_exe
+
+A problem for the (simplest conception) of the E-type approach: failures of uniqueness.
+
+Heim's famous sage plant sentence poses a vivid illustration. Context: /sage plants are only sold in flats of nine/.
+
+#+name: ex:sage
+#+begin_exe
+\ex Everyone who bought a sage plant here bought it together with eight others.
+#+end_exe
+
+Other examples making a similar point:
+
+#+name: ex:bishop
+#+begin_exe
+\ex When a bishop meets another bishop, he blesses him.
+#+end_exe
+
+#+name: ex:credit
+#+begin_exe
+\ex Everyone who had a credit card used it.
+#+end_exe
+
+#+name: ex:pen
+#+begin_exe
+\ex I have a pen. It's in my bag.
+#+end_exe
+
+** Background to FCS: Pronouns as variables
 
 The received wisom is that /pronouns are variables/ [cite:@HeimKratzer1998;@Montague1973;@Buring2005].
 
@@ -99,7 +236,6 @@ This models (partially) the deictic use. A sentence with a deictic pronoun trans
 
 \[\eval*[g]{\mathbf{playingOutside}(x)} = \mathtt{playingOutside}(g_x)\]
 
-
 In order to capture the bound-variable use, we introduce a special kind of \(\lambda \)-term - namely, a /functional abstraction/.[fn:1] 
 
 \[\eval*[g]{\lambda x \,.\,\alpha  } = f\text{ such that }f(a) = \eval*[g^{[x \to a]}]{\alpha }\] 
@@ -117,8 +253,9 @@ This captures the /bound variable/ use of pronouns in the way that we're all fam
 
 \[\eval*[g]{\lambda x\,.\,\mathbf{chase}(\mathbf{theTail}(x))(x))} = f\text{ s.t. }f(a) = \mathtt{chase}(\mathtt{theTail}(a))(a) \]
 
-* The dynamic notion of content
+This approach has some obvious limitations, in light of examples discussed in the previous section.
 
+* The dynamic notion of content
 ** Stalnakerian pragmatics
 
 Our account of deictic pronouns is incomplete in a way which relates to how we account for discourse anaphora (what does it mean for an assignment function to be "furnished by the context?").
@@ -143,7 +280,7 @@ A brief illustration: consider a universe in which the only facts concern whethe
 
 \[c[\text{it's raining} ] = W \cap \set{w_r,w_{rs}} = \set{w_r,w_{rs}}\]
 
-** File contexts
+** File contexts: the intuition
 
 The /dynamic/ notion of contexts is a extension of the Stalnakerian notion [cite:@Karttunen1976;@Lewis1979;@Heim1982].
 
@@ -174,8 +311,6 @@ The file metaphor: variables correspond to files. Utterances with indefinites an
 "A listener's task of understanding what is being said in the course of a conversation bears relevant similarities to a file clerk's task. Speaking metaphorically, let me say that to understand an utterance is to keep a file which, at every time in the course of the utterance, contains the information that has so far been conveyed by the utterance." [cite:@Heim1983a]
 #+end_quote
 
-** TODO talk about distinction between FCS and DRT
-** TODO talk about the conditions under which a file is /true/
 ** Modelling file contexts
 
 A way of modelling this using conceptual primitives we're familiar with: a /file/ is a set of world-assignment pairs (we'll refine this in a little while).
@@ -187,6 +322,14 @@ This will be a set consisting of worlds where there exists some story told by Da
 The file corresponding to "David is raconteuring" will, by conjecture, just contain the following. N.b. that \(g\) isn't mentioned in the predicate.
 
 \[F_5 = \set{(w,g) | \exists s[\mathbf{storyToldByDavid}_w(s)]}\]
+
+*** Truth of a file
+
+#+begin_definition
+Truth of a file.
+
+\[\mathbf{true}_w(F) \iff \exists g[(w,g) \in F]\]
+#+end_definition
 
 *** World set
 
@@ -724,7 +867,7 @@ There are some virtues to this approach, as an idealization. It will allow us to
 
 This doesn't mean however that we shouldn't worry about these questions. We'll talk more about dynamic approaches to subsentential compositionality in week 3.
 
-** Quantification and donkey anaphora 
+** Quantification
 
 *** Interpreting universal statements
 
@@ -752,11 +895,13 @@ We'll need an auxiliary equivalence relation on assignments.[fn:8]
 \[g \sim_F g' \iff  g_x = g'_x, \forall x \in \set{x | \mathbf{fam}_F(x)}\]
 #+end_definition
 
-Now, the meaning of /every/ (it's complicated).
+We'll use this to ensure that the quantifier ranges over all possible values for *novel* variables. 
+
+Now, the meaning of /every/ (definition taken from [cite:@Heim2017]).
 
 \[\mathbf{every}(p)(q) := \lambda F\,.\,\Set{(w,g)\in F|\begin{aligned}[c]
-&\set{g'|g' \sim_F g \wedge (w,g') \in p(F)}\\
-&\subseteq \set{g'|\exists g''[(w,g'') \in q(p(F)) \wedge  g'' \sim_{p(F)} g']}
+&\forall g'[g' \sim_F g \wedge (w,g') \in p(F)\\
+&\rightarrow \exists g''[g'' \sim_{p(F)} g' \wedge (w,g'') \in q(p(F))]]
 \end{aligned}}\]
 
 What's happening here? Let's go through it step-by-step.
@@ -764,14 +909,15 @@ What's happening here? Let's go through it step-by-step.
 - Tentatively update \(F\) with with the restrictor CCP \(p\), returning \(F'\).
 - Tentatively update \(F'\) with the nuclear scope CCP \(q\), returning \(F''\).
 - Now, for each world-assignment pair \((w,g) \in F\), run the following test: 
-  * gather up the assignments \(g'\), such that \((w,g')\) in \(F'\), and \(g' \sim_F g\). Return the /restrictor set/.
-  * gather up those assignments \(g'\), s.t. you can find some \((w,g'')\) in \(F''\), where \(g' \sim_F' g''\). Return the /scope set/.
-  * Check that the /restrictor set/ is a subset of the /scope set/.
+  * Take every \(g'\), such that \((w,g')\) in \(F'\), and \(g' \sim_F g\).
+  * Check that there is some \(g''\), s.t. \((w,g'' \in F'')\) and \(g'' \sim_F' g''\).
 - Only keep those world assignment pairs \((w,g) \in  F\) that pass the test.
   
 *** A concrete example
   
 In order to understand how this works, it's worth going through a concrete example.
+
+Let's consider how "every [a\(^x\) cat] [\(t_x\) died]" updates an initial context \(c_\top\)
 
 Consider the following logical space \(W\), with domain \(a,b\):
 
@@ -796,64 +942,78 @@ x \to b\\
 y \to b
 \end{aligned}\right]}\] 
 
+\[\begin{aligned}[t]
+&c_\top[\text{every cat died}]\\
+&= \Set{(w,g)\in F|\begin{aligned}[c]
+&\forall g'[g' \sim_F g \wedge (w,g') \in p(c_\top)\\
+&\rightarrow \exists g''[g'' \sim_{p(F)} g' \wedge (w,g'') \in q(p(c_\top))]]
+\end{aligned}}
+\end{aligned}
+\]
+
+Every variable is novel in \(c_\top\) so this can be simplified as follows:
+
+\[\begin{aligned}[t]
+&c_\top[\text{every cat died}]\\
+&= \Set{(w,g)\in F|\begin{aligned}[c]
+&\forall g'[(w,g') \in p(c_\top)\\
+&\rightarrow \exists g''[g'' \sim_{p(F)} g' \wedge (w,g'') \in q(p(c_\top))]]
+\end{aligned}}
+\end{aligned}
+\]
+
 Intuitively, we want the update /every cat died/ to retain pairs \((w_a,*),(w_{ab},*)\), and eliminate pairs \((w_\emptyset,*),(w_{b},*)\).
 
-Tentatively updating \(c_\top \) with /a\(^x\) cat/ will give us the initial context minus the world assignment pairs where \(x\) gets mapped to a dog.
+We can sub the results of the tentative updates into the schema for a univerally quantified sentence:
 
-- \(F' = c_\top - \set{(w_a,[x \to b, y \to a]),(w_a,[x \to b, y \to b])}\)
-  
-Tentatively updating \(F'\) with /\(t_x\) died/ will give us \(F'\) minus (i) the world-assignment pairs where no cats died, and (ii) the world assignment pairs where \(x\) gets mapped to cat that didn't die. 
+\[\begin{aligned}[t]
+&c_\top[\text{every cat died}]\\
+&= \Set{(w,g)\in c_\top|\begin{aligned}[c]
+&\forall g'[(w,g') \in c_\top \wedge \mathbf{cat}_w(g'_x)\\
+&\rightarrow \exists g''[g'' \sim_x g' \wedge (w,g'') \in c_\top \wedge \mathbf{catThatDied}_w(g''_x)]]
+\end{aligned}}
+\end{aligned}
+\]
 
-- \(F'' = F' - \set{(w_\emptyset,*),(w_b,[x \to a, y \to a]),(w_b,[x \to a,y \to b])}\)
-  
-Now we run through the test, for each world assignment pair in \(c_\top\). This will take a long time, but let's just give some illustrative examples.
-
-Let's say we start with an arbitrary pairing \((w_\emptyset,g)\).
-
- - \(F'\) doesn't eliminate any world assignment pairs \((w_\emptyset,*)\), so the restrictor set is just every possible assignment.  
- - \(F''\) eliminates /all/ world assignment pairs \((w_\emptyset,*)\), so trivially, the scope set is empty, and our test fails.
- - All world-assignment pairs \((w_\emptyset ,*)\) are therefore eliminated from the output set, as desired.
-   
-Let's take an arbitrary pairing \((w_b,g)\), and perform our test.
-
-- Again, \(F'\) doesn't eliminate any world assignment pairs \((w_b,*)\), so the restrictor set is just every possible assignment.
-- \(F''\) eliminates \((w_b,g)\) pairs where \(g_x = a\), so we're left with \((w_b,[x \to b, y \to a]),(w_b,[x \to b,y \to b])\). We now check, for every possible assignment, whether either \([x \to b, y \to a]\) or \([x \to b,y \to b]\) assign the same value to \(x\), which is familiar in \(F'\). This will fail for assignments mapping \(x\) to \(a\), and so the test fails.
-- As desired, all world-assignment pairs \((w_b,*)\) are eliminated from the output set.
-  
-Now, what about a world in where the test should pass: \(w_a\). Let's first consider a pairing \((w_a,g)\), where \(g\) maps \(x\) to a \(a\).
-  
-Now let's consider a pairing \((w_a,g)\), where \(g\) maps \(x\) to \(b\).
-
-*** TODO keep going with the example
-
-*** TODO mention proportion problem 
-
-*** TODO mention weak and strong readings
+What this says is that \((w,*)\) is retained in the output file context iff, every assignment \(g'\) paired with \(w\) that maps \(x\) to a cat is s.t. we can find an assignment \(g''\) that maps \(x\) to the same value, and \(g''\) maps \(x\) to a cat that died in \(w\).
  
-*** TODO the equivalence relation is inducing a partition
-
-*** Donkey anaphora
+This will clearly succeed for \((w_a,*),(w_{ab},*)\), and fail for \((w_\emptyset,*),(w_b,*)\)
+  
+*** Extension to donkey anaphora
 
 One of the original motivations for FCS was giving a semantic account of pronouns in sentences such as the following.
 
 #+name: ex:donkey
 #+begin_exe
-\ex Every philosopher who had a\(^x\) question asked it\(_x\).
+\ex Every philosopher who had a\(^y\) question asked it\(_y\).
 #+end_exe
 
-Heim takes the desired truth-conditions of this sentence to be that /every philosopher asked every question that they had/.
+The extension to donkey anaphora is straightforward - the schema for universal quantification ensures that the quantifier ranges over all possible values for all novel variables in the input context.
 
-How do we derive this compositionally? Heim suggests treating /every/ as an operator on CCPs, just like the indefinite article.
+Logical form for ([[ex:donkey]]):
 
+- Every [ a\(^x\) philosopher] [\(t_x\) asked it\(_y\)]
 
+The FCS approach to donkey anaphora has some well known problems, which we'll return to in future classes, namely:
 
-The logical forms for universally quantified sentences are assumed to be like that of sentences with indefinites.
+- Weak readings [cite:@Chierchia1995;@Kanazawa1994].
+- The proportion problem
+  
+#+name: credit2
+#+begin_exe
+\ex Everyone who had a credit card used it.
+#+end_exe
 
-** Logical vocabulary in FCS
+#+name: proportion
+#+begin_exe
+\ex Most men who own a donkey beat it.
+#+end_exe
 
-*** Negation in file change semantics
+Predicted reading: most man-donkey-he-owns pairs \((m,d)\) are s.t. \(m\) beats \(d\).
 
-*** TODO I don't understand how negation blocks anaphora in this framework
+Falsifying scenario: /99 men own one donkey and don't beat it; one man owns 200 and beats them all./
+
+** TODO negation and disjunction in FCS
 
 * TODO conclusion
 
