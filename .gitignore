@@ -292,3 +292,4 @@ TSWLatexianTemp*
 # glossaries
 *.glstex
 
+resources/
