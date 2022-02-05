@@ -5,7 +5,7 @@
 #+OPTIONS: ':t
 #+cite_export: biblatex
 
-* A summary of FCS basics
+* FCS: A recap and extensions
 
 ** Contexts, assignments, and variables
 
@@ -395,7 +395,58 @@ There are two possibilities for ([[ex:taut]]):
   
 Such sentences therefore don't seem to pose a serious threat to the Heimian notion of novelty/familiarity, contra [cite:@Heim1982].
 
-** TODO say something about definite descriptions
+** A loose end: definite descriptions
+
+Recall that pronouns are variables with a /familiarity/ presupposition.
+
+We haven't said anything about definite descriptions, but FCS very naturally accounts for definite descriptions in the following way, e.g., for "the_x woman sat down.":
+
+#+name: ex:definite
+#+begin_exe
+\ex \(\lambda c\,.\,\begin{cases}
+\set{(w,g) \in c\,.\,\mathbf{walkedIn}_w(g_x)}&\forall(w,g) \in c[\mathbf{woman}_w(g_x)]\\
+\text{undefined}&\text{else}  
+\end{cases}\)
+#+end_exe
+
+This accounts for the fact that definites behave like pronouns with an indefinite antecedent (we tailor our example here to show that uniqueness isn't required):
+
+#+name: ex:definite
+#+begin_exe
+\ex A^x woman walked in; The_x woman sat down with another woman.
+#+end_exe
+
+- Updating \(c\) with the first sentence eliminates world assignment pairs \((w,g\), where \(g_x\) isn't a woman who walked in in \(w\). 
+- Updating with the second sentence is defined iff every world assignment pair \((w,g\) in the input is s.t. \(g_x\) is a woman.
+- The requirement is satisfied, so now we eliminate \((w,g)\)s where \(g_x\) didn't sit down with another woman in \(w\).
+ - Note that the presupposition of a definite description is a strictly stronger requirement than familiarity /per se/.
+   
+We can account for \(\phi \)-features in a parallel fashion. A putative CCP for "She_x sat down":
+
+#+name: ex:phi
+#+begin_exe
+\ex \(\lambda c\,.\,\begin{cases}
+\set{(w,g) \in c| \mathbf{satDown}_w(g_x)}&\forall (w,g) \in c[\mathbf{prefersSheHer}_w(g_x)]\\
+\text{undefined}&\text{else}  
+\end{cases}\)
+#+end_exe
+
+A problem with the approach to definite descriptions in FCS (the /familiarity theory/ of definiteness) is that it fails to account for uniqueness inferences.
+
+After all, there's a reason people believed that /uniqueness/ is entailed by definite descriptions (the examples here are a variant of data discussed by [cite:@MandelkernRothschild2020]).
+
+#+name: date
+#+begin_exe
+\ex John went on a date; he liked the_x woman, so he planned to see again.
+#+end_exe
+
+#+name: date2
+#+begin_exe
+\ex John went on dates with a few different women; he liked the_x woman, so he planned to see her again.
+#+end_exe
+
+- In sum, FCS (and dynamic theories more generally) do excellently in accounting for the fact that definites don't require uniqueness if they have an indefinite antecedent.
+- As it stands however, it is mysterious why definites require uniqueness when they don't have an antecedent. As emphasized by [cite:@MandelkernRothschild2020], this is a problem for theories of /accommodation/ - in fact, the logic is very similar to the proviso problem.
 
 * File change semantics: the basics
 
