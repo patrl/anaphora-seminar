@@ -24,6 +24,8 @@ A variable \(x\) is /novel/ with respect to a context \(c\), iff:
 \[\mathbf{nov}_c(x) := \forall g,g',w[g[x]g' \rightarrow ((w,g) \in c \iff (w,g'))]\]
 
 Otherwise, \(x\) is /familiar/ with respect to \(c\).
+
+N.b. /familiarity/ is persistent, i.e., if \(\mathbf{fam}_c(x)\), then for any \(c' \subseteq c\), \(\mathbf{fam}_x(c')\).
 #+end_definition
 
 Core thesis of FCS: Both indefinite and definite DPs are interpeted as /variables/.
@@ -301,7 +303,7 @@ y \to b
 
 FCS therefore doesn't derive /disjoint reference/ out of the box, for concurrent, contra-indexed indefinites.
 
-** Disjoint reference as an implicature
+** Informativity and implicature in FCS
 
 What is the nature of the putative disjoint reference inference?
 
@@ -326,7 +328,7 @@ We can easily formalize /contextual informativity/ in FCS as follows (definition
 #+begin_definition
 Contextual informativity. A sentence \(\phi\) is /contextually more informative/ than a sentence \(\psi\) with respect to a context \(c\) iff:
 
-\[c[\phi] \subset c[\psi]\] 
+\[\mathbf{W}(c[\phi]) \subset \mathbf{W}(c[\psi])\] 
 #+end_definition
 
 - Upon hearing "A^x woman walked; a^y woman sat down", the hearer notices an alternative "A^x woman walked in; the^y woman sat down", which would have been contextually more informative.
@@ -337,9 +339,63 @@ Note that the judgement is that concurrent indefinites result in /oddness/ in th
 
 This can arguably be understood as a special case of a phenomenon that applies to scalar implicatures more generally [cite:@Magri2009].
 
-** TODO say something about definite descriptions
+** Informational vs. dynamic redunancy
 
-** TODO logical entailment vs. contexual entailment is relevant here
+A contrast noted by Filipe last week:
+
+#+begin_exe
+\ex A^x woman walked in; A^y woman sat down.<<ex:redunancy1>>
+\ex ??A^x woman walked in; A^y woman walked in.<<ex:redundancy2>>
+#+end_exe
+
+Why does ([[ex:redunancy1]]) sound OK (and give rise to a disjoint reference inference), whereas ([[ex:redundancy2]]) sounds odd?
+
+Conjecture: despite being /dynamically informative/, the second assertion in ([[ex:redundancy2]]) is /informationally redundant/. 
+
+#+name: redundancy
+#+begin_exe
+\ex /Principle of non-redundancy:/ an assertion is infelicitous if it is redundant.
+#+end_exe
+
+We can define a number of different notions of redundancy within FCS. Here are two:
+
+#+begin_definition
+
+*Informational redundancy*. Assertion of \(\phi \) with respect to a context \(c\) is /informationally redundant/ iff:
+
+\[\mathbf{W}(c[\phi]) = \mathbf{W}(c)\]
+#+end_definition
+
+#+begin_definition
+*Dynamic redundancy*. Assertion of \(\phi \) with respect to a context \(c\) is /dynamically redundant/ iff:
+
+\[c[\phi] = c\]
+#+end_definition
+
+Now, consider again our odd example, "A^x woman walked in. A^y woman walked in".
+
+- The second assertion isn't /dynamically/ redundant, since it cuts our world-assignment pairs where \(y\) gets mapped to someone who isn't a woman that walked in.
+- It is, however, /informationally/ redundant, since the informational contribution is the same as the first assertion.
+- Note that the second assertion may not be informationally redundant if it were guaranteed that \(x \neq y\) (e.g., via a disjointness inference).
+  + The disjointness inference can't be derived in the same way as before, since the alternative "A^x woman walked in; the woman_x walked in" also gives rise to a violation of the principle of redundancy.
+    
+Conjecture: in natural language, dynamic informativity (e.g., introducing a discourse referent) isn't enough to obviate informational redundancy - the /principle of redundancy/ should be understood relative to informational redundancy.
+
+An aside: this finding addresses a potential issue with the Heimian notion of /novelty/, which predicts that tautological statements can't introduce discourse referents.
+
+#+name: ex:taut
+#+begin_exe
+\ex Something^x is self-identical; it_x is John.
+#+end_exe
+
+There are two possibilities for ([[ex:taut]]):
+
+- Everything is self-identical, therefore "Something\(^x\) is self-identical" is informationally trivial and violates the principle of non-redundancy for any context.
+- There is a way of understanding "Something\(^x\) is self-identical" which renders it informationally informative, in which case \(x\) becomes familiar and anaphora is possible.
+  
+Such sentences therefore don't seem to pose a serious threat to the Heimian notion of novelty/familiarity, contra [cite:@Heim1982].
+
+** TODO say something about definite descriptions
 
 * File change semantics: the basics
 
