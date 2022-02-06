@@ -5,7 +5,7 @@
 #+OPTIONS: ':t
 #+cite_export: biblatex
 
-* FCS: A recap and extensions
+* FCS
 
 ** Contexts, assignments, and variables
 
@@ -448,164 +448,13 @@ After all, there's a reason people believed that /uniqueness/ is entailed by def
 - In sum, FCS (and dynamic theories more generally) do excellently in accounting for the fact that definites don't require uniqueness if they have an indefinite antecedent.
 - As it stands however, it is mysterious why definites require uniqueness when they don't have an antecedent. As emphasized by [cite:@MandelkernRothschild2020], this is a problem for theories of /accommodation/ - in fact, the logic is very similar to the proviso problem.
 
-* File change semantics: the basics
+** Dynamic conjunction 
 
-** Presupposition in FCS
-:PROPERTIES:
-:CUSTOM_ID: sec:presupp
-:END:
+Recall that /novelty-familiarity/ is crucially defined relative to /files/ rather than individual evaluation points.
 
-*** Background: presupposition in Stalnakerian pragmatics
+There's no way to determine, just by looking at individual evaluation points, whether or not a variable is novel with respect to the file.
 
-The kinds of presuppositions we're entertaining here are different to presuppositions in a Stalnakerian setting.
-
-Recall that, for Stalnaker, contexts are sets of /evaluation points/ - instead of taking evaluation points to be world-assignment pairs, Stalnaker takes them to be worlds, as an idealization.
-
-An initial context, for Stalnaker, is just logical space.
-
-A classical analysis of presupposition, in a Stalnakerian setting:
-
-Sentences with presuppositions are translated into formula which denote functions from worlds to a (trivalent) truth-value.[fn:3] 
-
-A simple-minded implementation using Beaver's \(\delta \)-operator [cite:@Beaver2001].
-
-#+name: ex:tri
-#+begin_exe
-\ex \(
-\begin{aligned}[t]
-&\text{Gabrielle stopped smoking}\\
-&\Rightarrow \lambda w\,.\,\delta(\mathbf{usedToSmoke}_w(\mathbf{gab})) \wedge \neg\ \mathbf{smokesNow}_w(\mathbf{gab})
-\end{aligned}\)
-#+end_exe
-
-"Gabrielle stopped smoking" denotes a function which maps a world \(w\) to:
-
-- \(\mathbf{1}\) if Gabrielle used to smoke and doesn't smoke anymore in \(w\), 
-- \(\mathbf{0}\) if Gabrielle used to smoke and still smokes in \(w\), 
-- \(\mathbf{\#}\) if Gabrielle never smoked in \(w\), 
-  
-In order to model how partial propositions place requirements on the context, we need a bridge principle.
-
-#+begin_definition
-Stalnaker's bridge principle.
-
-\[c[\phi] = \begin{cases}
-c \cap \set{w | \eval*{\phi}(w) = 1}&\forall w\in c[\eval*{\phi}(w) = 1 \vee \eval*{\phi}(w) = 0]\\
-\text{undefined}&\text{else} 
-\end{cases}\]
-#+end_definition
-
-Stalnaker's bridge amounts to the requirement that the presupposition of a given sentence \(\phi \) be true at every evaluation point \(w \in c\) in order for \(c[\phi]\) to be defined.
-
-If \(c[\phi]\) is defined, then the resulting context is arrived at by picking out just the worlds \(w \in c\) at which \(\phi \) is true. 
-
-The idea that presuppositional expressions induce a truth-value gap [cite:@Strawson1950] interacts with Stalnaker's bridge - a pragmatic principle - in order to give rise to the prediction that the presuppositions of a sentence \(\phi \) must be entailed by \(c\) in order for \(c[\phi]\) to be defined. 
-
-*** Gratuitous CCPs
-
-Alternatively, we might have decided to build the effect of a asserting a sentence \(\phi \) directly into its semantic value, as in ([[ex:ccp1]]):
-
-#+name: ex:ccp1
-#+begin_exe
-\ex \(\text{It's raining} \Rightarrow \lambda c\,.\,c \cap \set{w | \mathbf{raining}_w}\)
-#+end_exe
-
-This would mean that sentence could place requirements on as part of their semantic value.
-
-#+name: ex:ccp2
-#+begin_exe
-\ex \(\begin{aligned}[t]
-&\text{Gabrielle stopped smoking}\\
-&\Rightarrow \lambda c\,.\,\begin{cases}
-\set{w | w \in c \wedge \neg\ \mathbf{smokesNow}_w(\mathbf{gab})}&c \subseteq \set{w | \mathbf{usedToSmoke}_w(\mathbf{gab})}\\
-\text{undefined}&\text{else}  
-\end{cases}
-\end{aligned}\)
-#+end_exe
-
-Recall the "dynamic slogan", mentioned in the class syllabus.
-
-Why wouldn't we want to make this move? A semantics which treats sentence meanings as functions from contexts to contexts gives the semantics a lot of additional expressive power, and fails to capture certain generalizations about how assertions affect the context set.
-
-We won't discuss this in detail today, but the precise reason that these kinds of CCPs are gratutitous is because they are \textit{distributive} and \textit{eliminative}, which means that they admit a /static reformulation/ [cite:@GroenendijkStokhof1991a].
-
-*** Back to novelty and familiarity
-
-So much for the Stalnakerian view of presuppositions - back to novelty in FCS.
-
-The notion /novelty of a variable with respect to a file/ was crucially defined relative to /files/ rather than individual evaluation points.
-
-Note that there's no way to determine, just by looking at individual Heimian evaluation points, whether or not a variable is novel with respect to the file at which a sentence is evaluated.
-
-Since the novelty requirement is taken to be induced by a linguistic feature of particular sentences (i.e., indefiniteness), there is apparently no escape from treating sentences as functions from files to files (i.e., CCPs).
-
-The CCP of a sentence containing an indefinite:
-
-#+name: ex:ccp-heim1
-#+begin_exe
-\ex \(\begin{aligned}[t]
-&\text{A}^x\text{ man walked in}\\
-&\Rightarrow \lambda F \,.\,\begin{cases}
-\set{(w,g)|(w,g) \in F \wedge \mathbf{manWalkedIn}_w(g_x)}&\mathbf{nov}_F(x)\\
-\text{undefined}&\text{else}  
-\end{cases}
-\end{aligned}\)
-#+end_exe
-
-The CCP of a sentence containing a pronoun:
-
-#+name: ex:ccp-heim2
-#+begin_exe
-\ex \(\begin{aligned}[t]
-&\text{He}_x\text{ sat down}\\
-&\Rightarrow \lambda F\,.\,\begin{cases}
-\set{(w,g)|(w,g) \in F \wedge \mathbf{satDown}_w(g_x)}&\mathbf{fam}_F(x)\\
-\text{undefined}&\text{else}  
-\end{cases}
-\end{aligned}\)
-#+end_exe
-
-In FCS, our bridge principle is radically simplified. Update simply amounts to passing the file context in as the argument of the CCP.
-
-#+begin_definition
-Heim's bridge principle.
-
-\[c[\phi] := \eval*{\phi}(c)\]
-#+end_definition
-
-Successive assertions give rise to successive update of the context.
-
-At the heart of the account of discourse anaphora is the fact that a sentence with an indefinite such as "A\(^x\) man walked in" renders \(x\) no longer novel with respect to the updated file, satisfying the preconditions of a sentence such as "He\(_x\) sat down".
-
-\[\begin{aligned}[t]
-&c[\text{a}^x\text{ man walked in}]\\
-&= \begin{cases}
-\set{(w,g)|(w,g) \in c \wedge \mathbf{manWalkedIn}_w(g_x)}&\mathbf{nov}_c(x)\\
-\text{undefined}&\text{else}
-\end{cases}
-\end{aligned}\]
-
-If update is successful, the result is an updated context \(c'\), such that \(x\) is no longer novel with respect to.
-
-This is because \(c'\) discriminates between assignments which differ only with respect to \(x\) - \((w,g)\) is in \(c'\), where \(g_x\) is a man who walked in in \(w\), whereas \((w,g')\) isn't in \(c'\), where \(g'\) is any assignment that minimally differs from \(g\) in mapping \(x\) to an individual that isn't a man who walked in in \(w\). 
-
-\[c'[\text{he}_x\text{ sat down}] = \begin{cases}
-\set{(w,g)|(w,g) \in c' \wedge \mathbf{satDown}_w(g_x)}&\mathbf{fam}_c(x)\\
-\text{undefined}&\text{else}
-\end{cases}
-\]
-
-Since this update is guaranteed to be defined, successive update has the following result:
-
-\[\begin{aligned}[t]
-&c[\text{a}^x\text{ man walked in}][\text{he}_x\text{ sat down}]\\
-&= \begin{cases}
-\set{(w,g)|(w,g) \in c \wedge \mathbf{manWalkedIn}_w(g_x) \wedge \mathbf{satDown}_w(g_x)}&\mathbf{nov}_c(x)\\
-\text{undefined}&\text{else}  
-\end{cases}
-\end{aligned}\]
-
-The intuition here is that successive update amounts to passing the context as the file argument of the first sentence, and then passing the resulting output file as the file argument of the second sentence.
+Since the novelty requirement is taken to be induced by a linguistic feature of particular sentences - (in)definiteness - there is apparently no escape from treating sentences as functions from files to files (i.e., CCPs).
 
 We can define an operator to perform successive update. This turns out to just be function composition. We'll write it as \(;\), and it will play a prominent role in FCS.[fn:4][fn:7]
 
@@ -625,8 +474,6 @@ The sequencing operator famously serves as the meaning of conjunction in FCS. As
 #+begin_exe
 \ex \(\text{and} \Rightarrow \lambda q\,.\,\lambda p\,.\,p ; q\)\hfill\(T \to T \to T\)
 #+end_exe
-
-We'll have more to say about other logical vocabulary in FCS as we progress.
 
 A direct consequence of this definition is that successive update \(c[\phi][\psi]\) is exactly equivalent to \(c[\phi \text{ and }\psi]\). 
 
@@ -660,82 +507,82 @@ It's important to note that all of the results stated so far must be assessed in
 
 Before talking about subsentential compositionality (and donkey anaphora!) in FCS, we'll consider a partial variant of FCS.
 
-** A partial variant
 
-*** Tautological updates
+* TODO say something about false files (this relates to triviality)
+* Partial FCS
 
-Based on how novelty is defined, a variable is novel wrt a file as long as the file places no substantive restrictions on its identity. 
+** File contexts in partial FCS
 
-Heim immediately identified an issue with this notion - since pronouns presuppose that their variable is non-novel, the presupposition of a pronoun is predicted to not be met in the following discourse.
+Recall the apparent problem Heim observed with informationally trivial updates.
 
 #+name: ex:contingent
 #+begin_exe
-\ex Something\(^x\) is identical to itself. It\(_x\) is a book.
+\ex Something\(^x\) is identical to itself. It\(_x\) is John.
 #+end_exe
 
-The problem here is that if our initial context is he set of all assignment-world pairs, tautological statements which (by conjecture) introduce discourse referents can't be distinguished from those that don't!
+As we've discussed, this arguably isn't a problem for the Heimian notion of novelty, due to the independently motivated pragmatic principle against redundant assertions. 
 
-The following sentences result in identical updates to the input file context, as long as \(x\) is novel with respect to the input file:
+Nevertheless, Heim took this problem seriously. It is now common to adopt a variant of FCS which uses partial assignments, as suggested by Heim [cite:@Heim1983a]. See, e.g., [cite:@Dekker1996;@Yalcin2013;@RothschildMandelkern2017;@Mandelkern2020a;@Heim2017;@Elliott2020g].[fn:6][fn:10]
 
-#+name: ex:contingent2
-#+begin_exe
-\ex Something\(^x\) is identical to itself.
-\ex Gabe is identical to himself.
-#+end_exe
-
-*** FCS with partial assignments
-
-In her dissertation, Heim addresses this issue by giving files an additional domain parameter [cite:@Heim1982]. 
-
-Several researchers have adopted a variant of FCS which uses partial assignments, as suggested by Heim [cite:@Heim1983a]. See, e.g., [cite:@Yalcin2013;@RothschildMandelkern2017;@Mandelkern2020a;@Heim2017;@Elliott2020g].[fn:6]
-
-Partial assignments will be familiar from, e.g., [cite:@HeimKratzer1998]. A partial assignment is a /partial/ function from variables to individuals, i.e., a function whose domain is a subset of the stock of variables. This includes the empty/initial assignment \(g_\top  \), whose domain is the empty set. 
+A partial assignment is a /partial/ function from variables to individuals, i.e., a function whose domain is a subset of the stock of variables. This includes the empty/initial assignment \(g_\top  \), whose domain is the empty set. 
 
 In a partial setting, its natural to model the initial/ignorance file context in the following way:
 
 \[c_\top = W \times \set{g_\top}\]
 
-Assuming we have a universe consisting of four worlds, which vary according to whether \(a,b\) walked in, the initial context will look like the following:
+In partial FCS, familiarity is cashed out as a universal requirement on the domains of assignments in the file context.
 
-\[c_\top = \set{(w_\emptyset,g_\top),(w_a,g_\top),(w_b,g_\top),(w_{ab},g_\top)}\]
+** Novelty and familiarity in partial FCS
 
-*** Novelty and familiarity in partial FCS
+#+begin_definition
+Familiarity in partial FCS. 
 
-We cash out the familiarity presupposition in the following way: a pronoun indexed \(x\) in this setting requires that \(x\) be in the domain of every assignment in the file context. 
+\[\mathbf{fam}_c(x) \iff \forall(*,g) \in c[x \in \mathbf{dom}(g)]\]
+#+end_definition
 
-\[\begin{aligned}[t]
-&\text{he}_x\text{ walked in}\\
-&\Rightarrow \lambda F\,.\,\begin{cases}
-\set{(w,g)|(w,g) \in F \wedge \mathbf{walkedIn}_w(g_x)}&\forall (*,g) \in F[x \in \mathbf{dom}(g)]\\
+Novelty, just as before, is the other side of the same coin.
+
+#+begin_definition
+Novelty in partial FCS.
+
+\(\mathbf{nov}_c(x) \iff \neg\ \mathbf{fam}_c(x)\)
+#+end_definition
+
+** (In)definiteness in partial FCS
+
+Just as before, pronouns are interpeted as variables with a familiarity presupposition: the CCP for "she_x sat down":
+
+#+name: ex:partial-pron
+#+begin_exe
+\ex \(\lambda c\,.\,\begin{cases}
+\set{(w,g) \in c|\mathbf{satDown}_w(g_x)}&\mathbf{fam}_c(x)\\
 \text{undefined}&\text{else}  
-\end{cases}
-\end{aligned}\]
+\end{cases}\)
+#+end_exe
 
-This presupposition clearly doesn't hold in the initial file context. So far so good.
+Indefinites are a little different, since they must extend the domain of assignments in the input context. The CCP for "A^x woman walked in":
 
-So much for pronouns, what about indefinites? Just as before, novelty and familiarity are two sides of the same coin. What's different now is that sentences with indefinites output file contexts which contain modified assignments.[fn:5] 
-
-\[\begin{aligned}[t]
-&\text{someone}^x\text{ walked in}\\
-&\Rightarrow \lambda F\,.\,\begin{cases}
-\set{(w,g^{[x \to a]})|(w,g) \in F \wedge \mathbf{walkedIn}_w(a) \wedge a \in D_e}&\forall (*,g) \in F[x \notin \mathbf{dom}(g)]\\
+#+name: ex:partial-indef
+#+begin_exe
+\ex \(\lambda c\,.\,\begin{cases}
+\set{(w,g^{[x \to a]}) | (w,g) \in c \wedge  \mathbf{womanWalkedIn}_w(a)}&\mathbf{nov}_c(x)\\
 \text{undefined}&\text{else}  
-\end{cases}
-\end{aligned}\]
+\end{cases}\)
+#+end_exe
 
-Let's consider what happens when we update \(c_\top \) with "someone\(^x\) walked in". The update is trivially defined in the file context, since every assignment has an empty domain.
+(Note: this is awfully similar to what we'll end up with as the semantics of existential quantifiers in DPL, modulo the novelty requirement)
 
-\[\begin{aligned}[t]
-&c_\top[\text{someone}^x\text{ walked in}]\\
-&= \set{(w,g^{[x \to a]})|(w,g) \in c_\top \wedge \mathbf{walkedIn}_w(a) \wedge a \in D_e}\\
-&= \set{(w_a,[x \to a]),(w_b,[x \to b]),(w_{ab},[x \to a]),(w_{ab},[x \to b])}
-\end{aligned}\]
+There's a way of mapping FCS file contexts to partial FCS file contexts:
 
-N.b. that \(\mathbf{sat}(w_{ab})\) contains /two/ assignments; a sentence with an indefinite can multiply the evaluation points in a file context.
+#+begin_definition
+Mapping from an FCS file context \(c\) to a partial FCS file context.
 
-A byproduct is that \(x\) is familiar (in the new sense) in the new setting.
+\[\set{(w,g')|(w,g) \in c \wedge \forall v \in \mathbf{dom}(g)[(\mathbf{nov}_c(v) \rightarrow v \notin \mathbf{dom}(g')) \wedge (\mathbf{fam}_c(v) \rightarrow g_v = g'v)]}\]
+#+end_definition
 
-*** Eliminativity
+It can be shown that the CCPs provided for partial FCS correspond to mapping FCS contexts updated by our previous CCPS to partial FCS file contexts. I'll leave this as a homework exercise.
+
+** Partial FCS is non-eliminative
 
 One immediate consequence of this is that we lose an (appealing?) logical property of Heim's original FCS, which it shares with classical Stalnakerian pragmatics - /eliminativity/ [cite:@GroenendijkStokhof1991a].
 
@@ -743,28 +590,13 @@ One immediate consequence of this is that we lose an (appealing?) logical proper
 \(\phi\) is /eliminative/ iff \(c[\phi] \subseteq c\), \(\forall c\)
 #+end_definition
 
-Sentenes with indefinites convey non-eliminative updates. In the original FCS /all/ updates are eliminative.
+Sentenes with indefinites convey non-eliminative updates; in FCS proper all updates are eliminative.
 
 This is important, since eliminativity plays an important role in characterizing exactly what it means for a semantics to be "dynamic", together with /distributivity/.
 
 We'll talk more about this next week (Heim's FCS is eliminative but non-distributive; DPL is distributive but non-eliminative) [cite:@Benthem1989].
 
-*** Back to tautological updates
-
-We're now in a position to understand exactly how to resolve the puzzle that arose from tautological statements.
-
-"Someone\(^x\) is self-identical" now /does/ have an effect on an input file context which, absent an indefinite, it would lack. 
-
-Updating the initial context we've been entertaining, with this sentence would have the following result, given a domain of individuals \(\set{a,b}\):
-
-\[\begin{aligned}[t]
-&c_\top[\text{someone}^x\text{ is self-identical}]\\
-&= \set{(w_\emptyset,[x \to a]),(w_\emptyset,[x \to b]),(w_a,[x \to a]),(w_a,[x \to b]),(w_{ab},[x \to a]),(w_{ab},[x \to b])}
-\end{aligned}\]
-
-A sentence such as "Gabe is self-identical" on the other hand, would simply return the input context unchanged. 
-
-*** Presuppositions in partial FCS
+** Presupposition in partial FCS
 
 Something interesting we can note about this partial variant: the novelty/familiarity presupposition is cashed out as a universal requirement on every evaluation point in the domain.
 
@@ -774,7 +606,8 @@ Unfortunately this is incompatible with the semantics of logical vocabulary, and
 
 We'll resurrect this idea when we discuss Elliott's /externally-dynamic dynamic semantics in a couple of weeks time [cite:@Elliott2020g].
 
-* Subsentential compositionality in FCS
+
+* FCS as a theory of composition
 
 We'll switch back to classical FCS now, although the partial variant will be mentioned from time to time. 
 
@@ -1030,6 +863,8 @@ Aside from the cited sources, I owe a particular debt to Yasu Sudo, who first ta
 * File local variables                                             :noexport:
 
 * Footnotes
+
+[fn:10] In her dissertation, Heim addresses this issue by giving files an additional domain parameter [cite:@Heim1982].  
 [fn:9] See [cite:@Chierchia1995] for a detailed comparison. 
 
 [fn:8] The presentation here is based on discussion in [cite:@Heim2017]. 
