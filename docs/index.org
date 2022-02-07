@@ -1,0 +1,250 @@
+# Created 2022-02-07 Mon 09:29
+#+options: toc:nil
+#+title: MIT topics in semantics seminar (spring 2022)
+#+author: Patrick D. Elliott
+#+subtitle: Discourse referents inside and out
+#+bibliography: ../bibliography/master.bib
+#+cite_export: csl
+#+html_head: <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
+#+setupfile: latex-template.org
+#+export_file_name: ./docs/index.html
+#+caption: Zen garden of the Ryoanji Temple, Kyoto, Japan 1951 (Werner Bischof)
+[[file:./bischof.jpg]]
+
+Last updated: "[2022-02-07 Mon 09:29]" 
+
+* Course description
+
+#+begin_quote
+"Consider a device designed to read a text in some natural language,
+interpret it, and store the content in some manner, say, for the purpose
+of being able to answer questions about it. To accomplish this task,
+the machine will have to fulfill at least the following basic requirement.
+It has to be able to build a file that consists of records of all the
+individuals, that is, events, objects, etc., mentioned in the text and, for
+each individual, record whatever is said about it. Of course, for the time being at least, it seems that such a text interpreter is not a practical idea, but this should not discourage us from studying in abstract what kind of capabilities the machine would have to possess, provided that our study
+provides us with some insight into natural language in general." ([[citeproc_bib_item_20][Karttunen 1976]])
+#+end_quote
+
+The notion of a /discourse referent/ emerged from the work of Lauri Karttunen and David Lewis ([[citeproc_bib_item_20][Karttunen 1976]]; [[citeproc_bib_item_27][Lewis 1979]]), during a time of general optimism concerning connections between linguistic theory and artificial intelligence research. The central idea is that discourse participants introduce and manipulate /variables/ corresponding to individuals mentioned over the course of a conversation. This powerful idea subsequently informed dynamic approaches to meaning, which essentially model anaphora as a kind of cross-referencing device ([[citeproc_bib_item_17][Heim 1982]]; [[citeproc_bib_item_16][Groenendijk and Stokhof 1991]]). Frank Veltman crystalizes the 'slogan' of dynamic approaches to meaning as follows: "You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" ([[citeproc_bib_item_39][Veltman 1996]]). Irene Heim's foundational work on /file change semantics/ in the 80s lead to an explosion of insightful research applying this central idea to an impressive variety of empirical domains. At the same time, dynamic semantics incorporates powerful proprietary mechanisms for manipulating /contexts/ in an apparently arbitrary fashion, and even precompiles these mechanisms into the meanings of logical vocabulary such as "or". In this seminar we'll track developments in dynamic approaches to anaphora, starting from classical theories of (singular) pronouns and their indefinite antecedents, and eventually progressing to intricate theories of modality, plurality, and quantification. In parallel, we'll consider what exactly dynamic semantics commits us to, both as a theory of /content/, and as a theory of how semantic composition proceeds. A central goal will be a re-assessment of Veltman's slogan, in light of recent work that fine-tunes the division of labor between dynamic semantics and pragmatics ([[citeproc_bib_item_10][Elliott 2020b]]; [[citeproc_bib_item_28][Mandelkern 2020]]).  
+
+One of the themes of the seminar will be linguistic motivations for a /rich/ notion of contexts, which goes beyond a "flat" model of information ([[citeproc_bib_item_38][Stalnaker 1976]]) and incorporates a notion of /aboutness/. Mid-way through the semester, we'll take a break from anaphora and consider a set of empirical phenomena which motivate a different kind of enrichment. Thanks to Amir Anvari for providing the following summary: 
+
+#+begin_quote
+"We will rehearse a host of puzzles that have been discussed in the literature on oddness (Singh 2008, Katzir & Singh 2014, Mayr & Romoli 2016, Mandelkern & Romoli 2018, Marty & Romoli 2021). The ambition is to provide a unified analysis for all these cases. We begin with the classical insight, as formulated by Katzir & Singh (2015), that “a good assertion is one that provides a good answer to a good question”: a good sentence is one that is about something. We explore the idea that the question that a sentence addresses in a given context is one that must be constructed in a principled fashion from sentence itself and its formal alternatives (Katzir 2007, Fox & Katzir 2011). If such a “formal background question” cannot be constructed, the sentence is not about anything and predicted to be odd. We will explore one implementation of this idea in the context of the puzzles mentioned."
+#+end_quote
+
+
+
+
+* Schedule
+
+Seminar takes place Mondays 10:00-13:00, in 32-D461.
+
+| date         | topic                                             |
+|--------------+---------------------------------------------------|
+| Mon Jan 31   | [[id:fcs][file change semantics]]                 |
+| Mon Feb 7    | [[id:dpl][dynamic predicate logic]]               |
+| Mon Feb 14   | [[id:subsentential][subsentential dynamics]]      |
+| +Mon Feb 21+ | *holiday - president's day*                       |
+| Tue Feb 22   | [[id:edds][externally-dynamic dynamic semantics]] |
+| Mon Feb 28   | [[id:oddness][Amir Anvari on oddness]]            |
+| Mon Mar 7    | [[id:oddness][Amir Anvari on oddness]]            |
+| Mon Mar 14   | [[id:oddness][Amir Anvari on oddness]]            |
+| +Mon Mar 21+ | *holiday - spring break*                          |
+| Mon Mar 28   | [[id:mod][modality and modal subordination]]      |
+| Mon Apr 4    | [[id:quant][plurality and quantification]]        |
+| Mon Apr 11   | [[id:inq][inquisitive dynamic semantics]]         |
+| +Mon Apr 18+ | *holiday - patriot's day*                         |
+| Mon Apr 25   | [[id:gramm][dynamic semantics and the grammar]]   |
+| Mon May 2    | Filipe Hisao Kobayashi on postsuppositions        |
+| Mon May 9    | Student presentations                             |
+
+* Topics
+
+** Week 1: File change semantics
+[[file:./handout1.pdf][Handout]].
+
+*** Recommended readings
+
+- Chapter 3 of ([[citeproc_bib_item_17][Heim 1982]]).
+- ([[citeproc_bib_item_18][Heim 1983]])
+
+*** Other readings
+
+- ([[citeproc_bib_item_20][Karttunen 1976]])
+- ([[citeproc_bib_item_27][Lewis 1979]])
+- ([[citeproc_bib_item_35][Rothschild and Yalcin 2016]])
+
+** Week 2: Dynamic predicate logic
+[[file:./handout2.pdf][Handout]].
+
+*** Recommended readings
+
+- ([[citeproc_bib_item_16][Groenendijk and Stokhof 1991]])
+- ([[citeproc_bib_item_12][Gillies 2019]])
+
+*** Optional readings
+
+- ([[citeproc_bib_item_6][Dekker 1996]])
+
+** Week 3: Subsentential dynamics
+
+*** Recommended readings
+
+- (NO_ITEM_DATA:Charlow2019)
+- Part I of ([[citeproc_bib_item_3][Charlow 2014]])
+
+*** Optional readings
+
+- ([[citeproc_bib_item_15][Groenendijk and Stokhof 1990]])
+- ([[citeproc_bib_item_32][Muskens 1996]])
+- ([[citeproc_bib_item_4][Chierchia 1995]])
+
+** Week 4: Externally-dynamic dynamic semantics
+
+*** Recommended readings
+
+- ([[citeproc_bib_item_10][Elliott 2020b]])
+- ([[citeproc_bib_item_13][Gotham 2019]])
+
+*** Optional readings
+
+- ([[citeproc_bib_item_28][Mandelkern 2020]])
+- ([[citeproc_bib_item_19][Hofmann 2019]])
+- ([[citeproc_bib_item_37][Simons 1996]])
+- ([[citeproc_bib_item_26][Krahmer and Muskens 1995]])
+
+** Week 5-7: Amir Anvari on /oddness/
+
+*** References
+
+- ([[citeproc_bib_item_22][Katzir and Singh 2014]])
+- ([[citeproc_bib_item_31][Mayr and Romoli 2016]])
+- ([[citeproc_bib_item_29][Mandelkern and Romoli 2018]])
+- ([[citeproc_bib_item_30][Marty and Romoli 2021]])
+- ([[citeproc_bib_item_21][Katzir 2008]])
+- ([[citeproc_bib_item_11][Fox and Katzir 2011]])
+
+** Week 8: Modality and modal subordination
+
+*** Recommended readings
+
+- ([[citeproc_bib_item_14][Groenendijk, Stokhof, and Veltman 1996]])
+- ([[citeproc_bib_item_25][Kibble 1994]])
+
+*** Optional readings
+
+- ([[citeproc_bib_item_39][Veltman 1996]])
+- ([[citeproc_bib_item_34][Roberts 1989]])
+
+** Week 9: Plurality and quantification
+
+*** Recommeded readings
+
+- ([[citeproc_bib_item_1][van den Berg 1996]])
+- ([[citeproc_bib_item_33][Nouwen 2003]])
+
+*** Optional readings
+
+- ([[citeproc_bib_item_2][Brasoveanu 2007]])
+- ([[citeproc_bib_item_23][Keshet 2018]])
+- ([[citeproc_bib_item_24][Keshet 2019]])
+
+** Week 10: Dynamic inquisitive semantics
+
+*** Recommended readings
+
+- ([[citeproc_bib_item_8][Dotlačil and Roelofsen 2019]])
+- ([[citeproc_bib_item_7][Dotlacil and Roelofsen 2021]])
+
+** Week 11: Dynamic semantics and the grammar
+
+*** Recommended readings
+
+- ([[citeproc_bib_item_36][Schlenker 2005]])
+- ([[citeproc_bib_item_5][Chierchia 2020]])
+- ([[citeproc_bib_item_9][Elliott 2020a]])
+
+
+* References
+
+<<citeproc_bib_item_1>>Berg, M. H. van den. 1996. “Some Aspects of the Internal Structure of Discourse. The Dynamics of Nominal Anaphora.” https://dare.uva.nl/search?arno.record.id=7073.
+
+<<citeproc_bib_item_2>>Brasoveanu, Adrian. 2007. “Structured Nominal and Modal Reference.” PhD thesis, Rutgers University - Graduate School - New Brunswick.
+
+<<citeproc_bib_item_3>>Charlow, Simon. 2014. “On the Semantics of Exceptional Scope.” PhD thesis, New Brunswick: Rutgers University.
+
+<<citeproc_bib_item_4>>Chierchia, Gennaro. 1995. /Dynamics of Meaning - Anaphora, Presupposition, and the Theory of Grammar/. Chicago: University of Chicago Press.
+
+<<citeproc_bib_item_5>>———. 2020. “Origins of Weak Crossover - When Dynamic Semantics Meets Event Semantics.” /Natural Language Semantics/, no. 28: 23–76.
+
+<<citeproc_bib_item_6>>Dekker, Paul. 1996. “The Values of Variables in Dynamic Semantics.” /Linguistics and Philosophy/ 19 (3): 211–57. https://www.jstor.org/stable/25001626.
+
+<<citeproc_bib_item_7>>Dotlacil, Jakub, and Floris Roelofsen. 2021. “A Dynamic Semantics of Single-Wh and Multiple-Wh Questions.” /Semantics and Linguistic Theory/ 30 (0, 0): 376–95. https://doi.org/10.3765/salt.v30i0.4839.
+
+<<citeproc_bib_item_8>>Dotlačil, Jakub, and Floris Roelofsen. 2019. “Dynamic Inquisitive Semantics: Anaphora and Questions.” /Proceedings of Sinn Und Bedeutung/, July, 365–82 Pages. https://doi.org/10.18148/SUB/2019.V23I1.538.
+
+<<citeproc_bib_item_9>>Elliott, Patrick D. 2020a. “Crossover and Accessibility in Dynamic Semantics.” MIT: lingbuzz/005311. https://ling.auf.net/lingbuzz/005311.
+
+<<citeproc_bib_item_10>>———. 2020b. “Towards a Principled Logic of Anaphora.” MIT: lingbuzz/005562. https://ling.auf.net/lingbuzz/005562.
+
+<<citeproc_bib_item_11>>Fox, Danny, and Roni Katzir. 2011. “On the Characterization of Alternatives.” /Natural Language Semantics/ 19 (1): 87–107. https://doi.org/10.1007/s11050-010-9065-3.
+
+<<citeproc_bib_item_12>>Gillies, Anthony S. 2019. “Re-Reading ‘Dynamic Predicate Logic’.” Rutgers University.
+
+<<citeproc_bib_item_13>>Gotham, Matthew. 2019. “Double Negation, Excluded Middle and Accessibility in Dynamic Semanttics.” In /Proceedings of the 22nd Amsterdam Colloquium/, edited by Julian J. Schlöder, Dean McHugh, and Floris Roelofsen, 142–51.
+
+<<citeproc_bib_item_14>>Groenendijk, Jeroen a. G., Martin J. B. Stokhof, and Frank J. M. M. Veltman. 1996. “Coreference and Modality.” In /The Handbook of Contemporary Semantic Theory/, 176–216. Blackwell Handbooks in Linguistics. Oxford: Blackwell. https://dare.uva.nl/search?identifier=c655089e-9fae-4842-90da-30e46f37825b.
+
+<<citeproc_bib_item_15>>Groenendijk, Jeroen, and Martin Stokhof. 1990. “Dynamic Montague Grammar.” Report. https://eprints.illc.uva.nl/id/eprint/1148/.
+
+<<citeproc_bib_item_16>>———. 1991. “Dynamic Predicate Logic.” /Linguistics and Philosophy/ 14 (1): 39–100. https://www.jstor.org/stable/25001418.
+
+<<citeproc_bib_item_17>>Heim, Irene. 1982. “The Semantics of Definite and Indefinite Noun Phrases.” PhD thesis, University of Massachusetts - Amherst.
+
+<<citeproc_bib_item_18>>———. 1983. “File Change Semantics and the Familiarity Theory of Definiteness.” In /File Change Semantics and the Familiarity Theory of Definiteness/, 164–89. De Gruyter. https://doi.org/10.1515/9783110852820.164.
+
+<<citeproc_bib_item_19>>Hofmann, Lisa. 2019. “The Anaphoric Potential of Indefinites under Negation and Disjunction.” In /Proceedings of the 22nd Amsterdam Colloquium/, edited by Julian J. Schlöder, Dean McHugh, and Floris Roelofsen, 181–90.
+
+<<citeproc_bib_item_20>>Karttunen, Lauri. 1976. “Discourse Referents.” In /Syntax and Semantics Vol. 7/, edited by J. D. McCawley, 363–86. Academic Press.
+
+<<citeproc_bib_item_21>>Katzir, Roni. 2008. “Structurally-Defined Alternatives” 30 (6): 669–90. https://doi.org/10.1007/s10988-008-9029-y.
+
+<<citeproc_bib_item_22>>Katzir, Roni, and Raj Singh. 2014. “Hurford Disjunctions - Embedded Exhaustification and Structural Economy.” In /Proceedings of Sinn Und Bedeutung 18/, edited by Urtzi Etxeberria, Anamaria Fălăuş, Aritz Irurtzun, and Bryan Leferman, 201–16. University of the Basque Country (UPV/EHU).
+
+<<citeproc_bib_item_23>>Keshet, Ezra. 2018. “Dynamic Update Anaphora Logic - A Simple Analysis of Complex Anaphora.” /Journal of Semantics/ 35 (2): 263–303. https://doi.org/10.1093/jos/ffx020.
+
+<<citeproc_bib_item_24>>———. 2019. “Dynamic Unioning Plural Logic.” In /Proceedings of the 20th Amsterdam Colloquium, 2015/.
+
+<<citeproc_bib_item_25>>Kibble, Rodger. 1994. “Dynamics of Epistemic Modality and Anaphora.” In /International Workshop on Computational Semantics/, 121–30.
+
+<<citeproc_bib_item_26>>Krahmer, Emiel, and Reinhard Muskens. 1995. “Negation and Disjunction in Discourse Representation Theory.” /Journal of Semantics/ 12 (4): 357–76. https://doi.org/10.1093/jos/12.4.357.
+
+<<citeproc_bib_item_27>>Lewis, David. 1979. “Scorekeeping in a Language Game.” /Journal of Philosophical Logic/ 8 (1): 339–59. https://www.jstor.org/stable/30227173.
+
+<<citeproc_bib_item_28>>Mandelkern, Matthew. 2020. “Witnesses.” Unpublished manuscript. Oxford: Unpublished manuscript.
+
+<<citeproc_bib_item_29>>Mandelkern, Matthew, and Jacopo Romoli. 2018. “Hurford Conditionals.” /Journal of Semantics/ 35 (2): 357–67. https://doi.org/10.1093/jos/ffx022.
+
+<<citeproc_bib_item_30>>Marty, Paul, and Jacopo Romoli. 2021. “Varieties of Hurford Disjunction.” https://ling.auf.net/lingbuzz/005755.
+
+<<citeproc_bib_item_31>>Mayr, Clemens, and Jacopo Romoli. 2016. “A Puzzle for Theories of Redundancy: Exhaustification, Incrementality, and the Notion of Local Context.” /Semantics and Pragmatics/ 9 (0, 0): 7–1-48. https://doi.org/10.3765/sp.9.7.
+
+<<citeproc_bib_item_32>>Muskens, Reinhard. 1996. “Combining Montague Semantics and Discourse Representation.” /Linguistics and Philosophy/ 19 (2): 143–86. https://doi.org/10.1007/BF00635836.
+
+<<citeproc_bib_item_33>>Nouwen, R. W. F. 2003. “Plural Pronominal Anaphora in Context : Dynamic Aspects of Quantification.” Dissertation. November 21, 2003. http://localhost/handle/1874/630.
+
+<<citeproc_bib_item_34>>Roberts, Craige. 1989. “Modal Subordination and Pronominal Anaphora in Discourse.” /Linguistics and Philosophy/ 12 (6): 683–721. https://www.jstor.org/stable/25001367.
+
+<<citeproc_bib_item_35>>Rothschild, Daniel, and Seth Yalcin. 2016. “Three Notions of Dynamicness in Language.” /Linguistics and Philosophy/ 39 (4): 333–55. https://doi.org/10.1007/s10988-016-9188-1.
+
+<<citeproc_bib_item_36>>Schlenker, Philippe. 2005. “Non-Redundancy: Towards a Semantic Reinterpretation of Binding Theory.” /Natural Language Semantics/ 13 (1): 1–92. https://doi.org/10.1007/s11050-004-2440-1.
+
+<<citeproc_bib_item_37>>Simons, Mandy. 1996. “Disjunction and Anaphora.” /Semantics and Linguistic Theory/ 6 (0, 0): 245–60. https://doi.org/10.3765/salt.v6i0.2760.
+
+<<citeproc_bib_item_38>>Stalnaker, Robert. 1976. “Propositions,” edited by A. F. MacKay and D. D. Merrill, 79–91. New Haven: Yale University Press.
+
+<<citeproc_bib_item_39>>Veltman, Frank. 1996. “Defaults in Update Semantics.” /Journal of Philosophical Logic/ 25 (3): 221–61. https://www.jstor.org/stable/30226572.
+
+NO_ITEM_DATA:Charlow2019
