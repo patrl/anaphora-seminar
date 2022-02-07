@@ -5,14 +5,23 @@
 #+OPTIONS: ':t
 #+cite_export: biblatex
 
-* Next week
+* Introduction
 
-Topic: dynamic semantics as a theory of composition.
+** Next week
+
+Rethinking dynamic semantics as a /compositional/ theory of meaning (recall /discourse referents *inside* and out/).
 
 - *Obligatory reading*: Simon Charlow's recent paper "Static and dynamic exceptional scope" [cite:@Charlow2020]. 
 - *Optional readings*
   * Part I of Charlow's 2014 dissertation "On the semantics of exceptional scope" [cite:@Charlow2014].
   * Groenendijk and Stokhof's 1990 paper "Dynamic Montague Grammar" [cite:@GroenendijkStokhof1990].
+    
+** This week
+
+- More on File Change Semantics.
+- Shifting gears: Dynamic Predicate Logic.
+- Refactoring FCS as a distributive system, using ideas from DPL.
+- Along the way, we'll discuss empirical issues for the treatment of logical operators in FCS/DPL.
 
 * FCS
 
@@ -26,13 +35,15 @@ Contexts and assignments.
 - An /assignment/ is a total function from variables to individuals.
 #+end_definition
 
+Our starting point: Heim's intensional notion of novelty/familiarity.
+
 #+name: def:novelty
 #+begin_definition
 A variable \(x\) is /novel/ with respect to a context \(c\), iff:
 
 \[\mathbf{nov}_c(x) := \forall g,g',w[g[x]g' \rightarrow ((w,g) \in c \iff (w,g'))]\]
 
-Otherwise, \(x\) is /familiar/ with respect to \(c\).
+Otherwise, \(x\) is /familiar/ with respect to \(c\), \(\mathbf{fam}_x(c)\).
 
 N.b. /familiarity/ is persistent, i.e., if \(\mathbf{fam}_c(x)\), then for any \(c' \subseteq c\), \(\mathbf{fam}_x(c')\).
 #+end_definition
@@ -312,7 +323,7 @@ y \to b
 
 FCS therefore doesn't derive /disjoint reference/ out of the box, for concurrent, contra-indexed indefinites.
 
-** Informativity and implicature in FCS
+** Disjoint reference in FCS
 
 What is the nature of the putative disjoint reference inference?
 
@@ -330,7 +341,12 @@ What is the nature of the putative disjoint reference inference?
 
 These facts suggest that disjoint reference should be derived as a /primary implicature/ (in the sense of [cite:@Sauerland2004]), i.e., the speaker is not certain that \(x\) and \(y\) are mapped to same individual. 
 
-In fact, this can be derived via a familiar Gricean reasoning process if "A^x woman walked in and the\(_x\) woman sat down" is an alternative to "A^x woman walked in and a woman\(^y\) sat down", since the former is strictly more informative than the latter.
+In fact, this can be derived via a familiar Gricean reasoning process if the following are alternatives:
+
+- "A^x woman walked in and the\(_x\) woman/she\(_x\) sat down".
+- "A^x woman walked in and a woman\(^y\) sat down" (for any variable \(y \neq x\))
+
+The latter is contextually more informative than the former.  
 
 We can easily formalize /contextual informativity/ in FCS as follows (definition from [cite:@Sudo2022]):
 
@@ -347,6 +363,16 @@ Contextual informativity. A sentence \(\phi\) is /contextually more informative/
 Note that the judgement is that concurrent indefinites result in /oddness/ in the context given in ([[ex:disjoint]]), which isn't necessarily expected on a pragmatic account. 
 
 This can arguably be understood as a special case of a phenomenon that applies to scalar implicatures more generally [cite:@Magri2009].
+
+An apparent problem for this account is that it predicts an (unattested?) scalar inference for definites under negation (assuming alternativehood is symmetric).
+
+#+name: yasu1
+#+begin_exe
+\ex A^x woman and a dog walked in; nobody saw the_x woman.<<yasu-1a>>
+\ex A^x woman and a dog walked in; nobody saw a^y woman.<<yasu-1b>>
+#+end_exe
+
+([[yasu-1a]]) doesn't seem to imply that someone saw a woman who didn't walk in(?).[fn:12]
 
 ** Informational vs. dynamic redunancy
 
@@ -408,12 +434,12 @@ Such sentences therefore don't seem to pose a serious threat to the Heimian noti
 
 Recall that pronouns are variables with a /familiarity/ presupposition.
 
-We haven't said anything about definite descriptions, but FCS very naturally accounts for definite descriptions in the following way, e.g., for "the_x woman sat down.":
+We haven't said anything concrete yet about definite descriptions, but FCS very naturally accounts for definite descriptions in the following way, e.g., for "the_x woman sat down.":
 
 #+name: ex:definite
 #+begin_exe
 \ex \(\lambda c\,.\,\begin{cases}
-\set{(w,g) \in c\,.\,\mathbf{walkedIn}_w(g_x)}&\forall(w,g) \in c[\mathbf{woman}_w(g_x)]\\
+\set{(w,g) \in c\,.\,\mathbf{satDown}_w(g_x)}&\forall(w,g) \in c[\mathbf{woman}_w(g_x)]\\
 \text{undefined}&\text{else}  
 \end{cases}\)
 #+end_exe
@@ -430,7 +456,7 @@ This accounts for the fact that definites behave like pronouns with an indefinit
 - The requirement is satisfied, so now we eliminate \((w,g)\)s where \(g_x\) didn't sit down with another woman in \(w\).
  - Note that the presupposition of a definite description is a strictly stronger requirement than familiarity /per se/.
    
-We can account for \(\phi \)-features in a parallel fashion. A putative CCP for "She_x sat down":
+We can account for \(\phi \)-features in a parallel fashion. A putative CCP for "She_x sat down" (\(\phi \)-features systematically give rise to presuppositions that must be accommodated on this view):
 
 #+name: ex:phi
 #+begin_exe
@@ -446,18 +472,20 @@ After all, there's a reason people believed that /uniqueness/ is entailed by def
 
 #+name: date
 #+begin_exe
-\ex John went on a date; he liked the_x woman, so he planned to see again.
+\ex John went on a date; he liked the\(_x\) woman, so he planned to see her\(_x\) again.
 #+end_exe
 
 #+name: date2
 #+begin_exe
-\ex John went on dates with a few different women; he liked the_x woman, so he planned to see her again.
+\ex John went on dates with a few different women; ??he liked the\(_x\) woman, so he planned to see her\(_x\) again.
 #+end_exe
 
 - In sum, FCS (and dynamic theories more generally) do excellently in accounting for the fact that definites don't require uniqueness if they have an indefinite antecedent.
-- As it stands however, it is mysterious why definites require uniqueness when they don't have an antecedent. As emphasized by [cite:@MandelkernRothschild2020], this is a problem for theories of /accommodation/ - in fact, the logic is very similar to the proviso problem.
+- As it stands however, it is mysterious why definites require uniqueness when they don't have an antecedent. As emphasized by [cite:@MandelkernRothschild2020], this is arguably a question of /accommodation/ - in fact, the logic is similar to the proviso problem.
 
 ** Dynamic conjunction 
+
+We haven't yet been concrete about what conjunction means in FCS.
 
 Recall that /novelty-familiarity/ is crucially defined relative to /files/ rather than individual evaluation points.
 
@@ -514,8 +542,6 @@ It's important to note that all of the results stated so far must be assessed in
 
 Before talking about subsentential compositionality (and donkey anaphora!) in FCS, we'll consider a partial variant of FCS.
 
-
-* TODO say something about false files (this relates to triviality)
 * Partial FCS
 
 ** File contexts in partial FCS
@@ -529,7 +555,9 @@ Recall the apparent problem Heim observed with informationally trivial updates.
 
 As we've discussed, this arguably isn't a problem for the Heimian notion of novelty, due to the independently motivated pragmatic principle against redundant assertions. 
 
-Nevertheless, Heim took this problem seriously. It is now common to adopt a variant of FCS which uses partial assignments, as suggested by Heim [cite:@Heim1983a]. See, e.g., [cite:@Dekker1996;@Yalcin2013;@RothschildMandelkern2017;@Mandelkern2020a;@Heim2017;@Elliott2020g].[fn:6][fn:10]
+Nevertheless, Heim took this problem seriously. It is now common to adopt a variant of FCS which uses partial assignments, as suggested by Heim [cite:@Heim1983a]. See, e.g., [cite:@Dekker1996;@Yalcin2013;@RothschildMandelkern2017;@Mandelkern2020a;@Heim2017;@Elliott2020g].[fn:6][fn:10] 
+
+N.b. this will also be essential for making FCS /distributive/, as we'll discuss following DPL.
 
 A partial assignment is a /partial/ function from variables to individuals, i.e., a function whose domain is a subset of the stock of variables. This includes the empty/initial assignment \(g_\top  \), whose domain is the empty set. 
 
@@ -601,7 +629,7 @@ Sentenes with indefinites convey non-eliminative updates; in FCS proper all upda
 
 This is important, since eliminativity plays an important role in characterizing exactly what it means for a semantics to be "dynamic", together with /distributivity/.
 
-We'll talk more about this next week (Heim's FCS is eliminative but non-distributive; DPL is distributive but non-eliminative) [cite:@Benthem1989].
+We'll talk more about this in a bit (Heim's FCS is eliminative but non-distributive; DPL is distributive but non-eliminative) [cite:@Benthem1989].
 
 ** Presupposition in partial FCS
 
@@ -611,8 +639,7 @@ It seems tempting to treat sentences as being simply partial functions from /eva
 
 Unfortunately this is incompatible with the semantics of logical vocabulary, and the account of donkey anaphora, which involve positing operators which operate on CCPs.
 
-We'll resurrect this idea when we discuss Elliott's /externally-dynamic dynamic semantics in a couple of weeks time [cite:@Elliott2020g].
-
+We'll resurrect this idea when we recast FCS as a distributive system, and again when we discuss a system I developed recently called /externally-dynamic dynamic semantics/ in a couple of weeks time [cite:@Elliott2020g].
 
 * FCS as a theory of composition
 
@@ -666,7 +693,7 @@ A design feature of FCS is that sentences with indefinites are essentially equiv
 \ex There is someone\(^x\). He\(_x\) is a man. He\(_x\) walked in.
 #+end_exe
 
-This property is responsible for the validity of /Egli's theorem/ in dynamic theories of meaning, including FCS. Egli's theorem states that sentences of the following kind are equivalent.
+This property is responsible for the validity of /Egli's theorem/ in FCS. Egli's theorem states that sentences of the following kind are equivalent.
 
 \[\text{A}^x\text{ man [walked in and sat down]} \iff \text{A}^x\text{ man walked in and he}_x\text{ sat down}\]
 
@@ -817,7 +844,7 @@ The extension to donkey anaphora is straightforward - the schema for universal q
 
 Logical form for ([[ex:donkey]]):
 
-- Every [ a\(^x\) philosopher] [\(t_x\) asked it\(_y\)]
+- Every [ a\(^x\) philosopher a\(^y\) question \(t_x\) with \(t_y\)] [\(t_x\) asked it\(_y\)]
 
 The FCS approach to donkey anaphora has some well known problems, which we'll return to in future classes, namely:
 
@@ -827,10 +854,6 @@ The FCS approach to donkey anaphora has some well known problems, which we'll re
 #+name: credit2
 #+begin_exe
 \ex Everyone who had a credit card used it.
-#+end_exe
-
-#+name: proportion
-#+begin_exe
 \ex Most men who own a donkey beat it.
 #+end_exe
 
@@ -838,7 +861,47 @@ Predicted reading: most man-donkey-he-owns pairs \((m,d)\) are s.t. \(m\) beats 
 
 Falsifying scenario: /99 men own one donkey and don't beat it; one man owns 200 and beats them all./
 
-** TODO negation and disjunction in FCS
+** Other logical operators in FCS
+
+Heim only gives a cursory treatment of other logical operators in her dissertation, so we won't include a detailed discussion here.
+
+Thanks to the expressive power afforded to operations which manipulate CCPs, there are many possibilities. Here is what Heim suggests for negation:
+
+- Tentatively update \(c\) with \(p\).
+- Substract the file context \(c(p)\) from \(c\).
+
+#+begin_definition
+Negation in FCS.
+
+\[\lambda p_T\,.\,\lambda c\,.\,c - p(c)\]
+#+end_definition
+
+#+name: neg
+#+begin_exe
+\ex Jocelyn didn't see a\(^x\) rock climber; ?They\(_x\) sent the route.
+#+end_exe
+
+Whether or not an indefinite c-commanded by a negative operator may antecede a pronoun is a fact concerning its relative scope. 
+
+N.b. there was a good reason Heim proposed this entry for negation - she wanted to capture the fact that negation is a "hole" (in Karttunen's sense [cite:@Karttunen1973]) for the purposes of presupposition projection. That is to say that "Jocelyn didn't see the\(_x\) rock climber" presupposes a familiar rock climber \(x\).
+
+#+name: neg2
+#+begin_exe
+\ex Jocelyn didn't see any\(^x\) rock climber. ?They\(_x\) sent the route.<<neg2:narrow>>
+\ex Jocelyn didn't see some\(^x\) rock climber. They\(_x\) sent the route.
+#+end_exe
+
+Subsequent dynamic theories aim to account for this datapoint by making negation /externally static/, as we'll see when we discuss DPL. 
+
+Surprisingly, Heim's entry for negation predicts anaphora to be possible in ([[neg]]) and /both/ of the examples in ([[neg2]]).
+
+Why? FCS file contexts contain assignments specified for /every/ variable, even if nothing is known about some variables.
+
+In ([[neg]]), the first sentence is an instruction to update the initial context \(c\) with the information that \(x\) is a rock climber seen by Jocelyn, so that we end up just with a \(c'\) where \((w,g) \in c'\) are s.t. \(g_x\) is a rock climber seen by Jocelyn in \(w\). Now we /subtract/ \(c'\) from \(c\), *eliminating* \((w,g)\)'s where \(g_x\) is a rock climber seen by Jocelyn in \(w\), resulting in \(c''\). 
+
+This, of course, renders \(x\) /familiar/ in \(c''\), since worlds in \(c''\) distinguish between assignments which differ only at \(x\), predicting that subsequent anaphora should be possible.
+
+We'll address this (apparently bad) prediction when we discuss DPL negation.
 
 ** Open questions 
 
@@ -921,12 +984,20 @@ Given a single evaluation point \(g\), existential quantification gives rise to 
 Truth in DPL. A formula \(\phi \) is /true/ with respect to an assignment \(g\) iff \(\eval*[g]{\phi } \neq \emptyset\)
 #+end_definition
 
-*** TODO Downdate
+An important fact about existential quantification in DPL: it is /externally dynamic/.
+
+*** Downdate
+
+A curious property of DPL existential quantification is that it can destroy information established about a particular variable \(x\).
 
 #+name: ex:downdate
 #+begin_exe
 \ex \(\exists x[\mathtt{walkedIn}(x)] \wedge \exists x[\mathtt{satDown}(x)]\)
 #+end_exe
+
+Since DPL is a semantics for predicate logic, not natural language, it's unclear whether this is really a problem.
+
+Nevertheless, we'll attempt to get rid of this issue when we refactor FCS using ideas from DPL by incorporating a version of Heim's novelty condition.
 
 ** Complex formulas
 
@@ -949,6 +1020,8 @@ This allows the indeterminate output induced by an existential quantifier to be 
 \ex \(=\bigcup\limits_{h \in \set{g^{[x \to a]}|a\text{ walked in}}}\set{i | i = h \wedge h_x\text{ sat down} } \)
 \ex \(= \set{g^{[x \to a]}| a\text{ walked in and }a\text{ sat down}}\)
 #+end_exe
+
+An important fact about conjunction in DPL: it is both /internally/ and /externally/ dynamic.
 
 Egli's theorem:
 
@@ -974,22 +1047,29 @@ Some important facts about negation in DPL:
 
 - Negation is /externally static/.
 - Double-negation elimination isn't valid.
+  
+Exercise: work through how DPL negation accounts for the facts discussed concerning the interaction between negation and anaphora.
 
+#+name: joc
+#+begin_exe
+\ex \(\neg \exists x[\mathtt{seenByJocelyn}(x)] \wedge \mathtt{sentTheRoute}(x)\)
+#+end_exe
 
-*** Disjunction in DPL
+\[
+\eval*[g]{\neg\exists x[\mathtt{seenByJocelyn}(x)]} = \begin{cases}
+\set{g}&\set{g^{[x \to c]}|c\text{ was seen by Jocelyn}} \neq \emptyset\\
+\emptyset & \text{otherwise} 
+\end{cases}
+\]
+  
+But, as G&S themselves notice, the prediction for double negation doesn't seem right (see also [cite:@KrahmerMuskens1995]; example from [cite:@Gotham2019])
 
-#+begin_definition
-Disjunctive formula in DPL.
+#+name: gotham1
+#+begin_exe
+\ex John doesn't own no^x shirt. It_x's in his closet.
+#+end_exe
 
-\[\eval*[g]{\phi \vee \psi} = \begin{cases}
-\set{g}&\eval*[g]{\phi } \cup \eval*[g]{\psi} \neq \emptyset\\
-\emptyset&\text{otherwise} 
-\end{cases}\]
-#+end_definition
-
-An important fact about disjunction in DPL:
-
-- Disjunction is both /externally and internally static/.
+We'll come back to the status of negation in dynamic semantics in two weeks time, when we discuss externally-dynamic dynamic semantics (but see [cite:@KrahmerMuskens1995;@Gotham2019;@Hofmann2019]).
 
 *** Material implication in DPL
 
@@ -1008,6 +1088,104 @@ An important fact about implication in DPL:
 
 - Implication is externally static, but internally dynamic.
   
+Material implication in DPL assigns existential quantifiers in the antecedent universal force. This underlies the DPL account of donkey anaphora.
+
+Egli's corrolary: \((\exists x,\phi ) \rightarrow \psi \iff \forall x[\phi \rightarrow \psi]\)
+
+#+name: donkey-dpl1
+#+begin_exe
+\ex If a\(^x\) donkey brays, it\(_x\) is unhappy.
+\ex Every donkey that brays is unhappy.
+#+end_exe
+
+#+name: donkey-dpl2
+#+begin_exe
+\ex \((\exists x[\mathtt{BrayingDonkey}(x)]) \rightarrow \mathtt{Unhappy}(x)\)
+#+end_exe
+
+We know that the meaning of ([[donkey-dpl2]]) is a test on \(g\).
+
+#+name: donkey-dpl3
+#+begin_exe
+\ex \(\eval*[g]{\exists x[\mathtt{BrayingDonkey}(x)]} = \set{g^{[x \to a]}|a\text{ is a braying donkey} }\)
+\ex \(\eval*[h]{\mathtt{Unhappy}(x)} = \begin{cases}
+\set{h}&h_x\text{ is unhappy}\\
+\emptyset &\text{otherwise}  
+\end{cases}\)
+#+end_exe
+
+- Scenario 1: no donkeys brayed. The antecedent has an empty output and the sentence is trivially true.
+- Scenario 2: Donkey \(d_1\) brayed and is unhappy, donkey \(d_2\) brayed and is happy.
+  + The output of the antecedent contains assignments that map \(x\) to \(d_1\), and assignments that map \(x\) to \(d_2\).
+  + The assignments that make the consequent classically true are just those that map \(x\) to \(d_1\).
+  + The test fails.
+- Scenario 3: Donkeys \(d_1\) brayed and is unhappy, donkey \(d_2\) didn't bray but is nevertheless unhappy.
+  + The output of the antecedent contains assignments that map \(x\) to \(d_1\).
+  + The assignments that make the consequent classically true are just those that map \(x\) to \(d_1\) or \(x\) to \(d_2\). 
+  + The test passes.
+    
+An important fact about material implication in DPL: \(\phi \rightarrow \psi \iff \neg (\phi \wedge \neg\ \psi)\) (a classical equivalence).
+
+N.b. connectives can be defined under classical equivalence in DPL, but which classical equivalence matters! This is one way of understanding the explanatory challenge to dynamic semantics.
+
+For example, we'd get a very different (bad) result if we defined material implication in DPL as \(\neg \phi \vee \psi\).
+
+On the external staticity of material implication in DPL (examples from [cite:@Gillies2019]):
+
+#+name: ext
+#+begin_exe
+\ex If a farmer owns a^x donkey, he feeds it_x hay. It_x is happy with that meal.
+\ex If a farmer is happy, he feeds a^x donkey hay. ??It_x is happy with that meal.
+#+end_exe
+
+*** Disjunction in DPL
+
+#+begin_definition
+Disjunctive formula in DPL.
+
+\[\eval*[g]{\phi \vee \psi} = \begin{cases}
+\set{g}&\eval*[g]{\phi } \cup \eval*[g]{\psi} \neq \emptyset\\
+\emptyset&\text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+An important fact about disjunction in DPL:
+
+- Disjunction is both /externally and internally static/.
+  
+#+name: disj1
+#+begin_exe
+\ex ??Either a\(^x\) farmer left, or he\(_x\) whistled.
+\ex ??It's not the case [that a\(^x\) farmer left or that he\(_x\) whistled].
+#+end_exe
+
+#+name: disj2
+#+begin_exe
+\ex Either a\(^x\) philosopher is here, or the party is dull; ??They\(_x\) are causing a scene.
+#+end_exe
+
+Some well known problems for DPL disjunction: /bathroom disjunctions/ (due to Barbara Partee).
+
+#+name: bathroom1
+#+begin_exe
+\ex Either there isn't a\(^x\) bathroom, or it\(_x\)'s upstairs. 
+#+end_exe
+
+Another problem for DPL disjunction was noted by G&S themselves. We might call them G&S disjunctions.
+
+#+name: gs-disj
+#+begin_exe
+\ex Either a\(^x\) philosopher was in the audience, or a\(^x\) linguist was; (Either way) they\(_x\) enjoyed it.
+#+end_exe
+
+Although the resolution for bathroom disjunctions is unclear, it's worth emphasizing that DPL at least has the resources to give an entry for G&S disjunctions, but it involves positing an ambiguity.
+
+#+begin_definition
+Program disjunction in DPL.
+
+\[\eval*[g]{\phi \cup \psi} = \eval*[g]{\phi } \cup \eval*[g]{\psi}\]
+#+end_definition
+
 *** Universal quantification
 
 #+begin_definition
@@ -1019,7 +1197,9 @@ Universally quantified formula in DPL.
 \end{cases}\]
 #+end_definition
 
-** TODO The relationship between DPL and FCS
+A fact about universal quantification in DPL: \(\forall x,\phi \iff  \neg\exists \neg\phi \)
+
+** The relationship between DPL and FCS
 
 Recall, if we switch to a partial setting, we can check novelty/familiarity at individual evaluation points.
 
@@ -1030,6 +1210,8 @@ Novelty and familiarity with respect to an assignment \(g\).
 
 \[\mathbf{fam}_g(x) \iff  x \in \mathbf{dom}(g)\]
 #+end_definition
+
+We speculated that this might allow us to make FCS distributive, but we ran into a stumbling block when considering the meanings of logical operators.
 
 We can extend the DPL notion of a sentential meaning to a setting that incorporates worldly information as follows:
 
@@ -1077,7 +1259,18 @@ Sentences with definites are tests:
 \end{cases}\)
 #+end_exe
 
-* TODO check if the partial pointwise presentation is correct, especially for the bridge principle
+The semantics for logical operators are retained from DPL, e.g.,
+
+#+name: conj-partial
+#+begin_exe
+\ex \(\eval*[w,g]{\phi\text{ and }\psi} = \bigcup\limits_{h \in \eval*[w,g]{\phi}}\set{ i | i \in \eval*[w,h]{\psi}}\)
+#+end_exe
+
+The contribution of /and/ is classical with respect to worldly information.
+
+Intuitively, switching to partial pointwise DPL takes a classical setting, and replaces falsity with an empty output set, and gives many different ways of being true.
+
+Note that the way that novelty/familiarity interact with the logical operators looks suspiciously like presupposition projection. This is something the current system doesn't capture (in fact, we haven't yet incorporated a sensible theory of presupposition).
 
 * Conclusion
 
@@ -1090,6 +1283,8 @@ By taking inspiration from DPL, we've managed to eliminate some of the more egre
 * File local variables                                             :noexport:
 
 * Footnotes
+
+[fn:12] I'm grateful to Yasu Sudo for raising this issue. 
 [fn:11] Note that, in a partial setting, two assignments are file-equivalent simply if they are extensionally equivalent functions (since novel variables aren't in the domain). 
 
 [fn:10] In her dissertation, Heim addresses this issue by giving files an additional domain parameter [cite:@Heim1982].  
