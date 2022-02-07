@@ -5,6 +5,15 @@
 #+OPTIONS: ':t
 #+cite_export: biblatex
 
+* Next week
+
+Topic: dynamic semantics as a theory of composition.
+
+- *Obligatory reading*: Simon Charlow's recent paper "Static and dynamic exceptional scope" [cite:@Charlow2020]. 
+- *Optional readings*
+  * Part I of Charlow's 2014 dissertation "On the semantics of exceptional scope" [cite:@Charlow2014].
+  * Groenendijk and Stokhof's 1990 paper "Dynamic Montague Grammar" [cite:@GroenendijkStokhof1990].
+
 * FCS
 
 ** Contexts, assignments, and variables
@@ -464,9 +473,7 @@ The dynamic sequencing operator \(;\).
 \[p;q := \lambda F\,.\,q(p(F))\]
 #+end_definition
 
-At this point, it will be useful to define some types. Let's use \(T\) as the type of a CCP.
-
-The dynamic sequencing operator is of type \(T \to T \to T\).
+At this point, it will be useful to give a type for a CCP; let's use \(T\). The dynamic sequencing operator is of type \(T \to T \to T\).
 
 The sequencing operator famously serves as the meaning of conjunction in FCS. Assuming a standard Kaynean syntax for conjunction:
 
@@ -609,18 +616,16 @@ We'll resurrect this idea when we discuss Elliott's /externally-dynamic dynamic 
 
 * FCS as a theory of composition
 
-We'll switch back to classical FCS now, although the partial variant will be mentioned from time to time. 
+We'll switch back to FCS proper now, although the partial variant will be mentioned from time to time. 
 
 ** The indefinite article
 
 A remarkable property of FCS is that the indefinite article itself can be given a CCP (i.e., be treated as a sentence).
 
-This captures the core semantic contribution of indefiniteness - an indefinite article is a partial identity function on files which tests whether or not a variable is novel.
-
 #+name: ex:ccp-indef
 #+begin_exe
-\ex \(\text{a}^x \Rightarrow \lambda F\,.\,\begin{cases}
-F&\mathbf{nov}_F(x)\\
+\ex \(\text{a}^x \Rightarrow \lambda c\,.\,\begin{cases}
+c&\mathbf{nov}_c(x)\\
 \text{undefined}&\text{else}  
 \end{cases}\)\hfill\(T\)
 #+end_exe
@@ -629,8 +634,8 @@ A natural consequence is a treatment of the restrictor and nuclear scope of a de
 
 #+name: ex:ccp-restrictorscope
 #+begin_exe
-\ex \(t_x\text{ man} \Rightarrow \lambda F: \neg\ \mathbf{nov}_F(x)\,.\,\set{(w,g)|(w,g) \in F \wedge \mathbf{man}_w(g_x)}\)
-\ex \(t_x\text{ sat down} \Rightarrow \lambda F: \neg\ \mathbf{nov}_F(x)\,.\,\set{(w,g)|(w,g) \in F \wedge \mathbf{satDown}_w(g_x)}\)
+\ex \(t_x\text{ man} \Rightarrow \lambda c: \mathbf{fam}_c(x)\,.\,\set{(w,g) \in c| \mathbf{man}_w(g_x)}\)
+\ex \(t_x\text{ sat down} \Rightarrow \lambda c: \mathbf{fam}_c(x)\,.\,\set{(w,g) \in  c|\mathbf{satDown}_w(g_x)}\)
 #+end_exe
 
 By conjecture, dynamic sequencing is generally available as a composition principle. The logical form Heim assumed for a sentences with indefinites in FCS.
@@ -665,8 +670,6 @@ This property is responsible for the validity of /Egli's theorem/ in dynamic the
 
 \[\text{A}^x\text{ man [walked in and sat down]} \iff \text{A}^x\text{ man walked in and he}_x\text{ sat down}\]
 
-We'll talk about Egli's theorem more next week, when we discuss /Dynamic Predicate Logic/ [cite:@GroenendijkStokhof1991].
-
 ** Compositionality
 
 There are many reasons to be dissatisfied with FCS as a theory of subsentential compositionality. 
@@ -677,13 +680,9 @@ Every natural language constituent is treated as either (i) a CCP, or (ii) an op
 - What do predicates mean in FCS?
 - Does dynamic semantics really commit us to specific syntactic transformations? Why?  
   
-As we'll see next week, dynamic predicate logic sidesteps these questions entirely by shifting focus from natural language to a logical language - specifically, a simple first-order calculus.
+ We'll talk more about dynamic approaches to subsentential compositionality next week.
 
-There are some virtues to this approach, as an idealization. It will allow us to focus on the logical properties of a dynamic approach to meaning, as well as the semantic contributions of logical vocabulary.
-
-This doesn't mean however that we shouldn't worry about these questions. We'll talk more about dynamic approaches to subsentential compositionality in week 3.
-
-** Quantification
+** Donkey anaphora and universal quantification
 
 *** Interpreting universal statements
 
@@ -703,37 +702,43 @@ One way of cashing out the meaning of quantificational deteminers in FCS is to a
 \ex every [a\(^x\) cat] [\(t_x\) died]
 #+end_exe
 
-We'll need an auxiliary equivalence relation on assignments.[fn:8]
+We'll need an auxiliary equivalence relation on assignments - we'll say that assignments are /file-equivalent/ iff they agree on all familiar variables.[fn:8][fn:11]
 
 #+begin_definition
-\(F\)-equivalence for assignments.
+file-equivalence for assignments. Given a file context \(c\), file-equivalence for two assignments \(g,g'\) is defined as follows.
 
-\[g \sim_F g' \iff  g_x = g'_x, \forall x \in \set{x | \mathbf{fam}_F(x)}\]
+\[g \sim_c g' \iff  \forall v[\mathbf{fam}_c(v) \rightarrow (g_v = g'_v)]\]
 #+end_definition
 
 We'll use this to ensure that the quantifier ranges over all possible values for *novel* variables. 
 
 Now, the meaning of /every/ (definition taken from [cite:@Heim2017]).
 
-\[\mathbf{every}(p)(q) := \lambda F\,.\,\Set{(w,g)\in F|\begin{aligned}[c]
-&\forall g'[g' \sim_F g \wedge (w,g') \in p(F)\\
-&\rightarrow \exists g''[g'' \sim_{p(F)} g' \wedge (w,g'') \in q(p(F))]]
-\end{aligned}}\]
+#+name: def:universal-fcs
+#+begin_exe
+\ex \(\mathbf{every}(p)(q) := \lambda c\,.\,\Set{(w,g)\in c|\begin{aligned}[c]
+&\forall g'[g' \sim_c g \wedge (w,g') \in p(c)\\
+&\rightarrow \exists g''[g'' \sim_{p(c)} g' \wedge (w,g'') \in q(p(c))]]
+\end{aligned}}\)
+#+end_exe
 
 What's happening here? Let's go through it step-by-step.
 
-- Tentatively update \(F\) with with the restrictor CCP \(p\), returning \(F'\).
-- Tentatively update \(F'\) with the nuclear scope CCP \(q\), returning \(F''\).
-- Now, for each world-assignment pair \((w,g) \in F\), run the following test: 
-  * Take every \(g'\), such that \((w,g')\) in \(F'\), and \(g' \sim_F g\).
-  * Check that there is some \(g''\), s.t. \((w,g'' \in F'')\) and \(g'' \sim_F' g''\).
+- Tentatively update \(c\) with with the restrictor; return \(p(c)\).
+- Tentatively update \(p(c)\) with the nuclear scope; return \(q(p(c))\).
+- Now, for each \((w,g) \in c\), run the following test: 
+  * Take every \(c\)-equivalent \(g'\), such that \((w,g')\) in \(p(c)\).
+  * See if you can find a \(p(c)\)-equivalent \(g''\) in \(p(q(c))\).
 - Only keep those world assignment pairs \((w,g) \in  F\) that pass the test.
   
 *** A concrete example
   
 In order to understand how this works, it's worth going through a concrete example.
 
-Let's consider how "every [a\(^x\) cat] [\(t_x\) died]" updates an initial context \(c_\top\)
+#+name: ex:catsdied
+#+begin_exe
+\ex every [a\(^x\) cat] [\(t_x\) died]
+#+end_exe
 
 Consider the following logical space \(W\), with domain \(a,b\):
 
@@ -741,6 +746,8 @@ Consider the following logical space \(W\), with domain \(a,b\):
 - \(w_a\): \(a\) is a cat and \(b\) is a dog; both died.
 - \(w_b\): \(a,b\) are cats; only \(b\) died.
 - \(w_{ab}\): \(a,b\) are cats, both died.
+
+Updating \(c_\top\) with "every cat died" should eliminate world-assignment pairs involving \(w_\emptyset, w_b\).
   
 Given a stock of variables \(x,y\), the initial state is given by taking the product of \(W\) and the set of possible assignments:
 
@@ -758,29 +765,31 @@ x \to b\\
 y \to b
 \end{aligned}\right]}\] 
 
-\[\begin{aligned}[t]
+#+name: every-step1
+#+begin_exe
+\ex \(\begin{aligned}[t]
 &c_\top[\text{every cat died}]\\
-&= \Set{(w,g)\in F|\begin{aligned}[c]
-&\forall g'[g' \sim_F g \wedge (w,g') \in p(c_\top)\\
-&\rightarrow \exists g''[g'' \sim_{p(F)} g' \wedge (w,g'') \in q(p(c_\top))]]
+&= \Set{(w,g)\in c_\top |\begin{aligned}[c]
+&\forall g'[g' \sim_{c_\top} g \wedge (w,g') \in p(c_\top)\\
+&\rightarrow \exists g''[g'' \sim_{p(c_\top)} g' \wedge (w,g'') \in q(p(c_\top))]]
 \end{aligned}}
 \end{aligned}
-\]
+\)
+#+end_exe
 
 Every variable is novel in \(c_\top\) so this can be simplified as follows:
 
-\[\begin{aligned}[t]
+#+name: every-step2
+#+begin_exe
+\ex \(\begin{aligned}[t]
 &c_\top[\text{every cat died}]\\
-&= \Set{(w,g)\in F|\begin{aligned}[c]
+&= \Set{(w,g)\in c_\top |\begin{aligned}[c]
 &\forall g'[(w,g') \in p(c_\top)\\
-&\rightarrow \exists g''[g'' \sim_{p(F)} g' \wedge (w,g'') \in q(p(c_\top))]]
+&\rightarrow \exists g''[g'' \sim_{p(c_\top)} g' \wedge (w,g'') \in q(p(c_\top))]]
 \end{aligned}}
 \end{aligned}
-\]
-
-Intuitively, we want the update /every cat died/ to retain pairs \((w_a,*),(w_{ab},*)\), and eliminate pairs \((w_\emptyset,*),(w_{b},*)\).
-
-We can sub the results of the tentative updates into the schema for a univerally quantified sentence:
+\)
+#+end_exe
 
 \[\begin{aligned}[t]
 &c_\top[\text{every cat died}]\\
@@ -831,30 +840,248 @@ Falsifying scenario: /99 men own one donkey and don't beat it; one man owns 200 
 
 ** TODO negation and disjunction in FCS
 
-* Conclusion
+** Open questions 
 
 We've gone through the basics of FCS, arguably the first real dynamic semantic proposal.
 
-Several issues arose over the course of the discussion:
+Some questions to keep in mind:
 
 - What makes FCS /dynamic/, as opposed to a more classic semantics that treats sentence meanings as functions from evaluation points to truth-values?
 - Is the additional expressive power afforded by CCPs in the semantics warranted?
 - Is /novelty/ as a file-level notion unavoidable?
 - How does logical vocabulary such as negation and disjunction interact with anaphora? Does FCS have a satisfying story (hint: it does not).
 - Does dynamic semantics inescapably wed us to a non-standard view of subsentential composition?
+
+* DPL  
+
+#+begin_quote
+"The general starting point of the kind of semantics that DPL is
+an instance of, is that the meaning of a sentence does not lie in
+its truth conditions, but rather in the way it changes (the repre-
+sentation of) the information of the interpreter. The utterance
+of a sentence brings us from a certain state of information to
+another one. The meaning of a sentence lies in the way it brings
+about such a transition." [cite:@GroenendijkStokhof1991]
+#+end_quote
+
+** Random assignment
+
+Dynamic Predicate Logic (DPL) provides a dynamic interpretation schema for a simple first-order calculus.
+
+[cite:@GroenendijkStokhof1991] give a relational presentation of DPL - formulas are interpreted relative to an evaluation point (a pair of assignments) and return a boolean value.
+
+Here, I give an isomorphic presentation which emphasizes two key features of the DPL interpretation schema: (i) statefulness, and (ii) non-determinism.
+
+Formulas are interpreted relative to an evaluation point (an assignment) and return a /set of evaluation points/.
+
+#+begin_definition
+DPL semantics for atomic formulas. For any model \(M := (D,I)\)
+
+\[\eval*[g][M]{t} = \begin{cases}
+g_t&t \text{ is a variable}\\
+I(t)&t \text{ is a constant} 
+\end{cases}\]
+
+\[\eval[g][M]{P(t_1,\ldots,t_n)} = \begin{cases}
+\set{g}& \braket{\eval*[g][M]{t_1},\ldots,\eval*[g][M]{t_n}} \in I(P)\\
+\emptyset&\text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+An example:
+
+#+name: ex:dpl1
+#+begin_exe
+\ex \(\eval*[g]{\mathtt{Swim}(x)} = \begin{cases}
+\set{g}&g_x\text{ swims}\\
+\emptyset&\text{otherwise}  
+\end{cases}\)
+#+end_exe
+
+Atomic formulas in general are *tests*, i.e., identity relations on assignments.
+
+Existential quantifiers induce what is known as *random assignment* in the dynamic literature.
+
+#+begin_definition
+DPL semantics for existential quantification.
+
+\[\eval*[g]{\exists x,\phi} = \bigcup\limits_{a \in D}\set{g^{[x \to a]} | \eval*[g^{[x \to a]}]{\phi }}\]
+#+end_definition
+
+An example, where \(D = \set{a,b,c}\):
+
+#+name: ex:dpl2
+#+begin_exe
+\ex \(\eval*[g]{\exists x[\mathtt{Swim}(x)]} = \set{g^{[x \to a]} | a\text{ swims} } \cup \set{g^{[x \to b]} | b\text{ swims} } \cup \set{g^{[x \to c]} | c\text{ swims} }\)
+#+end_exe
+
+Given a single evaluation point \(g\), existential quantification gives rise to a /potentially non-deterministic output/.
+
+#+begin_definition
+Truth in DPL. A formula \(\phi \) is /true/ with respect to an assignment \(g\) iff \(\eval*[g]{\phi } \neq \emptyset\)
+#+end_definition
+
+*** TODO Downdate
+
+#+name: ex:downdate
+#+begin_exe
+\ex \(\exists x[\mathtt{walkedIn}(x)] \wedge \exists x[\mathtt{satDown}(x)]\)
+#+end_exe
+
+** Complex formulas
+
+*** Conjunction in DPL
+
+Conjunction in DPL is intepreted as /relational composition/.
+
+#+begin_definition
+Conjunctive formula in DPL.
+
+\[\eval*[g]{\phi \wedge \psi} = \bigcup\limits_{h \in \eval*[g]{\phi}}\set{ i | i \in \eval*[h]{\psi}}\]
+#+end_definition
+
+This allows the indeterminate output induced by an existential quantifier to be picked up by a matching variable outside of its ordinary scope. Let's again assume that our domain consists of three individuals \(\set{a,b,c}\).
+
+#+name: dpl-conj-ex
+#+begin_exe
+\ex \(\eval*[g]{\exists x[\mathtt{WalkedIn}(x)] \wedge \mathtt{satDown}(x)}\)
+\ex \(= \bigcup\limits_{h \in \eval*[g]{\exists x[\mathtt{walkedIn}(x)]}}\set{i | i \in \eval*[h]{\mathtt{satDown}(x)}}\) 
+\ex \(=\bigcup\limits_{h \in \set{g^{[x \to a]}|a\text{ walked in}}}\set{i | i = h \wedge h_x\text{ sat down} } \)
+\ex \(= \set{g^{[x \to a]}| a\text{ walked in and }a\text{ sat down}}\)
+#+end_exe
+
+Egli's theorem:
+
+#+name: egli
+#+begin_exe
+\ex \(\exists x,\phi \wedge \psi \iff  \exists x[\phi \wedge \psi]\)
+#+end_exe
+
+*** Negation in DPL
+
+Negation in DPL is tests whether the embedded formula is classically false.
+
+#+begin_definition
+Negated formula in DPL.
+
+\[\eval*[g]{\neg\ \phi} = \begin{cases}
+\set{g}&\eval*[g]{\phi} = \emptyset\\
+\emptyset &\text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+Some important facts about negation in DPL:
+
+- Negation is /externally static/.
+- Double-negation elimination isn't valid.
+
+
+*** Disjunction in DPL
+
+#+begin_definition
+Disjunctive formula in DPL.
+
+\[\eval*[g]{\phi \vee \psi} = \begin{cases}
+\set{g}&\eval*[g]{\phi } \cup \eval*[g]{\psi} \neq \emptyset\\
+\emptyset&\text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+An important fact about disjunction in DPL:
+
+- Disjunction is both /externally and internally static/.
+
+*** Material implication in DPL
+
+For conditional formula, we check that the outputs of the antecedent are a subset of the assignments that make the consequent classically true.
+
+#+begin_definition
+Conditional formula in DPL.
+
+\[\eval*[g]{\phi \rightarrow \psi} = \begin{cases}
+\set{g}&\eval*[g]{\phi} \subseteq \set{h | \eval*[h]{\psi} \neq \emptyset}\\
+\emptyset &\text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+An important fact about implication in DPL:
+
+- Implication is externally static, but internally dynamic.
   
-Many of these questions will become more acute next week, as we discuss /Dynamic Predicate Logic/ [cite:@GroenendijkStokhof1991], which eschews a treatment of natural language, in favor of providing a dynamic interpretation for a simple predicate calculus.
+*** Universal quantification
 
-This will help us to get to the heart of the dynamic treatment of anaphora, better understand its treatment of logical vocabulary, and the logical properties of the system as a whole.
+#+begin_definition
+Universally quantified formula in DPL.
 
-* Acknowledgements
+\[\eval*[g]{\forall x,\phi } = \begin{cases}
+\set{g}&\set{g^{[x \to a]}| a \in D} \subseteq \set{h | \eval*[h]{\phi} \neq \emptyset }\\
+\emptyset &\text{otherwise} 
+\end{cases}\]
+#+end_definition
 
-Aside from the cited sources, I owe a particular debt to Yasu Sudo, who first taught me file change semantics on the whiteboard of his office at UCL. Other unpublished resources I've found useful:
+** TODO The relationship between DPL and FCS
 
-- Chris Barker's class on FCS from his [[https://github.com/cb125/Dynamics][NYU dynamic semantics seminar]] in 2021.
-- Irene Heim's handouts from the 2017 installment of Topics in Semantics, MIT.
-- Matt Mandelkern and Daniel Rothschild's [[http://danielrothschild.com/esslli2017/][ESSLLI course notes]] on dynamic semantics.
-- Seth Yalcin's 2013 [[https://www.dropbox.com/s/4id64r39kj4c0q2/Yalcin%202013%20dynamic%20notes.pdf][introductory notes on dynamic semantics]].
+Recall, if we switch to a partial setting, we can check novelty/familiarity at individual evaluation points.
+
+#+begin_definition
+Novelty and familiarity with respect to an assignment \(g\).
+
+\[\mathbf{nov}_g(x) \iff x \notin \mathbf{dom}(g)\]
+
+\[\mathbf{fam}_g(x) \iff  x \in \mathbf{dom}(g)\]
+#+end_definition
+
+We can extend the DPL notion of a sentential meaning to a setting that incorporates worldly information as follows:
+
+#+name: hybrid1
+#+begin_exe
+\ex \(\eval[w,g]{it's raining} = \begin{cases}
+\set{g}&\mathbf{satDown}_w(g_x)\\
+\emptyset&\text{otherwise} 
+\end{cases}\)
+#+end_exe
+
+Information states in partial pointwise FCS:
+
+#+begin_definition
+Information states in partial pointwise FCS. An information state is a set of pairs \((w,g)\), where \(w\) is a possible world, and \(g\) is a partial assignment. The initial information state is \(W \times g_\emptyset  \).
+#+end_definition
+
+#+begin_definition
+Bridge principle in partial pointwise FCS.
+
+\[c[\phi] = \begin{cases}
+\bigcup\limits_{(w,g) \in c}\set{(w,g')| g' \in \eval*[w,g]{\phi}}&\forall(w,g) \in c[\phi \in \mathbf{dom}(\eval*[w,g]{.})]\\
+\text{undefined}&\text{otherwise}  
+\end{cases}\]
+#+end_definition
+
+We keep the DPL semantics for existentials (already implicit in our presentation of partial DPL), but incorporate a novelty check in order to avoid the downdate problem (see also [cite:@Dekker1996]).
+
+#+name: hybrid2
+#+begin_exe
+\ex \(\eval*[w,g]{\text{someone}^x\text{ walked in}} = \begin{cases}
+\bigcup\limits_{a \in D}\set{g^{[x \to a]}|\mathbf{walkedIn}_w(a) } & \mathbf{nov}_g(x)\\
+\text{undefined}&\text{otherwise}  
+\end{cases}\)
+#+end_exe
+
+Sentences with definites are tests:
+
+#+name: hybrid3
+#+begin_exe
+\ex \(\eval*[w,g]{\text{she}_x\text{ sat down}} = \begin{cases}
+\set{g}&\mathbf{fam}_g(x) \wedge \mathbf{satDown}_w(g_x)\\
+\emptyset &\mathbf{fam}_g(x) \wedge  \neg\ \mathbf{satDown}_w(g_x)\\
+\text{undefined}&\text{otherwise}  
+\end{cases}\)
+#+end_exe
+
+* TODO check if the partial pointwise presentation is correct, especially for the bridge principle
+
+* Conclusion
+
+By taking inspiration from DPL, we've managed to eliminate some of the more egregious features of FCS while retaining its core advantages.
 
 * References
 
@@ -863,6 +1090,7 @@ Aside from the cited sources, I owe a particular debt to Yasu Sudo, who first ta
 * File local variables                                             :noexport:
 
 * Footnotes
+[fn:11] Note that, in a partial setting, two assignments are file-equivalent simply if they are extensionally equivalent functions (since novel variables aren't in the domain). 
 
 [fn:10] In her dissertation, Heim addresses this issue by giving files an additional domain parameter [cite:@Heim1982].  
 [fn:9] See [cite:@Chierchia1995] for a detailed comparison. 
