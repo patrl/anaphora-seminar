@@ -1,4 +1,4 @@
-# Created 2022-01-27 Thu 18:03
+# Created 2022-02-14 Mon 09:49
 #+options: toc:nil
 #+title: MIT topics in semantics seminar (spring 2022)
 #+author: Patrick D. Elliott
@@ -11,7 +11,7 @@
 #+caption: Zen garden of the Ryoanji Temple, Kyoto, Japan 1951 (Werner Bischof)
 [[file:./bischof.jpg]]
 
-Last updated: "[2022-01-27 Thu 18:03]" 
+Last updated: "[2022-02-14 Mon 09:48]" 
 
 * Course description
 
@@ -26,7 +26,7 @@ each individual, record whatever is said about it. Of course, for the time being
 provides us with some insight into natural language in general." ([[citeproc_bib_item_21][Karttunen 1976]])
 #+end_quote
 
-The notion of a /discourse referent/ emerged from the work of Lauri Karttunen and David Lewis ([[citeproc_bib_item_21][Karttunen 1976]]; [[citeproc_bib_item_28][Lewis 1979]]), during a time of general optimism concerning connections between linguistic theory and artificial intelligence research. The central idea is that discourse participants introduce and manipulate /variables/ corresponding to individuals mentioned over the course of a conversation. This powerful idea subsequently informed dynamic approaches to meaning, which essentially model anaphora as a powerful cross-referencing device ([[citeproc_bib_item_18][Heim 1982]]; [[citeproc_bib_item_17][Groenendijk and Stokhof 1991]]). Frank Veltman crystalizes the 'slogan' of dynamic approaches to meaning as follows: "You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" ([[citeproc_bib_item_40][Veltman 1996]]). Irene Heim's foundational work on /file change semantics/ in the 80s lead to an explosion of insightful research applying this central idea to an impressive variety of empirical domains. At the same time, dynamic semantics incorporates powerful proprietary mechanisms for manipulating /contexts/ in an apparently arbitrary fashion, and even precompiles these mechanisms into the meanings of logical vocabulary such as "or". In this seminar we'll track developments in dynamic approaches to anaphora, starting from classical theories of (singular) pronouns and their indefinite antecedents, and eventually progressing to intricate theories of modality, plurality, and quantification. In parallel, we'll consider what exactly dynamic semantics commits us to, both as a theory of /content/, and as a theory of how semantic composition proceeds. A central goal will be a re-assessment of Veltman's slogan, in light of recent work that fine-tunes the division of labor between dynamic semantics and pragmatics ([[citeproc_bib_item_11][Elliott 2020b]]; [[citeproc_bib_item_29][Mandelkern 2020]]).  
+The notion of a /discourse referent/ emerged from the work of Lauri Karttunen and David Lewis ([[citeproc_bib_item_21][Karttunen 1976]]; [[citeproc_bib_item_28][Lewis 1979]]), during a time of general optimism concerning connections between linguistic theory and artificial intelligence research. The central idea is that discourse participants introduce and manipulate /variables/ corresponding to individuals mentioned over the course of a conversation. This powerful idea subsequently informed dynamic approaches to meaning, which essentially model anaphora as a kind of cross-referencing device ([[citeproc_bib_item_18][Heim 1982]]; [[citeproc_bib_item_17][Groenendijk and Stokhof 1991]]). Frank Veltman crystalizes the 'slogan' of dynamic approaches to meaning as follows: "You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" ([[citeproc_bib_item_40][Veltman 1996]]). Irene Heim's foundational work on /file change semantics/ in the 80s lead to an explosion of insightful research applying this central idea to an impressive variety of empirical domains. At the same time, dynamic semantics incorporates powerful proprietary mechanisms for manipulating /contexts/ in an apparently arbitrary fashion, and even precompiles these mechanisms into the meanings of logical vocabulary such as "or". In this seminar we'll track developments in dynamic approaches to anaphora, starting from classical theories of (singular) pronouns and their indefinite antecedents, and eventually progressing to intricate theories of modality, plurality, and quantification. In parallel, we'll consider what exactly dynamic semantics commits us to, both as a theory of /content/, and as a theory of how semantic composition proceeds. A central goal will be a re-assessment of Veltman's slogan, in light of recent work that fine-tunes the division of labor between dynamic semantics and pragmatics ([[citeproc_bib_item_11][Elliott 2020b]]; [[citeproc_bib_item_29][Mandelkern 2020]]).  
 
 One of the themes of the seminar will be linguistic motivations for a /rich/ notion of contexts, which goes beyond a "flat" model of information ([[citeproc_bib_item_39][Stalnaker 1976]]) and incorporates a notion of /aboutness/. Mid-way through the semester, we'll take a break from anaphora and consider a set of empirical phenomena which motivate a different kind of enrichment. Thanks to Amir Anvari for providing the following summary: 
 
@@ -63,6 +63,7 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 * Topics
 
 ** Week 1: File change semantics
+[[file:./handout1.pdf][Handout]].
 
 *** Recommended readings
 
@@ -76,6 +77,7 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 - ([[citeproc_bib_item_36][Rothschild and Yalcin 2016]])
 
 ** Week 2: Dynamic predicate logic
+[[file:./handout2.pdf][Handout]].
 
 *** Recommended readings
 
@@ -84,13 +86,14 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 
 *** Optional readings
 
-- ([[citeproc_bib_item_7][Dekker 1994]])
+- ([[citeproc_bib_item_7][Dekker 1996]])
 
 ** Week 3: Subsentential dynamics
+[[file:./handout3.pdf][Handout]].
 
 *** Recommended readings
 
-- ([[citeproc_bib_item_4][Charlow 2019]])
+- ([[citeproc_bib_item_4][Charlow 2020]])
 - Part I of ([[citeproc_bib_item_3][Charlow 2014]])
 
 *** Optional readings
@@ -173,13 +176,13 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 
 <<citeproc_bib_item_3>>Charlow, Simon. 2014. “On the Semantics of Exceptional Scope.” PhD thesis, New Brunswick: Rutgers University.
 
-<<citeproc_bib_item_4>>———. 2019. “Static and Dynamic Exceptional Scope.” lingbuzz/004650.
+<<citeproc_bib_item_4>>———. 2020. “Static and Dynamic Exceptional Scope.” Unpublished manuscript. Accepted at journal of semantics: Unpublished manuscript.
 
 <<citeproc_bib_item_5>>Chierchia, Gennaro. 1995. /Dynamics of Meaning - Anaphora, Presupposition, and the Theory of Grammar/. Chicago: University of Chicago Press.
 
 <<citeproc_bib_item_6>>———. 2020. “Origins of Weak Crossover - When Dynamic Semantics Meets Event Semantics.” /Natural Language Semantics/, no. 28: 23–76.
 
-<<citeproc_bib_item_7>>Dekker, Paul. 1994. “Predicate Logic with Anaphora.” /Semantics and Linguistic Theory/ 4 (November): 79–95. https://doi.org/10.3765/salt.v4i0.2459.
+<<citeproc_bib_item_7>>Dekker, Paul. 1996. “The Values of Variables in Dynamic Semantics.” /Linguistics and Philosophy/ 19 (3): 211–57. https://www.jstor.org/stable/25001626.
 
 <<citeproc_bib_item_8>>Dotlacil, Jakub, and Floris Roelofsen. 2021. “A Dynamic Semantics of Single-Wh and Multiple-Wh Questions.” /Semantics and Linguistic Theory/ 30 (0, 0): 376–95. https://doi.org/10.3765/salt.v30i0.4839.
 
