@@ -13,9 +13,11 @@
 
 - *Obligatory reading*: My manuscript "Towards a principled logic of anaphora" [cite:@Elliott2020g].
 - Optional readings:
-  + Matt Mandelkern's recent L&P paper on pseudo-dynamics [cite:@Mandelkern2020a].
+  + Matt Mandelkern's extremely recent L&P paper on pseudo-dynamics [cite:@Mandelkern2022].
   + Matthew Gotham's recent AC paper on negation and disjunction in DPL [cite:@Gotham2019].
   + Daniel Rothschild's recent AC paper on trivalence and dynamic semantics [cite:@Rothschild2017].
+    
+** TODO Today's goals
 
 * Recap: DPL basics
 
@@ -90,7 +92,7 @@ Double negation in DPL.
 \end{cases}\]
 #+end_definition
 
-Corrolary: double negation elimination isn't valid.
+Corollary: double negation elimination isn't valid.
 
 Material implication in DPL accounts for donkey anaphora. A different (but equivalent) presentation from last time's. Note that this relies on a classical equivalence.
 
@@ -116,7 +118,7 @@ Disjunction in DPL.
 Some facts we can read off this definition:
 
 - A disjunctive formula is a test (i.e., externally static; from the semantics of negation).
-- Each disjunct is a test, so disjunctions are interally dynamic, despite being stated in terms of conjunction.
+- Each disjunct is a test, so disjunctions are internally dynamic, despite being stated in terms of conjunction.
   
 Finally, universal quantification in DPL:
 
@@ -168,12 +170,12 @@ c&\set{g^{[x \to f, y \to d]}|f\text{ is a farmer who owns donkey }d\text{ and }
 Note: the conditional statement is falsified as soon as we can find a farmer-donkey pair \(a,b\) such that \(a\) owns \(b\) and \(a\) didn't feed \(b\).
 
 #+begin_fact
-Egli's corrolary in DPL.
+Egli's corollary in DPL.
 
 \[\exists x,\phi \rightarrow \psi \iff \forall x[\phi \rightarrow \psi]\]
 #+end_fact
 
-Via Egli's corrolary:
+Via Egli's corollary:
 
 #+name: corrol
 #+begin_exe
@@ -196,7 +198,7 @@ Context: /we're discussing how dinner attendees paid for their meal/.
 \ex If an\(^x\) attendee had a\(^y\) credit card, they\(_x\) paid with it\(_y\).
 #+end_exe
 
-Truth conditions predicted by DPL, via Egli's corrolary:
+Truth conditions predicted by DPL, via Egli's corollary:
 
 #+name: ex:dinner2
 #+begin_exe
@@ -253,7 +255,7 @@ DPL negation is externally static.
 
 Recall, double negation is a test for classical truth, therefore double negation also closes off anaphoric information introduced by the embedded formula.
 
-This doens't seem quite right, as Groenendijk and Stokhof themselves observe [cite:@GroenendijkStokhof1991].[fn:2]
+This doesn't seem quite right, as Groenendijk and Stokhof themselves observe [cite:@GroenendijkStokhof1991].[fn:2]
 
 #+name: ex:double-neg
 #+begin_exe
@@ -274,7 +276,7 @@ Simon Charlow (p.c.) points out that uniqueness doesn't seem like quite the righ
 \ex John doesn't own *NO shirt*. *They*'re in his closet!
 #+end_exe
 
-However, i'm not sure there is a strong contrast with the positive counterpart, so this may be an independent factor:
+However, I'm not sure there is a strong contrast with the positive counterpart, so this may be an independent factor:
 
 #+name: ex:max
 #+begin_exe
@@ -296,7 +298,6 @@ Relatedly, recall that DPL disjunction is both externally static /and/ internall
 \ex Either a\(^x\) philosopher is here, or the party is dull; ?They\(_x\) are causing a scene.
 #+end_exe
 
-
 There are challenges to both halves of this generalization. Let's start with the challenge to internal staticity, since it relates to the discussion of double negation.
 
 #+name: bathroom1
@@ -314,7 +315,7 @@ Intuitively, this relates to the interaction between disjunction and presupposit
 
 On the dynamic approach to presupposition projection (satisfaction theory), we account for this by interpreting the second disjunct in the local context of the first. 
 
-Intuitively, we'd like to be able to give the same account to ([[bathroom1]]), but we can't due to the behaviour of negation in DPL!
+Intuitively, we'd like to be able to give the same account to ([[bathroom1]]), but we can't due to the behavior of negation in DPL!
 
 Krahmer and Muskens make similar claims regarding uniqueness inferences for ([[bathroom1]]), although Matt Mandelkern observed that this can't be generally true (cited p.c. in [cite:@Gotham2019]):
 
@@ -385,12 +386,90 @@ c&\set{g | \exists a,b[a\text{ is a farmer who owns a donkey }b ]\wedge g_f\text
 
 This be false just in case there is a farmer who owns a donkey, and whatever value \(g\) furnishes for \(f\) doesn't feed the value furnished for \(d\) (and false otherwise).
 
+* The relationship between DPL and FCS
 
-* TODO The relationship between DPL and FCS
+See especially [cite:@Dekker1996] for a detailed comparison between DPL and FCS. 
 
-* TODO Definite descriptions: uniqueness and sub-contexts
+** Background: Partial FCS
 
-* TODO Arguments for CCPs
+Recall, if we switch to a partial setting, we can check novelty/familiarity at individual evaluation points.
+
+#+begin_definition
+Novelty and familiarity with respect to an assignment \(g\).
+
+\[\mathbf{nov}_g(x) \iff x \notin \mathbf{dom}(g)\]
+
+\[\mathbf{fam}_g(x) \iff  x \in \mathbf{dom}(g)\]
+#+end_definition
+
+We speculated that this might allow us to make FCS distributive, but we ran into a stumbling block when considering the meanings of logical operators.
+
+Let's address this by showing how to incorporate the insights of DPL into FCS (we'll call the resulting system /pointwise FCS/).
+
+As a necessary first step, we need to treat evaluation points as /world-assignment pairs/, rather than assignments, in order for DPL to realistically model natural language meanings.
+
+#+name: hybrid1
+#+begin_exe
+\ex \(\eval[w,g]{it's raining} = \begin{cases}
+\set{g}&\mathbf{satDown}_w(g_x)\\
+\emptyset&\text{otherwise} 
+\end{cases}\)
+#+end_exe
+
+Information states in pointwise FCS:
+
+#+begin_definition
+*Information states in pointwise FCS*. An information state is a set of pairs \((w,g)\), where \(w\) is a possible world, and \(g\) is a partial assignment. The initial information state is \(W \times g_\emptyset  \).
+#+end_definition
+
+#+begin_definition
+Bridge principle in pointwise FCS.
+
+\[c[\phi] = \begin{cases}
+\bigcup\limits_{(w,g) \in c}\set{(w,g')| g' \in \eval*[w,g]{\phi}}&\forall(w,g) \in c[\phi \in \mathbf{dom}(\eval*[w,g]{.})]\\
+\text{undefined}&\text{otherwise}  
+\end{cases}\]
+#+end_definition
+
+We keep the DPL semantics for existentials (already implicit in our presentation of partial DPL), but incorporate a novelty check in order to avoid the downdate problem (see also [cite:@Dekker1996]).
+
+#+name: hybrid2
+#+begin_exe
+\ex \(\eval*[w,g]{\text{someone}^x\text{ walked in}} = \begin{cases}
+\bigcup\limits_{a \in D}\set{g^{[x \to a]}|\mathbf{walkedIn}_w(a) } & \mathbf{nov}_g(x)\\
+\text{undefined}&\text{otherwise}  
+\end{cases}\)
+#+end_exe
+
+Sentences with definites are tests:
+
+#+name: hybrid3
+#+begin_exe
+\ex \(\eval*[w,g]{\text{she}_x\text{ sat down}} = \begin{cases}
+\set{g}&\mathbf{fam}_g(x) \wedge \mathbf{satDown}_w(g_x)\\
+\emptyset &\mathbf{fam}_g(x) \wedge  \neg\ \mathbf{satDown}_w(g_x)\\
+\text{undefined}&\text{otherwise}  
+\end{cases}\)
+#+end_exe
+
+The semantics of logical operators can be taken wholesale from DPL, e.g.:
+
+#+name: conj-partial
+#+begin_exe
+\ex \(\eval*[w,g]{\phi\text{ and }\psi} = \bigcup\limits_{h \in \eval*[w,g]{\phi}}\set{ i | i \in \eval*[w,h]{\psi}}\)
+#+end_exe
+
+The contribution of /and/ is classical with respect to worldly information.
+
+Intuitively, switching to partial pointwise DPL takes a classical setting, and replaces falsity with an empty output set, and gives many different ways of being true.
+
+Note that the way that novelty/familiarity interact with the logical operators looks suspiciously like presupposition projection. This is something the current system doesn't capture (see [cite:@Rothschild2017], also next week).
+
+* Arguments for CCPs
+
+Hopefully we've managed to address a naive version of the idea that basic dynamic semantics commits us to wholesale CCPs.
+
+Adopting the insights of DPL reduces the expressive power of the system (although not in a way that is completely satisfactory).
 
 I only know of two arguments for CCPs in the literature.
 
@@ -412,6 +491,78 @@ On the anaphoric side, Charlow argues that cumulative readings of modified numer
 Charlow presents his update-theoretic analysis as an alternative to Brasoveanu's /post-suppositional/ account [cite:@Brasoveanu2013].
 
 We'll discuss modified numerals, and related concepts (plurality!, quantification!) in several weeks time, as we introduce second-generation dynamic theories.
+
+* Bonus round: definite descriptions, uniqueness, and sub-contexts
+
+One potential reason to retain CCPs is that it might allow us to have a better account of definite descriptions.[fn:4]
+
+As we've discussed, definite descriptions act just like (restricted) variables when they have an indefinite antecedent, as the familiarity theory predicts. In the absence of an indefinite antecedent however, they give rise to a uniqueness inference. See [cite:@MandelkernRothschild2020] for a detailed assessment of the empirical landscape.
+
+#+name: ex:definite
+#+begin_exe
+\ex A\(^x\) woman walked in; The\(_x\) woman sat down with another woman.
+#+end_exe
+
+#+name: date
+#+begin_exe
+\ex John went on a date; he liked the\(_x\) woman, so he planned to see her\(_x\) again.
+#+end_exe
+
+#+name: date2
+#+begin_exe
+\ex John went on dates with a few different women; ??he liked the\(_x\) woman, so he planned to see her\(_x\) again.
+#+end_exe
+
+A tentative suggestion: in a setting with CCPs, we can minimally refactor the semantics of indefinites such that they create /sub-contexts/; definite descriptions require uniqueness, but when uniqueness is assessed relative to a sub-context, the requirement dissipates. 
+
+We'll ignore worldly information for convenience. In sub-contextual FCS, Sentential meanings are /functions from sets of assignments to sets of sets of assignments/.
+
+Sentences with indefinites create singleton sub-contexts for different valuations of a given variable.
+
+#+name: hybrid-indef
+#+begin_exe
+\ex \(c[\text{Some}^v\text{ man walked in}] =\set{\set{g^{[v \to x]}}|g \in c \wedge \mathbf{manWhoWalkedIn}(x)}\)
+#+end_exe
+
+Since the output is a set of sets of assignments, we need a bridge principle.
+
+#+begin_definition
+Bridge principle in sub-contextual FCS. An assertion of \(\phi \) in context \(c\) is interpreted as follows:
+
+\[\bigcup c[\phi]\]
+#+end_definition
+
+Definite descriptions have a complex meaning. They impose both /familiarity/ and /uniqueness/. 
+
+- Familiarity: "The\(_v\) man" requires that every assignment in the input context furnishes \(v\) with a /man/ value.
+- Uniqueness: "The\(_v\) man" requires that the value of \(v\) is /determinate/ in the input context. 
+
+#+name: hybrid-def
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&c[\text{the}_v\text{ man sat down}]\\
+&= \begin{cases}
+\set{\set{g} | g \in c \wedge \mathbf{satDown}(g_v)}&\forall g \in c[\mathbf{man}(g_v)] \wedge \neg\exists g,g'[g_v \neq g'_v]\\
+\text{undefined}&\text{otherwise}  
+\end{cases}
+\end{aligned}
+\)
+#+end_exe
+
+If the input context \(c = \set{[v \to m_1],[v \to m_2]}\), where \(m_1, m_2\) are men, update with a definite will be undefined, since the value of \(v\) is indeterminate.
+
+Conjunction however threads the singleton sub-contexts in as the input to the sentence with the definite (note that this is essentially just the DPL semantics for conjunction, typed differently).
+
+#+begin_definition
+Conjunction in sub-contextual FCS.
+
+\[c[p\text{ and } q] = \bigcup\limits_{c' \in c[p]}c'[q]\]
+#+end_definition
+
+This is highly speculative, and something we may revisit in a future class.
+
+Still to-do: Something needs to be said about accommodation. We need an injunction against accommodating an arbitrary discourse referent.
+
 
 * Charlow's monadic grammar  
 
@@ -526,21 +677,10 @@ Alternatively, we can adopt an in-situ interface via \(\ast\):
 ** Dynamic binding with static conjunction
 
 
-* TODO DPL shows that the idea that dynamic semantics has to be cashed out as an update semantics is misguided; part of the dynamic slogan quashed
-
-* TODO show what happens if we lift the classical connectives without trivalence
-
-* TODO show how to get dynamic binding with classical conjunction
-
-* TODO show how alternative classical equivalences won't work for disjunction/conditionals
-
-* TODO fix references for my and Matt's papers
-
-* TODO discuss uniqueness projection and sub-contexts
-
 * File local variables                                             :noexport:
 
 * Footnotes
+[fn:4] The logic here is very much inspired by [cite:@Charlow2016]. 
 
 [fn:3] One of my primary goals next week will be to sketch an approach to the logic of anaphoric information that is more classical, thereby skirting these issues.
  
