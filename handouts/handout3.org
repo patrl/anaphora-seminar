@@ -1,0 +1,562 @@
+#+title: Decomposing context change
+#+author: Patrick D. Elliott 
+#+bibliography: ../../bibliography/master.bib
+#+setupfile: handout-template.org
+#+OPTIONS: ':t
+#+cite_export: biblatex
+
+* Introduction
+
+** Next week
+
+*Topic*: An alternative perspective on the logic of anaphora and information flow - /Externally Dynamic Dynamic Semantics/.
+
+- *Obligatory reading*: My manuscript "Towards a principled logic of anaphora" [cite:@Elliott2020g].
+- Optional readings:
+  + Matt Mandelkern's recent L&P paper on pseudo-dynamics [cite:@Mandelkern2020a].
+  + Matthew Gotham's recent AC paper on negation and disjunction in DPL [cite:@Gotham2019].
+  + Daniel Rothschild's recent AC paper on trivalence and dynamic semantics [cite:@Rothschild2017].
+
+* Recap: DPL basics
+
+In DPL, sentential meanings are functions from evaluation points (assignments) to sets of evaluation points.
+
+This is use to capture two key features of information flow in dynamic semantics:
+
+- Statefulness.
+- Non-determinism.
+
+Atomic formulas are /tests/.
+
+#+begin_definition
+DPL semantics for atomic formulas. For any model \(M := (D,I)\)
+
+\[\eval*[g][M]{t} = \begin{cases}
+g_t&t \text{ is a variable}\\
+I(t)&t \text{ is a constant} 
+\end{cases}\]
+
+\[\eval[g][M]{P(t_1,\ldots,t_n)} = \begin{cases}
+\set{g}& \braket{\eval*[g][M]{t_1},\ldots,\eval*[g][M]{t_n}} \in I(P)\\
+\emptyset&\text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+Existential quantifiers induce /random assignment/:
+
+#+begin_definition
+DPL semantics for existential quantification.
+
+\[\eval*[g]{\exists x,\phi} = \bigcup\limits_{a \in D}\set{g^{[x \to a]} | \eval*[g^{[x \to a]}]{\phi }}\]
+#+end_definition
+
+#+begin_definition
+Truth in DPL. A formula \(\phi \) is true with respect to an assignment \(g\) iff \(\eval*[g]{\phi } \neq \emptyset\)
+#+end_definition
+
+Conjunction in DPL is /relational composition/; outputs of the first conjunct are fed pointwise into the second conjunct; the resulting outputs are gathered up.
+
+#+begin_definition
+Conjunctive formula in DPL.
+
+\[\eval*[g]{\phi \wedge \psi} = \bigcup\limits_{h \in \eval*[g]{\phi}}\set{ i | i \in \eval*[h]{\psi}}\]
+#+end_definition
+
+#+begin_fact
+Egli's theorem in DPL.
+
+\[\exists x,\phi \wedge \psi \iff \exists x[\phi \wedge \psi]\]
+#+end_fact
+
+Negation in DPL is tests whether the embedded formula is classically false.
+
+#+begin_definition
+Negated formula in DPL.
+
+\[\eval*[g]{\neg\ \phi} = \begin{cases}
+\set{g}&\eval*[g]{\phi} = \emptyset\\
+\emptyset &\text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+Double negation is therefore a test for classical truth:
+
+#+begin_definition
+Double negation in DPL.
+
+\[\eval*[g]{\neg\ \neg\ \phi } = \begin{cases}
+\set{g}&\eval*[g]{\phi } \neq \emptyset\\
+\emptyset &\text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+Corrolary: double negation elimination isn't valid.
+
+Material implication in DPL accounts for donkey anaphora. A different (but equivalent) presentation from last time's. Note that this relies on a classical equivalence.
+
+#+begin_definition
+Material implication in DPL.
+
+\[\phi \rightarrow \psi \iff \neg\ (\phi \wedge \neg\ \psi)\]
+#+end_definition
+
+Some facts can read off this definition:
+
+- A implicational formula is a test (i.e., externally static; from the semantics of negation).
+- The consequent is sensitive to anaphoric information introduced by the antecedent (from the semantics of conjunction).
+
+Disjunction in DPL: again, unlike last time, we'll demonstrate this based on a classical equivalence:
+
+#+begin_definition
+Disjunction in DPL.
+
+\[\phi \vee \psi \iff \neg\ (\neg\ \phi \wedge \neg\ \psi)\]
+#+end_definition
+
+Some facts we can read off this definition:
+
+- A disjunctive formula is a test (i.e., externally static; from the semantics of negation).
+- Each disjunct is a test, so disjunctions are interally dynamic, despite being stated in terms of conjunction.
+  
+Finally, universal quantification in DPL:
+
+#+begin_definition
+Universal quantification in DPL.
+
+\[\forall x,\phi \iff \neg\ \exists\ \neg\ \phi \]
+#+end_definition
+  
+* Donkey anaphora in DPL
+
+#+name: ex:donkey1
+#+begin_exe
+\ex If a farmer owns a donkey, he feeds it. 
+\ex \((\exists x[\exists y[\mathbf{farmer}(x) \wedge \mathbf{donkey}(y) \wedge \mathbf{owns}(x,y)]]) \rightarrow \mathbf{feeds}(x,y)\)
+#+end_exe
+
+First, let's rewrite the provided logical form using our definition for material implication.
+
+#+name: ex:donkey2
+#+begin_exe
+\ex \(\neg\ (\exists x[\exists y[\mathbf{farmer}(x) \wedge \mathbf{donkey}(y) \wedge  \mathbf{owns}(x,y)]] \wedge \neg\ \mathbf{feeds}(x,y))\)
+#+end_exe
+
+Now, let's compute the semantic value of each conjunct with respect to an arbitrary assignment \(g\).
+
+#+name: ex:donkey-conj1
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&\eval*[g]{\exists x,y[\mathbf{farmer}(x) \wedge \mathbf{donkey}(y) \wedge \mathbf{owns}(x,y)]}\\
+&= \set{g^{[x \to f,y \to d]}|f\text{ is a farmer who owns donkey}d}
+\end{aligned}\)
+\ex \[\eval*[g]{\neg\ \mathbf{feeds}(x,y)} = \begin{cases}
+\set{g}&g_x\text{ doesn't feed }g_y\\  
+\emptyset&\text{otherwise} 
+\end{cases}\]
+#+end_exe
+
+Now we can compute the semantic value of the entire conditional statement.
+
+#+name: ex:donkey-final
+#+begin_exe
+\ex \(\eval*[g]{.} = \begin{cases}
+c&\set{g^{[x \to f, y \to d]}|f\text{ is a farmer who owns donkey }d\text{ and }f\text{ didn't feed }d} = \emptyset\\
+\emptyset & \text{otherwise} 
+\end{cases}\) 
+#+end_exe
+
+Note: the conditional statement is falsified as soon as we can find a farmer-donkey pair \(a,b\) such that \(a\) owns \(b\) and \(a\) didn't feed \(b\).
+
+#+begin_fact
+Egli's corrolary in DPL.
+
+\[\exists x,\phi \rightarrow \psi \iff \forall x[\phi \rightarrow \psi]\]
+#+end_fact
+
+Via Egli's corrolary:
+
+#+name: corrol
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&(\exists x[\exists y[\mathbf{farmer}(x) \wedge \mathbf{donkey}(y) \wedge \mathbf{owns}(x,y)]]) \rightarrow \mathbf{feeds}(x,y)\\
+&\iff \forall x,\forall y[(\mathbf{farmer}(x) \wedge \mathbf{donkey}(y) \wedge \mathbf{owns}(x,y)) \rightarrow \mathbf{feeds}(x,y)]
+\end{aligned}\)
+#+end_exe
+
+In this way we derive universal readings for donkey sentences.
+
+** Challenges
+
+The readings DPL predicts for donkey anaphora are often too strong (exactly the same problem arises in FCS) [cite:@Chierchia1995;@Kanazawa1994;@ChampollionEtAl2019].
+
+Context: /we're discussing how dinner attendees paid for their meal/.
+
+#+name: ex:dinner
+#+begin_exe
+\ex If an\(^x\) attendee had a\(^y\) credit card, they\(_x\) paid with it\(_y\).
+#+end_exe
+
+Truth conditions predicted by DPL, via Egli's corrolary:
+
+#+name: ex:dinner2
+#+begin_exe
+\ex \(\forall x,\forall y[(\mathbf{attendee}(x) \wedge \mathbf{card}(y) \wedge \mathbf{had}(x,y)) \rightarrow \mathbf{paidWith}(x,y)]\)
+#+end_exe
+
+Intuitively, ([[ex:dinner]]) can be true in the provided context, if, e.g., Alex has a chase sapphire and an apple card, and Justin just has an apple card - Alex paid with the sapphire, and Justin paid with apple card. 
+
+In other words, the sentence can be true, even if we can find an attendee-card pair, such that the attendee didn't pay with that particular card.
+
+The truth-conditions in ([[ex:dinner2]]) however, require that every attendee paid with every credit card that they had with them! 
+
+In other words, then, sometimes we want to be able to generate /weak readings/ for donkey anaphora, depending on the context; something along the lines of: every attendee \(a\) is such that either (i) \(a\) has a credit card \(c\) and paid with \(c\), or (ii) \(a\) has no credit card.
+
+Kanazawa discusses in detail how the availability of weak/strong readings isn't totally free, but seems to be affected by monotonicity properties.
+
+#+name: ex:no-farmer
+#+begin_exe
+\ex I doubt that [if anyone has a donkey, they (ever) feed it].
+#+end_exe
+
+Here, the weak reading is much more plausible: /it's considered false that anyone with at least one donkey feeds any of their donkeys/. The strong reading would predict that: /it's considered false that anyone with at least one donkey feeds *all* of their donkeys/.
+
+Next week, we'll develop an alternative logical perspective on anaphora which derives weak existential readings by default. 
+
+I'll tentatively suggest that we might want to try to derive strong readings via independently motivated pragmatic strengthening mechanisms [cite:@Bar-Lev2018;@Bar-LevFox2017].
+
+Although we won't discuss the dynamic treatment of generalized quantifiers until after the break, we quickly run into some hairy issues when we stray beyond first-order quantification.
+
+Consider the following example, adapted from Kanazawa:
+
+#+name: ex:card
+#+begin_exe
+\ex At least two farmers who own a donkey fed it.
+#+end_exe
+
+We might imagine a semantics for ([[ex:card]]) which assigns it the following truth-conditions: there are at least two pairs \((x,y)\), s.t., \(x\) is a farmer who owns \(y\) and \(x\) fed \(y\) (in the spirit of FCS and DPL treatments of donkey anaphora). 
+
+This is then predicted to be true if there are two farmers, Brian and Sally - Brian has just one donkeys, but Sally has two - Sally beats both of her donkeys, and Brian doesn't beat his at all. But, the sentence is clearly false in the context.
+
+* Accessibility in DPL 
+
+DPL negation /closes off/ the anaphoric information introduced by the formula it combines with (it is a test).
+
+This makes a raft of predictions for how anaphora interacts with logical operators.
+
+DPL negation is externally static.
+
+#+name: ex:shirt
+#+begin_exe
+\ex John doesn't own a\(^x\) shirt. ?It\(_x\)'s in his closet.
+\ex John doesn't own a\(^x\) certain shirt. It\(_x\)'s (nevertheless) in his closet.
+#+end_exe
+
+Recall, double negation is a test for classical truth, therefore double negation also closes off anaphoric information introduced by the embedded formula.
+
+This doens't seem quite right, as Groenendijk and Stokhof themselves observe [cite:@GroenendijkStokhof1991].[fn:2]
+
+#+name: ex:double-neg
+#+begin_exe
+\ex Huh? Amy didn't bring *NO dish* to the pot luck; *it*'s right there on the table!
+\ex John doesn't own *NO shirt*. *It*'s in his closet!<<shirt>>
+#+end_exe
+
+In other words, the /non-classicality/ of DPL has an empirical reflex.[fn:3] 
+
+Krahmer and Muskens suggest that although DPL makes bad predictions in this domain, the logic of anaphoric information nevertheless shouldn't validate double-negation elimination [cite:@KrahmerMuskens1995].
+
+They suggest that examples such as ([[shirt]]) imply that John owns /exactly one/ shirt, i.e., the uniqueness inference that dynamic accounts were exactly tailored to avoid.
+
+Simon Charlow (p.c.) points out that uniqueness doesn't seem like quite the right characterization of the putative inference associated with ([[shirt]]), but rather /maximality/.
+
+#+name: ex:double-neg2
+#+begin_exe
+\ex John doesn't own *NO shirt*. *They*'re in his closet!
+#+end_exe
+
+However, i'm not sure there is a strong contrast with the positive counterpart, so this may be an independent factor:
+
+#+name: ex:max
+#+begin_exe
+\ex John does own *a shirt*; moreover, *they*'re in his closet.
+#+end_exe
+
+We won't have the resources to provide a detailed analysis of such cases until we tackle plurality, in several weeks time.
+
+Relatedly, recall that DPL disjunction is both externally static /and/ internally static. In many cases, these predictions are good.
+
+#+name: disj1
+#+begin_exe
+\ex ?Either a\(^x\) farmer left, or they\(_x\) whistled.
+\ex ?It's not the case [that any\(^x\) farmer left or that they\(_x\) whistled].
+#+end_exe
+
+#+name: disj2
+#+begin_exe
+\ex Either a\(^x\) philosopher is here, or the party is dull; ?They\(_x\) are causing a scene.
+#+end_exe
+
+
+There are challenges to both halves of this generalization. Let's start with the challenge to internal staticity, since it relates to the discussion of double negation.
+
+#+name: bathroom1
+#+begin_exe
+\ex Either there isn't a\(^x\) bathroom, or it\(_x\)'s upstairs. 
+#+end_exe
+
+Intuitively, this relates to the interaction between disjunction and presupposition projection.
+
+#+name: bathroom2
+#+begin_exe
+\ex Either Enrico never smoked, or he stopped smoking.
+\ex Either Enrico doesn't smoke, or Amir smokes too.
+#+end_exe
+
+On the dynamic approach to presupposition projection (satisfaction theory), we account for this by interpreting the second disjunct in the local context of the first. 
+
+Intuitively, we'd like to be able to give the same account to ([[bathroom1]]), but we can't due to the behaviour of negation in DPL!
+
+Krahmer and Muskens make similar claims regarding uniqueness inferences for ([[bathroom1]]), although Matt Mandelkern observed that this can't be generally true (cited p.c. in [cite:@Gotham2019]):
+
+#+name: ex:sue
+#+begin_exe
+\ex Either Sue didn't have a drink last night, or she had a second drink right after it.
+#+end_exe
+
+Groenendijk and Stokhof themselves observe a counter-example to externally-staticity:
+
+#+name: gs-disj
+#+begin_exe
+\ex Either a\(^x\) philosopher was in the audience, or a\(^x\) linguist was; (Either way) they\(_x\) enjoyed it.
+#+end_exe
+
+DPL at least has the resources to give an entry for G&S disjunctions, but it involves positing an ambiguity.
+
+#+begin_definition
+Program disjunction in DPL.
+
+\[\eval*[g]{\phi \cup \psi} = \eval*[g]{\phi } \cup \eval*[g]{\psi}\]
+#+end_definition
+
+Can we combine both phenomena?
+
+#+name: ex:both
+#+begin_exe
+\ex Either a philosopher was in a room with no bathroom, or a linguist was trying to find it; (Either way) they were deeply unhappy with the situation.
+#+end_exe
+
+This provides a window into the explanatory challenge discussed in the next section.
+
+** The explanatory challenge
+
+Arguably, the "core" of DPL (and file change semantics for that matter) is the semantics of existential quantification and conjunction.
+
+It's true that we have to stipulate that information flows from the left conjunct to the right, but arguably this isn't so bad (and as we'll see later, we can rid ourselves of this /lexical/ stipulation by building a left-to-right bias into the compositional procedure).
+
+There are a number of different ways of understanding the explanatory challenge to dynamic semantics is considering other classical equivalences we might have used to define material implication.
+
+For example, we might have easily tried to define a "funny" material implication in terms of disjunction, via the following classical equivalence:
+
+#+name: ex:funny1
+#+begin_exe
+\ex \(\phi \rightsquigarrow \psi \iff \neg\ \phi \vee \psi\)
+#+end_exe
+
+Taking our existing definition for disjunction, this gives us the following definition:
+
+#+name: ex:funny2
+#+begin_exe
+\ex \(\phi \rightsquigarrow \psi \iff  \neg\ (\neg\ \neg\ \phi \wedge \neg\ \psi)\)
+#+end_exe
+
+Recall: in DPL, negation is a test for classical falsity, and double-negation is a test for classical truth.
+
+Our semantics for "funny" material implication is testing whether the following is classically false: a test for whether \(\phi \) is classically true conjoined with a test for whether \(\psi\) is classically false (in fact, all this definition does is doubly-negate the antecedent, relative to DPL material implication). 
+
+Let's consider what this predicts for our example ([[ex:donkey1]]).
+
+#+name: ex:funny-eq
+#+begin_exe
+\ex \(\eval*[g]{.} = \begin{cases}
+c&\set{g | \exists a,b[a\text{ is a farmer who owns a donkey }b ]\wedge g_f\text{ doesn't feed }g_d  } = \emptyset\\
+\emptyset & \text{otherwise} 
+\end{cases}\)
+#+end_exe
+
+This be false just in case there is a farmer who owns a donkey, and whatever value \(g\) furnishes for \(f\) doesn't feed the value furnished for \(d\) (and false otherwise).
+
+
+* TODO The relationship between DPL and FCS
+
+* TODO Definite descriptions: uniqueness and sub-contexts
+
+* TODO Arguments for CCPs
+
+I only know of two arguments for CCPs in the literature.
+
+On the worldly side, Veltman's "test" semantics for epistemic modals can only be stated in an update semantics where meanings are functions from contexts (qua sets of worlds) to contexts [cite:@Veltman1996].[fn:1]
+
+Veltman's idea is that updating a context \(c\) with a modalized sentence /maybe \(\phi \)/, is an instruction to tentatively compute \(c[\phi]\) and test whether the resulting context is non-empty.
+
+Obviously, this can't be cashed out by testing individual evaluation points; whether \(\set{w}[\phi]\) is empty or non-empty tells us nothing about whether \(c[\phi]\) is empty or non-empty, assuming a non-trivial logical space.
+
+Veltman's proposal has been /extremely/ influential in the literature, and we'll consider it in a lot more detail when we come round to discussing modality and modal subordination.
+
+On the anaphoric side, Charlow argues that cumulative readings of modified numerals can be derived straightforwardly in an update semantics, where /maximality/ is computed relative to the entire input context, rather than individual evaluation points [cite:@Charlow2016].
+
+#+name: postsupp
+#+begin_exe
+\ex Exactly three boys saw exactly five movies.
+#+end_exe
+
+Charlow presents his update-theoretic analysis as an alternative to Brasoveanu's /post-suppositional/ account [cite:@Brasoveanu2013].
+
+We'll discuss modified numerals, and related concepts (plurality!, quantification!) in several weeks time, as we introduce second-generation dynamic theories.
+
+* Charlow's monadic grammar  
+
+#+begin_quote
+"[...] the enrichment is grafted onto a base grammar, such that we are not required to rewrite our entire lexicon and rewire all our compositional operations." [cite:@Charlow2020]
+#+end_quote
+
+** ~State.Set~
+
+#+begin_definition
+The ~State.Set~ monad consists of /type constructor/ \(D\), together with functions \(\eta : a \to D\ a\) (/unit/), and \(\star : D\ a \to (a \to D\ b) \to D\ b\) (/bind/), defined as follows:
+
+\[
+D\ a := g \to (a \times g)
+\]
+
+\[\begin{aligned}[t]
+&\eta &:= &\lambda x\,.\,\lambda g\,.\,(x,g)&&&&\eta: a \to D\ a\\
+&\star &:= &\lambda m\,.\,\lambda k\,.\,\lambda g\,.\,\bigcup\limits_{(x,h) \in m(g)}k(x)(h)&&&&\star: D\ a \to (a \to D\ b) \to D\ b
+\end{aligned}\]
+
+#+end_definition
+
+#+begin_definition
+Application in ~State.Set~.
+
+\[X \ast F := \lambda g\,.\,\bigcup\limits_{(f,h) \in F(g)}\set{(f(x),i)|(x,i) \in X(h)}\]
+#+end_definition
+
+#+begin_fact
+\[\ast(F)(X) \iff \star(F)(\lambda f\,.\,\star(X)(\lambda x\,.\,\eta(f(x))))\]
+#+end_fact
+
+#+begin_definition
+*The monad laws*.
+
+1. *Left identity*: \(\star(\eta(x))(f) \iff f(x)\).
+2. *Right identity*: \(\star(m(\lambda x\,.\,\eta(x))) \iff m\)
+3. *Associativity*: \(\star(\star(m)(\lambda x\,.\,f(x)))(e) \iff \star(m)(\lambda x\,.\,\star(f(x))(e)) \)
+#+end_definition
+
+** TODO check laws (especially assoc)
+
+** The lexicon
+
+#+name: def:indef
+#+begin_exe
+\ex \(\mathbf{a.ling}^v := \lambda g\,.\,\set{(x,g^{[v \to x]})| \mathbf{ling}(x)}\)\hfill \(\mathbf{a.ling}^v : D\ e\)
+#+end_exe
+
+#+name: def:pron
+#+begin_exe
+\ex \(\mathbf{she}_v := \lambda g\,.\,\set{(g_v,g)}\)\hfill \(\mathbf{she}_v: D\ e\)
+#+end_exe
+
+Predicates have their ordinary (Montagovian) lexical entries:
+
+#+name: ex:mont
+#+begin_exe
+\ex \(\mathbf{walkedIn} := \lambda x\,.\,\mathbf{walkedIn}(x)\)
+\ex \(\mathbf{hugs} := \lambda x\,.\,\lambda y\,.\,\mathbf{hugs}(x)(y)\) 
+#+end_exe
+
+There are two ways of composing meanings in Charlow's monadic grammar.
+
+The monadic interface involves bind-shifting the indefinite, and scoping it over monadic unit. 
+
+#+begin_export latex
+\begin{exe}
+\ex
+\begin{forest}
+  [{\(D\ t\)\\ \(\star(\mathbf{a.ling}^v)(\lambda x\,.\,(\mathbf{walkedIn}(x),g))\)}
+  [{\((e \to D\ t) \to D\ t\)}
+    [{\(\star\)}]
+    [{\(D\ e\)\\\(\mathbf{a.ling}^{v}\)}]
+  ]
+  [{\(e \to D\ t\)}
+    [{\(\lambda x\)}]
+    [{\(D\ t\)}
+      [{\(t \to D\ t\)\\\(\eta\)}]
+      [{\(t\)}
+        [{\(e\)\\\(x\)}]
+        [{\(e \to t\)\\\(\mathbf{walkedIn}\)}]
+      ]
+    ]
+  ]
+  ]
+\end{forest}
+\end{exe}
+#+end_export
+
+Alternatively, we can adopt an in-situ interface via \(\ast\):
+
+#+begin_export latex
+\begin{exe}
+\ex
+\begin{forest}
+  [{\(D\ t\)\\ \(\mathbf{a.ling}^v \ast \lambda g\,.\,\set{(\lambda x\,.\,\mathbf{walkedIn}(x),g)}\)}
+    [{\(D\ e\)\\\(\mathbf{a.ling}^{v}\)}]
+    [{\(D\ e \to D\ t\)}
+      [{\(D\ et \to D\ e \to D\ t\)\\\(\ast\)}]
+      [{\(D\ et\)}
+        [{\(et \to D\ et\)\\\(\eta\)}]
+        [{\(e \to t\)\\\(\mathbf{walkedIn}\)}]
+      ]
+    ]
+  ]
+\end{forest}
+\end{exe}
+#+end_export
+
+** Dynamic binding with static conjunction
+
+
+* TODO DPL shows that the idea that dynamic semantics has to be cashed out as an update semantics is misguided; part of the dynamic slogan quashed
+
+* TODO show what happens if we lift the classical connectives without trivalence
+
+* TODO show how to get dynamic binding with classical conjunction
+
+* TODO show how alternative classical equivalences won't work for disjunction/conditionals
+
+* TODO fix references for my and Matt's papers
+
+* TODO discuss uniqueness projection and sub-contexts
+
+* File local variables                                             :noexport:
+
+* Footnotes
+
+[fn:3] One of my primary goals next week will be to sketch an approach to the logic of anaphoric information that is more classical, thereby skirting these issues.
+ 
+[fn:2] Note that double-negation isn't so natural in English, except for perhaps when understood as an answer to an implicit question \(?(\neg \phi)\).
+
+[fn:1] Veltman's semantics is roughly as follows, where a CCP is understood to be a function from a set of worlds to a set of worlds. 
+
+#+name: def:velt-mod
+#+begin_exe
+\ex \(c[\text{maybe }\phi] = \set{w \in c | c[\phi] \neq \emptyset}\)
+#+end_exe
+
+The main empirical achievements of this semantics is an account of the oddness of so-called "epistemic contradictions" (when combined with naturally stateable notions of /consistency/ and /coherence/).
+
+#+name: ex:epistem
+#+begin_exe
+\ex ?It's raining, but it might not be raining.
+\ex ?It might not be raining, but it's raining.
+#+end_exe

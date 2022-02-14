@@ -1076,7 +1076,7 @@ We'll come back to the status of negation in dynamic semantics in two weeks time
 For conditional formula, we check that the outputs of the antecedent are a subset of the assignments that make the consequent classically true.
 
 #+begin_definition
-Conditional formula in DPL.
+Material implication in DPL.
 
 \[\eval*[g]{\phi \rightarrow \psi} = \begin{cases}
 \set{g}&\eval*[g]{\phi} \subseteq \set{h | \eval*[h]{\psi} \neq \emptyset}\\
@@ -1164,11 +1164,11 @@ An important fact about disjunction in DPL:
 \ex Either a\(^x\) philosopher is here, or the party is dull; ??They\(_x\) are causing a scene.
 #+end_exe
 
-Some well known problems for DPL disjunction: /bathroom disjunctions/ (due to Barbara Partee).
+some well known problems for dpl disjunction: /bathroom disjunctions/ (due to barbara partee).
 
 #+name: bathroom1
 #+begin_exe
-\ex Either there isn't a\(^x\) bathroom, or it\(_x\)'s upstairs. 
+\ex either there isn't a\(^x\) bathroom, or it\(_x\)'s upstairs. 
 #+end_exe
 
 Another problem for DPL disjunction was noted by G&S themselves. We might call them G&S disjunctions.
@@ -1280,8 +1280,6 @@ By taking inspiration from DPL, we've managed to eliminate some of the more egre
 
 \printbibliography
 
-* File local variables                                             :noexport:
-
 * Footnotes
 
 [fn:12] I'm grateful to Yasu Sudo for raising this issue. 
@@ -1303,6 +1301,8 @@ By taking inspiration from DPL, we've managed to eliminate some of the more egre
 [fn:2] We use \(*\) as a wildcard over values (i.e., an implicitly existentially-quantified variable). 
 
 [fn:1] \(g[x \to  a]\) is the unique assignment that is identical to \(g\), except for mapping \(x\) to \(a\).
+
+* File local variables                                             :noexport:
 
 # Local Variables:
 # mode: org
