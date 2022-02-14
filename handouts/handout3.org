@@ -9,15 +9,24 @@
 
 ** Next week
 
-*Topic*: An alternative perspective on the logic of anaphora and information flow - /Externally Dynamic Dynamic Semantics/.
+*Topic*: An alternative perspective on the logic of anaphora and information flow - /Externally Dynamic Dynamic Semantics/ - which builds on Charlow's insight (today) that an austere, Montagovian grammar can be systematically lifted into a dynamic setting..
 
 - *Obligatory reading*: My manuscript "Towards a principled logic of anaphora" [cite:@Elliott2020g].
-- Optional readings:
-  + Matt Mandelkern's extremely recent L&P paper on pseudo-dynamics [cite:@Mandelkern2022].
-  + Matthew Gotham's recent AC paper on negation and disjunction in DPL [cite:@Gotham2019].
-  + Daniel Rothschild's recent AC paper on trivalence and dynamic semantics [cite:@Rothschild2017].
+- Optional related readings:
+  + Matt Mandelkern's L&P paper on pseudo-dynamics [cite:@Mandelkern2022].
+  + Matthew Gotham's AC paper on negation and disjunction in DPL [cite:@Gotham2019].
+  + Daniel Rothschild's AC paper on trivalence and dynamic semantics [cite:@Rothschild2017].
     
-** TODO Today's goals
+** Today's goals
+
+
+- Recap of DPL.
+- A closer examination of the DPL theory of donkey anaphora.
+- A detailed assessment of the empirical coverage of DPL (and related theories), and where they fail.
+- Incorporating the insights of DPL into FCS ("pointwise FCS").
+- A re-assessment of the dynamic slogan - do we really need CCPs?
+- Some speculations on familiarity and uniqueness.
+- Charlow's monadic approach to compositional dynamic semantics.
 
 * Recap: DPL basics
 
@@ -44,13 +53,15 @@ I(t)&t \text{ is a constant}
 \end{cases}\]
 #+end_definition
 
-Existential quantifiers induce /random assignment/:
+Existential quantifiers induce /random assignment/ (non-determinism!):
 
 #+begin_definition
 DPL semantics for existential quantification.
 
 \[\eval*[g]{\exists x,\phi} = \bigcup\limits_{a \in D}\set{g^{[x \to a]} | \eval*[g^{[x \to a]}]{\phi }}\]
 #+end_definition
+
+Existential quantification is built into the notion of /truth/, much like in FCS.
 
 #+begin_definition
 Truth in DPL. A formula \(\phi \) is true with respect to an assignment \(g\) iff \(\eval*[g]{\phi } \neq \emptyset\)
@@ -63,6 +74,8 @@ Conjunctive formula in DPL.
 
 \[\eval*[g]{\phi \wedge \psi} = \bigcup\limits_{h \in \eval*[g]{\phi}}\set{ i | i \in \eval*[h]{\psi}}\]
 #+end_definition
+
+Insight: dynamic phenomena - or at least, the anaphoric phenomena that Groenendijk and Stokhof are interested in - don't require access to the entire context, but rather, individual evaluation points. This significantly reduces the expressive power of the theory, in comparison to FCS.
 
 #+begin_fact
 Egli's theorem in DPL.
@@ -120,7 +133,7 @@ Some facts we can read off this definition:
 - A disjunctive formula is a test (i.e., externally static; from the semantics of negation).
 - Each disjunct is a test, so disjunctions are internally dynamic, despite being stated in terms of conjunction.
   
-Finally, universal quantification in DPL:
+Finally, universal quantification in DPL can be defined as the dual of the existential:
 
 #+begin_definition
 Universal quantification in DPL.
@@ -149,7 +162,7 @@ Now, let's compute the semantic value of each conjunct with respect to an arbitr
 #+begin_exe
 \ex \(\begin{aligned}[t]
 &\eval*[g]{\exists x,y[\mathbf{farmer}(x) \wedge \mathbf{donkey}(y) \wedge \mathbf{owns}(x,y)]}\\
-&= \set{g^{[x \to f,y \to d]}|f\text{ is a farmer who owns donkey}d}
+&= \set{g^{[x \to f,y \to d]}|f\text{ is a farmer who owns donkey }d}
 \end{aligned}\)
 \ex \[\eval*[g]{\neg\ \mathbf{feeds}(x,y)} = \begin{cases}
 \set{g}&g_x\text{ doesn't feed }g_y\\  
@@ -162,7 +175,7 @@ Now we can compute the semantic value of the entire conditional statement.
 #+name: ex:donkey-final
 #+begin_exe
 \ex \(\eval*[g]{.} = \begin{cases}
-c&\set{g^{[x \to f, y \to d]}|f\text{ is a farmer who owns donkey }d\text{ and }f\text{ didn't feed }d} = \emptyset\\
+g&\set{g^{[x \to f, y \to d]}|f\text{ is a farmer who owns donkey }d\text{ and }f\text{ didn't feed }d} = \emptyset\\
 \emptyset & \text{otherwise} 
 \end{cases}\) 
 #+end_exe
@@ -224,7 +237,7 @@ Here, the weak reading is much more plausible: /it's considered false that anyon
 
 Next week, we'll develop an alternative logical perspective on anaphora which derives weak existential readings by default. 
 
-I'll tentatively suggest that we might want to try to derive strong readings via independently motivated pragmatic strengthening mechanisms [cite:@Bar-Lev2018;@Bar-LevFox2017].
+I'll tentatively suggest that we might want to try to derive strong readings via independently motivated pragmatic strengthening mechanisms developed for deriving free choice [cite:@Bar-Lev2018;@Bar-LevFox2017].
 
 Although we won't discuss the dynamic treatment of generalized quantifiers until after the break, we quickly run into some hairy issues when we stray beyond first-order quantification.
 
@@ -245,7 +258,7 @@ DPL negation /closes off/ the anaphoric information introduced by the formula it
 
 This makes a raft of predictions for how anaphora interacts with logical operators.
 
-DPL negation is externally static.
+DPL negation is externally static (but quantificational scope feeds binding scope).
 
 #+name: ex:shirt
 #+begin_exe
@@ -317,7 +330,7 @@ On the dynamic approach to presupposition projection (satisfaction theory), we a
 
 Intuitively, we'd like to be able to give the same account to ([[bathroom1]]), but we can't due to the behavior of negation in DPL!
 
-Krahmer and Muskens make similar claims regarding uniqueness inferences for ([[bathroom1]]), although Matt Mandelkern observed that this can't be generally true (cited p.c. in [cite:@Gotham2019]):
+Krahmer and Muskens make similar claims regarding uniqueness inferences for ([[bathroom1]]), although Matt Mandelkern observed that this can't be generally true (cited p.c. in [cite:@Gotham2019]; there is some disagreement regarding the judgment):
 
 #+name: ex:sue
 #+begin_exe
@@ -346,13 +359,13 @@ Can we combine both phenomena?
 \ex Either a philosopher was in a room with no bathroom, or a linguist was trying to find it; (Either way) they were deeply unhappy with the situation.
 #+end_exe
 
-This provides a window into the explanatory challenge discussed in the next section.
+These challenges provide a window into the explanatory challenge discussed in the next section.
 
 ** The explanatory challenge
 
 Arguably, the "core" of DPL (and file change semantics for that matter) is the semantics of existential quantification and conjunction.
 
-It's true that we have to stipulate that information flows from the left conjunct to the right, but arguably this isn't so bad (and as we'll see later, we can rid ourselves of this /lexical/ stipulation by building a left-to-right bias into the compositional procedure).
+It's true that we have to stipulate that information flows from the left conjunct to the right, but arguably this isn't so bad (and as we'll see later today, we can rid ourselves of this /lexical/ stipulation by building a left-to-right bias into the compositional procedure).
 
 There are a number of different ways of understanding the explanatory challenge to dynamic semantics is considering other classical equivalences we might have used to define material implication.
 
@@ -386,6 +399,8 @@ c&\set{g | \exists a,b[a\text{ is a farmer who owns a donkey }b ]\wedge g_f\text
 
 This be false just in case there is a farmer who owns a donkey, and whatever value \(g\) furnishes for \(f\) doesn't feed the value furnished for \(d\) (and false otherwise).
 
+It's not clear that we have a general recipe for going from the classical connectives of propositional logic to the connectives of DPL. This is a problem.
+
 * The relationship between DPL and FCS
 
 See especially [cite:@Dekker1996] for a detailed comparison between DPL and FCS. 
@@ -406,7 +421,7 @@ We speculated that this might allow us to make FCS distributive, but we ran into
 
 Let's address this by showing how to incorporate the insights of DPL into FCS (we'll call the resulting system /pointwise FCS/).
 
-As a necessary first step, we need to treat evaluation points as /world-assignment pairs/, rather than assignments, in order for DPL to realistically model natural language meanings.
+As a necessary first step, we need to treat evaluation points as /world-assignment pairs/, rather than assignments, in order for DPL to realistically model natural language sentences.
 
 #+name: hybrid1
 #+begin_exe
@@ -431,7 +446,7 @@ Bridge principle in pointwise FCS.
 \end{cases}\]
 #+end_definition
 
-We keep the DPL semantics for existentials (already implicit in our presentation of partial DPL), but incorporate a novelty check in order to avoid the downdate problem (see also [cite:@Dekker1996]).
+We keep the DPL semantics for existentials (already implicit in our presentation of partial DPL), but incorporate a novelty check.[fn:5]
 
 #+name: hybrid2
 #+begin_exe
@@ -513,7 +528,7 @@ As we've discussed, definite descriptions act just like (restricted) variables w
 \ex John went on dates with a few different women; ??he liked the\(_x\) woman, so he planned to see her\(_x\) again.
 #+end_exe
 
-A tentative suggestion: in a setting with CCPs, we can minimally refactor the semantics of indefinites such that they create /sub-contexts/; definite descriptions require uniqueness, but when uniqueness is assessed relative to a sub-context, the requirement dissipates. 
+A tentative suggestion: in a setting with CCPs, we can minimally refactor the semantics of indefinites such that they create singleton /sub-contexts/; definite descriptions require uniqueness relative to the input context, but when uniqueness is assessed relative to a sub-context, the requirement dissipates. 
 
 We'll ignore worldly information for convenience. In sub-contextual FCS, Sentential meanings are /functions from sets of assignments to sets of sets of assignments/.
 
@@ -542,7 +557,7 @@ Definite descriptions have a complex meaning. They impose both /familiarity/ and
 \ex \(\begin{aligned}[t]
 &c[\text{the}_v\text{ man sat down}]\\
 &= \begin{cases}
-\set{\set{g} | g \in c \wedge \mathbf{satDown}(g_v)}&\forall g \in c[\mathbf{man}(g_v)] \wedge \neg\exists g,g'[g_v \neq g'_v]\\
+\set{\set{g} | g \in c \wedge \mathbf{satDown}(g_v)}&\forall g \in c[\mathbf{man}(g_v)] \wedge \neg\exists g,g' \in c[g_v \neq g'_v]\\
 \text{undefined}&\text{otherwise}  
 \end{cases}
 \end{aligned}
@@ -626,8 +641,6 @@ Application in ~State.Set~.
 2. *Right identity*: \(\star(m(\lambda x\,.\,\eta(x))) \iff m\)
 3. *Associativity*: \(\star(\star(m)(\lambda x\,.\,f(x)))(e) \iff \star(m)(\lambda x\,.\,\star(f(x))(e)) \)
 #+end_definition
-
-** TODO check laws (especially assoc)
 
 ** The lexicon
 
@@ -880,6 +893,8 @@ Charlow's system accounts for exceptional quantificational/binding scope via isl
 * File local variables                                             :noexport:
 
 * Footnotes
+
+[fn:5] Note that this avoids the so-called "destructive update" problem of DPL (see also [cite:@Dekker1996;@Charlow2019d]).
 [fn:4] The logic here is very much inspired by [cite:@Charlow2016]. 
 
 [fn:3] One of my primary goals next week will be to sketch an approach to the logic of anaphoric information that is more classical, thereby skirting these issues.

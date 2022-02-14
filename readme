@@ -12,7 +12,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./bischof.jpg]]
 
-Last updated: "[2022-02-07 09:29]" 
+Last updated: "[2022-02-14 09:47]" 
 
 * Course description
 
@@ -102,9 +102,11 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 :CUSTOM_ID: subsentential
 :END:
 
+[[./handout.pdf][Handout]].
+
 *** Recommended readings
 
-- [cite:@Charlow2019]
+- [cite:@Charlow2020]
 - Part I of [cite:@Charlow2014]
   
 *** Optional readings
