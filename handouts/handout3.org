@@ -563,8 +563,31 @@ This is highly speculative, and something we may revisit in a future class.
 
 Still to-do: Something needs to be said about accommodation. We need an injunction against accommodating an arbitrary discourse referent.
 
-
 * Charlow's monadic grammar  
+
+The goal of Charlow's paper is to account for two properties of indefinites in a unified fashion:
+
+- Unified binding scope.
+- Unified quantificational scope.
+  
+We've talked a lot about to former, and in fact this is the bread and butter of first-generation dynamic theories.
+
+The latter phenomenon we haven't discussed explicitly.
+
+#+name: exc
+#+begin_exe
+\ex If a rich relative of mine dies, I'll inherit a house.\hfill \(\exists > \mathbf{if}\)
+\ex If every rich relative of mine dies, I'll inherit a house.\hfill \(*\forall > \mathbf{if}\)
+#+end_exe
+
+Importantly, exceptional quantificational scope feeds exceptional binding scope (a desideratum of Charlow's account).
+
+#+name: feed
+#+begin_exe
+\ex If a\(^x\) rich relative of mine dies, I'll inherit a house. They\(^x\)'re terminally ill.\hfill\(\exists > \mathbf{if}; *\mathbf{if} > \exists\)
+#+end_exe
+
+Orthodox dynamic theories based on DPL, of course capture this correlation, since material implication is externally static - they don't however explain /why/ the indefinite can scope out of the conditional antecedent, whereas other quantifiers can't.
 
 #+begin_quote
 "[...] the enrichment is grafted onto a base grammar, such that we are not required to rewrite our entire lexicon and rewire all our compositional operations." [cite:@Charlow2020]
@@ -674,8 +697,185 @@ Alternatively, we can adopt an in-situ interface via \(\ast\):
 \end{exe}
 #+end_export
 
+The resulting sentential meanings pair classical truth-values with output assignments:
+
+#+name: char
+#+begin_exe
+\ex \(\star(\mathbf{a.ling}^v)(\lambda x\,.\,(\mathbf{walkedIn}(x),g))\)
+\ex \( \implies  \lambda g\,.\,\set{(\mathbf{walkedIn}(x),g^{[v \to x]})| \mathbf{ling}(x)}\)
+\ex \( \implies  \lambda g\,.\,\set{(\top,g^{[v \to x]})| \mathbf{ling}(x) \wedge \mathbf{walkedIn}(x)} \cup \set{(\bot,g^{[v \to x]}) | \mathbf{ling}(x) \wedge \neg\ \mathbf{walkedIn}(x)}\)
+#+end_exe
+
+As such, Charlow's monadic grammar is more expressive than DPL. It keeps track of both ways of being true, and ways of being false. 
+
+As such, we need a different entry for negation, in order to achieve the same results as DPL.
+
+We can define an operator \(.^+\) to get back a DPL meaning from a Charlowian meaning, by forgetting this extra structure.
+
+#+begin_definition
+Positive output operator in monadic dynamic semantics.
+
+\[m^+ := \lambda g\,.\,\set{h | (h,\top) \in m(g)}\]
+#+end_definition
+
+Using this, we can define DPL-style negation (i.e., a test for classical falsity):
+
+#+begin_definition
+Negation in monadic dynamic semantics.
+
+\[\mathbf{not} := \lambda m\,.\,\lambda g\,.\,\set{(m^+(g) = \emptyset,g)}\]
+#+end_definition
+
+Note that the extra information afforded in Charlow's monadic grammar makes available an intriguing second possibility:
+
+#+begin_definition
+Externally dynamic negation in monadic dynamic semantics.
+
+\[\mathbf{not}^e := \lambda m\,.\,\lambda g\,.\,\set{(\neg\ t, h)|(t,h) \in m(g)}\]
+#+end_definition
+
+What predictions does this make for the interaction of anaphora and negation? We'll discuss this possibility more next week.
+
 ** Dynamic binding with static conjunction
 
+
+#+begin_export latex
+\begin{exe}
+\ex
+  \begin{forest}
+    [{\(D\ t\)}
+    [{\((t \to D\ t) \to D\ t\)}
+      [{\(\star\)}]
+      [{\(D\ t\)}
+        [{\(\star\ \mathbf{a.ling}^{v}\)}]
+        [{\(e \to D\ t\)}
+          [{\(\lambda x\)}]
+          [{\(D\ t\)}
+            [{\(\eta\)}]
+            [{\(x\ \mathbf{walkedIn}\)}]
+          ]
+        ]
+      ]
+    ]
+    [{\(t \to D\ t\)}
+    [{\(\lambda p\)}]
+      [{\(D\ t\)}
+      [{\((t \to D\ t) \to D\ t\)}
+        [{\(\star\)}]
+        [{\(D\ t\)}
+          [{\(\star\ \mathbf{she}_{v}\)}]
+          [{\(e \to D\ t\)}
+            [{\(\lambda x\)}]
+            [{\(D\ t\)}
+              [{\(\eta\)}]
+              [{\(x\ \mathbf{satDown}\)}]
+            ]
+          ]
+        ]
+      ]
+      [{\(t \to D\ t\)}
+      [{\(\lambda q\)}]
+        [{\(D\ t\)}
+          [{\(\eta\)}]
+          [{\(p \wedge q\)}]
+        ]
+      ]
+    ]]]
+   \end{forest}
+\end{exe}
+#+end_export
+
+Alternatively, this information can be pre-compiled into /and/. In fact, there's a standard way of lifting binary connectives.
+
+#+begin_definition
+Lift\(^2\).
+
+\[m\ R^\uparrow\ n := \lambda g\,.\,\bigcup\limits_{(x,h) \in m}\set{(x\ R\ y,i)|(y,i) \in n(h)}\]
+
+\[m\ R^\uparrow\ n \iff \star(m)(\lambda x\,.\,\star(n)(\lambda y\,.\,\eta(x\ R\ y)))\]
+#+end_definition
+
+** Other operators
+
+Let's try lifting classical disjunction with lift\(^2\):
+
+#+name: lift-disj
+#+begin_exe
+\ex \(m \vee^\uparrow n := \lambda g\,.\,\bigcup\limits_{(t,h) \in m\ g}\set{(t \vee u,h)|(u,i) \in n(h)}\)
+#+end_exe
+
+What predictions does this make?
+
+Just like in DPL, disjunction has to be defined via a DPL-style classical equivalence:
+
+#+name: charDisj
+#+begin_exe
+\ex \(m\ \mathbf{or}\ n \iff \mathbf{not}(\star(\mathbf{not}\ m)(\lambda t\,.\,\star(\mathbf{not}\ n)(\lambda u\,.\,\eta(t \wedge u))))\)
+\ex \(= \lambda g\,.\,\set{(\exists h[h \in m^+(g) \vee h \in n^+(g)],g)}\)
+#+end_exe
+
+** Exceptional scope
+
+Material implication must also be defined via a DPL-style classical equivalence:
+
+#+name: charIf
+#+begin_exe
+\ex \(\mathbf{if}\ m\ n \iff \mathbf{not}(\star(m)(\lambda t\,.\,(\mathbf{not}\ n)(\lambda u\,.\,\eta(t \wedge u))))\)
+\ex \(= \lambda g\,.\,\set{(\forall h[h \in m^+(g) \rightarrow \exists i[i \in n^+(h)]],g)}\)
+#+end_exe
+
+Charlow's system accounts for exceptional quantificational/binding scope via island-pied-piping.
+
+#+begin_export latex
+\begin{exe}
+\ex
+\begin{forest}
+[{\(D\ t\)}
+  [{\((t \to D\ t) \to D\ t\)}
+    [{\(\star\)}]
+    [{\(D\ t\)}
+      [{\(\star\ \mathbf{a.rel}^v\)}]
+      [{\(e \to D\ t\)}
+        [{\(\lambda x\)}]
+        [{\(D\ t\)}
+          [{\(\eta\)}]
+          [{\(x\ \mathbf{dies}\)}]
+]
+]
+]
+]
+  [{\(t \to D\ t\)}
+    [{\(\lambda t\)}]
+    [{\(D\ t\)}
+      [{\(D\ t \to D\ t\)}
+        [{\(\mathbf{if}\)}]
+        [{\(D\ t\)}
+          [{\(\eta\)}]
+          [{\(t\)}]
+]
+]
+      [{\(D\ t\)}
+        [{\(\eta\)}]
+        [{\(\mathbf{inherit.house}\)}]
+]
+]
+]
+]
+\end{forest}
+\end{exe}
+#+end_export
+
+#+name: assoc
+#+begin_exe
+\ex \(\star(\star(\mathbf{a.rel}^v)(\lambda x\,.\,\eta(\mathbf{dies}(x))))(\lambda t\,.\,\mathbf{if}(\eta(t))(\eta(\mathbf{inherit.house})))\)
+\ex \(\implies \star(\mathbf{a.rel}^v)(\lambda x\,.\,\star(\eta(\mathbf{dies}(x)))(\lambda t\,.\,\mathbf{if}(\eta(t))(\eta(\mathbf{inherit.house})))) \)\hfill assoc.
+\ex \(\implies \star(\mathbf{a.rel}^v)(\lambda x\,.\,\mathbf{if}(\eta(\mathbf{dies}(x)))(\eta(\mathbf{inherit.house})))\)
+\ex \(\implies \lambda g\,.\,\set{(\mathbf{dies}(x) \rightarrow \mathbf{inherit.house},g^{[v \to x]})|\mathbf{rel}(x)}\)
+#+end_exe
+
+* References
+
+#+print_bibliography:
 
 * File local variables                                             :noexport:
 
