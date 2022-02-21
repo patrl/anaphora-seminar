@@ -53,11 +53,16 @@
 \NewDocumentCommand{\sub}{m}{\textsubscript{#1}}
 \NewDocumentCommand{\supscr}{m}{\textsuperscript{#1}}
 
+\NewDocumentCommand\fap{}{\ensuremath{\mathbin{/\!/}}}
+\NewDocumentCommand\bap{}{\ensuremath{\mathbin{\backslash\!\backslash}}}
+
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]
 
 \theoremstyle{fact}
 \newtheorem{fact}{Fact}[section]
+
+\usepackage{float}
 
 \usepackage{hyperref}
 
