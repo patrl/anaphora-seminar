@@ -1,0 +1,107 @@
+#+title: Externally-dynamic dynamic semantics
+#+author: Patrick D. Elliott 
+#+bibliography: ../../bibliography/master.bib
+#+setupfile: handout-template.org
+#+OPTIONS: ':t
+#+cite_export: biblatex
+
+* Externally-dynamic dynamic semantics
+
+In the first generation dynamic systems we've considered, culminating in pointwise FCS, dynamics are a sentential phenomenon.
+
+Charlow teaches us how to factor out dynamics into our compositional regime. We'll make use of this in EDS [cite:@Charlow2014;@Charlow2020].
+
+First, we adopt Charlow's general recipe for a dynamic type.[fn:1][fn:2]
+
+#+name: def:type
+#+begin_exe
+\ex \(D\ a := g \to (a \times g)\)
+#+end_exe
+
+For example, sentences in EDS will be type \(D\ t\); VPs in EDS will be type \(D\ (e \to t)\).
+
+** Pronouns and partiality
+
+In EDS, much like in Charlow's monadic grammar, pronouns are expressions of type \(D\ e\), i.e., /dynamic individuals/.
+
+In EDS, assignments are assumed to be /partial/, i.e., undefined for certain variables.
+
+We'll model this by treating the domain of assignments (\(D_g\)) as a set of /total/ functions \(f: V \to D_e\), where \(D_e\) contains a privileged value \(\#_e\) - the impossible individual.[fn:3]
+
+For example, given a stock of variables \(\set{x,y,z}\), the following is a partial assignment:
+
+#+name: ex:part
+#+begin_exe
+\ex \(\left[\begin{aligned}[c]
+&x &\to &\mathbf{josie}\\
+&y &\to &\mathbf{sarah}\\
+&z &\to &\#_e
+\end{aligned}\right]\)
+#+end_exe
+
+The unique initial assignment, \(g_\top\), maps every \(v \in V\) to the impossible individual.
+
+Pronouns have the following semantics in EDS:
+
+#+name: def:eds-pron
+#+begin_exe
+\ex \(\mathbf{she}_v := \lambda g\,.\,\set{(g_v,g)}\)\hfill\(D\ e\)
+#+end_exe
+
+Since EDS builds on a Strong Kleene logical foundation, we'll make use of three distinct truth values:
+
+#+name: def:tri
+#+begin_exe
+\ex \(D_t = \set{\mathbf{yes},\mathbf{no},\mathbf{maybe}}\)
+#+end_exe
+
+We'll make use of an operator \(\delta : t \to t \) to model presuppositions, with the following semantics.
+
+#+name: def:delta
+#+begin_exe
+\ex \(\delta(t) = \begin{cases}
+\mathbf{yes}&t = \mathbf{yes}\\
+\mathbf{maybe}&\text{otherwise} 
+\end{cases}\)
+#+end_exe
+
+Sentences with a pronoun indexed \(v\) presuppose that \(v\) is defined at the input assignment. Formally:
+
+#+name: ex:sentence1
+#+begin_exe
+\ex \(\mathbf{she}_v\ \mathbf{satDown} := \lambda g\,.\,\set{(\delta(g_v \neq \#_e) \mathbin{\&} \mathbf{satDown}(g_v),g)}\)
+#+end_exe
+
+An alternative rendering:
+
+#+name: ex:sentence2
+#+begin_exe
+\ex \(\lambda g\,.\,\begin{aligned}[t]
+&\set{(\mathbf{yes},g)|\mathbf{satDown}(g_v) \wedge g_v \neq \#_e}\\
+&\cup \set{(\mathbf{no},g)|\neg\mathbf{satDown}(g_v) \wedge g_v \neq \#_e}\\
+&\cup \set{(\mathbf{maybe},g)|g_v = \#_e}
+\end{aligned}\)
+#+end_exe
+
+** Indefinites
+
+* References
+
+#+print_bibliography:
+
+* Footnotes
+[fn:3] See [cite:@Mandelkern2022] for a similar set up. 
+
+[fn:2] Initially, we'll present EDS as an extensional system; ultimately, everything will need to be intensionalized. 
+ 
+[fn:1] \(a\) is an implicitly universally-quantified variable over types.
+
+* File local variables                                             :noexport:
+
+# Local Variables:
+# mode: org
+# org-latex-default-packages-alist: nil
+# org-latex-with-hyperref: nil
+# eval: (add-hook 'after-save-hook (lambda nil (if (y-or-n-p "export to pdf?") (org-latex-export-to-pdf))) nil t)
+# End:
+
