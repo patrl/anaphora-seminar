@@ -44,7 +44,9 @@ These empirical problems are connected to a conceptual problem with dynamic sema
 
 What is the relationship between dynamic entries for logical expressions and their classical counterparts?
 
+#+begin_tipblock
 A related problem: classical dynamic theories are /sententialist/ in the sense that the propositional type is the repository of anaphoric information (we'll make this concrete in a moment).
+#+end_tipblock
 
 This leads to theories of semantic composition which barely resemble anything that can be found, e.g., in a compositional semantics textbook such as [cite:@HeimKratzer1998;@Carpenter1998].
 
@@ -60,7 +62,9 @@ The trade-off in EDS:
 - Adopting a richer notion of content allows us to refrain from lexicalizing anaphoric information flow. 
 - The resulting theory will be quite permissive, and we'll need to pay careful attention to the pragmatics in order to avoid over-predicting anaphoric possibilities.
   
-*The pay-off:* an empirically and conceptually superior foundation.
+*The pay-off:* an empirically and conceptually superior foundation. EDS is intended to be a /bona fide/ alternative to FCS and DPL.
+
+Note that today I'll present EDS as a compositional grammar - in [cite:@Elliott2020g] I give a fully equivalent first-order presentation, which is in many respects terser, but less transparent wrt to composition. 
 
 * Types and propositions
 
@@ -97,7 +101,7 @@ We knit these meanings together via dynamic sequencing (relational composition; 
 #+end_exe
 
 - Why should dynamics be a purely sentential phenomemon?
-- Unclear how to combine first generation dynamic systems with an orthodox approach to composition (e.g, [cite:@Carpenter1998]).
+- Unclear how to combine first generation dynamic systems with an orthodox approach to composition.
 
 Charlow teaches us how to factor out dynamics, keeping track of anaphoric information as a by-product of "ordinary" composition [cite:@Charlow2014;@Charlow2020].
 
@@ -108,9 +112,9 @@ As a backdrop to EDS, we'll adopt Charlow's general recipe for dynamic types.[fn
 \ex \(D\ a := g \to \set{a \times g}\)
 #+end_exe
 
-For example, sentences in EDS will be type \(D\ t\); VPs in EDS will be type \(D\ (e \to t)\).
+For example, sentences in EDS will be type \(D\ t\); VPs will be type \(D\ (e \to t)\); pronouns in EDS will be of type \(D\ e\); indefinites will be of type \((e \to D\ t) \to D\ t\).
 
-This is strictly speaking more expressive than what is afforded to us by, e.g., DPL.
+This regime is strictly speaking more expressive than what is afforded to us by, e.g., DPL.
 
 In DPL, classical truth corresponds to having a non-empty output set; an empty output set corresponds to classical falsity.
 
@@ -118,7 +122,9 @@ In EDS, sentential meanings are functions from assignments to /sets of truth-val
 
 This will allow us to keep track of anaphoric information associated with verification and falsification in tandem; we'll need a different reconstruction of classical truth, which will turn out to be very natural.
 
-This greater expressiveness will be essential in improving upon the empirical results of first-generation dynamic theories.
+#+begin_importantblock
+Keeping track of anaphoric information associated with verification /and/ falsification will be *crucial* to the main results of EDS.
+#+end_importantblock
 
 * Pronouns and partiality
 
@@ -169,7 +175,7 @@ Sentences with a pronoun indexed \(v\) presuppose that \(v\) is defined at the i
 
 #+name: ex:sentence1
 #+begin_exe
-\ex \(\mathbf{she}_v\ \mathbf{satDown} := \lambda g\,.\,\set{(\delta(g_v \neq \#_e) \mathbin{\&} \mathbf{satDown}(g_v),g)}\)
+\ex \(\mathbf{she}_v\ \mathbf{satDown} := \lambda g\,.\,\set{(\delta(g_v \neq \#_e) \mathbin{\&} \mathbf{satDown}(g_v),g)}\)\hfill\(D\ t\)
 #+end_exe
 
 An alternative rendering:
@@ -183,17 +189,24 @@ An alternative rendering:
 \end{aligned}\)
 #+end_exe
 
-We'll often omit the explicit presupposition and assume that any predicate fed an impossible individual as an argument outputs \(\mathbf{maybe}\).
+We'll often omit the explicit presupposition, assuming that any predicate fed an impossible individual as an argument outputs \(\mathbf{maybe}\).
 
 * Indefinites
 
+In order to establish our semantics for indefinites in EDS, we'll go through a couple of steps:
+
+- The correlate of /random assignment/ in EDS.
+- A reconstruction of classical truth and falsity in EDS.
+- A "positive closure" operator for EDS; non-verifying anaphoric information is filtered.
+- Finally, a semantics for indefinites as the composition of random assignment and positive closure. 
+
 ** Random assignment in EDS
 
-It will be helpful to first define the correlate of DPL /random assignment/ in EDS (relative to a restrictor \(r\)).
+It will be helpful to first define the correlate of DPL /random assignment/ in EDS (relative to a restrictor \(r\), which we just treat as a plain set of individuals).
 
 #+name: def:random
 #+begin_exe
-\ex \(\varepsilon^{v} = \lambda r\,.\,\lambda k\,.\,\lambda g\,.\,\bigcup\limits_{r(x)}k(x)(g^{[v \to x]})\)\hfill\((e \to D\ t) \to D\ t\)
+\ex \(\varepsilon^{v} = \lambda r\,.\,\lambda k\,.\,\lambda g\,.\,\bigcup\limits_{r(x)}k(x)(g^{[v \to x]})\)\hfill\((e \to t) \to  (e \to D\ t) \to D\ t\)
 #+end_exe
 
 Let's see this in action (importantly, this is *not* our entry for the indefinite determiner).
@@ -208,7 +221,10 @@ An equivalent, illuminating rendering:
 
 #+name: ex:rand2
 #+begin_exe
-\ex \(\lambda g\,.\,\set{(\mathbf{yes},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)} \cup \set{(\mathbf{no},g^{[v \to x]})|\mathbf{ling}(x) \wedge  \mathbf{swim}(x)}\)
+\ex \(\lambda g\,.\,\begin{aligned}[t]
+&\set{(\mathbf{yes},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)}\\
+&\cup \set{(\mathbf{no},g^{[v \to x]})|\mathbf{ling}(x) \wedge  \mathbf{swim}(x)}
+\end{aligned}\)
 #+end_exe
 
 We take an input assignment \(g\), and extend \(g\) indeterministically at \(v\) (DPL style) to linguists, and:
@@ -221,7 +237,7 @@ We'll define an auxiliary notion now which will come in handy in a few different
 #+name: def:polar
 #+begin_exe
 \ex \(\mathbf{A}^+_g(p) := \set{h | (\mathbf{yes},h) \in p(g)}\)
-\ex \(\mathbf{A}^-_g(p) := \set{h | (\mathbf{no},h) \in p(g)}\)
+\ex \(\mathbf{A}^-_g(p) := \set{h | (\mathbf{no},h) \in p(g)}\)\hfill\(D\ t \to T\)
 #+end_exe
 
 We can use this notion to provide an intuitive definition of truth at a point: a sentence is /true/ wrt an assignment \(g\) if there is some way of verifying \(p\) at \(g\), /false/ if there is no way of verifying \(p\) at \(g\), but some way of falsifying \(p\) at \(g\), and neither true nor false otherwise.
@@ -230,7 +246,7 @@ We can use this notion to provide an intuitive definition of truth at a point: a
 #+begin_exe
 \ex \(\mathbf{true}_g(p) := \mathbf{A}^+_g(p) \neq \emptyset\)
 \ex \(\mathbf{false}_g(p) := \mathbf{A}^+_g(p) = \emptyset \wedge \mathbf{A}^-_g(p) \neq \emptyset\)
-\ex \(\mathbf{neither}_g(p) := \mathbf{A}^+_g(p) = \emptyset \wedge \mathbf{A}^-_g(p) = \emptyset \)
+\ex \(\mathbf{neither}_g(p) := \mathbf{A}^+_g(p) = \emptyset \wedge \mathbf{A}^-_g(p) = \emptyset \)\hfill\(D\ t \to g \to t\)
 #+end_exe
 
 Finally, we state our /positive closure operator/ \(\dag\), which will be crucially implicated in our semantics for the indefinite article.
@@ -239,14 +255,19 @@ The positive closure operator only allows anaphoric information to pass through 
 
 #+name: def:dag
 #+begin_exe
-\ex \(\dag(p)(g) := \set{(\mathbf{yes},h) \in p(g)} \cup \set{(\mathbf{no},g)|\mathbf{false}_g(p)} \cup \set{(\mathbf{maybe},g)|\mathbf{neither}_g(p)}\)
+\ex \(\dag(p)(g) := \begin{aligned}[t]
+&\set{(\mathbf{yes},h) \in p(g)}\\
+&\cup \set{(\mathbf{no},g)|\mathbf{false}_g(p)}\\
+&\cup \set{(\mathbf{maybe},g)|\mathbf{neither}_g(p)}
+\end{aligned}\)\hfill\(\dag : D\ t \to D\ t\)
 #+end_exe
 
-The following is a logical truth in EDS (dagger elimination):
+The following is a logical truth in EDS (positive dagger elimination):
 
 #+name: fact:clo
 #+begin_exe
 \ex \(\mathbf{A}^+_g(\dag(p)) = \mathbf{A}^+_g(p)\)
+\ex \(\mathbf{A}^-_g(\dag(p)) \neq \mathbf{A}^-_g(p)\)
 #+end_exe
 
 Now we can state our final proposal for the semantics of indefinites as the composition of random assignment and positive closure.
@@ -278,16 +299,16 @@ As a methodological principle, we'll insist that proper names, predicates, logic
 
 Only a sub-part of the grammar wears its dynamic capabilities on its sleeve.
 
-In order to lift expressions without inherent dynamics into EDS, we need just three combinators, which constitute an /applicative functor/.
+In order to lift expressions without inherent dynamics into EDS, we need just three combinators, which together constitute an /applicative functor/ [cite:@McbridePaterson2008].[fn:8]
 
-/Pure/ (\(\eta\)) lifts any expression \(a\) into a trivially dynamic \(a\). 
+/Pure/ (\(\eta\)) lifts any expression \(a\) into a trivially dynamic \(a\). We've already been implicitly making use of this combinator in previous sections.
 
 #+name: def:pure
 #+begin_exe
 \ex \(\eta(a) := \lambda g\,.\,\set{(a,g)}\)\hfill\(\eta : a \to D\ a\)
 #+end_exe
 
-/Dynamic FA/ (\(\fap\)) does function application and threads anaphoric information from left-to-right.
+/Dynamic FA/ (\(\fap\)) does function application of its left argument to its right and threads anaphoric information from left-to-right.
 
 #+name: def:fap
 #+begin_exe
@@ -301,7 +322,7 @@ In order to lift expressions without inherent dynamics into EDS, we need just th
 \ex \(m \bap n := \lambda g\,.\,\bigcup\limits_{(x,g') \in m(g)}\set{(f(x),g'')|(f,g'') \in n(g')}\)\hfill\((\bap): D\ a \to D\ (a \to b) \to D\ b\)
 #+end_exe
 
-Composition:
+Composition is directional, reflecting the inherent incrementality of dynamic semantics:
 
 #+begin_export latex
 \begin{exe}
@@ -326,18 +347,48 @@ Composition:
 \end{exe}
 #+end_export
 
-Note that I'm assuming that the flow of anaphoric information is conditioned by linear order, but a different assumption is just a matter of adjusting the rules stated above (cf. [cite:@Privoznov2021]).
+Note that I'm assuming that the flow of anaphoric information is conditioned by linear order, but a different assumption is just a matter of a small tweak to the rules stated above to be sensitive to structure/headedness (see [cite:@Privoznov2021] for arguments for this kind of view).
 
 Some exercises - note that in-scope dynamic binding follows immediately from the composition principles and our semantics for indefinites (which extends DPL-style random assignment).
 
 #+name: pro-comp
 #+begin_exe
-\ex \(\mathbf{she}_v \bap \eta(\mathbf{sat.down}) = \lambda g\,.\,\set{(\mathbf{satDown}(g_v),g)}\)
-\ex \(\mathbf{a.ling}^v\ (\lambda x\,.\,\eta(\mathbf{walked.in}(x))) = \dag(\varepsilon^v(\mathbf{ling})(\lambda x\,.\,\lambda g\,.\,\set{(\mathbf{walked.in}(x),g)}))\)
-\ex \(\mathbf{a.ling}^v\ (\lambda x\,.\,\eta(\mathbf{introduced}(\mathbf{j})) \fap (\mathbf{her_v\,.\,\mathbf{mother}})) = \dag(\varepsilon^v(\mathbf{ling})(\lambda x\,.\,\lambda g\,.\,\set{(\mathbf{introduce}(j)(\mathbf{mother.of}\ g_v)(x),g)}))\)
+\ex She\(_v\) sat down.\\
+\(\mathbf{she}_v \bap \eta(\mathbf{sat.down}) = \lambda g\,.\,\set{(\mathbf{satDown}(g_v),g)}\)
+\ex A\(^v\) linguist walked in.\\
+\(\mathbf{a.ling}^v\ (\lambda x\,.\,\eta(\mathbf{walked.in}(x))) = \dag(\varepsilon^v(\mathbf{ling})(\lambda x\,.\,\lambda g\,.\,\set{(\mathbf{walked.in}(x),g)}))\)
 #+end_exe
 
+Note that in-scope dynamic binding follows immediately:
+
+#+begin_export latex
+\begin{exe}
+\ex Some\(^v\) linguist likes her\(_v\) mother.\\
+\begin{forest}
+          [{$\dag(\lambda g\,.\,\set{(\mathbf{likes}(\mathbf{mother.of}(x))(x),g^{[v \to  x]})|\mathbf{ling}(x)})$}
+          [{$\dag(\varepsilon^{n}(\mathbf{ling})(\lambda x\,.\,\lambda g\,.\,\set{(\mathbf{likes}(\mathbf{mother}(g_{v}))(x),g)}))$}
+            [{$(e \to D\ t) \to D\ t$} [{some$^{v}$ linguist},roof]]
+            [{$e \to D\ t$}
+            [{$\lambda x$}]
+            [{$\lambda g\,.\,\set{(\mathbf{likes}(\mathbf{mother}(g_{v}))(x),g)}$}
+            [{$D\ t$\\$\bap$}
+            [{$D\ e$\\$\eta(t_{x})$}]
+            [{$D\ (e \to t)$\\$\fap$}
+              [{$D\ (e \to e \to t)$\\$\eta(\mathbf{likes})$}]
+              [{$D\ e$} [{his$_{v}$ mother},roof]]
+            ]
+          ]]]]]
+        \end{forest}
+\end{exe}
+#+end_export
+
 * Lifting logical operators
+
+#+begin_tipblock
+How do logical expressions interact with sentential meanings in EDS? Note that sentential meanings have a truth-valuable substrate. This means we can straightforwardly integrate logical expressions qua truth-functional operators into EDS via \(\eta\), \(\fap\), and \(\bap\).
+#+end_tipblock
+
+The question is whether this will deliver the right results wrt accessibility. Most of the rest of this class will be an extended argument that it does.
 
 ** Strong Kleene
 
@@ -1023,13 +1074,15 @@ A promissory list of topics, for the latter third of the course:
 #+print_bibliography:
 
 * Footnotes
+
+[fn:8] In fact, we only really need two. \(\fap\) and \(\bap\) are the result of applying the applicative lift combinator ~liftA2~ to forwards and backwards function application respectively. 
 [fn:7] Note that the workings of \(\dag\) are highly reminiscent of Mandelkern's independently-developed disjunctive /witness presupposition/ [cite:@Mandelkern2022]. Unlike Mandelkern, we don't make use of presuppositional machinery to militate where indefinites introduce anaphoric information, and therefore EDS avoids some of the pitfalls of Mandelkern's static theory. We won't discuss this in detail today, but Mandelkern must make an ad hoc distinction between anaphoric presuppositions and ordinary presuppositions, in terms of how they constrain (or fail to constrain) affect update. The bridge principle of EDS, on the other hand, is totally orthodox. 
 
 [fn:6] A sentence \(\phi \) Strawson entails a sentence \(\psi\) if, when the presuppositions of \(\phi \) are satisfied, \(\phi \) entails \(\psi\) [cite:@vonFintel1999].
 [fn:5] I'm optimistic that this general style of explanation can be extended to the (apparent) external staticity of conditional sentences. but this is complicated by the fact that material implication is undoubtedly not a realistic semantic proposal for conditional sentences of English. 
 
 [fn:4] Here and throughout I assume that /no/ is the composition of sentential negation and the indefinite determiner. 
-
+ff
 #+name: neg
 #+begin_exe
 \ex \(\mathbf{no.ling}^v := \lambda k\,.\,\eta(\mathbf{not}) \fap \mathbf{a.ling}^v(k)\)\hfill\((e \to D\ t) \to D\ t\)
