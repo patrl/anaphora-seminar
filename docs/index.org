@@ -1,4 +1,4 @@
-# Created 2022-02-14 Mon 09:47
+# Created 2022-02-22 Tue 09:46
 #+options: toc:nil
 #+title: MIT topics in semantics seminar (spring 2022)
 #+author: Patrick D. Elliott
@@ -11,7 +11,7 @@
 #+caption: Zen garden of the Ryoanji Temple, Kyoto, Japan 1951 (Werner Bischof)
 [[file:./bischof.jpg]]
 
-Last updated: "[2022-02-14 Mon 09:47]" 
+Last updated: "[2022-02-22 Tue 09:46]" 
 
 * Course description
 
@@ -89,7 +89,7 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 - ([[citeproc_bib_item_7][Dekker 1996]])
 
 ** Week 3: Subsentential dynamics
-[[file:./handout.pdf][Handout]].
+[[file:./handout3.pdf][Handout]].
 
 *** Recommended readings
 
@@ -103,6 +103,7 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 - ([[citeproc_bib_item_5][Chierchia 1995]])
 
 ** Week 4: Externally-dynamic dynamic semantics
+[[file:./handout4.pdf][Handout]].
 
 *** Recommended readings
 
