@@ -5,11 +5,27 @@
 #+OPTIONS: ':t
 #+cite_export: biblatex
 
-* TODO Goals of EDS
+* Introduction
 
-** Some failures of classicality in DPL/FCS
+** Next week
 
-Double-negation elimination.
+Starting from next week, Amir Anvari will be discussing /oddness and redundancy/ for three sessions. A summary of the content, taken from the class description:
+
+#+begin_quote
+"/We will rehearse a host of puzzles that have been discussed in the literature on oddness (Singh 2008, Katzir & Singh 2014, Mayr & Romoli 2016, Mandelkern & Romoli 2018, Marty & Romoli 2021). The ambition is to provide a unified analysis for all these cases. We begin with the classical insight, as formulated by Katzir & Singh (2015), that “a good assertion is one that provides a good answer to a good question”: a good sentence is one that is about something. We explore the idea that the question that a sentence addresses in a given context is one that must be constructed in a principled fashion from sentence itself and its formal alternatives (Katzir 2007, Fox & Katzir 2011). If such a “formal background question” cannot be constructed, the sentence is not about anything and predicted to be odd. We will explore one implementation of this idea in the context of the puzzles mentioned./"
+#+end_quote
+
+** This week: towards a new foundation
+
+Last week we discussed several problems that arise in "first-generation" theories of dynamic semantics, such as FCS and DPL.
+
+The problems relate to the interaction between /logical operators/ and /anaphoric information flow/ (the so-called /accessibility generalizations/).
+
+#+begin_tipblock
+A telling characterization: many of the exceptions to the accessibility generalizations we discussed last week are yoked to *non-classicality* in theories such as DPL.
+#+end_tipblock
+
+For example, double-negation.
 
 #+name: shirt
 #+begin_exe
@@ -24,18 +40,61 @@ De Morgan's laws.
 \ex It's not the case that there's a\(^v\) bathroom and it\(_v\)'s not upstairs.
 #+end_exe
 
+These empirical problems are connected to a conceptual problem with dynamic semantics - anaphoric information flow is /pre-compiled/ into the lexical entries of logical expressions such as conjunction. 
+
+What is the relationship between dynamic entries for logical expressions and their classical counterparts?
+
+A related problem: classical dynamic theories are /sententialist/ in the sense that the propositional type is the repository of anaphoric information (we'll make this concrete in a moment).
+
+This leads to theories of semantic composition which barely resemble anything that can be found, e.g., in a compositional semantics textbook such as [cite:@HeimKratzer1998;@Carpenter1998].
+
+This has lead to a general misconception that dynamic semantics weds one to a sententialist mode of composition, with dynamic sequencing at its center.
+
+Charlow, building on [cite:@Muskens1996], innovates mechanisms for separating off anaphoric information flow from the Fregean essence of semantic composition.
+
+We'll adopt some of Charlow's machinery as we develop /Externally-dynamic Dynamic Semantics/.
+
+The trade-off in EDS:
+
+- Adopt a richer notion of /content/, to free ourselves from the sententialist shackles of orthodox DS.
+- Adopting a richer notion of content allows us to refrain from lexicalizing anaphoric information flow. 
+- The resulting theory will be quite permissive, and we'll need to pay careful attention to the pragmatics in order to avoid over-predicting anaphoric possibilities.
+  
+*The pay-off:* an empirically and conceptually superior foundation.
+
 * Types and propositions
 
 In the first generation dynamic systems we've considered, culminating in pointwise FCS, dynamics are a sentential phenomenon.
 
-A sentential meaning is a function from an input assignment to a set of output assignments; sentences are type \(T\).
+A sentential meaning is a function from an input assignment to a set of output assignments; we can express this via the type \(T\).
 
 #+name: def:oldtype
 #+begin_exe
 \ex \(T := g \to \set{g}\)
 #+end_exe
 
-Disadvantages:
+Sentential meanings in DPL/pointwise FCS:
+
+#+name: someone
+#+begin_exe
+\ex \(\eval*{\text{a}^v\text{ linguist walked in}} = \lambda g\,.\,\set{g^{[v \to x]}|\mathbf{walked.in}(x)}\)
+#+end_exe
+
+IN DPL/pointwise FCS, even the indefinite article is sentential, as is its restrictor and scope. 
+
+#+name: indef1
+#+begin_exe
+\ex \(\eval{a} = \lambda g\,.\,\set{g^{[v \to x]}|x \in D}\)
+\ex \(\eval*{v\text{ linguist} } = \lambda g\,.\,\set{g|\mathbf{linguist}(g_v)}\)
+\ex \(\eval*{v\text{ walked in}} = \lambda g\,.\,\set{g|\mathbf{walked.in}(g_v)}\)
+#+end_exe
+
+We knit these meanings together via dynamic sequencing (relational composition; also the entry for conjunction).
+
+#+name: rel
+#+begin_exe
+\ex \(p\mathbin{;}q := \lambda g\,.\,\bigcup\limits_{g' \in p(g)}\set{h | h \in q(g')}\)
+#+end_exe
 
 - Why should dynamics be a purely sentential phenomemon?
 - Unclear how to combine first generation dynamic systems with an orthodox approach to composition (e.g, [cite:@Carpenter1998]).
@@ -152,7 +211,7 @@ An equivalent, illuminating rendering:
 \ex \(\lambda g\,.\,\set{(\mathbf{yes},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)} \cup \set{(\mathbf{no},g^{[v \to x]})|\mathbf{ling}(x) \wedge  \mathbf{swim}(x)}\)
 #+end_exe
 
-We take an input assingment \(g\), and extend \(g\) indeterministically at \(v\) (DPL style) to linguists, and:
+We take an input assignment \(g\), and extend \(g\) indeterministically at \(v\) (DPL style) to linguists, and:
 
 - Tag those assignments extended to a linguist who swims with \(\mathbf{yes}\).
 - Tag those assignments extended to a linguist who doesn't swim with \(\mathbf{no}\).
@@ -174,9 +233,9 @@ We can use this notion to provide an intuitive definition of truth at a point: a
 \ex \(\mathbf{neither}_g(p) := \mathbf{A}^+_g(p) = \emptyset \wedge \mathbf{A}^-_g(p) = \emptyset \)
 #+end_exe
 
-Finally, we state our /positive closure operator/ \(\dag_g\), which will be crucially implicated in our semantics for the indefinite article.
+Finally, we state our /positive closure operator/ \(\dag\), which will be crucially implicated in our semantics for the indefinite article.
 
-The positive closure operator only allows anaphoric information to pass through if its argument is classically true.
+The positive closure operator only allows anaphoric information to pass through if its argument is classically true.[fn:7]
 
 #+name: def:dag
 #+begin_exe
@@ -267,7 +326,7 @@ Composition:
 \end{exe}
 #+end_export
 
-Note that i'm assuming that the flow of anaphoric information is conditioned by linear order, but a different assumption is just a matter of adjusting the rules stated above (cf. [cite:@Privoznov2021]).
+Note that I'm assuming that the flow of anaphoric information is conditioned by linear order, but a different assumption is just a matter of adjusting the rules stated above (cf. [cite:@Privoznov2021]).
 
 Some exercises - note that in-scope dynamic binding follows immediately from the composition principles and our semantics for indefinites (which extends DPL-style random assignment).
 
@@ -693,7 +752,7 @@ As we discussed last time, being able to generate weak truth-conditions for donk
 #+end_exe
 
 #+begin_warningblock
-*Strong readings.* At worst, EDS is on a par with first-generation dynamic theories, which only derive strong readings. Arguably, the situation is a little better, since we want our semantics to be compatible with the weakest atteested readings. In [cite:@Elliott2020g], I explore the possibility of deriving the strong reading as an implicature, via mechanisms motivated by free choice and homogeneity [cite:@Bar-Lev2018;@Bar-LevFox2017]. We won't have time  to explore this today, but if there is general interest, I can talk more about the landscape of weak/strong readings in several weeks time.
+*Strong readings.* At worst, EDS is on a par with first-generation dynamic theories, which only derive strong readings. Arguably, the situation is a little better, since we want our semantics to be compatible with the weakest attested readings. In [cite:@Elliott2020g], I explore the possibility of deriving the strong reading as an implicature, via mechanisms motivated by free choice and homogeneity [cite:@Bar-Lev2018;@Bar-LevFox2017]. We won't have time  to explore this today, but if there is general interest, I can talk more about the landscape of weak/strong readings in several weeks time.
 #+end_warningblock
 
 * Pragmatics, and the problem of too many discourse referents
@@ -773,15 +832,201 @@ File contexts. A file context is a set of world-assignment pairs, where assignme
 - Absurd context \(c_\emptyset \): \(\emptyset \)
 #+end_definition
 
-As usual, we need a bridge principle.
+As usual, we need a bridge principle. This turns out just to be a generalization of Stalnaker's bridge [cite:@vonFintel2008], generalized to a setting where we keep track of anaphoric as well as worldly information.
+
+#+begin_definition
+Update in EDS.
+
+\[c[\phi] ≔ \begin{cases}
+    \bigcup\limits_{(w,g) \in  c}\mathbf{A}^{+}_{w,g}(\phi)&\forall (w,g) \in  c[\mathbf{true}_{w,g}(\phi) \vee \mathbf{false}_{w,g}(\phi)]\\
+    \emptyset&\text{otherwise}
+    \end{cases}
+\]
+#+end_definition
+
+#+begin_importantblock
+It's worth emphasizing here that this bridge principle is completely orthodox, and is independently motivated by dint of how /presuppositional/ expressions interact with natural language pragmatics. For example, it predicts that \(c[\text{Josie stopped smoking}]\) is defined iff \(c\) entails that Josie used to smoke, assuming that \(\eval{Josie stopped smoking}\) maps worlds to *maybe*, in which Josie never smoked.
+#+end_importantblock
 
 
+N.b.: the familiarity presupposition [cite:@Heim1991] is derived in the same way as in partial FCS. Pronouns indexed \(v\) impose a universal requirement on assignments of the file context (namely, that they be defined at \(v\)).
+
+** External staticity via ignorance
+
+Disjunctive sentences place a requirement on the context - an utterance of a sentence of the form "$p$ or $q$"" is only felicitous if both $p$ and $q$ are /real/ possibilities, i.e., the context shouldn't entail the truth/falsity of either of the disjuncts.
+
+#+name: audience
+#+begin_exe
+\ex Context: /we know that someone was in the audience/.\\
+??Either someone was in the audience or the event was a disaster.
+#+end_exe
+
+We can use this fact to account for the apparent external staticity of disjunction. Consider the following space of logical possibilities, representing a conversational background against which the disjunctive sentence may be uttered:
+
+- \(w_{ad}\): \(a\) was in the audience, and the event was a disaster.
+- \(w_{a\neg d}\): \(a\) was in the audience, and the event wasn't a disaster.
+- \(w_{\emptyset d}\): nobody was in the audience, and the event was a disaster.
+- \(w_{\emptyset \neg d}\): nobody was in the audience, and the event wasn't a disaster.
+  
+And consider the following sentence:
+
+#+name: audience2
+#+begin_exe
+\ex Either someone\(^v\) was in the audience, or the event was a disaster.
+#+end_exe
+
+The positive anaphoric information associated with the disjunctive sentence, relative to an assignment world pair \(w,g\):
+
+#+name: disj-pos
+#+begin_exe
+\ex \(\begin{aligned}[t]
+  &\set{(w,g^{[v \to x]}) | \mathbf{audience}_{w}(x)}\\
+  &\cup \set{(w,g) | \neg\exists x[\mathbf{audience}_{w}(x)] \wedge  \mathbf{disaster}_{w}(\mathbf{event})}\\
+  \end{aligned}\)
+#+end_exe
+
+We can now consider the result of updating the initial information state with the disjunctive sentence. Note that the bridge principle is trivially satisfied, since the sentence doesn't contain any free variables.
+
+#+name: result
+#+begin_exe
+\ex \(\Set{\begin{aligned}[c]
+    &(w_{ad},[v \to  a]),\\
+    &(w_{a\neg d},[v \to a],\\
+    &(w_{\emptyset d},g_{\top}),\\
+  \end{aligned}}\)
+#+end_exe
+
+#+begin_warningblock
+The resulting information state is one in which \(v\) is /not familiar/! This means that the presupposition of a subsequent sentence with a matching free variable won't be satisfied.
+#+end_warningblock
+
+This account correctly captures the contextual entailment facts: an intermediate assertion can eliminate the world-assignment pair \((w_{\emptyset },g_{\top})\), thus rendering \(v\) familiar.[fn:5]
+
+#+name: audience3
+#+begin_exe
+\ex A: Either someone\(^v\) was in the audience, or the event was a disaster.
+\ex B: Actually, the auditorium wasn't empty.
+\ex A: In that case, I hope they\(_v\) enjoyed it.
+#+end_exe
+
+** Program disjunction
+
+The data which motivated Groenendijk \& Stokhof to posit a distinct entry for disjunction - program disjunction - are already accounted for by EDS.
+
+#+name: program
+#+begin_exe
+\ex Either a\(^v\) linguist is here, or a\(^v\) philosopher is. (Either way) I hope they\(_v\) found the class interesting.
+#+end_exe
+
+The union of the two different ways of dynamically verifying the disjunctive sentence gives us its positive extension.  The salient point to note here is that the output set /only/ contains assignments at which \(v\) is defined.
+
+#+begin_importantblock
+To my knowledge, this is the first analysis of disjunction in dynamic semantics which straightforwardly captures both bathroom disjunctions and examples motivating program disjunction in a straightforward fashion.
+#+end_importantblock
+
+** Negated conjunctions and ignorance
+
+Restrictions on anaphora from negated conjunctions are accounted for also via ignorance inferences: utterances of the form "not (\(p\) and \(q\))" imply that "not \(p\)" and "not \(q\)" are real possibilities.
+
+An illustration is left as an exercise.
+
+** Internal staticity and Hurford's constraint
+
+Recall that in DPL, a key observation motivating the entry for disjunction is that we appear to observe /internal/ staticity.
+
+#+name: int-stat
+#+begin_exe
+\ex ??Either someone\(^v\) is in the audience, or they\(_v\)'re sitting down.
+#+end_exe
+
+G&S build this directly into the semantics of disjunction, which precludes an explanation for bathroom sentences, as we've discussed [cite:@GroenendijkStokhof1991].
+
+Simons suggests that the reason anaphora is impossible in ([[int-stat]]) is not due to the dynamics of disjunction, but because the pronoun in the second disjunct is a covert definite description [cite:@Simons1996;@Simons2005] (the "e-type" strategy that we disregarded at the beginning of the semester [cite:@Evans1977;@Heim1990;@Elbourne2005]). 
+
+On this view, the pronoun stands in for the description /the person in the audience/. Note that the following is also infelicitous. Simons suggests that if we can provide an explanation for ([[simons]]), we can explain ([[int-stat]]).
+
+#+name: simons
+#+begin_exe
+\ex ??Either someone\(^v\) is in the audience, or *the person in the audience* is sitting down.
+#+end_exe
+
+Why indeed is ([[simons]]) odd? Famously, disjunctive sentences are generally odd if one disjunct entails the other. This general principle is known as Hurford's Constraint ([cite:@Hurford1974;@Gazdar1979]).
+
+HC can be illustrated by considering a minimal variation of ([[simons]]).
+
+#+name: hurford
+#+begin_exe
+\ex ??Either someone is in the audience, or someone in the audience is sitting down.
+#+end_exe
+
+A minimal extension of HC to ([[simons]]) is as follows: a disjunctive sentence is infelicitous if one of the disjuncts /Strawson entails/ the other.[fn:6]
+
+This is because, the second disjunct presupposes that a (unique) person is in the audience. Assuming that this presupposition is satisfied, the second disjunct entails the first.
+
+A reason to be dissatisfied with Simons' analysis: why /must/ the pronoun in the second disjunct receive an e-type interpretation? This is even more mysterious, since elsewhere Simons assumes a version of dynamic semantics.
+
+Let's consider a rendering of ([[int-stat]]) in EDS:
+
+#+name: eds-int
+#+begin_exe
+\ex \((\mathbf{a.ling}^v\ (\lambda x\,.\,\eta(\mathbf{in.audience}(x)))) \bap (\eta(\mathbf{or}) \fap (\mathbf{they}_v \bap \eta(\mathbf{sitting.down})))\)
+#+end_exe
+
+Under what conditions might ([[eds-int]]) be classically true (i.e., have a non-empty positive extension)?
+
+#+begin_tipblock
+This is only possible if the first disjunct is classically true. If the first disjunct is false or undefined, then due to positive closure, it won't introduce any anaphoric information, which will induce undefinedness of the second disjunct.
+#+end_tipblock
+
+It follows: every context in which the second disjunct is true will be one in which the first is also true.
+
+We reformulate Hurford's constraint to take into account the dynamics of disjunction, to capture this intuition:
+
+#+begin_definition
+Dynamic HC: A sentence of the form "\(p\) or \(q\)" is odd if "not \(p\) and \(q\)" isn't classically true, or "\(p\) and not \(q\)" isn't classically true, at every evaluation point.
+#+end_definition
+
+This rules out ([[int-stat]]), since "nobody\(^v\) is in the audience and they\(_v\)'re sitting down" isn't true at any evaluation point.
+
+Unfortunately, it doesn't seem to be possible to take an existing formulation of HC "off the shelf", since existing formulations don't generally take into account the possibility of anaphoric dependencies between disjuncts.
+
+#+begin_tipblock
+An area of future research: a consideration of the status of dynamic HC in light of attempts to reduce HC to incremental redundancy.
+#+end_tipblock
+
+* Conclusion
+
+we’ve achieved a dynamic semantics which is up-front about what exactly it stipulates.
+
+concretely, the locus of stipulation is in the compositional rules, which we stipulate pass referential information from left-to-right.
+
+the idea is that there is a single switch which gives rise to incrementality in anaphoric processing; this isn’t localized to the lexical entries of individual connectives.
+
+In developing a more principled theory of anaphora, what we’ve learned is that the literature has essentially been mistaken in taking the accessibility generalizations at face value.
+
+In order to maintain a parsimonious semantic theory, due care needs to be taken to address the role of pragmatic factors.
+
+Developing an understanding of the pragmatics of referential information is essential in order to improve on our understanding of the semantic component.
+
+As we’ve seen, it’s possible to retain some of the appealing aspects of dynamic semantics - such as the dynamic notion of content - while improving upon the stipulative nature of extant dynamic theories.
+
+A promissory list of topics, for the latter third of the course:
+
+- Weak vs. strong readings of donkey sentences, and the relationship with free choice and homogeneity [cite:@Kanazawa1994;@Kanazawa2001;@Chierchia1995;@ChampollionEtAl2019].
+- Plurality and generalized quantification in second-generation dynamic theories [cite:@vandenBerg1996;@Nouwen2003;@Keshet2019].
+- Modality, modal subordination, and hypothetical discourse referents [cite:@GroenendijkEtAl1996;@Kibble1994;@Veltman1996;@Roberts1989;@Hofmann2019;]
+- Dynamic inquisitive semantics [cite:@DotlacilRoelofsen2019;@DotlacilRoelofsen2021].
+- Filipe Hisao Kobayashi on /post-suppositions/ [cite:@Brasoveanu2013;@Charlow2016].
 
 * References
 
 #+print_bibliography:
 
 * Footnotes
+[fn:7] Note that the workings of \(\dag\) are highly reminiscent of Mandelkern's independently-developed disjunctive /witness presupposition/ [cite:@Mandelkern2022]. Unlike Mandelkern, we don't make use of presuppositional machinery to militate where indefinites introduce anaphoric information, and therefore EDS avoids some of the pitfalls of Mandelkern's static theory. We won't discuss this in detail today, but Mandelkern must make an ad hoc distinction between anaphoric presuppositions and ordinary presuppositions, in terms of how they constrain (or fail to constrain) affect update. The bridge principle of EDS, on the other hand, is totally orthodox. 
+
+[fn:6] A sentence \(\phi \) Strawson entails a sentence \(\psi\) if, when the presuppositions of \(\phi \) are satisfied, \(\phi \) entails \(\psi\) [cite:@vonFintel1999].
+[fn:5] I'm optimistic that this general style of explanation can be extended to the (apparent) external staticity of conditional sentences. but this is complicated by the fact that material implication is undoubtedly not a realistic semantic proposal for conditional sentences of English. 
 
 [fn:4] Here and throughout I assume that /no/ is the composition of sentential negation and the indefinite determiner. 
 
