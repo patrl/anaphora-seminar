@@ -5,22 +5,63 @@
 #+OPTIONS: ':t
 #+cite_export: biblatex
 
-* Externally-dynamic dynamic semantics
+* TODO Goals of EDS
+
+** Some failures of classicality in DPL/FCS
+
+Double-negation elimination.
+
+#+name: shirt
+#+begin_exe
+\ex John doesn't have NO\(^v\) shirt. It\(_v\)'s in his closet!
+#+end_exe
+
+De Morgan's laws.
+
+#+name: bathroom
+#+begin_exe
+\ex Either there's no\(^v\) bathroom, or it\(_v\)'s upstairs.
+\ex It's not the case that there's a\(^v\) bathroom and it\(_v\)'s not upstairs.
+#+end_exe
+
+* Types and propositions
 
 In the first generation dynamic systems we've considered, culminating in pointwise FCS, dynamics are a sentential phenomenon.
 
-Charlow teaches us how to factor out dynamics into our compositional regime. We'll make use of this in EDS [cite:@Charlow2014;@Charlow2020].
+A sentential meaning is a function from an input assignment to a set of output assignments; sentences are type \(T\).
 
-First, we adopt Charlow's general recipe for a dynamic type.[fn:1][fn:2]
+#+name: def:oldtype
+#+begin_exe
+\ex \(T := g \to \set{g}\)
+#+end_exe
+
+Disadvantages:
+
+- Why should dynamics be a purely sentential phenomemon?
+- Unclear how to combine first generation dynamic systems with an orthodox approach to composition (e.g, [cite:@Carpenter1998]).
+
+Charlow teaches us how to factor out dynamics, keeping track of anaphoric information as a by-product of "ordinary" composition [cite:@Charlow2014;@Charlow2020].
+
+As a backdrop to EDS, we'll adopt Charlow's general recipe for dynamic types.[fn:1][fn:2]
 
 #+name: def:type
 #+begin_exe
-\ex \(D\ a := g \to \set{(a \times g)}\)
+\ex \(D\ a := g \to \set{a \times g}\)
 #+end_exe
 
 For example, sentences in EDS will be type \(D\ t\); VPs in EDS will be type \(D\ (e \to t)\).
 
-** Pronouns and partiality
+This is strictly speaking more expressive than what is afforded to us by, e.g., DPL.
+
+In DPL, classical truth corresponds to having a non-empty output set; an empty output set corresponds to classical falsity.
+
+In EDS, sentential meanings are functions from assignments to /sets of truth-value, assignment pairs/; type \(g \to \set{t \times g}\).
+
+This will allow us to keep track of anaphoric information associated with verification and falsification in tandem; we'll need a different reconstruction of classical truth, which will turn out to be very natural.
+
+This greater expressiveness will be essential in improving upon the empirical results of first-generation dynamic theories.
+
+* Pronouns and partiality
 
 In EDS, much like in Charlow's monadic grammar, pronouns are expressions of type \(D\ e\), i.e., /dynamic individuals/.
 
@@ -83,9 +124,11 @@ An alternative rendering:
 \end{aligned}\)
 #+end_exe
 
-** Indefinites
+We'll often omit the explicit presupposition and assume that any predicate fed an impossible individual as an argument outputs \(\mathbf{maybe}\).
 
-*** Random assignment in EDS
+* Indefinites
+
+** Random assignment in EDS
 
 It will be helpful to first define the correlate of DPL /random assignment/ in EDS (relative to a restrictor \(r\)).
 
@@ -163,7 +206,7 @@ Now we can state our final proposal for the semantics of indefinites as the comp
 
 The input assignment is indeterministically extended at \(v\) to linguists who swim, and paired with \(\mathbf{yes}\); if there aren't any linguists who swim, the input assignment is paired with \(\mathbf{no}\).
 
-** Compositionality
+* Compositionality
 
 As a methodological principle, we'll insist that proper names, predicates, logical expressions etc. don't have any inherent dynamics.
 
@@ -235,10 +278,9 @@ Some exercises - note that in-scope dynamic binding follows immediately from the
 \ex \(\mathbf{a.ling}^v\ (\lambda x\,.\,\eta(\mathbf{introduced}(\mathbf{j})) \fap (\mathbf{her_v\,.\,\mathbf{mother}})) = \dag(\varepsilon^v(\mathbf{ling})(\lambda x\,.\,\lambda g\,.\,\set{(\mathbf{introduce}(j)(\mathbf{mother.of}\ g_v)(x),g)}))\)
 #+end_exe
 
+* Lifting logical operators
 
-** Lifting logical operators
-
-*** Strong Kleene
+** Strong Kleene
 
 Strong Kleene semantics is a logical encoding of how we reason about uncertainty/indeterminate truth.
 
@@ -246,7 +288,7 @@ Strong Kleene semantics is a logical encoding of how we reason about uncertainty
 \begin{figure}[H]
     \centering
   \begin{tabular}{l|r}
-      $\mathbf{not}$  &  \\
+      $\neg_s$  &  \\
       \toprule
       $\mathbf{yes}$  & $\mathbf{no}$   \\
       $\mathbf{no}$  & $\mathbf{yes}$   \\
@@ -280,7 +322,7 @@ Strong Kleene semantics is a logical encoding of how we reason about uncertainty
 \end{figure}
 #+end_export
 
-*** Negation
+** Negation
 
 Our compositional regime dictates that negation, a sentential operator must be lifted via \(\eta\) and compose with its argument via \(\fap\).
 
@@ -325,11 +367,429 @@ In EDS, by way of contrast, we don't precompile anything to do with dynamics int
 
 Moreover, this example teaches us why random assignment (\(\varepsilon^v\)) isn't fit for purpose as a semantics for the indefinite article in EDS.
 
+Essentially, this is because of the following fact.
+
+#+begin_fact
+Logical negation commutes with random assignment in EDS.
+
+\[\eta(\mathbf{not}) \fap \varepsilon^v(f)(k) = \varepsilon^v(f)(\lambda x\,.\,\eta(\mathbf{not}) \fap k(x))\]
+#+end_fact
+
+To see why, let's consider a concrete example:
+
+If the indefinite article contributes random assignment, then "no\(^v\) linguist swims"[fn:4] indeterministically extends \(g\) at \(v\) to linguists who swim, and tags the result \(\mathbf{no}\), and indeterministically extends \(g\) at \(v\) to linguists who don't swim, and tags the result \(\mathbf{no}\). 
+
+#+name: ex:neg
+#+begin_exe
+\ex \(\eta(\mathbf{not}) \fap \varepsilon^v(\mathbf{ling})(\lambda x\,.\,\eta(\mathbf{swim}(x)))\)
+\ex \(= \lambda g\,.\,\set{(\mathbf{no},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)} \cup \set{(\mathbf{yes},g^{[v \to x]})|\mathbf{ling}(x) \wedge \neg(\mathbf{swim}(x))}\)
+#+end_exe
+
+"Some linguist doesn't swim" does exactly the same thing (in fact, it's even easier to see).
+
+#+name: ex:neg2
+#+begin_exe
+\ex \(\varepsilon^v(\mathbf{ling})(\lambda x\,.\,\eta(\mathbf{not}) \fap \eta(\mathbf{swim}(x)))\)
+\ex \(= \lambda g\,.\,\set{(\mathbf{no},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)} \cup \set{(\mathbf{yes},g^{[v \to x]})|\mathbf{ling}(x) \wedge \neg(\mathbf{swim}(x))}\)
+#+end_exe
+
+Any dynamic semantics which adopts a DPL-style entry for indefinites, such as Charlow's monadic grammar, must precompile anaphoric closure into the meaning of negation.
+
+In EDS, thankfully, indefinites don't commute with negation. Thanks to positive closure, any false tagged assignments fail to introduce anaphoric information.
+
+#+name: ex:eds-neg
+#+begin_exe
+\ex \(\eta(\mathbf{not}) \fap \mathbf{a.ling}^v\ (\lambda x\,.\,\eta(\mathbf{swim}(x)))\)
+\ex \(= \lambda g\,.\,\set{(\neg_s(\mathbf{yes}),g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)} \cup \set{(\neg_s(\mathbf{no}),g)|\neg\exists x[\mathbf{ling}(x) \wedge \mathbf{swim}(x)]}\)
+\ex \(= \lambda g\,.\,\set{(\mathbf{no},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)} \cup \set{(\mathbf{yes},g)|\neg\exists x[\mathbf{ling}(x) \wedge \mathbf{swim}(x)]}\)
+#+end_exe
+
+Note that /falsification/ of a negative sentence has the potential to introduce anaphoric information.
+
+It should be obvious now that the following equivalence holds in EDS.
+
+#+begin_fact
+Double-negation elimination is valid in EDS.
+
+\[\eta(\mathbf{not}) \fap \eta(\mathbf{not}) \fap p = p\]
+#+end_fact
+
+A signature feature of EDS: a single negation closes off anaphoric information, but double-negation is anaphorically equivalent to the embedded positive sentence.
+
+This seems like a good logical starting point, based on the problems we discussed for DPL (inherited by subsequent approaches).
+
+#+name: shirt
+#+begin_exe
+\ex John doesn't have no shirt. It's in his closet.
+#+end_exe
+
+Data currently beyond the remit of this analysis (example from [cite:@Hofmann2019]) - we'll talk about this in several weeks time, when we introduce modality and modal subordination.
+
+#+name: ex:hofman
+#+begin_exe
+\ex There is no\(^v\) bathroom in this house. It\(_v\) would be easier to find.
+#+end_exe
+
+** Conjunction and discourse anaphora
+
+#+begin_export latex
+\begin{figure}[H]
+\begin{tabular}{l|ccc}
+      $\wedge _{s}$  & $\mathbf{yes}$ & $\mathbf{no}$ & $\mathbf{maybe}$ \\
+      \toprule
+      $\mathbf{yes}$  & $\mathbf{yes}$  & $\mathbf{no}$ & $\mathbf{maybe}$\\
+      $\mathbf{no}$  & $\mathbf{no}$  & $\mathbf{no}$ & $\mathbf{no}$\\
+      $\mathbf{maybe}$ & $\mathbf{maybe}$ & $\mathbf{no}$ & $\mathbf{maybe}$\\
+  \end{tabular}
+  \caption{Strong Kleene conjunction}
+\end{figure}
+#+end_export
+
+Our compositional regime also allow binary truth-functional operators to compose with dynamic propositions, such that the flow of referential information tracks the linear order of the juncts.
+
+#+begin_export latex
+\begin{exe}
+\ex
+\begin{forest}
+  [{\(D\ t\)\\\(\bap\)}
+    [{\(D\ t\)\\\(p\)}]
+    [{\(D\ (t \to t)\)\\\(\fap\)}
+      [{\(D\ (t \to t \to t)\)\\\(\eta(\mathbf{and})\)}]
+      [{\(D\ t\)\\\(q\)}]
+    ]
+  ]
+\end{forest}
+\end{exe}
+#+end_export
+
+Recall, as a methodological principle, we insist that conjunction is just a function over truth-values (here: strong Kleene conjunction):
+
+#+name: def:conj
+#+begin_exe
+\ex \(p \mathbin{\mathbf{and}} q := p \wedge_s q\)\hfill\(t \to t \to t\)
+#+end_exe
+
+Interestingly, Egli's theorem holds in EDS but only with respect to positive anaphoric information!
+
+One way to illustrate this is to consider "A linguist entered and she sat".
+
+#+name: egli-illustration.
+#+begin_exe
+\ex \((\mathbf{a.ling}^v(\lambda x\,.\,\eta(\mathbf{entered}(x)))) \bap (\eta(\mathbf{and}) \fap (\mathbf{she}_v \bap \eta(\mathbf{sat})))\)
+\ex \(= \lambda g\,.\,\set{(t \wedge_s u,i)|\exists h[(t,h) \in \dag(\lambda g\set{(\mathbf{entered}(x),g^{[v \to x]})|\mathbf{ling}(x)})(g) \wedge (u,i) \in \set{(\mathbf{sat}(h_v),h)}]}\)
+\ex \(= \lambda g\,.\,\begin{aligned}[t]
+&\set{(\mathbf{yes},g^{[v \to x]})|\mathbf{ling}(x) \wedge  \mathbf{entered}(x) \wedge \mathbf{sat}(x)}\\
+&\cup \set{(\mathbf{no},g^{[v \to x]})| \mathbf{ling}(x) \wedge \mathbf{entered}(x) \wedge \neg\mathbf{sat}(x)}\\
+&\cup \set{(\mathbf{no},g)|\neg\exists x[\mathbf{ling}(x) \wedge \mathbf{entered}(x)]}
+\end{aligned}\)
+#+end_exe
+
+Another way of thinking about it:
+
+#+begin_noteblock
+*Scenario 1 (verification/falsification)*: there is a linguist who entered. The first conjunct introduces a /positive/ discourse referent - the second disjunct retains the positive discourse referent if the linguist sat, and makes it negative otherwise. We never have to consider any *maybe* values.
+#+end_noteblock
+
+#+name: scen1
+#+begin_exe
+\ex \(\lambda g\,.\,\set{(\mathbf{yes} \wedge _{s} u,h)|\exists x[\mathbf{ling}(x) \wedge  \mathbf{entered}(x) \wedge  (u,h) \in \set{(\mathbf{sat}(x),g^{[v \to  x]})}]}\)
+#+end_exe
+
+#+begin_noteblock
+*Scenario 2 (falsification)*: there is no linguist who entered. The second conjunct never effects the truth-value (thanks to Strong Kleene conjunction), nor introduces any discourse referents. *maybe* values don't affect the falsity of the conjunctive sentence.
+#+end_noteblock
+
+#+name: scen2
+#+begin_exe
+\ex \(\lambda g . \set{(\mathbf{no} \wedge_{s} u,h)|(u,h) \in  \set{(\mathbf{sat}(g_{v}),g)}}\)
+#+end_exe
+
+The fact that conjunctive sentences can introduce /negative/ anaphoric information (depending on how they're falsified) may strike you as odd. We'll come back to this later.
+
+** Disjunction and bathroom sentences
+
+#+begin_export latex
+\begin{figure}[H]
+\begin{tabular}{l|ccc}
+      $\vee_{s}$  & $\mathbf{yes}$ & $\mathbf{no}$ & $\mathbf{maybe}$ \\
+      \toprule
+      $\mathbf{yes}$  & $\mathbf{yes}$  & $\mathbf{yes}$ & $\mathbf{yes}$\\
+      $\mathbf{no}$  & $\mathbf{yes}$  & $\mathbf{no}$ & $\mathbf{maybe}$\\
+      $\mathbf{maybe}$ & $\mathbf{yes}$ & $\mathbf{maybe}$ & $\mathbf{maybe}$\\
+  \end{tabular}
+\caption{Strong Kleene disjunction}
+\end{figure}
+#+end_export
+
+Just like conjunction, (strong Kleene) disjunction is integrated into our compositional regime via \(\eta, \fap, \bap\).
+
+#+begin_export latex
+\begin{exe}
+\ex
+\begin{forest}
+  [{\(D\ t\)\\\(\bap\)}
+    [{\(D\ t\)\\\(p\)}]
+    [{\(D\ (t \to t)\)\\\(\fap\)}
+      [{\(D\ (t \to t \to t)\)\\\(\eta(\mathbf{or})\)}]
+      [{\(D\ t\)\\\(q\)}]
+    ]
+  ]
+\end{forest}
+\end{exe}
+#+end_export
+
+#+name: def:disj
+#+begin_exe
+\ex \(p \mathbin{\mathbf{or}} q := p \wedge_s q\)\hfill\(\mathbf{or}: t \to t \to t\)
+#+end_exe
+
+Let's see how EDS accounts for bathroom disjunctions by considering a concrete example.
+
+#+name: ex:bathroom
+#+begin_exe
+\ex Either there's no\(^v\) bathroom or it\(_v\)'s upstairs.
+\ex \(p_1: \dag(\lambda g\,.\,\set{(\mathbf{bathroom}(x),g^{[v \to x]})|x \in D})\)
+\ex \(q_2: \lambda g\,.\,\set{(\mathbf{upstairs}(g_v),g)}\)
+\ex \(\(p_1 \bap (\eta(\mathbf{or}) \fap q_2)\)
+\ex \(= \lambda g\,.\,\begin{aligned}[t]
+&\set{(\mathbf{yes},g)|\neg\exists x[\mathbf{bathroom}(x)]}\\
+&\cup \set{(\mathbf{yes},g^{[v \to x]})|\mathbf{bathroom}(x) \wedge \mathbf{upstairs}(x)}\\
+&\cup \set{(\mathbf{no},g^{[v \to x]})|\mathbf{bathroom}(x) \wedge \neg\mathbf{upstairs}(x)}
+\end{aligned}\)
+#+end_exe
+
+Another way of thinking about it:
+
+#+begin_noteblock
+*Scenario 1 (verification):* there's no bathroom. The second disjunct never effects the truth-value (thanks to Strong Kleene disjunction), nor introduces any discourse referents.
+#+end_noteblock
+
+#+name: ver1
+#+begin_exe
+\ex \(\lambda g\,.\,\set{(\mathbf{yes} \vee_{s} u,h)|(u,h) \in  \set{(\mathbf{upstairs}(g_{v}),g)}}\)
+#+end_exe
+
+#+begin_noteblock
+*Scenario 2 (verification/falsification):* There is a bathroom. The first disjunct introduces a /negative/ discourse referent - the second disjunct makes the discourse referent positive if the bathroom is upstairs, and negative otherwise.
+#+end_noteblock
+
+#+name: ver2
+#+begin_exe
+\ex \(\lambda g\,.\,\set{(\mathbf{no} \vee_{s} u,h)|\exists x[\mathbf{bathroom}(x) \wedge  (u,h) \in  \set{(\mathbf{upstairs}(x),g^{[v \to x]})}]}\)
+#+end_exe
+
+This addresses the problem of bathroom disjunctions for dynamic semantics. Note that the truth-conditions we predict are existential. 
+
+Last week I argued (following a suggestion from Matt Mandelkern) that this is in general a good thing.
+
+#+name: sage
+#+begin_exe
+\ex Either Sally didn't buy a\(^v\) sage plant, or she bought 8 others along with it\(_v\).
+#+end_exe
+
+Any putative uniqueness inference seems to be defeasible.
+
+#+name: defeasible
+#+begin_exe
+\ex A: Either there is no bathroom, or it's upstairs.\\
+B: That's true - in fact there are two bathrooms upstairs.
+B: ?That's false - there are two bathrooms upstairs.
+#+end_exe
+
+** Donkey anaphora
+
+#+begin_export latex
+\begin{figure}[H]
+\begin{tabular}{l|ccc}
+      $\rightarrow_{s}$  & $\mathbf{yes}$ & $\mathbf{no}$ & $\mathbf{maybe}$ \\
+      \toprule
+      $\mathbf{yes}$  & $\mathbf{yes}$  & $\mathbf{no}$ & $\mathbf{maybe}$\\
+      $\mathbf{no}$  & $\mathbf{yes}$  & $\mathbf{yes}$ & $\mathbf{yes}$\\
+      $\mathbf{maybe}$ & $\mathbf{yes}$ & $\mathbf{maybe}$ & $\mathbf{maybe}$\\
+  \end{tabular}
+  \caption{Strong Kleene implication}
+\end{figure}
+#+end_export
+
+Just like our other connectives, (strong Kleene) implication is integrated into our compositional regime via \(\eta, \fap, \bap\).
+
+#+begin_export latex
+\begin{exe}
+\ex
+\begin{forest}
+  [{\(D\ t\)\\\(\bap\)}
+    [{\(D\ t\)\\\(p\)}]
+    [{\(D\ (t \to t)\)\\\(\fap\)}
+      [{\(D\ (t \to t \to t)\)\\\(\eta(\mathbf{if.then})\)}]
+      [{\(D\ t\)\\\(q\)}]
+    ]
+  ]
+\end{forest}
+\end{exe}
+#+end_export
+
+#+name: def:if
+#+begin_exe
+\ex \(p \mathbin{\mathbf{if.then}} q := p \rightarrow_s q\)\hfill \(t \to t \to t\)
+#+end_exe
+
+Let's see how this handles donkey anaphora in a sentence such as the following:
+
+#+name: donkey1
+#+begin_exe
+\ex If any\(^v\) linguist is outside, then they\(_v\) are happy.
+#+end_exe
+
+#+name: if1
+#+begin_exe
+\ex \(p_1: \dag(\lambda g\,.\,\set{(\mathbf{outside}(x),g^{[v \to x]})|\mathbf{ling}(x)})\)
+\ex \(q_2: \lambda g\,.\,\set{(\mathbf{happy}(g_v),g)}\)
+\ex \(p_1 \bap (\eta(\mathbf{if.then}) \fap q_2)\)
+\ex \(= \lambda g\,.\,\begin{aligned}[t]
+&\set{(\mathbf{yes},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{outside}(x) \wedge \mathbf{happy}(x)}\\
+&\cup \set{(\mathbf{no},g)|\neg\exists x[\mathbf{ling}(x) \wedge \mathbf{outside}(x)]}\\
+&\cup \set{(\mathbf{no},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{outside}(x) \wedge \neg\mathbf{happy}(x)}
+\end{aligned}\)
+#+end_exe
+
+Another way of thinking about this, in terms of verification/falsification strategies encoded by Strong Kleene implication.
+
+#+begin_noteblock
+*Scenario 1 (verification/falsification):* Someone is outside. The antecedent introduces a \textit{positive} discourse referent --- the consequent makes the discourse referent positive if they are happy, and negative if not.
+#+end_noteblock
+
+#+name: if-ver
+#+begin_exe
+\ex \(\lambda g\,.\,\set{(\mathbf{yes} \rightarrow_{s} u,h)|\exists x[\mathbf{ling}(x) \wedge  \mathbf{outside}(x) \wedge  (u,h) \in  \set{(\mathbf{happy}(x),g^{[v \to  x]})}]}\)
+#+end_exe
+
+#+begin_noteblock
+*Scenario 2 (verification):* Nobody is outside. The consequent never effects the truth-value, nor introduces any discourse referents:
+#+end_noteblock
+
+#+name: if-ver2
+#+begin_exe
+\ex \(\lambda g\,.\,\set{(\mathbf{no} \rightarrow_{s} u, h)|(u,h) \in  \set{(\mathbf{happy}(g_{v}),g)}}\)
+#+end_exe
+
+#+begin_importantblock
+*Prediction:* donkey sentences have weak, existential truth-conditions, i.e., ([[donkey1]]) is true just so long as a linguist is outside and happy; the existence of a linguist outside who is unhappy doesn't falsify the sentence, under this reading.
+#+end_importantblock
+
+Egli's corrolary doesn't hold in EDS. Rather, we end up with something weaker. In EDS, \(\exists x,p \to q\) is equivalent to \(\neg\exists x,p \vee q\) (by classical equivalence.
+
+#+name: 
+#+begin_exe
+\ex If any\(^v\) linguist is outside, they\(_v\) are unhappy.
+\ex Either no linguist is outside, or (a linguist is outside and) they are happy.
+#+end_exe
+
+As we discussed last time, being able to generate weak truth-conditions for donkey sentences is desirable.
+
+#+name: donkey-weak
+#+begin_exe
+\ex If Gennaro had a\(^v\) credit card, he paid with it\(_v\).
+\ex Either Gennaro doesn't have a\(^v\) credit card, or (he has a\(^v\) credit card and) he paid with it.
+#+end_exe
+
+#+begin_warningblock
+*Strong readings.* At worst, EDS is on a par with first-generation dynamic theories, which only derive strong readings. Arguably, the situation is a little better, since we want our semantics to be compatible with the weakest atteested readings. In [cite:@Elliott2020g], I explore the possibility of deriving the strong reading as an implicature, via mechanisms motivated by free choice and homogeneity [cite:@Bar-Lev2018;@Bar-LevFox2017]. We won't have time  to explore this today, but if there is general interest, I can talk more about the landscape of weak/strong readings in several weeks time.
+#+end_warningblock
+
+* Pragmatics, and the problem of too many discourse referents
+
+The moniker EDS was chosen because nothing in the semantics of the logical operators blocks anaphoric information flow.
+
+This means that, e.g., disjunctive sentences are both externally and internally /dynamic/ as far as the semantics is concerned.
+
+But, wait a minute! Let's think back to the motivations for DPL disjunction. To see the problem, consider the following:
+
+#+name: ignorance1
+#+begin_exe
+\ex Either this house hasn't been renovated, or there's a\(^v\) bathroom.\\
+??It\(_v\)'s upstairs.
+#+end_exe
+
+Suppose there is in fact exactly one bathroom $b$. Don't we predict that the disjunctive sentence will introduce a positive /bathroom/ discourse referent, and anaphora will be licensed? 
+
+A similar problem arises with material implication and negated conjunctions (left as an exercise).
+
+#+begin_warningblock
+As we've seen however, we don't want to build external staticity into the semantics of disjunction, as this leads to a dilemma, both conceptual and empirical.
+#+end_warningblock
+
+In order to chart a way out, we'll build on an observation by [cite:@Rothschild2017] (anticipated by Amir's question last week).
+
+** Contextual entailment and anaphora 
+
+In a discourse with an asserted disjunctive sentence, if the truth of the disjunct containing an indefinite is later contextually entailed, anaphora becomes possible [cite:@Rothschild2017].
+
+*Context:* The director of a play (A) has lost track of time, and doesn't know what day it is. The director is certain, however, that on Saturday and Sunday, different critics will be in the audience, and utters the disjunctive sentence in ([[ex:ignorance1a]]). A's assistant (B), knows what day it is, and utters the sentence in ([[ex:ignorance1b]]), which contextually entails the second disjunct. Subsequently, anaphora is licensed in ([[ex:ignorance1c]]).
+
+#+name: ignorance
+#+begin_exe
+\ex A: Either it's a weekday, or a\(^v\) critic is watching our play.<<ex:ignorance1a>>
+\ex B: It's Saturday.<<ex:ignorance1b>>
+\ex A: They\(_v\)'d better give us a good review.<<ex:ignorance1c>>
+#+end_exe
+
+We can make the same point for conditionals.
+
+#+name: ignorance2
+#+begin_exe
+\ex A: If it's the weekend, then a\(^v\) critic is watching our play.
+\ex B: It's Saturday.
+\ex A: Then, they\(_v\) better give us a good review.
+#+end_exe
+
+#+begin_tipblock
+*Resolution:* Complex sentences can give the illusion of external staticity, given the conversational backgrounds against which they can be felicitously uttered.
+#+end_tipblock
+
+** A Heimian pragmatics for EDS
+
+First, we systematically intensionalize the fragment, by adding a world parameter: a dynamic \(a\) is a function from a world-assignment pair, to a \(a\)-world-assignment triple.
+
+#+name: def:newtype
+#+begin_exe
+\ex \(D\ a := s \times g \to \set{a \times s \times g}\)
+#+end_exe
+
+Predicates are world-sensitive in an intensional setting, they can be lifted into a dynamic setting via a modified pure (\(\pi \)):
+
+#+name: int-pure
+#+begin_exe
+\ex \(\pi(a) := \lambda (w,g)\,.\,\set{(a(w),g)}\)\hfill \((s \to a) \to D\ a\)
+#+end_exe
+
+Everything else can remain the same, aside from some minor tweaks to keep track of the world of evaluation.
+
+We'll assume the notion of a /file context/ we developed for partial FCS.
+
+#+begin_definition
+File contexts. A file context is a set of world-assignment pairs, where assignments are total functions from variables to \(D \cup \set{\#_e}\).
+
+- Initial context \(c_\top\) : \(W \times \set{(g_\top)}\)
+- Absurd context \(c_\emptyset \): \(\emptyset \)
+#+end_definition
+
+As usual, we need a bridge principle.
+
+
+
 * References
 
 #+print_bibliography:
 
 * Footnotes
+
+[fn:4] Here and throughout I assume that /no/ is the composition of sentential negation and the indefinite determiner. 
+
+#+name: neg
+#+begin_exe
+\ex \(\mathbf{no.ling}^v := \lambda k\,.\,\eta(\mathbf{not}) \fap \mathbf{a.ling}^v(k)\)\hfill\((e \to D\ t) \to D\ t\)
+#+end_exe
+
 [fn:3] See [cite:@Mandelkern2022] for a similar set up. 
 
 [fn:2] Initially, we'll present EDS as an extensional system; ultimately, everything will need to be intensionalized. 
