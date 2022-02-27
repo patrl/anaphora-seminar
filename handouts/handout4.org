@@ -1,4 +1,4 @@
-#+title: Externally-dynamic dynamic semantics
+#+title: Externally-dynamic dynamic semantics (version 2)
 #+author: Patrick D. Elliott 
 #+bibliography: ../../bibliography/master.bib
 #+setupfile: handout-template.org
@@ -7,15 +7,7 @@
 
 * Introduction
 
-** Next week
-
-Starting from next week, Amir Anvari will be discussing /oddness and redundancy/ for three sessions. A summary of the content, taken from the class description:
-
-#+begin_quote
-"/We will rehearse a host of puzzles that have been discussed in the literature on oddness (Singh 2008, Katzir & Singh 2014, Mayr & Romoli 2016, Mandelkern & Romoli 2018, Marty & Romoli 2021). The ambition is to provide a unified analysis for all these cases. We begin with the classical insight, as formulated by Katzir & Singh (2015), that “a good assertion is one that provides a good answer to a good question”: a good sentence is one that is about something. We explore the idea that the question that a sentence addresses in a given context is one that must be constructed in a principled fashion from sentence itself and its formal alternatives (Katzir 2007, Fox & Katzir 2011). If such a “formal background question” cannot be constructed, the sentence is not about anything and predicted to be odd. We will explore one implementation of this idea in the context of the puzzles mentioned./"
-#+end_quote
-
-** This week: towards a new foundation
+* Towards a new foundation
 
 Last week we discussed several problems that arise in "first-generation" theories of dynamic semantics, such as FCS and DPL.
 
@@ -52,9 +44,9 @@ This leads to theories of semantic composition which barely resemble anything th
 
 This has lead to a general misconception that dynamic semantics weds one to a sententialist mode of composition, with dynamic sequencing at its center.
 
-Charlow, building on [cite:@Muskens1996], innovates mechanisms for separating off anaphoric information flow from the Fregean essence of semantic composition.
+Charlow, building on [cite:@Muskens1996] and others, innovates mechanisms for separating off anaphoric information flow from the Fregean essence of semantic composition.
 
-We'll adopt some of Charlow's machinery as we develop /Externally-dynamic Dynamic Semantics/.
+We'll adopt some of Charlow's machinery as we develop /Externally-dynamic Dynamic Semantics/ (EDS).
 
 The trade-off in EDS:
 
@@ -62,9 +54,13 @@ The trade-off in EDS:
 - Adopting a richer notion of content allows us to refrain from lexicalizing anaphoric information flow. 
 - The resulting theory will be quite permissive, and we'll need to pay careful attention to the pragmatics in order to avoid over-predicting anaphoric possibilities.
   
+#+begin_importantblock
 *The pay-off:* an empirically and conceptually superior foundation. EDS is intended to be a /bona fide/ alternative to FCS and DPL.
+#+end_importantblock
 
-Note that today I'll present EDS as a compositional grammar - in [cite:@Elliott2020g] I give a fully equivalent first-order presentation, which is in many respects terser, but less transparent wrt to composition. 
+#+begin_noteblock
+Note that today I'll present EDS as a compositional grammar - in [cite:@Elliott2020g] I give a fully equivalent first-order presentation, which is in many respects terser, but less transparent wrt to composition.
+#+end_noteblock
 
 * Types and propositions
 
