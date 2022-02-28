@@ -1,66 +1,36 @@
-#+title: Externally-dynamic dynamic semantics (version 2)
+#+title: Externally-dynamic dynamic semantics ii
 #+author: Patrick D. Elliott 
 #+bibliography: ../../bibliography/master.bib
 #+setupfile: handout-template.org
 #+OPTIONS: ':t
 #+cite_export: biblatex
 
-* Introduction
+* Summary of EDS
 
-* Towards a new foundation
+** Background
 
-Last week we discussed several problems that arise in "first-generation" theories of dynamic semantics, such as FCS and DPL.
+Inter-related problems for first-generation theories of dynamic semantics (FCS, DPL, etc.):
 
-The problems relate to the interaction between /logical operators/ and /anaphoric information flow/ (the so-called /accessibility generalizations/).
+- Exceptions to accessibility generalizations.
+- Non-classicality (double negation elimination, de Morgan's laws).
+- Anaphoric information flow is pre-compiled into the semantics of logical expressions.
+- Sententialist mode of composition; dynamics is the exclusive purview of the propositional type.
 
-#+begin_tipblock
-A telling characterization: many of the exceptions to the accessibility generalizations we discussed last week are yoked to *non-classicality* in theories such as DPL.
-#+end_tipblock
+Ingredients of EDS:
 
-For example, double-negation.
-
-#+name: shirt
-#+begin_exe
-\ex John doesn't have NO\(^v\) shirt. It\(_v\)'s in his closet!
-#+end_exe
-
-De Morgan's laws.
-
-#+name: bathroom
-#+begin_exe
-\ex Either there's no\(^v\) bathroom, or it\(_v\)'s upstairs.
-\ex It's not the case that there's a\(^v\) bathroom and it\(_v\)'s not upstairs.
-#+end_exe
-
-These empirical problems are connected to a conceptual problem with dynamic semantics - anaphoric information flow is /pre-compiled/ into the lexical entries of logical expressions such as conjunction. 
-
-What is the relationship between dynamic entries for logical expressions and their classical counterparts?
-
-#+begin_tipblock
-A related problem: classical dynamic theories are /sententialist/ in the sense that the propositional type is the repository of anaphoric information (we'll make this concrete in a moment).
-#+end_tipblock
-
-This leads to theories of semantic composition which barely resemble anything that can be found, e.g., in a compositional semantics textbook such as [cite:@HeimKratzer1998;@Carpenter1998].
-
-This has lead to a general misconception that dynamic semantics weds one to a sententialist mode of composition, with dynamic sequencing at its center.
-
-Charlow, building on [cite:@Muskens1996] and others, innovates mechanisms for separating off anaphoric information flow from the Fregean essence of semantic composition.
-
-We'll adopt some of Charlow's machinery as we develop /Externally-dynamic Dynamic Semantics/ (EDS).
-
-The trade-off in EDS:
-
-- Adopt a richer notion of /content/, to free ourselves from the sententialist shackles of orthodox DS.
-- Adopting a richer notion of content allows us to refrain from lexicalizing anaphoric information flow. 
-- The resulting theory will be quite permissive, and we'll need to pay careful attention to the pragmatics in order to avoid over-predicting anaphoric possibilities.
+- A strictly more expressive notion of content than first-generation theories.  
+- A general recipe (the ~State.Set~ applicative functor) for systematically lifting a static Montagovian fragment into a dynamic setting [cite:@Charlow2014].
+- A trivalent, /Strong Kleene/ semantics for the logical connectives; arguably what's minimally needed to account for presupposition projection.
   
-#+begin_importantblock
-*The pay-off:* an empirically and conceptually superior foundation. EDS is intended to be a /bona fide/ alternative to FCS and DPL.
+ #+begin_importantblock
+*The pay-off:* an (arguably) empirically and conceptually superior foundation. EDS is intended to be a /bona fide/ evolution of the program begun by FCS, which we'll build on in several weeks time.
 #+end_importantblock
 
-#+begin_noteblock
-Note that today I'll present EDS as a compositional grammar - in [cite:@Elliott2020g] I give a fully equivalent first-order presentation, which is in many respects terser, but less transparent wrt to composition.
-#+end_noteblock
+Signature features of EDS:
+
+- A distinction emerges between /positive/ and /negative/ anaphoric information; /Egli's theorem/ (the essence of DS) only valid with respect to /positive/ anaphoric information.
+- More classical behaviour: double negation elimination and de Morgan's laws are valid. 
+- The semantics is permissive when it comes to predictions regarding accessibility; some of the restrictiveness of the theory emerges out of a consideration of independently motivated pragmatic constraints on, e.g., disjunction.
 
 * Types and propositions
 
