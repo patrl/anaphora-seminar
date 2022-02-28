@@ -12,14 +12,14 @@
 Inter-related problems for first-generation theories of dynamic semantics (FCS, DPL, etc.):
 
 - Exceptions to accessibility generalizations.
-- Non-classicality (double negation elimination, de Morgan's laws).
-- Anaphoric information flow is pre-compiled into the semantics of logical expressions.
+- Non-classicality (neither double negation elimination nor de Morgan's laws valid).
+- Anaphoric information flow is pre-compiled into the semantics of logical expressions (Schlenker's problem).
 - Sententialist mode of composition; dynamics is the exclusive purview of the propositional type.
 
 Ingredients of EDS:
 
 - A strictly more expressive notion of content than first-generation theories.  
-- A general recipe (the ~State.Set~ applicative functor) for systematically lifting a static Montagovian fragment into a dynamic setting [cite:@Charlow2014].
+- A general recipe for systematically lifting a static Montagovian fragment into a dynamic setting [cite:@Charlow2014][fn:9].
 - A trivalent, /Strong Kleene/ semantics for the logical connectives; arguably what's minimally needed to account for presupposition projection.
   
  #+begin_importantblock
@@ -31,230 +31,24 @@ Signature features of EDS:
 - A distinction emerges between /positive/ and /negative/ anaphoric information; /Egli's theorem/ (the essence of DS) only valid with respect to /positive/ anaphoric information.
 - More classical behaviour: double negation elimination and de Morgan's laws are valid. 
 - The semantics is permissive when it comes to predictions regarding accessibility; some of the restrictiveness of the theory emerges out of a consideration of independently motivated pragmatic constraints on, e.g., disjunction.
+  
+** Compositionality
 
-* Types and propositions
-
-In the first generation dynamic systems we've considered, culminating in pointwise FCS, dynamics are a sentential phenomenon.
-
-A sentential meaning is a function from an input assignment to a set of output assignments; we can express this via the type \(T\).
+Propositional types as a respository of anaphoric information in DPL:
 
 #+name: def:oldtype
 #+begin_exe
 \ex \(T := g \to \set{g}\)
 #+end_exe
 
-Sentential meanings in DPL/pointwise FCS:
-
-#+name: someone
-#+begin_exe
-\ex \(\eval*{\text{a}^v\text{ linguist walked in}} = \lambda g\,.\,\set{g^{[v \to x]}|\mathbf{walked.in}(x)}\)
-#+end_exe
-
-IN DPL/pointwise FCS, even the indefinite article is sentential, as is its restrictor and scope. 
-
-#+name: indef1
-#+begin_exe
-\ex \(\eval{a} = \lambda g\,.\,\set{g^{[v \to x]}|x \in D}\)
-\ex \(\eval*{v\text{ linguist} } = \lambda g\,.\,\set{g|\mathbf{linguist}(g_v)}\)
-\ex \(\eval*{v\text{ walked in}} = \lambda g\,.\,\set{g|\mathbf{walked.in}(g_v)}\)
-#+end_exe
-
-We knit these meanings together via dynamic sequencing (relational composition; also the entry for conjunction).
-
-#+name: rel
-#+begin_exe
-\ex \(p\mathbin{;}q := \lambda g\,.\,\bigcup\limits_{g' \in p(g)}\set{h | h \in q(g')}\)
-#+end_exe
-
-- Why should dynamics be a purely sentential phenomemon?
-- Unclear how to combine first generation dynamic systems with an orthodox approach to composition.
-
-Charlow teaches us how to factor out dynamics, keeping track of anaphoric information as a by-product of "ordinary" composition [cite:@Charlow2014;@Charlow2020].
-
-As a backdrop to EDS, we'll adopt Charlow's general recipe for dynamic types.[fn:1][fn:2]
+A general recipe for dynamic types in EDS.[fn:1][fn:2]
 
 #+name: def:type
 #+begin_exe
 \ex \(D\ a := g \to \set{a \times g}\)
 #+end_exe
 
-For example, sentences in EDS will be type \(D\ t\); VPs will be type \(D\ (e \to t)\); pronouns in EDS will be of type \(D\ e\); indefinites will be of type \((e \to D\ t) \to D\ t\).
-
-This regime is strictly speaking more expressive than what is afforded to us by, e.g., DPL.
-
-In DPL, classical truth corresponds to having a non-empty output set; an empty output set corresponds to classical falsity.
-
-In EDS, sentential meanings are functions from assignments to /sets of truth-value, assignment pairs/; type \(g \to \set{t \times g}\).
-
-This will allow us to keep track of anaphoric information associated with verification and falsification in tandem; we'll need a different reconstruction of classical truth, which will turn out to be very natural.
-
-#+begin_importantblock
-Keeping track of anaphoric information associated with verification /and/ falsification will be *crucial* to the main results of EDS.
-#+end_importantblock
-
-* Pronouns and partiality
-
-In EDS, much like in Charlow's monadic grammar, pronouns are expressions of type \(D\ e\), i.e., /dynamic individuals/.
-
-In EDS, assignments are assumed to be /partial/, i.e., undefined for certain variables.
-
-We'll model this by treating the domain of assignments (\(D_g\)) as a set of /total/ functions \(f: V \to D_e\), where \(D_e\) contains a privileged value \(\#_e\) - the impossible individual.[fn:3]
-
-For example, given a stock of variables \(\set{x,y,z}\), the following is a partial assignment:
-
-#+name: ex:part
-#+begin_exe
-\ex \(\left[\begin{aligned}[c]
-&x &\to &\mathbf{josie}\\
-&y &\to &\mathbf{sarah}\\
-&z &\to &\#_e
-\end{aligned}\right]\)
-#+end_exe
-
-The unique initial assignment, \(g_\top\), maps every \(v \in V\) to the impossible individual.
-
-Pronouns have the following semantics in EDS:
-
-#+name: def:eds-pron
-#+begin_exe
-\ex \(\mathbf{she}_v := \lambda g\,.\,\set{(g_v,g)}\)\hfill\(D\ e\)
-#+end_exe
-
-Since EDS builds on a Strong Kleene logical foundation, we'll make use of three distinct truth values:
-
-#+name: def:tri
-#+begin_exe
-\ex \(D_t = \set{\mathbf{yes},\mathbf{no},\mathbf{maybe}}\)
-#+end_exe
-
-We'll make use of an operator \(\delta : t \to t \) to model presuppositions, with the following semantics.
-
-#+name: def:delta
-#+begin_exe
-\ex \(\delta(t) = \begin{cases}
-\mathbf{yes}&t = \mathbf{yes}\\
-\mathbf{maybe}&\text{otherwise} 
-\end{cases}\)
-#+end_exe
-
-Sentences with a pronoun indexed \(v\) presuppose that \(v\) is defined at the input assignment. Formally:
-
-#+name: ex:sentence1
-#+begin_exe
-\ex \(\mathbf{she}_v\ \mathbf{satDown} := \lambda g\,.\,\set{(\delta(g_v \neq \#_e) \mathbin{\&} \mathbf{satDown}(g_v),g)}\)\hfill\(D\ t\)
-#+end_exe
-
-An alternative rendering:
-
-#+name: ex:sentence2
-#+begin_exe
-\ex \(\lambda g\,.\,\begin{aligned}[t]
-&\set{(\mathbf{yes},g)|\mathbf{satDown}(g_v) \wedge g_v \neq \#_e}\\
-&\cup \set{(\mathbf{no},g)|\neg\mathbf{satDown}(g_v) \wedge g_v \neq \#_e}\\
-&\cup \set{(\mathbf{maybe},g)|g_v = \#_e}
-\end{aligned}\)
-#+end_exe
-
-We'll often omit the explicit presupposition, assuming that any predicate fed an impossible individual as an argument outputs \(\mathbf{maybe}\).
-
-* Indefinites
-
-In order to establish our semantics for indefinites in EDS, we'll go through a couple of steps:
-
-- The correlate of /random assignment/ in EDS.
-- A reconstruction of classical truth and falsity in EDS.
-- A "positive closure" operator for EDS; non-verifying anaphoric information is filtered.
-- Finally, a semantics for indefinites as the composition of random assignment and positive closure. 
-
-** Random assignment in EDS
-
-It will be helpful to first define the correlate of DPL /random assignment/ in EDS (relative to a restrictor \(r\), which we just treat as a plain set of individuals).
-
-#+name: def:random
-#+begin_exe
-\ex \(\varepsilon^{v} = \lambda r\,.\,\lambda k\,.\,\lambda g\,.\,\bigcup\limits_{r(x)}k(x)(g^{[v \to x]})\)\hfill\((e \to t) \to  (e \to D\ t) \to D\ t\)
-#+end_exe
-
-Let's see this in action (importantly, this is *not* our entry for the indefinite determiner).
-
-#+name: ex:rand
-#+begin_exe
-\ex \(\varepsilon^v(\mathbf{ling})(\lambda x\,.\,\lambda g\,.\,\set{(\mathbf{swims}(x),g)})\)\hfill\(D\ t\)
-\ex \(\lambda g\,.\,\set{(\mathbf{swim}(x),g^{[v \to x]})|\mathbf{ling}(x)}\)
-#+end_exe
-
-An equivalent, illuminating rendering:
-
-#+name: ex:rand2
-#+begin_exe
-\ex \(\lambda g\,.\,\begin{aligned}[t]
-&\set{(\mathbf{yes},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)}\\
-&\cup \set{(\mathbf{no},g^{[v \to x]})|\mathbf{ling}(x) \wedge  \mathbf{swim}(x)}
-\end{aligned}\)
-#+end_exe
-
-We take an input assignment \(g\), and extend \(g\) indeterministically at \(v\) (DPL style) to linguists, and:
-
-- Tag those assignments extended to a linguist who swims with \(\mathbf{yes}\).
-- Tag those assignments extended to a linguist who doesn't swim with \(\mathbf{no}\).
-  
-We'll define an auxiliary notion now which will come in handy in a few different places: the /polarized anaphoric information/ of a sentence relative to an assignment, which we'll write as \(\mathbf{A}^+_g/\mathbf{A}^-_g\).
-
-#+name: def:polar
-#+begin_exe
-\ex \(\mathbf{A}^+_g(p) := \set{h | (\mathbf{yes},h) \in p(g)}\)
-\ex \(\mathbf{A}^-_g(p) := \set{h | (\mathbf{no},h) \in p(g)}\)\hfill\(D\ t \to T\)
-#+end_exe
-
-We can use this notion to provide an intuitive definition of truth at a point: a sentence is /true/ wrt an assignment \(g\) if there is some way of verifying \(p\) at \(g\), /false/ if there is no way of verifying \(p\) at \(g\), but some way of falsifying \(p\) at \(g\), and neither true nor false otherwise.
-
-#+name: def:truth
-#+begin_exe
-\ex \(\mathbf{true}_g(p) := \mathbf{A}^+_g(p) \neq \emptyset\)
-\ex \(\mathbf{false}_g(p) := \mathbf{A}^+_g(p) = \emptyset \wedge \mathbf{A}^-_g(p) \neq \emptyset\)
-\ex \(\mathbf{neither}_g(p) := \mathbf{A}^+_g(p) = \emptyset \wedge \mathbf{A}^-_g(p) = \emptyset \)\hfill\(D\ t \to g \to t\)
-#+end_exe
-
-Finally, we state our /positive closure operator/ \(\dag\), which will be crucially implicated in our semantics for the indefinite article.
-
-The positive closure operator only allows anaphoric information to pass through if its argument is classically true.[fn:7]
-
-#+name: def:dag
-#+begin_exe
-\ex \(\dag(p)(g) := \begin{aligned}[t]
-&\set{(\mathbf{yes},h) \in p(g)}\\
-&\cup \set{(\mathbf{no},g)|\mathbf{false}_g(p)}\\
-&\cup \set{(\mathbf{maybe},g)|\mathbf{neither}_g(p)}
-\end{aligned}\)\hfill\(\dag : D\ t \to D\ t\)
-#+end_exe
-
-The following is a logical truth in EDS (positive dagger elimination):
-
-#+name: fact:clo
-#+begin_exe
-\ex \(\mathbf{A}^+_g(\dag(p)) = \mathbf{A}^+_g(p)\)
-\ex \(\mathbf{A}^-_g(\dag(p)) \neq \mathbf{A}^-_g(p)\)
-#+end_exe
-
-Now we can state our final proposal for the semantics of indefinites as the composition of random assignment and positive closure.
-
-#+name: def:indef-final
-#+begin_exe
-\ex \(\mathbf{a.ling}^v := \lambda k\,.\,\dag(\varepsilon^v(\mathbf{ling})(k))\)\hfill\((e \to D\ t) \to D\ t\)
-#+end_exe 
-
-#+name: ex:indef-final
-#+begin_exe
-\ex \(\mathbf{a.ling}^v\ (\lambda x\,.\,\lambda g\,.\,\set{(\mathbf{swim}(x),g)})\)
-\ex \(= \dag(\varepsilon^v(\mathbf{ling})(\lambda x\,.\,\lambda g\,.\,\set{(\mathbf{swim}(x),g)}))\)
-\ex \(= \lambda g\,.\,\set{(\mathbf{yes},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)} \cup \set{(\mathbf{no},g)|\neg\exists x[\mathbf{ling}(x) \wedge \mathbf{swim}(x)]}\)
-#+end_exe
-
-The input assignment is indeterministically extended at \(v\) to linguists who swim, and paired with \(\mathbf{yes}\); if there aren't any linguists who swim, the input assignment is paired with \(\mathbf{no}\).
-
-* Compositionality
-
-As a methodological principle, we'll insist that proper names, predicates, logical expressions etc. don't have any inherent dynamics.
+The base grammar is pure Montague:
 
 #+name: ex:classic
 #+begin_exe
@@ -263,32 +57,28 @@ As a methodological principle, we'll insist that proper names, predicates, logic
 \ex \(\mathbf{not} : t \to t\)
 #+end_exe
 
-Only a sub-part of the grammar wears its dynamic capabilities on its sleeve.
+In order to allow the base grammar to interact with inherently dynamic expressions (basically: indefinites and definites), we make use of a combinator /pure/: 
 
-In order to lift expressions without inherent dynamics into EDS, we need just three combinators, which together constitute an /applicative functor/ [cite:@McbridePaterson2008].[fn:8]
+#+begin_definition
+*Pure* lifts an \(a\) into a trivially dynamic \(a\).
 
-/Pure/ (\(\eta\)) lifts any expression \(a\) into a trivially dynamic \(a\). We've already been implicitly making use of this combinator in previous sections.
+\[\begin{aligned}[t]
+\eta(a) := \lambda g\,.\,\set{(a,g)}&&\eta : a \to D\ a
+\end{aligned}\]
+#+end_definition
 
-#+name: def:pure
-#+begin_exe
-\ex \(\eta(a) := \lambda g\,.\,\set{(a,g)}\)\hfill\(\eta : a \to D\ a\)
-#+end_exe
+Alongside function-argument application, we allow for a fundamentally /dynamic/ mode of composition, formalized as \(\fap\) and \(\bap\). This is essentially a generalization of DPL conjunction. 
 
-/Dynamic FA/ (\(\fap\)) does function application of its left argument to its right and threads anaphoric information from left-to-right.
+#+begin_definition
+*Dynamic forwards/backwards function application*.
 
-#+name: def:fap
-#+begin_exe
-\ex \(m \fap n := \lambda g\,.\,\bigcup\limits_{(f,g') \in m(g)}\set{(f(x),g'')|(x,g'') \in n(g')}\)\hfill\((\fap) : D\ (a \to b) \to D\ a \to D\ b\)
-#+end_exe
+\[\begin{aligned}
+m \fap n := \lambda g\,.\,\bigcup\limits_{(f,g') \in m(g)}\set{(f(x),g'')|(x,g'') \in n(g')}&&(\fap) : D\ (a \to b) \to D\ a \to D\ b\) \\
+m \bap n := \lambda g\,.\,\bigcup\limits_{(x,g') \in m(g)}\set{(f(x),g'')|(f,g'') \in n(g')}&&(\bap): D\ a \to D\ (a \to b) \to D\ b
+\end{aligned}\]
+#+end_definition
 
-/Dynamic backwards FA/ (\(\bap\)) does backwards function application and threads anaphoric information from left-to-right.
-
-#+name: def:bap
-#+begin_exe
-\ex \(m \bap n := \lambda g\,.\,\bigcup\limits_{(x,g') \in m(g)}\set{(f(x),g'')|(f,g'') \in n(g')}\)\hfill\((\bap): D\ a \to D\ (a \to b) \to D\ b\)
-#+end_exe
-
-Composition is directional, reflecting the inherent incrementality of dynamic semantics:
+The flow of anaphoric information is assumed to be conditioned by the linear ordering of sisters (but feel free to plug in your favourite structure-sensitive notion; [cite:@Privoznov2021]).
 
 #+begin_export latex
 \begin{exe}
@@ -296,8 +86,8 @@ Composition is directional, reflecting the inherent incrementality of dynamic se
 \(\eval*{\begin{array}{c}
 \begin{forest}
 [{\(\gamma\)}
-  [{\(\alpha_{D\ (a \to b)}\)}]
-  [{\(\beta_{D\ a}\)}]
+  [{\(\alpha_{d\ (a \to b)}\)}]
+  [{\(\beta_{d\ a}\)}]
 ]
 \end{forest}
 \end{array}} = \eval*{\alpha } \fap \eval*{\beta }\)
@@ -305,27 +95,124 @@ Composition is directional, reflecting the inherent incrementality of dynamic se
 \(\eval*{\begin{array}{c}
 \begin{forest}
 [{\(\gamma\)}
-  [{\(\alpha_{D\ a}\)}]
-  [{\(\beta_{D\ (a \to b)}\)}]
+  [{\(\alpha_{d\ a}\)}]
+  [{\(\beta_{d\ (a \to b)}\)}]
 ]
 \end{forest}
 \end{array}} = \eval*{\alpha } \bap \eval*{\beta }\)
 \end{exe}
 #+end_export
 
-Note that I'm assuming that the flow of anaphoric information is conditioned by linear order, but a different assumption is just a matter of a small tweak to the rules stated above to be sensitive to structure/headedness (see [cite:@Privoznov2021] for arguments for this kind of view).
+**  Pronouns and partiality
 
-Some exercises - note that in-scope dynamic binding follows immediately from the composition principles and our semantics for indefinites (which extends DPL-style random assignment).
+Pronouns introduce input-sensitivity into the fragment.
 
-#+name: pro-comp
+#+name: def:eds-pron
 #+begin_exe
-\ex She\(_v\) sat down.\\
-\(\mathbf{she}_v \bap \eta(\mathbf{sat.down}) = \lambda g\,.\,\set{(\mathbf{satDown}(g_v),g)}\)
-\ex A\(^v\) linguist walked in.\\
-\(\mathbf{a.ling}^v\ (\lambda x\,.\,\eta(\mathbf{walked.in}(x))) = \dag(\varepsilon^v(\mathbf{ling})(\lambda x\,.\,\lambda g\,.\,\set{(\mathbf{walked.in}(x),g)}))\)
+\ex \(\mathbf{she}_v := \lambda g\,.\,\set{(g_v,g)}\)\hfill\(D\ e\)
 #+end_exe
 
-Note that in-scope dynamic binding follows immediately:
+In order to model Heim's notion of familiarity, we assume that assignments are /partial/. Concretely, assignments are total functions from \(V\) to \(D \cup \#_e\).
+
+We assume that if any of a predicates arguments is valued \(\#_e\), it returns *maybe* (the third truth value).
+
+#+name: def:tri
+#+begin_exe
+\ex \(D_t = \set{\mathbf{yes},\mathbf{no},\mathbf{maybe}}\)
+#+end_exe
+
+Composition with a pronoun is simple.
+
+#+name: pron1
+#+begin_exe
+\ex she\(_v\) sat down.\\
+\(\mathbf{she}_v \bap \eta(\mathbf{sat.down}) \begin{aligned}[t]
+&= \lambda g\,.\,\set{(\mathbf{satdown}(g_v),g)}\\
+&= \lambda g\,.\,\begin{aligned}[t]
+&\set{(\mathbf{yes},g)|g_v \neq \#_e \wedge \mathbf{satDown}(g_v)}\\
+&\cup \set{(\mathbf{no},g)|g_v \neq \#_e \wedge \neg\mathbf{satDown}(g_v)}\\
+&\cup \set{(\mathbf{maybe},g)|g_v = \#_e}
+\end{aligned}
+\end{aligned}\)
+#+end_exe
+
+** Indefinites: random assignment and closure
+
+Indefinites are defined out of two component parts: (i) DPL-style random assignment, (ii) a closure operator \(\dag\) which filters out negative anaphoric information.
+
+#+begin_definition
+*Random assignment in EDS* (wrt a restrictor \(r\)).
+
+\[\begin{aligned}[t]
+\varepsilon^{v}(r) = \lambda k\,.\,\lambda g\,.\,\bigcup\limits_{r(x)}k(x)(g^{[v \to x]})&&(e \to t) \to  (e \to D\ t) \to D\ t
+\end{aligned}\]
+#+end_definition
+
+An example of this in action (not the final proposal for indefinites):
+
+#+name: ex:rand
+#+begin_exe
+\ex \(\varepsilon^v(\mathbf{ling})(\lambda x\,.\,\lambda g\,.\,\set{(\mathbf{swims}(x),g)})\)\hfill\(D\ t\)
+\ex \(= \lambda g\,.\,\set{(\mathbf{swim}(x),g^{[v \to x]})|\mathbf{ling}(x)}\)
+\ex \(= \lambda g\,.\,\begin{aligned}[t]
+&\set{(\mathbf{yes},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)}\\
+&\cup \set{(\mathbf{no},g^{[v \to x]})|\mathbf{ling}(x) \wedge  \neg\mathbf{swim}(x)}
+\end{aligned}\)
+#+end_exe
+
+Some auxiliary notions useful for defining closure (and elsewhere):
+
+#+begin_definition
+*Positive/negative anaphoric information*.
+
+\[\begin{aligned}[t]
+&\mathbf{A}^+_g(p) := \set{h | (\mathbf{yes},h) \in p(g)}&&D\ t \to \set{g}\\
+&\mathbf{A}^-_g(p) := \set{h | (\mathbf{no},h) \in p(g)}
+\end{aligned}\]
+#+end_definition
+
+#+begin_definition
+*Truth, falsity, and the absence of either* in EDS.
+
+\[\begin{aligned}[t]
+&\mathbf{true}_g(p) := \mathbf{A}^+_g(p) \neq \emptyset\\
+&\mathbf{false}_g(p) := \mathbf{A}^+_g(p) = \emptyset \wedge \mathbf{A}^-_g(p) \neq \emptyset\\
+&\mathbf{neither}_g(p) := \mathbf{A}^+_g(p) = \emptyset \wedge \mathbf{A}^-_g(p) = \emptyset 
+\end{aligned}\]
+#+end_definition
+
+Positive closure allows anaphoric information to pass unharried if the argument is classicaly true, and filters it out otherwise.
+
+#+begin_definition
+*Positive closure in EDS*.
+
+\[\begin{aligned}[t]
+\dag(p)(g) := \begin{aligned}[t]
+&\set{(\mathbf{yes},h) \in p(g)}\\
+&\cup \set{(\mathbf{no},g)|\mathbf{false}_g(p)}\\
+&\cup \set{(\mathbf{maybe},g)|\mathbf{neither}_g(p)}
+\end{aligned}&&\dag : D\ t \to D\ t
+\end{aligned}
+\]
+#+end_definition
+
+Indefinites are the composition of random assignment and positive closure:
+
+#+name: def:indef-final
+#+begin_exe
+\ex \(\mathbf{a.ling}^v := \lambda k\,.\,\dag(\varepsilon^v(\mathbf{ling})(k))\)\hfill\((e \to D\ t) \to D\ t\)
+#+end_exe 
+
+Indefinites, unlike pronouns, take scope:
+
+#+name: ex:indef-final
+#+begin_exe
+\ex \(\mathbf{a.ling}^v\ (\lambda x\,.\,\lambda g\,.\,\set{(\mathbf{swim}(x),g)})\)
+\ex \(= \dag(\varepsilon^v(\mathbf{ling})(\lambda x\,.\,\lambda g\,.\,\set{(\mathbf{swim}(x),g)}))\)
+\ex \(= \lambda g\,.\,\set{(\mathbf{yes},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)} \cup \set{(\mathbf{no},g)|\neg\exists x[\mathbf{ling}(x) \wedge \mathbf{swim}(x)]}\)
+#+end_exe
+
+** In-scope dynamic binding
 
 #+begin_export latex
 \begin{exe}
@@ -348,59 +235,11 @@ Note that in-scope dynamic binding follows immediately:
 \end{exe}
 #+end_export
 
-* Lifting logical operators
+** Logical connectives
 
-#+begin_tipblock
-How do logical expressions interact with sentential meanings in EDS? Note that sentential meanings have a truth-valuable substrate. This means we can straightforwardly integrate logical expressions qua truth-functional operators into EDS via \(\eta\), \(\fap\), and \(\bap\).
-#+end_tipblock
+*** Negation
 
-The question is whether this will deliver the right results wrt accessibility. Most of the rest of this class will be an extended argument that it does.
-
-** Strong Kleene
-
-Strong Kleene semantics is a logical encoding of how we reason about uncertainty/indeterminate truth.
-
-#+begin_export latex
-\begin{figure}[H]
-    \centering
-  \begin{tabular}{l|r}
-      $\neg_s$  &  \\
-      \toprule
-      $\mathbf{yes}$  & $\mathbf{no}$   \\
-      $\mathbf{no}$  & $\mathbf{yes}$   \\
-      $\mathbf{maybe}$ & $\mathbf{maybe}$
-  \end{tabular}
-  \quad
-  \begin{tabular}{l|ccc}
-      $\wedge _{s}$  & $\mathbf{yes}$ & $\mathbf{no}$ & $\mathbf{maybe}$ \\
-      \toprule
-      $\mathbf{yes}$  & $\mathbf{yes}$  & $\mathbf{no}$ & $\mathbf{maybe}$\\
-      $\mathbf{no}$  & $\mathbf{no}$  & $\mathbf{no}$ & $\mathbf{no}$\\
-      $\mathbf{maybe}$ & $\mathbf{maybe}$ & $\mathbf{no}$ & $\mathbf{maybe}$\\
-  \end{tabular}
-\quad
-  \begin{tabular}{l|ccc}
-      $\vee_{s}$  & $\mathbf{yes}$ & $\mathbf{no}$ & $\mathbf{maybe}$ \\
-      \toprule
-      $\mathbf{yes}$  & $\mathbf{yes}$  & $\mathbf{yes}$ & $\mathbf{yes}$\\
-      $\mathbf{no}$  & $\mathbf{yes}$  & $\mathbf{no}$ & $\mathbf{maybe}$\\
-      $\mathbf{maybe}$ & $\mathbf{yes}$ & $\mathbf{maybe}$ & $\mathbf{maybe}$\\
-  \end{tabular}
-  \quad
-  \begin{tabular}{l|ccc}
-      $\rightarrow_{s}$  & $\mathbf{yes}$ & $\mathbf{no}$ & $\mathbf{maybe}$ \\
-      \toprule
-      $\mathbf{yes}$  & $\mathbf{yes}$  & $\mathbf{no}$ & $\mathbf{maybe}$\\
-      $\mathbf{no}$  & $\mathbf{yes}$  & $\mathbf{yes}$ & $\mathbf{yes}$\\
-      $\mathbf{maybe}$ & $\mathbf{yes}$ & $\mathbf{maybe}$ & $\mathbf{maybe}$\\
-  \end{tabular}
-  \caption{Strong Kleene truth tables}\label{table:neg}
-\end{figure}
-#+end_export
-
-** Negation
-
-Our compositional regime dictates that negation, a sentential operator must be lifted via \(\eta\) and compose with its argument via \(\fap\).
+Schema for composing negation:
 
 #+begin_export latex
 \begin{forest}
@@ -411,7 +250,7 @@ Our compositional regime dictates that negation, a sentential operator must be l
 \end{forest}
 #+end_export
 
-This predicts the following semantics for negated sentences:
+Predicted semantic effect:
 
 #+name: ex:neg
 #+begin_exe
@@ -419,70 +258,23 @@ This predicts the following semantics for negated sentences:
 \ex \(= \lambda g\,.\,\set{(\neg_s(t),h)|(t,h) \in p(g)}\)
 #+end_exe
 
-In other words, negation simply flips the polarity of the output assignments.
-
-When we apply negation to a sentence with an indefinite, truth-values in the output set are flipped.
+Example:
 
 #+name: no-ling
 #+begin_exe
 \ex \(\eta(\mathbf{not}) \fap (\mathbf{a.ling}^v (\lambda x\,.\,\eta(\mathbf{swims}(x))))\)
-\ex \(= \lambda g\,.\,\set{(\neg_s(\mathbf{yes}),g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swims}(x)} \cup \set{(\neg_s(\mathbf{no}),g)|\neg\exists x[\mathbf{ling}(x) \wedge \mathbf{swims}(x)]}\)
 \ex \(= \lambda g\,.\,\set{\mathbf{no},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swims}(x)} \cup \set{(\mathbf{yes},g)|\neg\exists x[\mathbf{ling}(x) \wedge \mathbf{swims}(x)]}\)
 #+end_exe
 
-Consequence: if the negated sentence is classically true, no anaphoric information is introduced. 
-
-One of the core insights of DPL is that this seems desirable, but in DPL this is essentially precompiled into the meaning of logical negation.
-
-#+name: no
-#+begin_exe
-\ex John doesn't have a\(^v\) shirt. ??It\(_v\)'s in the closet.
-#+end_exe
-
-In EDS, by way of contrast, we don't precompile anything to do with dynamics into the meaning of negation.
-
-Moreover, this example teaches us why random assignment (\(\varepsilon^v\)) isn't fit for purpose as a semantics for the indefinite article in EDS.
-
-Essentially, this is because of the following fact.
-
 #+begin_fact
-Logical negation commutes with random assignment in EDS.
+The positive anaphoric information of a negated sentence is the negative anaphoric information of the embedded sentence:
 
-\[\eta(\mathbf{not}) \fap \varepsilon^v(f)(k) = \varepsilon^v(f)(\lambda x\,.\,\eta(\mathbf{not}) \fap k(x))\]
+\[\mathbf{A}^+_g(\eta(\mathbf{not}) \fap m) = \mathbf{A}^-_g(m)\]
 #+end_fact
 
-To see why, let's consider a concrete example:
+Because of closure, this makes a negated existential statement anaphorically inert (external staticity of negation in DPL).
 
-If the indefinite article contributes random assignment, then "no\(^v\) linguist swims"[fn:4] indeterministically extends \(g\) at \(v\) to linguists who swim, and tags the result \(\mathbf{no}\), and indeterministically extends \(g\) at \(v\) to linguists who don't swim, and tags the result \(\mathbf{no}\). 
-
-#+name: ex:neg
-#+begin_exe
-\ex \(\eta(\mathbf{not}) \fap \varepsilon^v(\mathbf{ling})(\lambda x\,.\,\eta(\mathbf{swim}(x)))\)
-\ex \(= \lambda g\,.\,\set{(\mathbf{no},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)} \cup \set{(\mathbf{yes},g^{[v \to x]})|\mathbf{ling}(x) \wedge \neg(\mathbf{swim}(x))}\)
-#+end_exe
-
-"Some linguist doesn't swim" does exactly the same thing (in fact, it's even easier to see).
-
-#+name: ex:neg2
-#+begin_exe
-\ex \(\varepsilon^v(\mathbf{ling})(\lambda x\,.\,\eta(\mathbf{not}) \fap \eta(\mathbf{swim}(x)))\)
-\ex \(= \lambda g\,.\,\set{(\mathbf{no},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)} \cup \set{(\mathbf{yes},g^{[v \to x]})|\mathbf{ling}(x) \wedge \neg(\mathbf{swim}(x))}\)
-#+end_exe
-
-Any dynamic semantics which adopts a DPL-style entry for indefinites, such as Charlow's monadic grammar, must precompile anaphoric closure into the meaning of negation.
-
-In EDS, thankfully, indefinites don't commute with negation. Thanks to positive closure, any false tagged assignments fail to introduce anaphoric information.
-
-#+name: ex:eds-neg
-#+begin_exe
-\ex \(\eta(\mathbf{not}) \fap \mathbf{a.ling}^v\ (\lambda x\,.\,\eta(\mathbf{swim}(x)))\)
-\ex \(= \lambda g\,.\,\set{(\neg_s(\mathbf{yes}),g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)} \cup \set{(\neg_s(\mathbf{no}),g)|\neg\exists x[\mathbf{ling}(x) \wedge \mathbf{swim}(x)]}\)
-\ex \(= \lambda g\,.\,\set{(\mathbf{no},g^{[v \to x]})|\mathbf{ling}(x) \wedge \mathbf{swim}(x)} \cup \set{(\mathbf{yes},g)|\neg\exists x[\mathbf{ling}(x) \wedge \mathbf{swim}(x)]}\)
-#+end_exe
-
-Note that /falsification/ of a negative sentence has the potential to introduce anaphoric information.
-
-It should be obvious now that the following equivalence holds in EDS.
+This also guarantees that double-negation elimination is valid.
 
 #+begin_fact
 Double-negation elimination is valid in EDS.
@@ -490,21 +282,16 @@ Double-negation elimination is valid in EDS.
 \[\eta(\mathbf{not}) \fap \eta(\mathbf{not}) \fap p = p\]
 #+end_fact
 
-A signature feature of EDS: a single negation closes off anaphoric information, but double-negation is anaphorically equivalent to the embedded positive sentence.
+N.b. that random assignment isn't fit for purpose as a semantics for indefinites in EDS, since:
 
-This seems like a good logical starting point, based on the problems we discussed for DPL (inherited by subsequent approaches).
+#+begin_fact
+Negation commutes with random assignment in EDS.
 
-#+name: shirt
-#+begin_exe
-\ex John doesn't have no shirt. It's in his closet.
-#+end_exe
+\[\eta(\mathbf{not}) \fap \varepsilon^v(f)(k) = \varepsilon^v(f)(\lambda x\,.\,\eta(\mathbf{not}) \fap k(x))\]
+#+end_fact
 
-Data currently beyond the remit of this analysis (example from [cite:@Hofmann2019]) - we'll talk about this in several weeks time, when we introduce modality and modal subordination.
 
-#+name: ex:hofman
-#+begin_exe
-\ex There is no\(^v\) bathroom in this house. It\(_v\) would be easier to find.
-#+end_exe
+* TODO Lifting logical operators
 
 ** Conjunction and discourse anaphora
 
@@ -796,6 +583,8 @@ As we've seen however, we don't want to build external staticity into the semant
 
 In order to chart a way out, we'll build on an observation by [cite:@Rothschild2017] (anticipated by Amir's question last week).
 
+** TODO add more on negated conjunctions
+
 ** Contextual entailment and anaphora 
 
 In a discourse with an asserted disjunctive sentence, if the truth of the disjunct containing an indefinite is later contextually entailed, anaphora becomes possible [cite:@Rothschild2017].
@@ -1040,6 +829,7 @@ A promissory list of topics, for the latter third of the course:
 #+print_bibliography:
 
 * Footnotes
+[fn:9] Concretely: the ~State.Set~ applicative functor.
 
 [fn:8] In fact, we only really need two. \(\fap\) and \(\bap\) are the result of applying the applicative lift combinator ~liftA2~ to forwards and backwards function application respectively. 
 [fn:7] Note that the workings of \(\dag\) are highly reminiscent of Mandelkern's independently-developed disjunctive /witness presupposition/ [cite:@Mandelkern2022]. Unlike Mandelkern, we don't make use of presuppositional machinery to militate where indefinites introduce anaphoric information, and therefore EDS avoids some of the pitfalls of Mandelkern's static theory. We won't discuss this in detail today, but Mandelkern must make an ad hoc distinction between anaphoric presuppositions and ordinary presuppositions, in terms of how they constrain (or fail to constrain) affect update. The bridge principle of EDS, on the other hand, is totally orthodox. 
