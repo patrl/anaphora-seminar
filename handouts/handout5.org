@@ -1,0 +1,420 @@
+#+title: Actual and hypothetical discourse referents
+#+author: Patrick D. Elliott 
+#+bibliography: ../../bibliography/master.bib
+#+setupfile: handout-template.org
+#+OPTIONS: ':t
+#+cite_export: biblatex
+
+* Some data
+
+A generalization that emerges from EDS: an assertion of a sentence \(\phi \) containing an existential statement "a\(^v\) linguist \(P\)-ed" introduces a dref \(v\) if the assertion is accepted and contextually entails the existence of a linguist that \(P\)-ed.
+
+Interaction with modality draws this generalization into question.
+
+Modal subordination and anaphora [cite:@Roberts1989]:
+
+#+name: hypothetical2
+#+begin_exe
+\ex Maybe there's a\(^v\) bathroom, and maybe it\(_v\)'s upstairs.
+\ex There might be a\(^v\) bathroom, and it\(_v\) might be upstairs.
+#+end_exe
+
+Modal subordination with negation; data from [cite:@Hofmann2019]:
+
+#+name: hypothetical3
+#+begin_exe
+\ex There is no\(^v\) bathroom in this house. It\(_v\) would be easier to find.
+#+end_exe
+
+Not possible with disjunction:
+
+#+begin_exe
+\ex ??Maybe there's a\(^v\) bathroom, or maybe it\(_v\)'s upstairs.
+\ex ??There might be a\(^v\) bathroom, or it\(_v\) might be upstairs.
+#+end_exe
+
+Surprisingly, conjunctive possibility statements can pattern with disjunction: 
+
+#+name: hypothetical1
+#+begin_exe
+\ex There might be no\(^v\) bathroom, and it\(_v\) might be upstairs.
+\ex Maybe there's no\(^v\) bathroom, and maybe it\(_v\)'s upstairs. 
+\ex Either There's no\(^v\) bathroom, or it\(_v\)'s upstairs.
+#+end_exe
+
+Note that this parallel is perhaps unsurprising, given modal theories of disjunction which validate \(\phi \vee \psi \vdash \Diamond\phi \wedge \Diamond\psi\) [cite:@Zimmermann2000;@Geurts2005;@Goldstein2019].
+
+* Epistemic modality in dynamic semantics
+
+** Test semantics
+
+The /locus classicus/ is Veltman's test semantics [cite:@Veltman1996].
+
+Veltman's idea: a sentence \(\Diamond\phi \) is an instruction to hypothetically update a context \(c\) with \(\phi \), returning \(c\) unchanged if \(c\) can be consistently updated with \(\phi\), and the absurd state otherwise. 
+
+#+name: might1
+#+begin_exe
+\ex \(c[\text{it might be raining}]\)
+\begin{xlist}
+\ex Compute \(c[\text{it's raining}]\); store the result as \(c'\).
+\ex Is \(c'\) are non-absurd information state? If so, return \(c\).
+\ex Otherwise, return \(c'\).
+\end{xlist}
+#+end_exe
+
+An update semantics for a simple propositional fragment [cite:@Veltman1996].
+
+#+begin_definition
+*Test semantics for /might/.*
+
+\[c[\Diamond \phi] := \begin{cases}
+c & c[\phi] \neq \emptyset\\
+\phi & \text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+In Veltman's update semantics, \(\emptyset \) is the /absurd state/, i.e., the information state from which everything follows.
+
+If we define update-semantic negation, we can treat /must/ as the dual of /might/.
+
+#+name: def:neg
+#+begin_exe
+\ex \(c[\neg \phi] := c - c[\phi]\)
+#+end_exe
+
+#+begin_definition
+*Test semantics for /must/.*
+
+\[c[\Box \phi] := c[\neg\Diamond\neg\phi]\]
+
+\[c[\Box \phi] := \begin{cases}
+c&c[\phi] = c\\
+\emptyset&\text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+In Veltman's terms, /must \(\phi \)/ is true in a context \(c\) if \(\phi \) is /accepted/ in \(c \).
+
+Note that test semantics for /must/ is *strong* [cite:@vonFintelGillies2010;@FintelGillies2021].
+
+#+begin_definition
+*Entailment in update semantics.*
+
+\(\phi\text{ entails }\psi \iff \forall c[c[\phi] = c \rightarrow c[\psi] = c]\)
+#+end_definition
+
+If \(c[\Box\phi] = c\) then \(c[\phi] = c\), simply by the update rule for \(\Box \phi \).
+
+* Modals introduce hypothetical discourse referents
+
+*Conjecture*: asserting "possibly \(\phi \)" is analogous to asserting "\(\phi \) or not \(\phi \)".
+  
+In a classical setting \(\phi \vee \neg \phi\) is of course informationally trivial, but in a dynamic setting (specifically, in the context of EDS), \(\phi \vee \neg \phi \), can introduce anaphoric information.
+
+A consideration of the disjunctive case will help give a feel for the explanation.
+
+#+name: triv1
+#+begin_exe
+\ex Either there's a\(^v\) bathroom, or there's no\(^v\) bathroom.
+\ex \(\exists_v[B(v)] \vee \neg\exists_v[B(v)]\)
+#+end_exe
+
+Predicted (positive) meaning in EDS is as follows. Note:
+
+- Since the disjuncts are mutually exclusive, we can ignore the case of both disjuncts being true.
+- Since neither disjunct contains a free variable, we can ignore the case of either disjunct being undefined (ignoring the novelty condition for simplicity).
+- There are therefore two ways of dynamically verifying the disjunction to consider:
+  * The first disjunct is true, and the second is false (a bathroom dref).[fn:1]
+  * The first disjunct is false and the second is true (no bathroom dref).
+    
+#+name: triv2
+#+begin_exe
+\ex \(\lambda (w,g)\,.\,\begin{aligned}[t]
+&\set{g^{[v \to x]}|\mathbf{bathroom}_w(x)}\\
+&\cup \set{g | \mathbf{bathroom}_w = \emptyset }
+\end{aligned}\)
+#+end_exe
+
+An assertion of ([[triv2]]) relative to a context \(c\) will introduce a bathroom discourse referent at worlds \(\in c\) where a bathroom exists, but otherwise leave the context unchanged, e.g.:
+
+#+name: bath-ill
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&\set{(w_\emptyset,g),(w_{1},g),(w_{2},g),(w_{12},g)}\\
+&\Rightarrow \set{(w_\emptyset,g),(w_{b_1},g^{[v \to b_1]}),(w_{b_2},g^{[v \to b_2]}),(w_{b_1,b_2},g^{[v \to b_1]}),(w_{b_1,b_2},g^{[v \to b_2]})}
+\end{aligned}\)
+#+end_exe
+
+N.b. we already account for the impossibility of anaphora in the following discourse, due to the universal presupposition introduced by the pronoun.[fn:2]
+
+#+name: pronoun
+#+begin_exe
+\ex Either there's a\(_v\) bathroom, or there isn't a bathroom.\\
+??It\(_v\)'s upstairs.
+#+end_exe
+
+* Integrating epistemic modality and EDS
+
+EDS can be framed as an update semantics quite easily. Let's start with first-order EDS.
+
+** First order EDS
+
+A concise presentation of EDS as a semantics for a first order calculus.
+
+#+name: def:eds-stat
+#+begin_exe
+\ex Static semantics for atomic sentences:\\
+\([P(v_1,\ldots,v_n)]^{w,g} = \begin{cases} \mathbf{defined} &  g(v_1), \ldots ,g(v_n) \neq \#_e\\
+\mathbf{true} & [P(v_1,\ldots,v_n)]^{w,g}\text{ is \textbf{defined} and }\langle g(v_1),\ldots,g(v_n)\rangle \in I_w(P)
+\end{cases}\)
+#+end_exe
+
+#+name: def:eds-atom
+#+begin_exe
+\ex Atomic sentences in EDS:\\
+\(\begin{aligned}[t]
+&\eval*[w][+]{P(v_1,\ldots,v_n)} := \set{(g,h)|g = h \wedge |P(v_1,\ldots,v_n)|^{w,h}\text{ is \textbf{true}}}\\
+&\eval*[w][-]{P(v_1,\ldots,v_n)} := \set{(g,h)|g = h \wedge |P(v_1,\ldots,v_n)|^{w,h} \text{ is \textbf{false}} }\\
+&\eval*[w][u]{P(v_1,\ldots,v_n)} := \set{(g,h)|g = h \wedge |P(v_1,\ldots,v_n)|^{w,g}\text{ is \textbf{undefined}} }
+\end{aligned}\)
+#+end_exe
+
+#+name: def:eds-neg
+#+begin_exe
+\ex Negative sentences:\\ 
+\(\begin{aligned}[t]
+&\eval*[w][+]{\neg \phi } := \eval*[-]{\phi }\\
+&\eval*[w][-]{\neg \phi } := \eval*[+]{\phi }\\
+&\eval*[w][u]{\neg \phi } := \eval*[u]{\phi }\\
+\end{aligned}\)
+#+end_exe
+
+#+name: def:eds-conk
+#+begin_exe
+\ex Conjunctive sentences:\\
+\(\begin{aligned}[t]
+&\eval*[w][+]{\phi \wedge \psi} := \eval*[w][+]{\phi } \circ \eval*[w][+]{\psi}\\
+&\eval*[w][-]{\phi \wedge \psi} := \begin{aligned}[t]
+&\eval*[w][-]{\phi} \circ [\eval*[w][+,-,u]{\psi}\\
+&\cup \eval*[w][+,u]{\phi} \circ \eval*[w][-]{\psi}
+\end{aligned}\\
+&\eval*[w][u]{\phi \wedge \psi} := \begin{aligned}[t]
+&\eval*[w][+]{\phi } \circ \eval*[w][u]{\psi}\\
+&\cup \eval*[w][u]{\phi } \circ \eval*[w][+,u]{\psi}
+\end{aligned}
+\end{aligned}\)
+#+end_exe
+
+#+name: def:eds-rand
+#+begin_exe
+\ex Random assignment:\\
+\(\begin{aligned}[t]
+&\eval*[w][+]{\varepsilon_v} := \set{(g,h)|g[v]h}\\
+&\eval*[w][-]{\varepsilon_v} := \emptyset\\
+&\eval*[w][u]{\varepsilon_v} := \emptyset 
+\end{aligned}\)
+#+end_exe
+
+#+name: def:eds-dag
+#+begin_exe
+\ex Positive closure:\\
+\(\begin{aligned}[t]
+&\eval*[w][+]{\dag\phi } := \eval*[w][+]{\phi}\\
+&\eval*[w][-]{\dag\phi } := \set{(g,h)|g = h \wedge \eval*[w][+]{\phi } = \emptyset \wedge \eval*[w][-]{\phi } \neq \emptyset }\\
+&\eval*[w][u]{\dag\phi } := \eval*[w][u]{\dag}\\
+\end{aligned}\)
+#+end_exe
+
+To appreciate the isomorphism between this presentation, and the previous presentation, consider that a trivalent relational semantics can be framed instead as a set of relations, each paired with one of three truth values.
+
+** Lifting EDS into an update semantics
+
+As usual, we'll model information states using Heimian files, supplemented with a failure state \(\#_c\).
+
+EDS can be lifted into a multivalent update semantics, where we define \(c[.]_+\), \(c[.]_-\), and \(c[.]_u\).
+
+#+name: eds:bridge
+#+begin_exe
+\ex 
+\begin{xlist}
+\ex \(c[\phi]_+ := \bigcup\limits_{(w,g) \in c}\set{(w,h)|(g,h) \in \eval*[w][+]{\phi }}\)
+\ex \(c[\phi]_- := \bigcup\limits_{(w,g) \in c}\set{(w,h)|(g,h) \in \eval*[w][-]{\phi }}\)
+\ex \(c[\phi]_u := \bigcup\limits_{(w,g) \in c}\set{(w,h)|(g,h) \in \eval*[w][u]{\phi }}\)
+\end{xlist}
+#+end_exe
+
+** EDS as an update semantics
+
+*** Atomic sentences
+
+Atomic sentences in EDS update semantics induce a tripartition of the input file, since no anaphoric information can be introduced. 
+
+#+name: upd:atomic
+#+begin_exe
+\ex \(c[P(v_1,\ldots,v_n)]_+ := \set{(w,g) \in  c||P(v_1,\ldots,v_n)|^{w,g}\text{is \textbf{true}} }\)
+\ex \(c[P(v_1,\ldots,v_n)]_- := \set{(w,g) \in  c||P(v_1,\ldots,v_n)|^{w,g}\text{is \textbf{false}} }\)
+\ex \(c[P(v_1,\ldots,v_n)]_u := \set{(w,g) \in  c||P(v_1,\ldots,v_n)|^{w,g}\text{is \textbf{undefined}} }\)
+#+end_exe
+
+*** Negative sentences
+
+#+name: upd:neg
+#+begin_exe
+\ex \(c[\neg\phi]_+ := c[\phi]_-\)
+\ex \(c[\neg\phi]_- := c[\phi]_+\)
+\ex \(c[\neg\phi]_u := c[\phi]_u\)
+#+end_exe
+
+*** Conjunctive sentences
+
+#+name: upd:conj
+#+begin_exe
+\ex \(c[\phi \wedge \psi]_+ := c[\phi]_+[\psi]_+\)
+\ex \(c[\phi \wedge \psi]_- := \begin{aligned}[t]
+&c[\phi]_-[\psi]_+ \cup c[\phi]_-[\psi]_- \cup c[\phi]_-[\psi]_u\\
+&c[\phi]_+[\psi]_- \cup c[\phi]_u[\psi]_-
+\end{aligned}\)
+\ex \(c[\phi \wedge \psi]_u := \begin{aligned}[t]
+&c[\phi]_+[\psi]_u\\
+&c[\phi]_u[\psi]_+ \cup c[\phi]_u[\psi]_u
+\end{aligned}\)
+#+end_exe
+
+*** Random assignment
+
+#+name: upd:rand
+#+begin_exe
+\ex \(c[\varepsilon_v]_+ := \set{(w,h)|\exists g[(w,g) \in c \wedge g[v]h]}\)
+\ex \(c[\varepsilon_v]_- := \emptyset \)
+\ex \(c[\varepsilon_v]_- := \emptyset \)
+#+end_exe
+
+*** Closure
+
+#+name: upd:clo
+#+begin_exe
+\ex \(c[\dag\phi]_+ := c[\phi]_+\)
+\ex \(c[\dag\phi]_- := \set{(w,g) \in c | c[\phi]_+ = \emptyset \wedge c[\phi]_- \neq \emptyset }\)
+\ex \(c[\dag\phi]_u := c[\phi]_u\)
+#+end_exe
+
+*** Test semantics
+
+Let's stick to Veltman's idea that a modalized statement, if true, adds no information to the CG.
+
+#+name: upd:test
+#+begin_exe
+\ex /Might/ (first attempt):
+\begin{xlist}
+\ex \(c[\Diamond\phi]_+ := \set{(w,g) \in c| c[\phi]_+ \neq \emptyset }\)
+\ex \(c[\Diamond\phi]_- := \set{(w,g) \in c | c[\phi]_+ = \emptyset \wedge c[\phi]_- \neq \emptyset }\)
+\ex \(c[\diamond\phi]_u := c[\phi]_u\)
+\end{xlist}
+#+end_exe
+
+By definition, modalized sentences are /tests/ on information states (they can't introduce any anaphoric information).
+
+*** Pragmatics
+
+What kind of bridge principle do we want for a trivalent update semantics?
+
+#+begin_definition
+*Assertion*. An assertion of \(\phi \) in \(c\), \(c[\phi]\), is defined as follows:
+
+\[c[\phi] := \begin{cases}
+c[\phi]_+&c[\phi]_u = \emptyset\\
+&\#_c&\text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+*** An alternative semantics for /might/ 
+
+#+name: upd:test
+#+begin_exe
+\ex /Might/ (first attempt):
+\begin{xlist}
+\ex \(c[\Diamond\phi]_+ := \begin{cases}
+c[\phi]_+ \cup c[\phi]_-&c[\phi]_+ \neq \emptyset\\
+\emptyset&\text{otherwise} 
+\end{cases}\)
+\ex \(c[\Diamond\phi]_- := \begin{cases}
+c[\phi]_+ \cup c[\phi]_-&c[\phi]_+ = \emptyset \wedge c[\phi]_- \neq \emptyset\\
+\emptyset & \text{otherwise} 
+\end{cases}\)
+\ex \(c[\Diamond\phi]_u := c[\phi]_u\)
+\end{xlist}
+#+end_exe
+
+* Advantages
+
+** Possible bathrooms
+
+The following is an acceptable sentence.
+
+#+name: 
+#+begin_exe
+\ex There might be no\(^v\) bathroom and it\(_v\) might be upstairs.
+#+end_exe
+
+Let's compute the positive contribution of the first sentence.
+
+#+name: poss-bath
+#+begin_exe
+\ex There might be no bathroom.
+\ex \(\Diamond (\neg\exists_v[B(v)])\)
+#+end_exe
+
+#+name: poss
+#+begin_exe
+\ex \(c[\Diamond(\neg\exists_v[B(v)])]_+ = \begin{cases}
+c[\neg\exists_v[B(v)]]_+ \cup c[\neg\exists_v[B(v)]]_- & c[\phi]_+ \neq \emptyset\\
+\emptyset & \text{otherwise} 
+\end{cases}\)
+\ex \(c[\Diamond(\neg\exists_v[B(v)])]_+ = \begin{cases}
+c[\neg\exists_v[B(v)]]_+\cup c[\exists_v[B(v)]]_+& \exists w\in c[ I_w(B) = \emptyset]\\
+\emptyset & \text{otherwise}
+\end{cases}\) 
+#+end_exe
+
+In plain English, "there might be no\(^v\) bathroom" is an instruction to take a file \(c\), and:
+
+- Check that there is at least one world where no bathroom exists (Veltman's consistency test).
+- Update \(c\) with the information that there is no bathroom, giving back \(c'\).
+- Update \(c\) with the information that there is a bathroom \(v\), giving back \(c''\).
+- Return \(c \cup c'\).
+
+Now, let's compute the positive update of the second sentence.
+
+#+name: poss-bath2
+#+begin_exe
+\ex It\(_v\) might be upstairs.
+\ex \(\Diamond(U(v))\)
+#+end_exe
+
+(Hmm, this won't quite work.)
+
+#+name: poss2
+#+begin_exe
+\ex \(c[\Diamond(U(v))]_+ = \begin{cases}
+c[U(v)]_+ \cup c[U(v)]_-&c[U(v)]_+ \neq \emptyset\\
+\emptyset &\text{otherwise} 
+\end{cases} \)
+#+end_exe
+
+* References
+
+#+print_bibliography:
+
+* Footnotes
+[fn:2] Given partial assignments, a standard bridge principle predicts that \(v\) should be defined at /every/ assignment in the file context.
+
+[fn:1] There's a subtlety here involving the novelty condition and downdate that we're glossing over here. Can you  spot it?
+
+* File local variables                                             :noexport:
+ 
+# Local Variables:
+# mode: org
+# org-latex-default-packages-alist: nil
+# org-latex-with-hyperref: nil
+# End:
+
