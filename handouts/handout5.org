@@ -195,7 +195,7 @@ A concise presentation of EDS as a semantics for a first order calculus.
 \(\begin{aligned}[t]
 &\eval*[w][+]{\phi \wedge \psi} := \eval*[w][+]{\phi } \circ \eval*[w][+]{\psi}\\
 &\eval*[w][-]{\phi \wedge \psi} := \begin{aligned}[t]
-&\eval*[w][-]{\phi} \circ [\eval*[w][+,-,u]{\psi}\\
+&\eval*[w][-]{\phi} \circ \eval*[w][+,-,u]{\psi}\\
 &\cup \eval*[w][+,u]{\phi} \circ \eval*[w][-]{\psi}
 \end{aligned}\\
 &\eval*[w][u]{\phi \wedge \psi} := \begin{aligned}[t]
@@ -329,6 +329,8 @@ c[\phi]_+&c[\phi]_u = \emptyset\\
 
 *** An alternative semantics for /might/ 
 
+Let's start by specifying the positive contribution of /might/.
+
 #+name: upd:test
 #+begin_exe
 \ex /Might/ (first attempt):
@@ -337,17 +339,51 @@ c[\phi]_+&c[\phi]_u = \emptyset\\
 c[\phi]_+ \cup c[\phi]_-&c[\phi]_+ \neq \emptyset\\
 \emptyset&\text{otherwise} 
 \end{cases}\)
-\ex \(c[\Diamond\phi]_- := \begin{cases}
-c[\phi]_+ \cup c[\phi]_-&c[\phi]_+ = \emptyset \wedge c[\phi]_- \neq \emptyset\\
-\emptyset & \text{otherwise} 
-\end{cases}\)
-\ex \(c[\Diamond\phi]_u := c[\phi]_u\)
 \end{xlist}
 #+end_exe
 
-* Advantages
+We'll come back to the negative update associated with \(\diamond\phi \).
 
-** Possible bathrooms
+*** Bathrooms and contextual entailment
+
+This has the virtue of accounting for a variant of Rothshchild discourses involving epistemic modals.
+
+#+name: critic
+#+begin_exe
+\ex Context: /It's common ground that a restaurant critic will be here on Monday, but it's not common ground what day it is./
+\begin{xlist}
+\ex A: It's possible that a restaurant critic is here.
+\ex B: It's Monday, so they\(_v\)'re here right now.
+\end{xlist}
+#+end_exe
+
+#+name: poss-critic
+#+begin_exe
+\ex 
+\begin{xlist}
+\ex It's possible that a restaurant critic is here.
+\ex \(\Diamond (\exists_v[C(v)])\)
+\end{xlist}
+#+end_exe
+
+#+name: poss
+#+begin_exe
+\ex \(c[\Diamond(\exists_v[C(v)])]_+ = \begin{cases}
+c[\neg\exists_v[C(v)]]_+\cup c[\exists_v[C(v)]]_+& \exists w\in c[ I_w(C) \neq \emptyset]\\
+\emptyset & \text{otherwise}
+\end{cases}\) 
+#+end_exe
+
+In plain English, "it's possible that a\(^v\) critic is here" is an instruction to take a file \(c\), and:
+
+- Check that there is at least one world where a critic is here (Veltman's consistency test).
+- Update \(c\) with the information that there is a critic \(v\), giving back \(c'\).
+- Update \(c\) with the information that there is no critic, giving back \(c''\).
+- Return \(c \cup c'\).
+
+If a subsequent update eliminates all non-critic worlds in \(c'\), then anaphora may subsequently be licensed (since familiarity will be satisfied).
+
+*** Conjunctive possibilities
 
 The following is an acceptable sentence.
 
@@ -358,32 +394,17 @@ The following is an acceptable sentence.
 
 Let's compute the positive contribution of the first sentence.
 
-#+name: poss-bath
-#+begin_exe
-\ex There might be no bathroom.
-\ex \(\Diamond (\neg\exists_v[B(v)])\)
-#+end_exe
-
 #+name: poss
 #+begin_exe
-\ex \(c[\Diamond(\neg\exists_v[B(v)])]_+ = \begin{cases}
-c[\neg\exists_v[B(v)]]_+ \cup c[\neg\exists_v[B(v)]]_- & c[\phi]_+ \neq \emptyset\\
-\emptyset & \text{otherwise} 
-\end{cases}\)
 \ex \(c[\Diamond(\neg\exists_v[B(v)])]_+ = \begin{cases}
 c[\neg\exists_v[B(v)]]_+\cup c[\exists_v[B(v)]]_+& \exists w\in c[ I_w(B) = \emptyset]\\
 \emptyset & \text{otherwise}
 \end{cases}\) 
 #+end_exe
 
-In plain English, "there might be no\(^v\) bathroom" is an instruction to take a file \(c\), and:
+This update ensures that \(c\) is consistent with their being no bathroom, and pairs bathroom worlds with bathroom drefs, and leaves non-bathroom worlds unchanged.
 
-- Check that there is at least one world where no bathroom exists (Veltman's consistency test).
-- Update \(c\) with the information that there is no bathroom, giving back \(c'\).
-- Update \(c\) with the information that there is a bathroom \(v\), giving back \(c''\).
-- Return \(c \cup c'\).
-
-Now, let's compute the positive update of the second sentence.
+Let's move on to the second sentence.
 
 #+name: poss-bath2
 #+begin_exe
@@ -391,7 +412,7 @@ Now, let's compute the positive update of the second sentence.
 \ex \(\Diamond(U(v))\)
 #+end_exe
 
-(Hmm, this won't quite work.)
+This update ensures that \(c\) is consistent with \(v\) being upstairs, and simply returns the union of the \(v-\)upstairs and \(v\)-not-upstairs worlds.
 
 #+name: poss2
 #+begin_exe
@@ -401,9 +422,91 @@ c[U(v)]_+ \cup c[U(v)]_-&c[U(v)]_+ \neq \emptyset\\
 \end{cases} \)
 #+end_exe
 
+We can now think through, what happens when we chain these updates together. That's pretty easy for conjunction.
+
+#+name: chain
+#+begin_exe
+\ex \(c[\Diamond(\neg\exists_v[B(v)]) \wedge \Diamond(U(v))]_+ = c[\Diamond(\neg\exists_v[B(v)])]_+[\Diamond(U(v))]_+\)
+#+end_exe
+
+#+begin_warningblock
+Oh no! something has gone wrong here. Concretely, the update expressed by the second sentence requires that the familiarity presupposition is met /throughout/ the input context. If the test imposed by the first epistemic modal is successful, there are guaranteed to be worlds in which there are no bathrooms, and the second update will fail.
+#+end_warningblock
+
+
+
+
+
+
 * References
 
 #+print_bibliography:
+
+* Appendices
+
+** Attempt 1: inquisitive semantics
+
+The structure introduced by disjunction needs to be retained.
+
+Intuition:
+
+- /might \(p\)/ tests at \(c\) whether \(p\) is consistent, *and* introduces two /alternatives/: \(c[p]_+\) and \(c[p]_-\). The second modalized conjunct is interpreted just relative to the second alternative.
+  
+Problem:
+
+#+name: mod
+#+begin_exe
+\ex ???There might be no\(^v\) bathroom, and it\(_v\)'s upstairs.
+#+end_exe
+
+** Attempt 2: Modal subordination
+
+See [cite:@Kibble1994].
+
+Evidence that this might be on the right track:
+
+#+name: would
+#+begin_exe
+\ex There might be no\(^v\) bathroom, but it would be upstairs.
+#+end_exe
+
+** Attempt 3: Individual concepts
+
+See [cite:@Hofmann2019]. Shifting to an update semantics might allow us to make sense of this. Let's try it!!!
+
+*** Analysis
+
+Random assignment introduces an /individual concept/ discourse referent \(v\).
+
+/Assignments/ are total functions from variables to /individual concepts/.
+
+/Individual concepts/ are partial functions from worlds to individuals.
+
+#+name: upd2:rand
+#+begin_exe
+\ex \(c[\varepsilon_v]_+ := \set{(w,h)|\exists g[(w,g) \in c \wedge g[v]h]}\)
+\ex \(c[\varepsilon_v]_- := \emptyset \)
+\ex \(c[\varepsilon_v]_- := \emptyset \)
+#+end_exe
+
+Pronouns presuppose that their extension is non-impossible at the world of evaluation.
+
+All we really need to do to accomplish this is to slightly modify our static semantics.
+
+#+name: def2:eds-stat
+#+begin_exe
+\ex Static semantics for atomic sentences:\\
+\([P(v_1,\ldots,v_n)]^{w,g} = \begin{cases} \mathbf{defined} &  g(v_1)(w), \ldots ,g(v_n)(w) \neq \#_e\\
+\mathbf{true} & [P(v_1,\ldots,v_n)]^{w,g}\text{ is \textbf{defined} and }\langle g(v_1),\ldots,g(v_n)\rangle \in I_w(P)
+\end{cases}\)
+#+end_exe
+
+In extensional EDS, we could decompose existential quantification into random assignment, conjunction, and a closure operator \(\dag\). In an intensional setting, we need a slightly more involved semantics for closure.
+
+#+name: int:ex
+#+begin_exe
+\ex \(c[\exists_v\phi]_+ := ???\)
+#+end_exe
 
 * Footnotes
 [fn:2] Given partial assignments, a standard bridge principle predicts that \(v\) should be defined at /every/ assignment in the file context.
