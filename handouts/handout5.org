@@ -505,10 +505,120 @@ In extensional EDS, we could decompose existential quantification into random as
 
 #+name: int:ex
 #+begin_exe
-\ex \(c[\exists_v\phi]_+ := ???\)
+\ex \(c[\exists_v\phi]_+ := c[\varepsilon_v]_+[\phi]_+\)
 #+end_exe
 
+#+begin_tipblock
+We need to somehow ensure that the individual concept maps worlds in which there is no witness to the impossible individual.
+#+end_tipblock
+
+** An example to work through
+
+Consider the following logical space (indices indicate an existing bathroom).
+
+
+
+Given two individuals \(1,2,\#_e\), there are \(3^4\) (\(81\)) possible individual concepts mapping worlds to individuals.
+
+We want "a\(^v\) bathroom" to introduce the following two individual concepts at variable \(v\): 
+
+1. \([w_{12} \to 1, w_1 \to 1, w_2 \to 2, w_\emptyset \to \#_e]\)
+2. \([w_{12} \to 2, w_1 \to 1, w_2 \to 2, w_\emptyset \to \#_e]\)
+   
+Note that (I think) this allows to keep track of worldly information, and anaphoric information independently.
+
+Let's treat assignments as functions from /variable-world pairs/ to individuals.
+
+\[
+\set{w_{12},w_1,w_2,w_\emptyset } \ast \Set{\left[\begin{aligned}[c]
+&v_{w_{12}} \to 1\\
+&v_{w_1} \to 1\\
+&v_{w_2} \to 2\\
+&v_{w_\emptyset} \to \#_e
+\end{aligned},\right]_{g_1}, \left[\begin{aligned}[c]
+&v_{w_{12}} \to 2\\
+&v_{w_1} \to 1\\
+&v_{w_2} \to 2\\
+&v_{w_\emptyset } \to \#_e
+\end{aligned},\right]_{g_2}}\]
+
+Here we have a set of worlds paired with a set of assignments mapping variables to functions from worlds to bathrooms in those worlds. 
+
+Let's say that individual concepts are partial functions from worlds to individuals, we can then define the notion of /concept modification/.
+
+The initial information state:
+
+\(\set{w_{12},w_1,w_2,w_\emptyset } \ast \Set{\left[\begin{aligned}[c]
+v_{w_{12}} \to \#_e\\
+v_{w_{1}} \to \#_e\\
+v_{w_{2}} \to \#_e\\
+v_{w_{\emptyset }} \to \#_e\\
+\end{aligned}\right]}\)
+
+Equivalently, if we think explicitly in terms of partial assignments:
+
+
+\(\set{w_{12},w_1,w_2,w_\emptyset } \ast \Set{\left[]}\)
+
+Now, "There is a\(^v\) bathroom" should (a) eliminate non-bathroom worlds (\(w_\emptyset \)) and indeterministically extend variable-world pairs to bathrooms in that world. 
+
+\[\set{w_{12},w_1,w_2} \ast \set{[v_{12} \to 1, v_{1} \to 1, v_2 \to 2],[v_{12} \to 2, v_1 \to 1, v_2 \to 2]}\]
+
+let's call the initial information state \(\phi \ast \psi\).
+
+\[(\phi \ast \psi)[\text{a}^v\text{ bathroom}] := \set{w | w \in \phi \wedge I_w(B) \neq \emptyset } \ast \set{h | \exists g[g \in \psi \wedge g[v_w]h \wedge h(v_w) \in I_w(B)]}\]
+
+\[= \set{w_{12},w_1,w_2} \ast \set{[v_{12} \to 1, v_{1} \to 1, v_2 \to 2],[v_{12} \to 2, v_1 \to 1, v_2 \to 2]}\]
+
+Now let's call this new information state \(\phi' \ast \psi'\), and let's assume that only bathroom \(1\) is ever upstairs in any given world.
+
+\((\phi' \ast \psi')[\text{it}^1\text{ is upstairs}] = \set{w_{12},w_1} \ast \set{[v_{12} \to 1, v_1 \to 1, v_2 \to 2]}\)
+
+This becomes difficult to state, because we're breaking the link between the worldly and anaphoric information. Let's try to do this in a distributive fashion.
+
+** Distributive analysis
+
+- Worlds are integers \(w_1, w_2, \ldots\).
+- Assignments are partial functions from /variable-world pairs/ (\(x_1 := (x,w_1)\)) to individuals \(a,b,c,\ldots\)
+- Meanings are functions from /world-assignment pairs/ to sets of assignments.
+  
+OK, for pronouns this might work: pronouns can introduce discourse referents.  
+
+\(\eval*[+]{\text{she}_v\text{ left}} := \lambda (w,g)\,.\set{g | g(v_w) \neq \# \wedge   g(v_w) \in I_w(L)}\)
+
+\(\eval*[-]{\text{she}_v\text{ left}} := \lambda (w,g)\,.\set{g^{[v_w \to \#]} |g(v_w) \neq \# \wedge  g(v_w) \notin I_w(L)}\)
+
+\(\eval*[u]{\text{she}_v\text{ left}} := \lambda (w,g)\,.\,\set{g | g(v_w) = \#}\)
+
+Now, I think we can treat indefinites as plain old random assignment:
+
+\(\eval*[v]{\text{someone} }^+ := \lambda (w,g)\,.\,\set{g^{[v_n \to x]} | x \in D, n \in W}\)
+
+** A sketch of how it should work (might help)
+
+"Maybe there is a\(^v\) bathroom" asserts that there are some worlds in which there is a bathroom, and in those worlds \(w\) \(v_w\) is a bathroom, and some worlds with no bathroom \(w'\), where \(v_w'\) is undefined.
+
+"Maybe there is no\(^v\) bathoom" asserts that there are some worlds in which there is no bathoom; in those worlds \(w\), \(v_w\) is undefined, and some worlds with a bathroom \(w'\); in those worlds \(v_w'\) is a bathroom.
+
+"Maybe it's upstairs" asserts that there are some worlds \(w\) in which \(v_w\) is defined and upstairs, and some worlds \(w'\) in which \(v_w'\) is defined and not upstairs. This is validated just by those worlds in the complement set from the previous update. 
+
+#+name: maybe1
+#+begin_exe
+\ex Maybe there's no\(^v\) bathroom.
+\ex \(\lambda c\,.\,\begin{cases}
+c \cup c'[\text{no bathroom}] \cup c'[\text{not no}^v\text{ bathroom} ]&\exists c' \subseteq c[c'[\text{no bathroom}] \neq \emptyset]\\
+\text{undefined}&\text{otherwise}  
+\end{cases}\)
+\ex Maybe it's upstairs.
+\ex \(\lambda c\,.\,\begin{cases}
+\dots & \exists c'' \subseteq c[c''[]]
+\end{cases}\)
+#+end_exe
+
+
+
 * Footnotes
+
 [fn:2] Given partial assignments, a standard bridge principle predicts that \(v\) should be defined at /every/ assignment in the file context.
 
 [fn:1] There's a subtlety here involving the novelty condition and downdate that we're glossing over here. Can you  spot it?
