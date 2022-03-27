@@ -1,9 +1,11 @@
-#+title: There's something about `maybe' 
+#+title: Disjunction and epistemic possibility
 #+author: Patrick D. Elliott 
 #+bibliography: ../../bibliography/master.bib
 #+setupfile: handout-template.org
 #+OPTIONS: ':t
 #+cite_export: biblatex
+
+* TODO Say something more general about anaphora and simplification based inferences
 
 * Notices
 
@@ -196,9 +198,13 @@ This will give rise to the welcome prediction that "Either there is no\(ᵛ\) ba
 
 For cases where there are no dependencies between disjuncts, ([[def-mod2]]) simply subsumes the initial formulation (hopefully).
 
+** Simplification and anaphora
+
 #+begin_warningblock
 How do we derive ([[def-mod2]]) from pragmatic reasoning about alternatives?
 #+end_warningblock
+
+*** TODO more here (based on conversation with Yasu)
 
 ** Internal staticity and Hurford's constraint
 
@@ -288,7 +294,86 @@ Note that the resulting information states are overlapping, due to the existence
 
 It follows that ([[int-stat]]) can't convey that there is a person who is both in the audience and sitting down.
   
-* TODO Modality
+
+* Modality and anaphora
+
+** New data
+
+#+begin_tipblock
+*A generalization that emerges from EDS:* an assertion of a sentence \(\phi \) containing an existential statement "a\(^v\) linguist \(P\)-ed" introduces a dref \(v\) if the assertion is accepted and contextually entails the existence of a linguist that \(P\)-ed.
+#+end_tipblock
+
+Interaction with modality draws this generalization into question.
+
+Modal subordination and anaphora [cite:@Roberts1989]:
+
+#+name: hypothetical2
+#+begin_exe
+\ex Maybe there's a\(^v\) bathroom, and maybe it\(_v\)'s upstairs.
+\ex Maybe there's a\(^v\) bathroom. It\(_v\) would be upstairs.
+\ex There might be a\(^v\) bathroom, and it\(_v\) might be upstairs.
+\ex There might be a\(^v\) bathroom. It\(_v\) would be upstairs.
+#+end_exe
+
+Not possible with disjunction(?):
+
+#+begin_exe
+\ex ??Maybe there's a\(^v\) bathroom, or maybe it\(_v\)'s upstairs.
+\ex ??There might be a\(^v\) bathroom, or it\(_v\) might be upstairs.
+#+end_exe
+
+Surprisingly, conjunctive possibility statements can pattern with disjunction: 
+
+#+name: hypothetical1
+#+begin_exe
+\ex There might be no\(^v\) bathroom, and it\(_v\) might be upstairs.
+\ex Maybe there's no\(^v\) bathroom, and maybe it\(_v\)'s upstairs. 
+\ex Either There's no\(^v\) bathroom, or it\(_v\)'s upstairs.
+#+end_exe
+
+Note that this parallel is perhaps unsurprising, given modal theories of disjunction which validate \(\phi \vee \psi \vdash \Diamond\phi \wedge \Diamond\psi\) [cite:@Zimmermann2000;@Geurts2005;@Goldstein2019].
+
+Modal subordination with negation; data from [cite:@Hofmann2019]:
+
+#+name: hypothetical3
+#+begin_exe
+\ex There is no\(^v\) bathroom in this house. It\(_v\) would be easier to find.
+#+end_exe
+
+** Epistemic modality in dynamic semantics
+
+*** Initial motivations
+
+The classical relational semantics for epistemic possibility [cite:@Kratzer2012].
+
+#+name: ep-mod
+#+begin_exe
+\ex \(\eval*[w,f]{\Diamond \phi } := \text{\textbf{true} iff }\exists w' \in f(w)[\eval*[w']{\phi }\text{ is \textbf{true}} ] \)
+#+end_exe
+
+The parameter \(f\) is taken to be determined by the conversational context, and maps each world \(w\) to the set of worlds compatible with what is known in \(w\).
+
+Known by who? One salient possibility is the speaker.[fn:5]
+
+A fatal problem for this view ([cite:@Hawthorne2004]; data from [cite:@Rudin2021]):
+
+#+name: hawthorne
+#+begin_exe
+\ex 
+\begin{xlist}
+\ex Andrea: Paul might have been at the party last night.
+\ex Bertrand: You're wrong, he was in Barbados. 
+\end{xlist}
+#+end_exe
+
+#+begin_quote
+"The puzzle is that no way of pinning the relevant knowledge state down
+seems to be able to explain both why we are in a position to make the epistemic “might” claims we seem to be in a position to make, and also why it is often reasonable to disagree with “might” claims made by others" [cite:@Stalnaker2014]
+#+end_quote
+
+
+
+
 
 
 * References
@@ -296,7 +381,7 @@ It follows that ([[int-stat]]) can't convey that there is a person who is both i
 #+print_bibliography:
 
 * Footnotes
-
+[fn:5] Yanovich calls this view "contextual sollipsism" [cite:@Yanovich2014]. 
 [fn:4] Plausibly, this can be made to follow from a global redundancy principle. 
 [fn:3] We use \(c_w\) to indicate the worldly content of a file, and \(c_w[\phi]\) to indicate the worldly content of \(c[\phi]\).
 [fn:2] Note that a possible alternative would be to invoke some notion of Strawson entailment ([cite:@vonFintel1999]), adapted to file contexts. This would impose a too-weak-requirement on, e.g., bathroom disjunctions, since the \(U(v)\) merely presupposes that \(v\) is defined.
