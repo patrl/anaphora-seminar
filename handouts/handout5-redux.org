@@ -1,0 +1,312 @@
+#+title: There's something about `maybe' 
+#+author: Patrick D. Elliott 
+#+bibliography: ../../bibliography/master.bib
+#+setupfile: handout-template.org
+#+OPTIONS: ':t
+#+cite_export: biblatex
+
+* Notices
+
+Class next week is cancelled.
+
+* First order EDS
+
+A concise presentation of EDS as a semantics for a first order calculus.
+
+To appreciate the isomorphism between this presentation, and the previous presentation, consider that a trivalent relational semantics can be framed instead as a set of relations, each paired with one of three truth values.
+
+#+name: def:eds-stat
+#+begin_exe
+\ex Static semantics for atomic sentences:\\
+\([P(v_1,\ldots,v_n)]^{w,g} = \begin{cases} \mathbf{defined} &  g(v_1), \ldots ,g(v_n) \neq \#_e\\
+\mathbf{true} & [P(v_1,\ldots,v_n)]^{w,g}\text{ is \textbf{defined} and }\langle g(v_1),\ldots,g(v_n)\rangle \in I_w(P)
+\end{cases}\)
+#+end_exe
+
+#+name: def:eds-atom
+#+begin_exe
+\ex Atomic sentences in EDS:
+\begin{xlist}
+\ex \(\eval*[w][+]{P(v_1,\ldots,v_n)} := \set{(g,h)|g = h \wedge |P(v_1,\ldots,v_n)|^{w,h}\text{ is \textbf{true}}}\)
+\ex \(\eval*[w][-]{P(v_1,\ldots,v_n)} := \set{(g,h)|g = h \wedge |P(v_1,\ldots,v_n)|^{w,h} \text{ is \textbf{false}} }\)
+\ex \(\eval*[w][u]{P(v_1,\ldots,v_n)} := \set{(g,h)|g = h \wedge |P(v_1,\ldots,v_n)|^{w,h}\text{ is \textbf{undefined}} }\)
+\end{xlist}
+#+end_exe
+
+#+name: def:eds-neg
+#+begin_exe
+\ex Negative sentences:
+\begin{xlist} 
+\ex \(\eval*[w][+]{\neg \phi } := \eval*[w][-]{\phi }\)
+\ex \(\eval*[w][-]{\neg \phi } := \eval*[w][+]{\phi }\)
+\ex\(\eval*[w][u]{\neg \phi } := \eval*[w][u]{\phi }\)
+\end{xlist}
+#+end_exe
+
+#+name: def:eds-conk
+#+begin_exe
+\ex Conjunctive sentences:
+\begin{xlist}
+\ex \(\eval*[w][+]{\phi \wedge \psi} := \eval*[w][+]{\phi } \circ \eval*[w][+]{\psi}\)
+\ex \(\eval*[w][-]{\phi \wedge \psi} := \begin{aligned}[t]
+&\eval*[w][-]{\phi} \circ \eval*[w][+,-,u]{\psi}\\
+&\cup \eval*[w][+,u]{\phi} \circ \eval*[w][-]{\psi}
+\end{aligned}\)
+\ex \(\eval*[w][u]{\phi \wedge \psi} := \begin{aligned}[t]
+&\eval*[w][+]{\phi } \circ \eval*[w][u]{\psi}\\
+&\cup \eval*[w][u]{\phi } \circ \eval*[w][+,u]{\psi}
+\end{aligned}\)
+\end{xlist}
+#+end_exe
+
+#+name: def:eds-rand
+#+begin_exe
+\ex Random assignment:
+\begin{xlist}
+\ex \(\eval*[w][+]{\varepsilon_v} := \set{(g,h)|g[v]h}\)
+\ex \(\eval*[w][-]{\varepsilon_v} := \emptyset\)
+\ex \(\eval*[w][u]{\varepsilon_v} := \emptyset\)
+\end{xlist}
+#+end_exe
+
+#+name: def:eds-dag
+#+begin_exe
+\ex Positive closure:
+\begin{xlist}
+\ex \(\eval*[w][+]{\dag\phi } := \eval*[w][+]{\phi}\)
+\ex \(\eval*[w][-]{\dag\phi } := \set{(g,h)|g = h \wedge \eval*[w][+]{\phi } = \emptyset \wedge \eval*[w][-]{\phi } \neq \emptyset }\)
+\ex \(\eval*[w][u]{\dag\phi } := \eval*[w][u]{\phi}\)
+\end{xlist}
+#+end_exe
+
+#+name: exist
+#+begin_exe
+\ex Existential quantification:\\
+\(\exists_v\phi := \varepsilon_v \wedge \phi\)
+#+end_exe
+
+* Aspects of disjunction
+
+** EDS disjunction
+
+#+name: def:eds-disj
+#+begin_exe
+\ex Disjunctive sentences:
+\begin{xlist}
+\ex \(\eval*[w][+]{\phi \vee \psi} := \begin{aligned}[t]
+&\eval*[w][+]{\phi } \circ \eval*[w][+,-,u]{\psi}\\
+&\cup \eval*[w][-,u]{\phi } \circ \eval*[w][+]{\psi}\\
+\end{aligned}
+\)
+\ex \(\eval*[w][-]{\phi \vee \psi} := \eval*[w][-]{\phi } \circ \eval*[w][-]{\psi}\)
+\ex \(\eval*[w][u]{\phi \vee \psi} := \begin{aligned}[t]
+&\eval*[w][-]{\phi } \circ \eval*[w][u]{\psi}\\
+&\cup \eval*[w][u]{\phi } \circ \eval*[w][-,u]{\psi}
+\end{aligned}\)
+\end{xlist}
+#+end_exe
+
+** Disjunction and triviality
+
+Remember, we explained the apparent /external staticity/ of disjunction (and it exceptions) by recourse to the independently-motivated requirement that each disjunct is a /real possibility/[fn:4].
+
+For the following discussion, it will be important to make precise exactly what this means.
+
+#+name: def-mod1
+#+begin_definition
+*Contingency requirement* (first attempt). A sentence of the form \(\phi \vee \psi\) is /felicitous/ when asserted in a context \(c\) iff both \(c_w[\phi]\) and \(c_w[\psi]\) are non-empty proper subsets of \(c_w\).[fn:3]
+#+end_definition
+
+#+begin_tipblock
+A direct consequence: a disjunctive sentence is /infelicitous/ in \(c\) if either disjunct is contextually trivial.
+#+end_tipblock
+
+In a bivalent setting, the principle in ([[def-mod1]]) will have the desired effect.
+
+#+name: triv1
+#+begin_exe
+\ex Context: /Josie has just said "I have food poisoning"./
+\begin{xlist}
+\ex ??Either Josie is sick or we'll eat out tonight.
+\ex ??Either Josie is well or we'll stay home tonight.
+\ex Either Josie is well by 7pm or we'll stay home tonight.
+\end{xlist}
+#+end_exe
+
+If we take presuppositions (anaphoric or otherwise) into account, we see that ([[def-mod1]]) is too strong.
+
+Consider our Stalnakerian bridge principle:.
+
+#+begin_definition
+Update in EDS.
+
+\[c[\phi] = \begin{cases}
+    \bigcup\limits_{(w,g) \in c}\set{(w,h)|(g,h) \in \eval*[w][+]{\phi }}&\forall (w,g) \in c[\phi \text{ is \textbf{true} at }(w,g)\text{ or }\phi \text{ is \textbf{false} at }(w,g)] \\
+    \text{undefined}  &\text{otherwise}
+    \end{cases}
+\]
+#+end_definition
+
+If either of the disjuncts is /presuppositional/ (i.e., contains a pronoun/free variable), then the condition in ([[def-mod1]]) will only be met if the presupposition is satisfied throughout the context.[fn:1] 
+
+This will place far-too-strong requirements on /bathroom disjunctions/, such as "Either there is no\(^v\) bathroom, or it\(_v\)'s upstairs" - the condition in ([[def-mod1]]) predicts that this should require \(v\) to be defined throughout the context.
+
+The heart of the problem with the condition in ([[def-mod1]]) is that it ignores the possibility of dependencies between disjuncts.
+
+#+begin_tipblock
+The intuition behind the solution: we can isolate the parts of \(c[\phi \vee \psi]\) in which the disjunction is verified by the first disjunct, and the parts of \(c[\phi \vee \psi]\) in which the disjunction is verified by the second disjunct. Neither way of verifying the disjunction should be contextually trivial.[fn:2] 
+#+end_tipblock
+
+In order to isolate the parts of the context corresponding to verifying each disjunct, we hold the positive extension of each disjunct constant.
+
+- \(c[\phi \vee \psi]_{1}:= \bigcup\limits_{(w,g) \in c}\set{(w,h)|(g,h) \in \eval*[w][+]{\phi } \circ \eval*[w][+,-,u]{\psi}}\)
+- \(c[\phi \vee \psi]_{2} := \bigcup\limits_{(w,g) \in c}\set{(w,h)|(g,h) \in \eval*[w][+,-,u]{\phi } \circ \eval*[w][+]{\psi}}\)
+
+Let's illustrate how this works:
+
+- \(w_{bu}\): \(b\) is a bathroom upstairs.  
+- \(w_{bd}\): \(b\) is a bathroom downstairs.
+- \(w_\emptyset \): there are no bathrooms.
+  
+Initial file context \(c_\top \): \(\set{w_{bu},w_{bd},w_\emptyset } \times g_\top \)
+
+- \(c[\neg\exists_v[B(v)] \vee U(v)] = \set{(w_{bu},[v \to b]),(w_\emptyset,[])}\)
+- \(c[\neg\exists_v[B(v)] \vee U(v)]_1 = \set{(w_\emptyset,[])}\)
+- \(c[\neg\exists_v[B(v)] \vee U(v)]_2 = \set{(w_{bu},[v \to b])}\)
+
+#+name: def-mod2
+#+begin_definition
+*Contingency requirement* (second attempt). A sentence of the form \(\phi \vee \psi\) is /felicitous/ when asserted in a context \(c\) iff neither way of verifying the disjunction would be trivial, i.e.:
+
+- \(c_w[\phi \vee \psi]_1 \) is a non-empty proper subset of \(c\).
+- \(c_w[\phi \vee \psi]_2 \) is a non-empty proper subset of \(c\).
+  
+#+end_definition
+
+Constraints that ([[def-mod2]]) places on the context in light of \(\neg\exists_v[B(v)] \vee U(v)\).
+
+- If the input context only contained worlds in which there are bathrooms, \(c_w[\phi \vee \psi]_1 \) would be empty.
+- If the input context only contained worlds in which there are bathrooms upstairs, then \(c_w[\phi \vee \psi]_2\) would not be a proper subset.
+- Importantly, note that \(\set{w_\emptyset, w_{bu}}\) is compatible with the requirements in ([[def-mod2]]), but in such a context the disjunctive assertion would be informationally redundant. 
+
+This will give rise to the welcome prediction that "Either there is no\(ᵛ\) bathroom or it\(ᵥ\)'s upstairs" is felicitous \(c\), just in case either:
+
+- \(c\) is compatible with (but doesn't entail) there being no bathroom.
+- \(c\) is compatible with (but doesn't entail) there being a bathroom upstairs.
+
+For cases where there are no dependencies between disjuncts, ([[def-mod2]]) simply subsumes the initial formulation (hopefully).
+
+#+begin_warningblock
+How do we derive ([[def-mod2]]) from pragmatic reasoning about alternatives?
+#+end_warningblock
+
+** Internal staticity and Hurford's constraint
+
+Anaphoric relations between disjuncts are disallowed [cite:@GroenendijkStokhof1991], i.e., ([[int-stat]]) presupposes that \(v\) is contextually defined.
+
+#+name: int-stat
+#+begin_exe
+\ex ??Either someone\(^v\) is in the audience, or they\(_v\)'re sitting down.
+#+end_exe
+
+#+name: int-stat-fs
+#+begin_exe
+\ex \(\exists^v[A(v)] \vee S(v)\)
+#+end_exe
+
+In EDS, disjunction is internally dynamic, just like every other logical connective - how can we rule out ([[int-stat]])?
+
+Let's compute its positive extension. First, some salient points:
+
+- If the first disjunct is true, the second is guaranteed to be defined (i.e., have an empty \(u\)-extension, so we can ignore it).
+- The first disjunct is /always/ defined (we can ignore its \(u\)-extension).
+- If the first disjunct is false, whether or not the second disjunct is true will depend on the input assignment.
+
+#+name: pos-ext-disj
+#+begin_exe
+\ex \(\eval*[w][+]{\exists^v[A(v)] \vee S(v)} = \begin{aligned}[t]
+&\eval*[w][+]{\exists_v[A(v)]} \circ \eval*[w][+,-]{S(v)}\\
+&\cup \eval*[w][-]{\exists_v[A(v)]} \circ \eval*[w][+]{S(v)}
+\end{aligned}\)
+\ex \(= \set{(g,h)|g[v]h \wedge g(v) \in I_w(A)} \cup \set{(g,h)|g = h \wedge I_w(A) = \emptyset \wedge h(v) \in I_w(S)}\)
+#+end_exe
+
+So, "Either someone\(^v\) is in the audience or they\(_v\)'re sitting down", either introduces an audience member dref \(v\), if there are audience members, or if there are no audience members asserts that \(v\) is sitting down.
+
+Since we'll consider the conditions under which ([[int-stat-fs]]) is assertable, let's also compute its negative extension.
+
+- If the first disjunct is false, whether or not the second disjunct is false will depend on the input assignment.
+
+#+name: neg-ext-disj
+#+begin_exe
+\ex \(\eval*[w][-]{\exists^v[A(v)] \vee S(v)} = 
+\eval*[w][-]{\exists_v[A(v)]} \circ \eval*[w][-]{S(v)}\)
+\ex \(= \set{(g,h)|g = h \wedge I_w(A) = \emptyset \wedge h(v) \notin I_w(S)}\)
+#+end_exe
+
+So, "Either someone\(^v\) is in the audience or they're sitting down" is /false/ if there are no audience members and \(v\) isn't sitting down.
+
+Let's consider what it would mean to assert ([[int-stat-fs]]) in a concrete context.
+
+Recall our Stalnakerian bridge principle: What requirements does ([[int-stat-fs]]) place on the context? Every world assignment pair \((w,g\) should be s.t., either:
+
+- \(w\) is an /audience-member world/.
+- \(w\) is a non-audience member world, and \(g(v)\) is defined.
+  
+Let's give a concrete example.
+
+- \(w_d\): \(a\) is an audience member sitting down.
+- \(w_u\): \(a\) is an audience member standing up.
+- \(w_{d'}\): nobody is in the audience and \(a\) is sitting down.
+- \(w_{u'}\): nobody is in the audience and \(a\) is standing up.
+  
+In a context \(\set{w_d,w_u,w_{d'},w_{u'}} \times g_\top \), ([[int-stat]]) will be undefined due to the presupposition /if nobody is in the audience \(g(v)\) is defined/. 
+
+If we remove the worlds in which nobody is in the audience, then ([[int-stat]]) is informationally redundant.
+
+Let's assume that we do someone manage to associate just the audienceless worlds with a discourse referent \(a\).
+
+- \(c' := \set{(w_d,[]),(w_u,[]),(w_{d'},[v \to a]),(w_{u'},[v \to a])}\)
+  
+Updating \(c'\) with ([[int-stat]]) will give the following updated context. The only \((w,g)\) which is eliminated is the one in which nobody is in the audience in and \(g(v)\) is standing up.
+
+- \(c'[\exists_v[A(v)] \vee S(v)] := \set{(w_d,[v \to a]),(w_u,[v \to a]),(w_{d'},[v \to a])}\)
+  
+Now, let's consider the parts of the updated context that each disjunct is responsible for:
+
+- \(c'[\exists_v[A(v)] \vee S(v)]_1 := \set{(w_d,[v \to a]),(w_u,[v \to a])}\)
+- \(c'[\exists_v[A(v)] \vee S(v)]_2 := \set{(w_d,[v \to a]),(w_{d'},[v \to a])}\)
+  
+Note that the resulting information states are overlapping, due to the existence of a world in which someone is in the audience sitting down \(w_d\) (i.e., the disjuncts are compatible).
+
+[cite:@Singh2008] argues that a disjunction is infelicitous if the disjuncts are contextually compatible.
+
+#+name: singh
+#+begin_exe
+\ex ??John is in Russia or Asia.
+#+end_exe
+
+It follows that ([[int-stat]]) can't convey that there is a person who is both in the audience and sitting down.
+  
+* TODO Modality
+
+
+* References
+
+#+print_bibliography:
+
+* Footnotes
+
+[fn:4] Plausibly, this can be made to follow from a global redundancy principle. 
+[fn:3] We use \(c_w\) to indicate the worldly content of a file, and \(c_w[\phi]\) to indicate the worldly content of \(c[\phi]\).
+[fn:2] Note that a possible alternative would be to invoke some notion of Strawson entailment ([cite:@vonFintel1999]), adapted to file contexts. This would impose a too-weak-requirement on, e.g., bathroom disjunctions, since the \(U(v)\) merely presupposes that \(v\) is defined.
+[fn:1] Much the same point can be made for non-anaphoric presuppositions. 
+
+* File local variables                                             :noexport:
+ 
+# Local Variables:
+# mode: org
+# org-latex-default-packages-alist: nil
+# org-latex-with-hyperref: nil
+# End:
+

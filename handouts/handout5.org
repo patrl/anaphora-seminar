@@ -444,7 +444,7 @@ Oh no! something has gone wrong here. Concretely, the update expressed by the se
 
 * Appendices
 
-** Attempt 1: inquisitive semantics
+** Attempt 1: inquisitive semantics (doesn't work)
 
 The structure introduced by disjunction needs to be retained.
 
@@ -459,7 +459,7 @@ Problem:
 \ex ???There might be no\(^v\) bathroom, and it\(_v\)'s upstairs.
 #+end_exe
 
-** Attempt 2: Modal subordination
+** Attempt 2: Modal subordination (doesn't work nicely)
 
 See [cite:@Kibble1994].
 
@@ -470,7 +470,7 @@ Evidence that this might be on the right track:
 \ex There might be no\(^v\) bathroom, but it would be upstairs.
 #+end_exe
 
-** Attempt 3: Individual concepts
+** Attempt 3: Individual concepts (isn't necessary)
 
 See [cite:@Hofmann2019]. Shifting to an update semantics might allow us to make sense of this. Let's try it!!!
 
@@ -512,7 +512,7 @@ In extensional EDS, we could decompose existential quantification into random as
 We need to somehow ensure that the individual concept maps worlds in which there is no witness to the impossible individual.
 #+end_tipblock
 
-** An example to work through
+** An example to work through (meh)
 
 Consider the following logical space (indices indicate an existing bathroom).
 
@@ -576,7 +576,7 @@ Now let's call this new information state \(\phi' \ast \psi'\), and let's assume
 
 This becomes difficult to state, because we're breaking the link between the worldly and anaphoric information. Let's try to do this in a distributive fashion.
 
-** Distributive analysis
+** Distributive analysis (no)
 
 - Worlds are integers \(w_1, w_2, \ldots\).
 - Assignments are partial functions from /variable-world pairs/ (\(x_1 := (x,w_1)\)) to individuals \(a,b,c,\ldots\)
@@ -594,13 +594,11 @@ Now, I think we can treat indefinites as plain old random assignment:
 
 \(\eval*[v]{\text{someone} }^+ := \lambda (w,g)\,.\,\set{g^{[v_n \to x]} | x \in D, n \in W}\)
 
-** A sketch of how it should work (might help)
+** TODO A sketch of how it should work (Keep going from here)
 
-"Maybe there is a\(^v\) bathroom" asserts that there are some worlds in which there is a bathroom, and in those worlds \(w\) \(v_w\) is a bathroom, and some worlds with no bathroom \(w'\), where \(v_w'\) is undefined.
-
-"Maybe there is no\(^v\) bathoom" asserts that there are some worlds in which there is no bathoom; in those worlds \(w\), \(v_w\) is undefined, and some worlds with a bathroom \(w'\); in those worlds \(v_w'\) is a bathroom.
-
-"Maybe it's upstairs" asserts that there are some worlds \(w\) in which \(v_w\) is defined and upstairs, and some worlds \(w'\) in which \(v_w'\) is defined and not upstairs. This is validated just by those worlds in the complement set from the previous update. 
+- "Maybe there is a\(^v\) bathroom" asserts that there are some worlds in which there is a bathroom, and in those worlds \(w\) \(v_w\) is a bathroom, and some worlds with no bathroom \(w'\), where \(v_w'\) is undefined.
+- "Maybe there is no\(^v\) bathoom" asserts that there are some worlds in which there is no bathoom; in those worlds \(w\), \(v_w\) is undefined, and some worlds with a bathroom \(w'\); in those worlds \(v_w'\) is a bathroom.
+- "Maybe it's upstairs" asserts that there are some worlds \(w\) in which \(v_w\) is defined and upstairs, and some worlds \(w'\) in which \(v_w'\) is defined and not upstairs. This is validated just by those worlds in the complement set from the previous update. 
 
 #+name: maybe1
 #+begin_exe
@@ -614,6 +612,21 @@ c \cup c'[\text{no bathroom}] \cup c'[\text{not no}^v\text{ bathroom} ]&\exists 
 \dots & \exists c'' \subseteq c[c''[]]
 \end{cases}\)
 #+end_exe
+
+A trivial modification of Veltman (could we do this relative to individual slices?):
+
+#+name: mightnew
+#+begin_exe
+\ex \(c[\Diamond\phi] := \begin{cases}
+c& \exists c' \subseteq c[c'[\phi] \neq \emptyset]\\
+\emptyset & \text{otherwise} 
+\end{cases}\)
+#+end_exe
+
+- If \(c \cap p \neq \emptyset \), then \(\exists p' \subseteq p[c \cap p' \neq \emptyset]\) (this definitely goes through).
+- If \(\exists c' \subseteq c[c' \cap p \neq \emptyset]]\), then \(c \cap p \neq \emptyset \) ? This goes through too.
+  
+\(c \cap p \neq \emptyset \iff \exists p' \subseteq p[c \cap p' \neq \emptyset]\)
 
 
 
