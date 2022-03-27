@@ -1,15 +1,19 @@
-#+title: Disjunction and epistemic possibility
+#+title: Disjunction, possibility, and hypothetical discourse referents 
 #+author: Patrick D. Elliott 
 #+bibliography: ../../bibliography/master.bib
 #+setupfile: handout-template.org
 #+OPTIONS: ':t
 #+cite_export: biblatex
 
-* TODO Say something more general about anaphora and simplification based inferences
-
 * Notices
 
-Class next week is cancelled.
+Class next week is cancelled - I'll be giving a talk at the workshop /Dynamics in Logic and Language/ (Tsinghua University) entitled "Disjunction in a predictive theory of anaphora".
+
+I'll be talking about material related to the topic of this seminar, so please consider registering.
+
+The registration URL is: http://tsinghualogic.net/JRC/?page_id=4555
+
+On April 11, I plan to talk about either strong/weak readings of donkey sentences, or inquisitive dynamic semantics (let me know if you have a preference).
 
 * First order EDS
 
@@ -108,7 +112,7 @@ To appreciate the isomorphism between this presentation, and the previous presen
 \end{xlist}
 #+end_exe
 
-** Disjunction and triviality
+** Disjunction, triviality, and ignorance
 
 Remember, we explained the apparent /external staticity/ of disjunction (and it exceptions) by recourse to the independently-motivated requirement that each disjunct is a /real possibility/[fn:4].
 
@@ -204,7 +208,52 @@ For cases where there are no dependencies between disjuncts, ([[def-mod2]]) simp
 How do we derive ([[def-mod2]]) from pragmatic reasoning about alternatives?
 #+end_warningblock
 
-*** TODO more here (based on conversation with Yasu)
+Other cases where accounts based on formal alternatives break down.[fn:6]
+
+Free choice:
+
+#+name: free-choice
+#+begin_exe
+\ex You may write no\(^v\) term paper, or submit it\(_v\) by midnight.
+#+end_exe
+
+Note that a naïve free choice inference doesn't go through, since the pronoun becomes unbound.
+
+#+name: fc-2
+#+begin_exe
+\ex 
+\begin{xlist}
+\ex \(\implies \) \textit{you may write no term paper}
+\ex \(\not\implies\) \textit{you may submit it by midnight}
+\ex \(\implies\) \textit{you may write a\(^v\) term paper and submit it\(_v\) by midnight}
+\end{xlist}
+#+end_exe
+
+I don't know of any account of free choice which can accommodate this; especially hard for implicature accounts which rely on formal alternatives [cite:@Fox2007;@Bar-LevFox2017].
+
+Other inferences which are accounted for in terms of simplification face similar problems [cite:@CrnicEtAl2015].
+
+#+name: dist1
+#+begin_exe
+\ex Everyone either didn't write a term paper or submitted it by midnight.
+\begin{xlist}
+\ex \(\implies\) \textit{Some people didn't write a term paper.}
+\ex \(\not\implies\) \textit{Some people submitted it by midnight.}
+\ex \(\implies\) \textit{Some people wrote a term paper and submitted it by midnight.}
+\end{xlist}
+#+end_exe
+
+Related issues:
+
+- Ignorance inferences associated with the antecedent and consequent of a conditional, in the presence of donkey anaphora.
+- Ignorance inferences associated with a negated conjunctive sentence, in the presence of discourse anaphora.
+  
+Notice there's a related problem with propositional anaphora to a disjunct:
+
+#+name: prop-anaph
+#+begin_exe
+\ex Either there's no bathroom, or it's upstairs. If *the latter*, then we'll see it soon.
+#+end_exe
 
 ** Internal staticity and Hurford's constraint
 
@@ -297,7 +346,7 @@ It follows that ([[int-stat]]) can't convey that there is a person who is both i
 
 * Modality and anaphora
 
-** New data
+** Some interactions between modals and anaphora
 
 #+begin_tipblock
 *A generalization that emerges from EDS:* an assertion of a sentence \(\phi \) containing an existential statement "a\(^v\) linguist \(P\)-ed" introduces a dref \(v\) if the assertion is accepted and contextually entails the existence of a linguist that \(P\)-ed.
@@ -342,7 +391,7 @@ Modal subordination with negation; data from [cite:@Hofmann2019]:
 
 ** Epistemic modality in dynamic semantics
 
-*** Initial motivations
+*** Initial motivations: disagreement
 
 The classical relational semantics for epistemic possibility [cite:@Kratzer2012].
 
@@ -350,6 +399,7 @@ The classical relational semantics for epistemic possibility [cite:@Kratzer2012]
 #+begin_exe
 \ex \(\eval*[w,f]{\Diamond \phi } := \text{\textbf{true} iff }\exists w' \in f(w)[\eval*[w']{\phi }\text{ is \textbf{true}} ] \)
 #+end_exe
+
 
 The parameter \(f\) is taken to be determined by the conversational context, and maps each world \(w\) to the set of worlds compatible with what is known in \(w\).
 
@@ -371,16 +421,374 @@ A fatal problem for this view ([cite:@Hawthorne2004]; data from [cite:@Rudin2021
 seems to be able to explain both why we are in a position to make the epistemic “might” claims we seem to be in a position to make, and also why it is often reasonable to disagree with “might” claims made by others" [cite:@Stalnaker2014]
 #+end_quote
 
+N.b. epistemic /must/ is classically treated as the dual of /might/.
 
+*** Sensitivity to local context
 
+Following data from [cite:@Rothschild2021]. Disjunction:
 
+#+name: roth1
+#+begin_exe
+\ex Either John is here or he must be in China.
+\begin{xlist}
+\ex Either John is here, or else it must be that he's not here and is in China.
+\ex Either John is here, or he's in China.
+\ex Either John is here, or some contextual body of information entails that he is in China.
+\end{xlist}
+#+end_exe
 
+Conditionals:
+
+#+name: roth2
+#+begin_exe
+\ex If John isn't here, he must be in China.
+\begin{xlist}
+\ex It must be that if John isn't here, he's in China.
+\ex If John isn't here, he's in China.
+\ex If John isn't here, then some contextual body of information entails that he is in China.
+\end{xlist}
+#+end_exe
+
+Conjunction:
+
+#+name: roth2
+#+begin_exe
+\ex Either John is in the US, or else John is in France and Chloe must be with him.
+\begin{xlist}
+\ex Either John is in the US, or else it must be that John is in France and Chloe is with him.
+\ex Either John is in the US, or John is in France and Chloe is in France with him.
+\ex Either John is in France and a contextual bodyof information entails that Chloe is with him, or else they're both in the US.
+\end{xlist}
+#+end_exe
+
+#+begin_importantblock
+The patters above aren't decisive evidence against the classical view, as Rothschild emphasizes. It's easy to set the context in a way that makes sense of these intuitions, in a classical setting. However, the regularity suggests that the classical account is missing a generalization.
+#+end_importantblock
+
+** Test semantics
+
+The /locus classicus/ is Veltman's test semantics [cite:@Veltman1996].
+
+Veltman's idea: a sentence \(\Diamond\phi \) is an instruction to hypothetically update a context \(c\) with \(\phi \), returning \(c\) unchanged if \(c\) can be consistently updated with \(\phi\), and the absurd state otherwise. 
+
+#+name: might1
+#+begin_exe
+\ex \(c[\text{it might be raining}]\)
+\begin{xlist}
+\ex Compute \(c[\text{it's raining}]\); store the result as \(c'\).
+\ex Is \(c'\) are non-absurd information state? If so, return \(c\).
+\ex Otherwise, return \(c'\).
+\end{xlist}
+#+end_exe
+
+An update semantics for a simple propositional fragment [cite:@Veltman1996].
+
+#+begin_definition
+*Test semantics for /might/.*
+
+\[c[\Diamond \phi] := \begin{cases}
+c & c[\phi] \neq \emptyset\\
+\phi & \text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+In Veltman's update semantics, \(\emptyset \) is the /absurd state/, i.e., the information state from which everything follows.
+
+If we define update-semantic negation, we can treat /must/ as the dual of /might/.
+
+#+name: def:neg
+#+begin_exe
+\ex \(c[\neg \phi] := c - c[\phi]\)
+#+end_exe
+
+#+begin_definition
+*Test semantics for /must/.*
+
+\[c[\Box \phi] := c[\neg\Diamond\neg\phi]\]
+
+\[c[\Box \phi] := \begin{cases}
+c&c[\phi] = c\\
+\emptyset&\text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+In Veltman's terms, /must \(\phi \)/ is true in a context \(c\) if \(\phi \) is /accepted/ in \(c \).
+
+Note that test semantics for /must/ is *strong* [cite:@vonFintelGillies2010;@FintelGillies2021].
+
+#+begin_definition
+*Entailment in update semantics.*
+
+\(\phi\text{ entails }\psi \iff \forall c[c[\phi] = c \rightarrow c[\psi] = c]\)
+#+end_definition
+
+If \(c[\Box\phi] = c\) then \(c[\phi] = c\), simply by the update rule for \(\Box \phi \).
+
+** Hypothetical discourse referents
+
+*Conjecture*: asserting "possibly \(\phi \)" is analogous to asserting "\(\phi \) or not \(\phi \)".
+  
+In a classical setting \(\phi \vee \neg \phi\) is of course informationally trivial, but in a dynamic setting (specifically, in the context of EDS), \(\phi \vee \neg \phi \), can introduce anaphoric information.
+
+A consideration of the disjunctive case will help give a feel for the explanation.
+
+#+name: triv1
+#+begin_exe
+\ex Either there's a\(^v\) bathroom, or there's no\(^v\) bathroom.
+\ex \(\exists_v[B(v)] \vee \neg\exists_v[B(v)]\)
+#+end_exe
+
+Predicted (positive) meaning in EDS is as follows. Note:
+
+- Since the disjuncts are mutually exclusive, we can ignore the case of both disjuncts being true.
+- Since neither disjunct contains a free variable, we can ignore the case of either disjunct being undefined (ignoring the novelty condition for simplicity).
+- There are therefore two ways of dynamically verifying the disjunction to consider:
+  * The first disjunct is true, and the second is false (a bathroom dref).
+  * The first disjunct is false and the second is true (no bathroom dref).
+    
+#+name: triv2
+#+begin_exe
+\ex \(\lambda (w,g)\,.\,\begin{aligned}[t]
+&\set{g^{[v \to x]}|\mathbf{bathroom}_w(x)}\\
+&\cup \set{g | \mathbf{bathroom}_w = \emptyset }
+\end{aligned}\)
+#+end_exe
+
+An assertion of ([[triv2]]) relative to a context \(c\) will introduce a bathroom discourse referent at worlds \(\in c\) where a bathroom exists, but otherwise leave the context unchanged, e.g.:
+
+#+name: bath-ill
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&\set{(w_\emptyset,g),(w_{1},g),(w_{2},g),(w_{12},g)}\\
+&\Rightarrow \set{(w_\emptyset,g),(w_{b_1},g^{[v \to b_1]}),(w_{b_2},g^{[v \to b_2]}),(w_{b_1,b_2},g^{[v \to b_1]}),(w_{b_1,b_2},g^{[v \to b_2]})}
+\end{aligned}\)
+#+end_exe
+
+N.b. we already account for the impossibility of anaphora in the following discourse, due to the universal presupposition introduced by the pronoun.
+
+#+name: pronoun
+#+begin_exe
+\ex Either there's a\(_v\) bathroom, or there isn't a bathroom.\\
+??It\(_v\)'s upstairs.
+#+end_exe
+
+* Integrating epistemic modality and EDS
+
+EDS can be framed as an update semantics quite easily. Let's start with first-order EDS.
+
+** Lifting EDS into an update semantics
+
+As usual, we'll model information states using Heimian files, supplemented with a failure state \(\#_c\).
+
+EDS can be lifted into a multivalent update semantics, where we define \(c[.]_+\), \(c[.]_-\), and \(c[.]_u\).
+
+#+name: eds:bridge
+#+begin_exe
+\ex 
+\begin{xlist}
+\ex \(c[\phi]_+ := \bigcup\limits_{(w,g) \in c}\set{(w,h)|(g,h) \in \eval*[w][+]{\phi }}\)
+\ex \(c[\phi]_- := \bigcup\limits_{(w,g) \in c}\set{(w,h)|(g,h) \in \eval*[w][-]{\phi }}\)
+\ex \(c[\phi]_u := \bigcup\limits_{(w,g) \in c}\set{(w,h)|(g,h) \in \eval*[w][u]{\phi }}\)
+\end{xlist}
+#+end_exe
+
+** EDS as an update semantics
+
+*** Atomic sentences
+
+Atomic sentences in EDS update semantics induce a tripartition of the input file, since no anaphoric information can be introduced. 
+
+#+name: upd:atomic
+#+begin_exe
+\ex \(c[P(v_1,\ldots,v_n)]_+ := \set{(w,g) \in  c||P(v_1,\ldots,v_n)|^{w,g}\text{is \textbf{true}} }\)
+\ex \(c[P(v_1,\ldots,v_n)]_- := \set{(w,g) \in  c||P(v_1,\ldots,v_n)|^{w,g}\text{is \textbf{false}} }\)
+\ex \(c[P(v_1,\ldots,v_n)]_u := \set{(w,g) \in  c||P(v_1,\ldots,v_n)|^{w,g}\text{is \textbf{undefined}} }\)
+#+end_exe
+
+*** Negative sentences
+
+#+name: upd:neg
+#+begin_exe
+\ex \(c[\neg\phi]_+ := c[\phi]_-\)
+\ex \(c[\neg\phi]_- := c[\phi]_+\)
+\ex \(c[\neg\phi]_u := c[\phi]_u\)
+#+end_exe
+
+*** Conjunctive sentences
+
+#+name: upd:conj
+#+begin_exe
+\ex \(c[\phi \wedge \psi]_+ := c[\phi]_+[\psi]_+\)
+\ex \(c[\phi \wedge \psi]_- := \begin{aligned}[t]
+&c[\phi]_-[\psi]_+ \cup c[\phi]_-[\psi]_- \cup c[\phi]_-[\psi]_u\\
+&c[\phi]_+[\psi]_- \cup c[\phi]_u[\psi]_-
+\end{aligned}\)
+\ex \(c[\phi \wedge \psi]_u := \begin{aligned}[t]
+&c[\phi]_+[\psi]_u\\
+&c[\phi]_u[\psi]_+ \cup c[\phi]_u[\psi]_u
+\end{aligned}\)
+#+end_exe
+
+*** Random assignment
+
+#+name: upd:rand
+#+begin_exe
+\ex \(c[\varepsilon_v]_+ := \set{(w,h)|\exists g[(w,g) \in c \wedge g[v]h]}\)
+\ex \(c[\varepsilon_v]_- := \emptyset \)
+\ex \(c[\varepsilon_v]_- := \emptyset \)
+#+end_exe
+
+*** Closure
+
+#+name: upd:clo
+#+begin_exe
+\ex \(c[\dag\phi]_+ := c[\phi]_+\)
+\ex \(c[\dag\phi]_- := \set{(w,g) \in c | c[\phi]_+ = \emptyset \wedge c[\phi]_- \neq \emptyset }\)
+\ex \(c[\dag\phi]_u := c[\phi]_u\)
+#+end_exe
+
+*** Test semantics
+
+Let's stick to Veltman's idea that a modalized statement, if true, adds no information to the CG.
+
+#+name: upd:test
+#+begin_exe
+\ex /Might/ (first attempt):
+\begin{xlist}
+\ex \(c[\Diamond\phi]_+ := \set{(w,g) \in c| c[\phi]_+ \neq \emptyset }\)
+\ex \(c[\Diamond\phi]_- := \set{(w,g) \in c | c[\phi]_+ = \emptyset \wedge c[\phi]_- \neq \emptyset }\)
+\ex \(c[\diamond\phi]_u := c[\phi]_u\)
+\end{xlist}
+#+end_exe
+
+By definition, modalized sentences are /tests/ on information states (they can't introduce any anaphoric information).
+
+*** Pragmatics
+
+What kind of bridge principle do we want for a trivalent update semantics?
+
+#+begin_definition
+*Assertion*. An assertion of \(\phi \) in \(c\), \(c[\phi]\), is defined as follows:
+
+\[c[\phi] := \begin{cases}
+c[\phi]_+&c[\phi]_u = \emptyset\\
+&\#_c&\text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+*** An alternative semantics for /might/ 
+
+Let's start by specifying the positive contribution of /might/.
+
+#+name: upd:test
+#+begin_exe
+\ex /Might/ (first attempt):
+\begin{xlist}
+\ex \(c[\Diamond\phi]_+ := \begin{cases}
+c[\phi]_+ \cup c[\phi]_-&c[\phi]_+ \neq \emptyset\\
+\emptyset&\text{otherwise} 
+\end{cases}\)
+\end{xlist}
+#+end_exe
+
+We'll come back to the negative update associated with \(\diamond\phi \).
+
+*** Bathrooms and contextual entailment
+
+This has the virtue of accounting for a variant of Rothshchild discourses involving epistemic modals.
+
+#+name: critic
+#+begin_exe
+\ex Context: /It's common ground that a restaurant critic will be here on Monday, but it's not common ground what day it is./
+\begin{xlist}
+\ex A: It's possible that a restaurant critic is here.
+\ex B: It's Monday, so they\(_v\)'re here right now.
+\end{xlist}
+#+end_exe
+
+#+name: poss-critic
+#+begin_exe
+\ex 
+\begin{xlist}
+\ex It's possible that a restaurant critic is here.
+\ex \(\Diamond (\exists_v[C(v)])\)
+\end{xlist}
+#+end_exe
+
+#+name: poss
+#+begin_exe
+\ex \(c[\Diamond(\exists_v[C(v)])]_+ = \begin{cases}
+c[\neg\exists_v[C(v)]]_+\cup c[\exists_v[C(v)]]_+& \exists w\in c[ I_w(C) \neq \emptyset]\\
+\emptyset & \text{otherwise}
+\end{cases}\) 
+#+end_exe
+
+In plain English, "it's possible that a\(^v\) critic is here" is an instruction to take a file \(c\), and:
+
+- Check that there is at least one world where a critic is here (Veltman's consistency test).
+- Update \(c\) with the information that there is a critic \(v\), giving back \(c'\).
+- Update \(c\) with the information that there is no critic, giving back \(c''\).
+- Return \(c \cup c'\).
+
+If a subsequent update eliminates all non-critic worlds in \(c'\), then anaphora may subsequently be licensed (since familiarity will be satisfied).
+
+*** Conjunctive possibilities
+
+The following is an acceptable sentence.
+
+#+name: 
+#+begin_exe
+\ex There might be no\(^v\) bathroom and it\(_v\) might be upstairs.
+#+end_exe
+
+Let's compute the positive contribution of the first sentence.
+
+#+name: poss
+#+begin_exe
+\ex \(c[\Diamond(\neg\exists_v[B(v)])]_+ = \begin{cases}
+c[\neg\exists_v[B(v)]]_+\cup c[\exists_v[B(v)]]_+& \exists w\in c[ I_w(B) = \emptyset]\\
+\emptyset & \text{otherwise}
+\end{cases}\) 
+#+end_exe
+
+This update ensures that \(c\) is consistent with their being no bathroom, and pairs bathroom worlds with bathroom drefs, and leaves non-bathroom worlds unchanged.
+
+Let's move on to the second sentence.
+
+#+name: poss-bath2
+#+begin_exe
+\ex It\(_v\) might be upstairs.
+\ex \(\Diamond(U(v))\)
+#+end_exe
+
+This update ensures that \(c\) is consistent with \(v\) being upstairs, and simply returns the union of the \(v-\)upstairs and \(v\)-not-upstairs worlds.
+
+#+name: poss2
+#+begin_exe
+\ex \(c[\Diamond(U(v))]_+ = \begin{cases}
+c[U(v)]_+ \cup c[U(v)]_-&c[U(v)]_+ \neq \emptyset\\
+\emptyset &\text{otherwise} 
+\end{cases} \)
+#+end_exe
+
+We can now think through, what happens when we chain these updates together. That's pretty easy for conjunction.
+
+#+name: chain
+#+begin_exe
+\ex \(c[\Diamond(\neg\exists_v[B(v)]) \wedge \Diamond(U(v))]_+ = c[\Diamond(\neg\exists_v[B(v)])]_+[\Diamond(U(v))]_+\)
+#+end_exe
+
+#+begin_warningblock
+Oh no! something has gone wrong here. Concretely, the update expressed by the second sentence requires that the familiarity presupposition is met /throughout/ the input context. If the test imposed by the first epistemic modal is successful, there are guaranteed to be worlds in which there are no bathrooms, and the second update will fail.
+#+end_warningblock
 
 * References
 
 #+print_bibliography:
 
 * Footnotes
+
+[fn:6] Thanks to Yasu Sudo for discussion of this point. 
 [fn:5] Yanovich calls this view "contextual sollipsism" [cite:@Yanovich2014]. 
 [fn:4] Plausibly, this can be made to follow from a global redundancy principle. 
 [fn:3] We use \(c_w\) to indicate the worldly content of a file, and \(c_w[\phi]\) to indicate the worldly content of \(c[\phi]\).
