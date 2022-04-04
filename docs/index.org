@@ -1,4 +1,4 @@
-# Created 2022-02-28 Mon 09:40
+# Created 2022-04-04 Mon 09:11
 #+options: toc:nil
 #+title: MIT topics in semantics seminar (spring 2022)
 #+author: Patrick D. Elliott
@@ -11,7 +11,7 @@
 #+caption: Zen garden of the Ryoanji Temple, Kyoto, Japan 1951 (Werner Bischof)
 [[file:./bischof.jpg]]
 
-Last updated: "[2022-02-28 Mon 09:40]" 
+Last updated: "[2022-04-04 Mon 09:11]" 
 
 * Course description
 
@@ -41,24 +41,25 @@ One of the themes of the seminar will be linguistic motivations for a /rich/ not
 
 Seminar takes place Mondays 10:00-13:00, in 32-D461.
 
-| date         | topic                                             |
-|--------------+---------------------------------------------------|
-| Mon Jan 31   | [[id:fcs][file change semantics]]                 |
-| Mon Feb 7    | [[id:dpl][dynamic predicate logic]]               |
-| Mon Feb 14   | [[id:subsentential][subsentential dynamics]]      |
-| +Mon Feb 21+ | *holiday - president's day*                       |
-| Tue Feb 22   | [[id:edds][externally-dynamic dynamic semantics]] |
-| Mon Feb 28   | [[id:oddness][Amir Anvari on oddness]]            |
-| Mon Mar 7    | [[id:oddness][Amir Anvari on oddness]]            |
-| Mon Mar 14   | [[id:oddness][Amir Anvari on oddness]]            |
-| +Mon Mar 21+ | *holiday - spring break*                          |
-| Mon Mar 28   | [[id:mod][modality and modal subordination]]      |
-| Mon Apr 4    | [[id:quant][plurality and quantification]]        |
-| Mon Apr 11   | [[id:inq][inquisitive dynamic semantics]]         |
-| +Mon Apr 18+ | *holiday - patriot's day*                         |
-| Mon Apr 25   | [[id:gramm][dynamic semantics and the grammar]]   |
-| Mon May 2    | Filipe Hisao Kobayashi on postsuppositions        |
-| Mon May 9    | Student presentations                             |
+| date         | topic                                                                   |
+|--------------+-------------------------------------------------------------------------|
+| Mon Jan 31   | [[id:fcs][file change semantics]]                                       |
+| Mon Feb 7    | [[id:dpl][dynamic predicate logic]]                                     |
+| Mon Feb 14   | [[id:subsentential][subsentential dynamics]]                            |
+| +Mon Feb 21+ | *holiday - president's day*                                             |
+| Tue Feb 22   | [[id:edds][externally-dynamic dynamic semantics]]                       |
+| Mon Feb 28   | [[id:oddness][Amir Anvari on oddness]]                                  |
+| Mon Mar 7    | [[id:oddness][Amir Anvari on oddness]]                                  |
+| Mon Mar 14   | [[id:oddness][Amir Anvari on oddness]]                                  |
+| +Mon Mar 21+ | *holiday - spring break*                                                |
+| Mon Mar 28   | [[id:mod][modality and modal subordination]]                            |
+| +Mon Apr 4+  | Cancelled - attend [[http://tsinghualogic.net/JRC/?page_id=3591][TLLM]] |
+| Mon Apr 11   | [[id:inq][inquisitive dynamic semantics]]                               |
+| +Mon Apr 18+ | *holiday - patriot's day*                                               |
+| Mon Apr 25   | [[id:gramm][dynamic semantics and the grammar]]                         |
+| Mon May 2    | Filipe Hisao Kobayashi on postsuppositions                              |
+| Mon May 9    | Student presentations                                                   |
+
 
 * Topics
 
@@ -129,7 +130,8 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 - ([[citeproc_bib_item_22][Katzir 2008]])
 - ([[citeproc_bib_item_12][Fox and Katzir 2011]])
 
-** Week 8: Modality and modal subordination
+** Week 8: Disjunction, possibility, and hypothetical discourse referents
+- [[file:./handout5.pdf][Handout]].
 
 *** Recommended readings
 
