@@ -166,6 +166,14 @@ Let's see if this helps us derive epistemic contradictions:
 \ex \(c[\exists_vH(v)]^+[\Diamond\,\neg\,H(v)]^+ = \emptyset \)
 #+end_exe
 
+** Modal subordination
+
+Adding numerical indices to modals.
+
+#+name: mod
+#+begin_exe
+\ex \(c[\Diamond^1\phi]^+ = \set{(w,h)|g[1]h \wedge (w,g) \in c \wedge h_1 = c[\phi]^+ \wedge h_1 \neq \emptyset }\)
+#+end_exe
 
 
 
