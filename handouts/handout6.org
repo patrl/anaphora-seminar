@@ -1,0 +1,186 @@
+#+title: Epistemic modality 
+#+author: Patrick D. Elliott 
+#+bibliography: ../../bibliography/master.bib
+#+setupfile: handout-template.org
+#+OPTIONS: ':t
+#+cite_export: biblatex
+
+* The basics
+
+** Veltman's test semantics
+
+The /locus classicus/ for epistemic modality in dynamic semantics is Veltman's test semantics [cite:@Veltman1996].
+
+Veltman's idea: a sentence \(\Diamond\phi \) is an instruction to hypothetically update an information state \(c\) with \(\phi \), returning \(c\) unchanged if \(c\) can be consistently updated with \(\phi\), and the absurd state otherwise. 
+
+#+name: might1
+#+begin_exe
+\ex \(c[\text{it might be raining}]\)
+\begin{xlist}
+\ex Compute \(c[\text{it's raining}]\); store the result as \(c'\).
+\ex Is \(c'\) are non-absurd information state? If so, return \(c\).
+\ex Otherwise, return \(c'\).
+\end{xlist}
+#+end_exe
+
+An update semantics for a simple propositional fragment [cite:@Veltman1996].
+
+#+begin_definition
+*Test semantics for /might/.*
+
+\[c[\Diamond \phi] := \begin{cases}
+c & c[\phi] \neq \emptyset\\
+\emptyset & \text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+In Veltman's update semantics, \(\emptyset \) is the /absurd state/, i.e., the information state from which everything follows.
+
+If we define update-semantic negation, we can treat /must/ as the dual of /might/.
+
+#+name: def:neg
+#+begin_exe
+\ex \(c[\neg \phi] := c - c[\phi]\)
+#+end_exe
+
+#+begin_definition
+*Test semantics for /must/.*
+
+\[c[\Box \phi] := c[\neg\Diamond\neg\phi]\]
+
+\[c[\Box \phi] := \begin{cases}
+c&c[\phi] = c\\
+\emptyset&\text{otherwise} 
+\end{cases}\]
+#+end_definition
+
+In Veltman's terms, /must \(\phi \)/ is true in a context \(c\) if \(\phi \) is /accepted/ in \(c \).
+
+** Lifting EDS into an update semantics
+
+EDS can be straightforwardly lifted into a /multivalent update semantics/ (EUS).
+
+Atomic sentences:
+
+#+name: lifting-algo
+#+begin_exe
+\ex \(c[P(v_1\,\ldots\,v_n)]^+ := \set{(w,g) \in c||P(v_1,\ldots,v_n)|^{w,g}\text{ is \textbf{true}} \wedge \forall(w,g)[|P(v_1,\ldots,v_n)|^{w,g}\text{is \textbf{defined}} ]}\)
+\ex \(c[P(v_1\,\ldots\,v_n)]^- := \set{(w,g) \in c||P(v_1,\ldots,v_n)|^{w,g}\text{ is \textbf{false}} \wedge  \forall (w,g)[|P(v_1,\ldots,v_n)|^{w,g}\text{ is \textbf{defined}} ]}\)
+\ex \(c[P(v_1\,\ldots\,v_n)]^? := \set{(w,g) \in c|\exists (w,g) \in c[|P(v_1,\ldots,v_n)|^{w,g}\text{ is \textbf{undefined}} ]}\)
+#+end_exe
+
+Negation:
+
+#+name: neg
+#+begin_exe
+\ex \(c[\neg\,\phi]^+ := c[\phi]^{-}\)
+\ex \(c[\neg\,\phi]^{-} := c[\phi]^{+}\)
+\ex \(c[\neg\,\phi]^{?} := c[\phi]^{?}\)
+#+end_exe
+
+Random assignment:
+
+#+name: ex
+#+begin_exe
+\ex \(c[\varepsilon_v]^{+} := \set{(w,h)|g[v]h \wedge (w,g) \in c}\)
+\ex \(c[\varepsilon_v]^{-} := \emptyset \)
+\ex \(c[\varepsilon_v]^{?} := \emptyset \)
+#+end_exe
+
+Conjunction:
+
+#+name: ex
+#+begin_exe
+\ex \(c[\phi \wedge \psi]^{+} := c[\phi]^+[\psi]^+\)
+\ex \(c[\phi \wedge \psi]^{-} := c[\phi]^{-}[\psi]^{+,-,?} \cup c[\phi]^{+,?}[\psi]^{-}\)
+\ex \(c[\phi \wedge \psi]^{?} := c[\phi]^{?}[\psi]^{+,?} \cup c[\phi]^{+}[\psi]^{?}\)
+#+end_exe
+
+Let's see how this works briefly:
+
+#+name: computation
+#+begin_exe
+\ex \(c[\varepsilon_v \wedge P(v)]^{+}\)
+\ex \(c[\varepsilon_v]^+[P(v)]^+\)
+\ex \(\set{(w,h)|g[v]h \wedge (w,g) \in c}[P(v)]^+\)
+\ex \(\set{(w,h)|g[v]h \wedge (w,g) \in c \wedge h_v \in I_w(P)}\)
+#+end_exe
+
+Note: only the positive update of \(\varepsilon_v\) is non-absurd. In the context of the positive update of \(\varepsilon_v\), \(P(v)\) is always defined.
+
+#+name: name:comp-neg
+#+begin_exe
+\ex \(c[\varepsilon_v \wedge P(v)]^-\)
+\ex \(c[\varepsilon_v]^+[P(v)]^-\)
+\ex \(\set{(w,h)|g[v]h \wedge (w,g) \in c \wedge h_v \notin I_w(P)}\)
+#+end_exe
+
+
+Closure:
+
+#+name: ex
+#+begin_exe
+\ex \(c[\dag\phi]^{+} := c[\phi]^{+}\)
+\ex \(c[\dag\phi]^{-} := \set{(w,g) \in c|(w,*) \notin c[\phi]^{+} \wedge (w,*) \in c[\phi]^-} \)
+\ex \(c[\dag\phi]^{?} := c[\phi]^? \)
+#+end_exe
+
+Applying closure to the previous sentence, we get:
+
+#+name: closed
+#+begin_exe
+\ex \(c[\dag(\varepsilon_v \wedge P(v))]^- = \set{(w,g) \in c | I_w(P) = \emptyset }\)
+#+end_exe
+
+Assertion rule:
+
+#+name: assertion
+#+begin_exe
+\ex The result of asserting \(\phi \) on an information state \(c\), if accepted, is \(c[\phi]^+\)
+#+end_exe
+
+** Adding consistency tests to EUS
+
+Adding consistency tests to EUS is not trivial. Let's begin with the positive extension of an epistemic modalized claim:
+
+#+name: epist
+#+begin_exe
+\ex \(c[\Diamond\phi]^+ = c\text{ if }c[\phi]^+ \neq \emptyset \text{ else }\emptyset\)
+#+end_exe
+
+Let's see if this helps us derive epistemic contradictions:
+
+#+name: ec1
+#+begin_exe
+\ex\ljudge{\#}Someone\(^v\) is hiding in the closet and they\(_v\) might not be hiding in the closet.
+\ex \(\exists_vH(v) \wedge \Diamond\,\neg\,H(v)\)
+\ex\ljudge{\#}Someone\(^v\) hiding in the closet might not be hiding in the closet.
+\ex \(\exists_v(H(v) \wedge \Diamond\,\neg\,H(v))\)
+#+end_exe
+
+#+name: ec2
+#+begin_exe
+\ex \(c[\exists_vH(v)]^+ = \set{(w,h)|(w,g) \in c \wedge g[v]h \wedge h_v \in I_w(H)}\)
+\ex \(c[\Diamond\,\neg\,H(v)]^+ = c\text{ if }\forall g \in c_a[g_v \neq \#] \wedge \exists (w,g) \in c[g_v \notin I_w(H)]\text{ else }\emptyset  \)
+\ex \(c[\exists_vH(v)]^+[\Diamond\,\neg\,H(v)]^+ = c\text{ if }\exists (w,h)[(w,g) \in  c \wedge g[v]h \wedge h_v \in I_w(H) \wedge h_v \notin I_w(H)]\text{ else }\emptyset  \)
+\ex \(c[\exists_vH(v)]^+[\Diamond\,\neg\,H(v)]^+ = \emptyset \)
+#+end_exe
+
+
+
+
+
+* References
+
+#+print_bibliography:
+
+* Footnotes
+
+* File local variables                                             :noexport:
+ 
+# Local Variables:
+# mode: org
+# org-latex-default-packages-alist: nil
+# org-latex-with-hyperref: nil
+# End:
+
