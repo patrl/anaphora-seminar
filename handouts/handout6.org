@@ -166,14 +166,142 @@ Let's see if this helps us derive epistemic contradictions:
 \ex \(c[\exists_vH(v)]^+[\Diamond\,\neg\,H(v)]^+ = \emptyset \)
 #+end_exe
 
-** Modal subordination
+** Disjunctive epistemic contradictions
 
-Adding numerical indices to modals.
-
-#+name: mod
+#+name: disj
 #+begin_exe
-\ex \(c[\Diamond^1\phi]^+ = \set{(w,h)|g[1]h \wedge (w,g) \in c \wedge h_1 = c[\phi]^+ \wedge h_1 \neq \emptyset }\)
+\ex \#,\,Either there's no\(^v\) bathroom upstairs, or it\(_v\) might not be upstairs.\\
+\(\neg\,\exists_vB(v) \vee \Diamond \neg\,(U(v))\)
 #+end_exe
+
+Note: not a Hurford's constraint violation, but if we spell out the local context of the second disjunct ([[disj2]]) we end up with an epistemic contradiction:
+
+#+name: hurford
+#+begin_exe
+\ex There's no bathroom upstairs.<<disj1>>
+\ex There's a bathroom upstairs and it's possible it's not upstairs.<<disj2>>
+#+end_exe
+
+#+name: ex
+#+begin_exe
+\ex \(c[\phi \vee \psi]^{-} := c[\phi]^{+}[\psi]^{+,-,?} \cup c[\phi]^{-,?}[\psi]^{+}\)
+\ex \(c[\phi \vee \psi]^{-} := c[\phi]^-[\psi]^-\)
+\ex \(c[\phi \vee \psi]^{?} := c[\phi]^{?}[\psi]^{-,?} \cup c[\phi]^{-}[\psi]^{?}\)
+#+end_exe
+
+#+name: disj-contr 
+#+begin_exe
+\ex \(c[\neg\,\exists_vB(v)]^+ = \set{(w,g) \in c | I_w(B) = \emptyset }\)
+\ex \(c[\neg\,\exists_vB(v)]^- = \set{(w,h)| (w,g) \in c \wedge g[v]h \wedge h_v \in I_w(B) }\)
+\ex \(c[\Diamond\,\neg\,(U(v))]^+ = c\text{ if }\forall(w,g) \in c[g_v \neq \emptyset] \wedge \exists (w,g) \in c[g_v \in I_w(U)]\text{ else }\emptyset \)
+#+end_exe
+
+** Getting the truth-conditions right
+
+So far, we've only established the positive extension of a modalized sentence:
+
+#+name: epist
+#+begin_exe
+\ex \(c[\Diamond\phi]^+ = c\text{ if }c[\phi]^+ \neq \emptyset \text{ else }\emptyset\)
+#+end_exe
+
+What does it mean to assert "it's not possible that \(\phi \)". Intuitively, this should be a test on \(c\) which checks whether there are any \((w,g) \in c\) that satisfy \(\phi \). If there aren't any, return \(c\), else return \(\emptyset \).
+
+#+name: epist
+#+begin_exe 
+\ex Negative extension for modalized sentences (first attempt):\\
+\(c[\Diamond\phi]^- = c\text{ if }c[\phi]^+ = \emptyset\text{ else }\emptyset\)
+#+end_exe
+
+This won't be quite enough however, given the partiality inherent in EUS.
+
+Just to illustrate, consider an initial context \(c_\top := W \times \set{g_\top }\).
+
+- \(c_\top[P(v)]^+ = \emptyset \)
+- \(c_\top[P(v)]^- = \emptyset \)
+- \(c_\top[P(v)]^? = c_T \)
+  
+We want "it's not possible that \(\phi \)" to ensure that (i) there are no \((w,g) \in  c\) that satisfy \(\phi \), and (ii) some \((w,g) \in c\) satisfies \(\neg\,\phi \).
+
+#+name: epist2
+#+begin_exe
+\ex Negative extension for modalized sentences (second attempt):\\
+\(c[\Diamond\phi]^- = c\text{ if }c[\phi]^+ = \emptyset \wedge c[\phi]^- \neq \emptyset\text{ else }\emptyset  \)
+#+end_exe
+
+What about presupposition projection? Well, epistemic modals are typically assumed to be holes, so:
+
+#+name: epist3
+#+begin_exe
+\ex \(c[\Diamond\phi]^? = c[\phi]^?\)
+#+end_exe
+
+Now that we have the negative and positive extension of \(\Diamond \phi \), we should be able to define \(\Box \) as the dual of \(\Diamond \).
+
+#+name: must
+#+begin_exe
+\ex \(\Box \phi := \neg\,\Diamond\,\neg\,\phi \)
+#+end_exe
+
+Let's figure out exactly what this predicts.
+
+#+name: dual
+#+begin_exe
+\ex \(c[\Box\phi]^+ = c[\Diamond\,\neg\,\phi]^-\)
+\ex \(= c\text{ if }c[\neg\,\phi]^+ = \emptyset \wedge  c[\neg \phi]^- \neq \emptyset \text{ else }\emptyset  \)
+\ex \(= c\text{ if }c[\phi]^- = \emptyset \wedge  c[\phi]^+ \neq \emptyset \text{ else }\emptyset  \)
+#+end_exe
+
+I.e., "must \(\phi \)" makes sure that \(c\) is inconsistent with \(\neg\phi \) and consistent with \(\phi \).
+
+It follows that (i) "must \(\phi \)" dynamically entails "might \(\phi \)", and \(\phi \).
+
+** On the anaphoric potential of modalized sentences
+
+#+name: modalrothschild
+#+begin_exe
+\ex Andreea might have a\(^v\) spouse.
+\ex She's married.
+\ex Have you met him\(_v\)?
+#+end_exe
+
+#+name: modalrothschild2
+#+begin_exe
+\ex Andreea might have a\(^v\) spouse. If she's indeed married, I'll confront him\(_v\).
+#+end_exe
+
+What this seems to indicate is that, when uttered against \(c\), "might \(\phi \)" allows \(\phi \) to introduce anaphoric information /only relative to the worlds in \(c\) at which \(\phi \) is true/.
+
+#+name: epistemic-example
+#+begin_exe
+\ex \(c[\Diamond\exists_vS(v)]^+ = \begin{cases}
+\set{(w,h)|(w,g) \in c \wedge g[v]h \wedge h_v \in I_w(S)} \cup \set{(w,g) \in c|I_w(S) = \emptyset }&\exists w \in c_w[I_w(S) \neq \emptyset]\\
+\emptyset &\text{otherwise} 
+\end{cases}\)
+#+end_exe
+
+** Existential projection for epistemic modals
+
+#+name: mightmight
+#+begin_exe
+\ex There might be a bathroom, and it might be upstairs.
+\ex If it's possible there's a bathroom, then it's possible that it's upstairs.
+\ex Either it's impossible there's a bathroom, or it's possible that it's upstairs.
+\ex Either there mustn't be a bathroom, or it's possible it's upstairs.
+#+end_exe
+
+Generalization: presuppositions project existentially through epistemic modals.
+
+A new semantics for epistemic modals which captures this:
+
+#+name: epistem-proj
+#+begin_exe
+\ex \(c[\Diamond \phi]^+ = c\text{ if }\exists c' \subseteq c[c'[\phi]^+ \neq \emptyset]\text{ else }\emptyset  \)
+#+end_exe
+
+An epistemic modal requires that there be /some sub-part/ of \(c\) against which \(\phi \) is satisfied.
+
+
 
 
 
