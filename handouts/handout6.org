@@ -29,20 +29,31 @@ Some problematic data - most prominently, the /possible bathroom/.
 
 #+name: poss-bath
 #+begin_exe
-\ex There might be a\(^v\) bathroom.<<poss-bath1>>
-\ex It\(_v\) might be upstairs.<<poss-bath2>>
+\ex There might be a\(^v\) bathroom. It\(_v\) might be upstairs.<<poss-bath1>>
 #+end_exe
 
-([[poss-bath1]]-[[poss-bath2]]) is a coherent discourse, and ([[poss-bath1]]) 'contains' an existential statement "there is a\(^v\) bathroom".
+The problem here is clear. ([[poss-bath1]]) is a coherent discourse, whereas ([[poss-bath2]]) is not.
 
+Note that a subsequent pronoun is licensed (and therefore, a discourse referent introduced?) even though "There might be a\(^v\) bathroom" doesn't contextually entail a witness to the existential statement. After all, a claim about the /possibility/ of there being a bathroom doesn't commit one to the actual existence of a bathroom.
 
+Intriguingly, the possibility of a subsequent pronoun is /conditioned by the environment in which the pronoun occurs/.
 
+#+name: poss-bath2
+#+begin_exe
+\ex There might be a\(^v\) bathroom. ??It\(_v\)'s upstairs.
+#+end_exe
 
-* The basics
+If the pronoun doesn't occur in a modalized environment, the discourse is incoherent - intuitively, this is because the familiarity presupposition of the pronoun isn't satisfied, since a witness isn't contextually entailed.
 
-** Veltman's test semantics
+So, what's going on in ([[poss-bath]])?
 
-The /locus classicus/ for epistemic modality in dynamic semantics is Veltman's test semantics [cite:@Veltman1996].
+We'll explore the idea that modalized sentences can make variables /partially familiar/ - something we've already seen when looking at the anaphoric potential of disjunctive sentences.
+
+We'll formalize this using plain old Heimian file contexts, using an under-exploited aspect of their expressive power.
+
+* Veltman's test semantics for epistemic /might/
+
+The /locus classicus/ for epistemic modality in dynamic semantics is Veltman's test semantics [cite:@Veltman1996;@GroenendijkEtAl1996].
 
 Veltman's idea: a sentence \(\Diamond\phi \) is an instruction to hypothetically update an information state \(c\) with \(\phi \), returning \(c\) unchanged if \(c\) can be consistently updated with \(\phi\), and the absurd state otherwise. 
 
@@ -55,6 +66,8 @@ Veltman's idea: a sentence \(\Diamond\phi \) is an instruction to hypothetically
 \ex Otherwise, return \(c'\).
 \end{xlist}
 #+end_exe
+
+** Formalizing Veltman's /might/
 
 An update semantics for a simple propositional fragment [cite:@Veltman1996].
 
@@ -76,6 +89,8 @@ If we define update-semantic negation, we can treat /must/ as the dual of /might
 \ex \(c[\neg \phi] := c - c[\phi]\)
 #+end_exe
 
+** Epistemic /must/ as the dual of /might/
+
 #+begin_definition
 *Test semantics for /must/.*
 
@@ -89,7 +104,7 @@ c&c[\phi] = c\\
 
 In Veltman's terms, /must \(\phi \)/ is true in a context \(c\) if \(\phi \) is /accepted/ in \(c \).
 
-** Lifting EDS into an update semantics
+* Lifting EDS into an update semantics
 
 Implementing consistenct tests on the local context requires us to left EDS into an /update semantics/; epistemic modals need to be interpreted relative to an entire body of information, rather than a single evaluation point.
 
