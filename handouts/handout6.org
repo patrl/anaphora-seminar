@@ -1,9 +1,42 @@
-#+title: Epistemic modality 
+#+title: Possible witnesses
 #+author: Patrick D. Elliott 
 #+bibliography: ../../bibliography/master.bib
 #+setupfile: handout-template.org
 #+OPTIONS: ':t
 #+cite_export: biblatex
+
+* Next week
+
+- *Today:* more on modality and anaphora.
+- *Next week:* no class (Patriot's day).
+- *April 25:* introduction to dynamic plural logic [cite:@vandenBerg1996;@Nouwen2003].
+- *May 2:* Filipe on postsuppositions.
+- *May 9:* TBC.
+  
+* Questions for today
+
+How far can we get with the following generalization (which naturally emerges from EDS; see also [cite:@Mandelkern2022]).
+
+#+begin_importantblock
+*Witness generalization:* an assertion of a sentence \(\phi \) containing an existential statement indexed \(v\) introduces a dref \(v\) if the assertion is accepted and contextually entails the existence of a witness to the existential statement.
+#+end_importantblock
+
+Thanks to the interplay of positive/negative anaphoric information, and Strong Kleene semantics in EDS, introduction of a discourse referent tracks classical (contextual) entailment of a witness.
+
+The existence of expressions which (arguably) explore contextual possibilities - /epistemic modals/ - disrupts the witness generalization. 
+
+Some problematic data - most prominently, the /possible bathroom/.
+
+#+name: poss-bath
+#+begin_exe
+\ex There might be a\(^v\) bathroom.<<poss-bath1>>
+\ex It\(_v\) might be upstairs.<<poss-bath2>>
+#+end_exe
+
+([[poss-bath1]]-[[poss-bath2]]) is a coherent discourse, and ([[poss-bath1]]) 'contains' an existential statement "there is a\(^v\) bathroom".
+
+
+
 
 * The basics
 
@@ -57,6 +90,8 @@ c&c[\phi] = c\\
 In Veltman's terms, /must \(\phi \)/ is true in a context \(c\) if \(\phi \) is /accepted/ in \(c \).
 
 ** Lifting EDS into an update semantics
+
+Implementing consistenct tests on the local context requires us to left EDS into an /update semantics/; epistemic modals need to be interpreted relative to an entire body of information, rather than a single evaluation point.
 
 EDS can be straightforwardly lifted into a /multivalent update semantics/ (EUS).
 
@@ -170,7 +205,7 @@ Let's see if this helps us derive epistemic contradictions:
 
 #+name: disj
 #+begin_exe
-\ex \#,\,Either there's no\(^v\) bathroom upstairs, or it\(_v\) might not be upstairs.\\
+\ex \# Either there's no\(^v\) bathroom upstairs, or it\(_v\) might not be upstairs.\\
 \(\neg\,\exists_vB(v) \vee \Diamond \neg\,(U(v))\)
 #+end_exe
 
@@ -258,59 +293,488 @@ It follows that (i) "must \(\phi \)" dynamically entails "might \(\phi \)", and 
 
 ** On the anaphoric potential of modalized sentences
 
+Consider the following minimal pair, instantiating a modal variant of Rothschild's observation.[fn:1]
+
 #+name: modalrothschild
 #+begin_exe
-\ex Andreea might have a\(^v\) spouse.
-\ex She's married.
-\ex Have you met him\(_v\)?
+\ex
+\begin{xlist}
+\ex Andreea might have a\(^v\) husband. If she's wearing a ring, I'll ask about him\(_v\).
+\ex Andreea might be married. ??If she's wearing a ring, I'll ask about him\(_v\).
+\end{xlist}
 #+end_exe
 
-#+name: modalrothschild2
-#+begin_exe
-\ex Andreea might have a\(^v\) spouse. If she's indeed married, I'll confront him\(_v\).
-#+end_exe
-
-What this seems to indicate is that, when uttered against \(c\), "might \(\phi \)" allows \(\phi \) to introduce anaphoric information /only relative to the worlds in \(c\) at which \(\phi \) is true/.
+What this seems to indicate is that, when uttered against \(c\), \(\Diamond \exists_vH(v)\) allows \(\phi \) to introduce anaphoric information /only relative to the worlds in \(c\) at which there is an \(H\)/, but still retains worlds at which there is no \(H\). More formally:
 
 #+name: epistemic-example
 #+begin_exe
-\ex \(c[\Diamond\exists_vS(v)]^+ = \begin{cases}
-\set{(w,h)|(w,g) \in c \wedge g[v]h \wedge h_v \in I_w(S)} \cup \set{(w,g) \in c|I_w(S) = \emptyset }&\exists w \in c_w[I_w(S) \neq \emptyset]\\
+\ex \(c[\Diamond\exists_vH(v)]^+ = \begin{cases}
+\set{(w,h)|(w,g) \in c \wedge g[v]h \wedge h_v \in I_w(H)} \cup \set{(w,g) \in c|I_w(H) = \emptyset }&\exists w \in c_w[I_w(H) \neq \emptyset]\\
 \emptyset &\text{otherwise} 
 \end{cases}\)
 #+end_exe
 
-** Existential projection for epistemic modals
+In Heimian pragmatics, familiarity is typically /all or nothing/ --- a variable \(v\) is either familiar relative to a file context \(c\), in which case \(v\) is defined at every \(g \in c_a\), otherwise it isn't familiar, in which case typically it is /un/defined at every \(g \in c_a\).
 
-#+name: mightmight
+Modalized existential statements make variables /partially familiar/.
+
+We can tweak our semantics for \(\Diamond \) to predict this behaviour. The idea is as follows: when updating an information state \(c\) with \(\Diamond \phi \), first:
+- Check whether there is some point \((w,g) \in c\) at which \(\phi \) is true (consistency check).
+- Update those points \((w,g) \in c\) with the information that \(\phi \), store the result as \(c'\).
+- Update those points \((w,g) \in c\) with the information that \(\neg\,\phi \), store the result as \(c''\).
+- Take return the union of the results.
+  
+*** New entry for might  
+:PROPERTIES:
+:ID:       6b6baaa1-9f2e-40b5-8915-d2dc36a5ee38
+:END:
+
+#+name: might-new
 #+begin_exe
-\ex There might be a bathroom, and it might be upstairs.
-\ex If it's possible there's a bathroom, then it's possible that it's upstairs.
-\ex Either it's impossible there's a bathroom, or it's possible that it's upstairs.
-\ex Either there mustn't be a bathroom, or it's possible it's upstairs.
+\ex \(c[\Diamond\phi]^+ = \begin{cases}
+\bigcup\limits_{(w,g) \in c}\set{(w,h)|(w,h) \in \set{(w,g)}[\phi]^{+,-,u}}&\exists (w,g) \in c[\set{(w,g)}[\phi]^+ \neq \emptyset]\\
+\emptyset&\text{otherwise}  
+\end{cases}\)
 #+end_exe
 
-Generalization: presuppositions project existentially through epistemic modals.
+*** Illustration
 
-A new semantics for epistemic modals which captures this:
+To illustrate concretely how this works, consider the following file context:
 
-#+name: epistem-proj
+- \(c_1 := \set{w_a,w_b,w_\emptyset } \times g_\top \)
+  
+Updating \(c_1\) with "Andreea might have a\(^v\) husband", first checks wheher any \((w,g) \in c_1\) can be updated to give a non-empty information state. Either \((w_a,g_\top )\) or \((w_b,g_\top )\) will satisfy this requirement. Since the consistency check is passed, we take the union of the following:
+
+- \(\set{(w_a,g_\top)}[\exists_vH(v)]^+ = \set{(w_a,[v \to a])}\)
+- \(\set{(w_a,g_\top)}[\exists_vH(v)]^- = \emptyset \)
+- \(\set{(w_b,g_\top)}[\exists_vH(v)]^+ = \set{(w_b,[v \to b])}\)
+- \(\set{(w_b,g_\top)}[\exists_vH(v)]^- = \emptyset \)
+- \(\set{(w_\emptyset ,g_\top)}[\exists_vH(v)]^+ = \emptyset \)
+- \(\set{(w_\emptyset ,g_\top)}[\exists_vH(v)]^- = \set{(w_\emptyset,g_\top)} \)
+  
+Resulting in the following updated file context:
+
+- \(c_2 := \set{(w_a,[v \to a]),(w_b,[v \to b]),(w_\emptyset,g_\top)}\)
+  
+Note that \(v\) /isn't familiar/, but it might become familiar if it becomes a contextual certainty that Andreea has a husband (i.e., if \(w_\emptyset \) is eliminated). 
+
+Just in case "Andreea is wearing a ring" contextually entails "Andreea has a husband", asserting "Andreea is wearing a ring" relative to \(c_3\) will result in an updated file context in which \(v\) is familiar.
+
+Given ([[might-new]]) we make an interesting prediction. The following sentence should be able to make \(v\) partially familiar:
+
+#+name: might-not
 #+begin_exe
-\ex \(c[\Diamond \phi]^+ = c\text{ if }\exists c' \subseteq c[c'[\phi]^+ \neq \emptyset]\text{ else }\emptyset  \)
+\ex Andreea might not have a\(^v\) husband.
 #+end_exe
 
-An epistemic modal requires that there be /some sub-part/ of \(c\) against which \(\phi \) is satisfied.
+#+name: might-not
+#+begin_exe
+\ex \(c[\Diamond\,\neg\,\exists_vH(v)]^+ = \begin{cases}
+\set{(w,h)|\exists(w,g) \in c[(w,h) \in \set{(w,g)}[\neg\,\exists_vH(v)]^+ \vee (w,h) \in \set{(w,g)}[\neg\,\exists_vH(v)]^-]}&\exists (w,g) \in c[\set{(w,g)}[\neg\,\exists_vH(v)]^+ \neq \emptyset]\\
+\emptyset&\text{otherwise}  
+\end{cases}\)
+#+end_exe
 
+Note that this is equivalent to:
 
+#+name: might-not
+#+begin_exe
+\ex \(c[\Diamond\,\neg\,\exists_vH(v)]^+ = \begin{cases}
+\set{(w,h)|\exists(w,g) \in c[(w,h) \in \set{(w,g)}[\exists_vH(v)]^- \vee (w,h) \in \set{(w,g)}[\exists_vH(v)]^+]}&\exists (w,g) \in c[\set{(w,g)}[\exists_vH(v)]^- \neq \emptyset]\\
+\emptyset&\text{otherwise}  
+\end{cases}\)
+#+end_exe
 
+In other words, (i) "Andreea might have a\(^v\) husband", and (ii) "Andreea might not have a\(^v\) husband" impose different consistency tests on \(c\), but they introduce the same anaphoric information if the test is passed.
 
+A way of seeing this, is that our semantics for \(\Diamond \phi \) essentially tests \(\phi \) against \(c\), and if the test passes asserts \(\phi \vee \neg\,\phi \).
 
+This seems to make the right predictions.
+
+#+name: might-not2 
+#+begin_exe
+\ex Andreea might not have a\(^v\) husband,\\
+but if she's wearing a ring, I'll ask about him\(_v\).
+#+end_exe
+
+As long as we define \(\Box \) as the dual of \(\Diamond \) this explanation should carry over to cases like the following:[fn:2] 
+
+#+name: might-not3
+#+begin_exe
+\ex I'm not certain that Andreea has a\(^v\) husband,\\
+but if she's wearing a ring, I'll ask about him\(_v\).
+#+end_exe
+
+The explanation relies on the following fact (just in case \(\Box \phi := \neg\,\Diamond \neg\,\phi \)):
+
+- \(\neg\,\Box \exists_vH(v) \iff \Diamond\,\neg\,\exists_vH(v)\)
+
+** Epistemic modals and projection
+
+How do presuppositions project through epistemic modals?
+
+The received wisdom is that epistemic modals are /holes/ (in the sense of [cite:@Karttunen1973]), on the basis of examples such as the following.
+
+#+name: hole1
+#+begin_exe
+\ex Enrico might have stopped smoking. \(\rightsquigarrow\) /Enrico smoked in the past/
+\ex Perhaps the bathroom is upstairs. \(\rightsquigarrow\) /There is a bathroom/
+\ex Maybe Talin is at the party too. \(\rightsquigarrow\) /someone else is at the party/
+#+end_exe
+
+Typically, the evidence is based on /what we accommodate/ on the basis of a modalized sentence containing a presupposition trigger.
+
+But, we know that /what is accommodated/ isn't always a reliable guide to what sentence semantically presupposes [cite:@BeaverZeevat2007;@vonFintel2008;@Geurts1996;@Fox2013;@Mandelkern2016].
+
+*** Filtration diagnostics
+
+Filtration diagnostics indicate that the presuppositions project /existentially/ in \(\Diamond \phi \) - in other words, if \(\phi \) presupposes \(\pi \), then "possibly \(\phi \)" presupposes "possibly \(\pi \)";[fn:3] none of the examples in ([[cond1]]-[[cond3]]) inherit presuppositions from the consequent. 
+
+#+name: conditionals 
+#+begin_exe
+\ex If it's possible that Enrico was a smoker, it's possible that he has stopped smoking.<<cond1>>
+\ex If it's possible there's a bathroom, then it's possible the bathroom is upstairs.<<cond2>>
+\ex If it's possible that Geordie is at the party, then maybe Talin is at the party too.<<cond3>>
+#+end_exe
+
+One possible response is that in all such cases, the presupposition in the consequent is /locally accommodated/ within the scope of the existential modal, but the following examples speak against local accommodation; the examples in ([[cond1]]-[[cond3]]) inherit their presupposition from the consequent.
+
+#+name: conditionals2
+#+begin_exe
+\ex If it's possible that Enrico arrived early, it's possible that he stopped smoking.<<condd1>>
+\ex If it's possible that this house was renovated, then it's possible the bathroom is upstairs.<<condd2>>
+\ex If it's possible that the dresscode is casual, then maybe Talin is at the party too.<<condd3>>
+#+end_exe
+
+The same point can be made using disjunctions:
+
+#+name: disjunctions
+#+begin_exe
+\ex Either it's impossible that Enrico wasn't a smoker, or it's possible that he stopped.
+\ex Either it's impossible that there's a bathroom, or it's possible that the bathroom is upstairs.
+\ex Either it's impossible that Geordie is at the party, or maybe Talin is at the party too.
+#+end_exe
+
+With respect to what various dynamic proposals for epistemic modals predict - we haven't encoded non-anaphoric presuppositions explicitly into our grammar, but it's easy to see what the predictions would be were we to do so.
+
+Veltman's test semantics perform a consistency test on the /entire information state/; this straightforwardly predicts that \(c[\Diamond\phi]\) is only defined if \(c[\phi]\) is defined (i.e., presuppositions project).
+
+Our revised consistency test for /might/ however checks consistency at single evaluation points, which predicts existential projection.
+
+#+transclude: [[id:6b6baaa1-9f2e-40b5-8915-d2dc36a5ee38]] 
+*** Existential projection and conjunctive possibility statements
+
+Recall our puzzling sentence:
+
+#+name: possible-bathroom
+#+begin_exe
+\ex Maybe there is no bathroom, and maybe it's upstairs.\\
+\(\Diamond\,\neg\,\exists_vB(v) \wedge \Diamond\,U(v)\)
+#+end_exe
+
+Now that we've established (a) the potential of modalized sentence to introduce (partially familiar) variables, (b) existential projection, we're in a position to explain ([[possible-bathroom]]).
+
+Consider an information state \(c_1\) consisting of the following worlds paired with the initial assignment \(g_\top\):
+
+- \(w_d\): there's a bathroom \(b\) downstairs.
+- \(w_u\): there's a bathroom \(b\) upstairs.
+- \(w_\emptyset \): there's no bathroom.
+  
+First, let's figure out how to compute the conjunctive update:
+
+#+name: step1
+#+begin_exe
+\ex \(c_1[\Diamond\,\neg\,\exists_vB(v) \wedge \Diamond\,U(v)]^+ = c_1[\Diamond\,\neg\,\exists_vB(v)]^+[\Diamond\,U(v)]^+\)
+#+end_exe
+
+Now, we'll update \(c_1\) with the first conjunct.
+
+- This checks for consistency with there being no bathroom (satsified by \((w_\emptyset,g_\top)\))...
+- ...and updates each \((w,g) \in c_1\) pointwise with the information that there is/isn't a bathroom, giving rise to an updated information state \(c_2\)
+
+#+name: step2
+#+begin_exe
+\ex \(c_1[\Diamond\,\neg\,\exists_vB(v)]^+\)
+\begin{xlist}
+\ex  \(= \begin{aligned}[t]
+&\set{(w_d,[])}[\neg\,\exists_vB(v)]^{+,-,?}\\
+&\cup \set{(w_u,[])}[\neg\,\exists_vB(v)]^{+,-,?}\\
+&\cup \set{(w_\emptyset,[])}[\neg\,\exists_vB(v)]^{+,-,?}
+\end{aligned}\)
+\ex \( = \begin{aligned}[t]
+&\emptyset \cup \set{(w_d),[v \to b]} \cup \emptyset\\
+&\cup \emptyset \set{(w_u),[v \to b]} \cup \emptyset\\
+&\cup \set{(w_\emptyset),[]} \cup \emptyset \cup \emptyset 
+\end{aligned}\)
+\ex \(\begin{aligned}[t]
+&\set{(w_d,[v \to b]),(w_u,[v \to b]),(w_\emptyset,[])} := c_2
+\end{aligned}\)
+\end{xlist}
+#+end_exe
+  
+Now we can update \(c_2\) with the second conjunct.
+
+First, we perform the consistency test. This just requires that \(U(v)\) is true at one of the evaluation points in \(c_2\). The test succeeds, since:
+
+#+name: step3
+#+begin_exe
+\ex \(\set{(w_u,[v \to b])}[U(v)]^+ = \set{(w_u,[v \to b])}\)
+#+end_exe
+
+Now, we compute the information introduced by the modalized second conjunct - since the consistency test is passed, the modalized second conjunct introduces no information:
+
+#+name: step4
+#+begin_exe
+\ex \(c_2[\Diamond U(v)]^+\)
+\begin{xlist}
+\ex \(= \begin{aligned}[t]
+&\set{(w_d,[v \to b])}[U(v)]^{+,-,?}\\
+&\cup \set{(w_u,[v \to b])}[U(v)]^{+,-,?}\\
+&\cup \set{(w_\emptyset,[])}[U(v)]^{+,-,?}\\
+\end{aligned}\)
+\ex \(= \begin{aligned}[t]
+&\emptyset \cup \set{(w_d,[v \to b])} \cup \emptyset \\
+&\cup \set{(w_u,[v \to b])} \cup \emptyset  \cup \emptyset \\
+&\cup \emptyset \cup \emptyset \cup \set{(w_\emptyset,[])}\\
+\end{aligned}\)
+\ex \(\set{(w_d,[v \to b]),(w_u,[v \to b]),(w_\emptyset,[])} := c_3\)
+\end{xlist}
+#+end_exe
+
+In this context, the following would be equivalent:
+
+#+name: might-be
+#+begin_exe
+\ex There might be no\(^v\) bathroom, it\(_v\) might be downstairs, and it\(_v\) might be upstairs.
+\ex There might be a\(^{v}\) bathroom, and it\(_v\) might be upstairs.
+#+end_exe
+
+Note that we predict /weak, existential truth conditions/ for conjunctive possibility statements like this. This seems correct.
+
+#+name: weak
+#+begin_exe
+\ex Maybe Sarah didn't buy a\(^v\) drink, and maybe she bought another drink right after it\(_v\).
+\ex Mary Sarah bought a\(^v\) drink, and maybe she bought another drink right after it\(_v\).
+#+end_exe
+
+*** Impossible discourse referents
+
+A loose end - saying what the negative extension of a modalized statement is, given ([[might-new]]). In a multivalent system, we have some freedom.
+
+#+transclude: [[id:6b6baaa1-9f2e-40b5-8915-d2dc36a5ee38]] 
+It looks like we probably want to maintain existential projection.
+
+#+name: impossible
+#+begin_exe
+\ex There might be a\(^v\) bathroom, but it's impossible/there's no way that it\(_v\)'s upstairs.
+\ex ??There might be a\(^v\) bathroom, but it\(_v\)'s not upstairs.
+#+end_exe
+
+And we want to still allow modalized sentences to introduce anaphoric information under negation.
+
+#+name: impossible2
+#+begin_exe
+\ex It's not possible that there's no\(^v\) bathroom; it\(_v\)'s upstairs!\\
+\(\neg\,\Diamond\,\neg\exists_vB(v) \wedge U(v)\)
+\ex There must be a\(^v\) bathroom; I just saw it\(_v\)!\\
+\(\Box\,\exists_vB(v)\)
+#+end_exe
+
+Our semantics for \(\neg\,\Diamond\,\phi \) - \(\neg\,\Diamond \) imposes an two checks:
+- No possibility in \(c\) is consistent with \(\phi \).
+- Some possibility in \(c\) is consistent with \(\neg\,\phi \).
+
+#+name: must-anaph
+#+begin_exe
+\ex \(c[\Diamond\phi]^- = \begin{cases}
+\bigcup\limits_{(w,g) \in c}\set{(w,h)|(w,h) \in \set{(w,g)}[\phi]^{+,-,u}}&c[\Diamond\phi]^+ = \emptyset \wedge \exists(w,g) \in c[\set{(w,g)}[\phi]^- \neq \emptyset]\\
+\emptyset&\text{otherwise}  
+\end{cases}\)
+#+end_exe
+
+This directly accounts for ([[impossible2]]). First, let's decide how to compute the conjunctive update.
+
+#+name: 
+#+begin_exe
+\ex \(c[\neg\,\Diamond\,\exists_vB(v)]^+[U(v)]^+ \iff c[\Diamond\neg\exists_vB(v)]^-[U(v)]^+\)
+#+end_exe
+
+The update induced by the first conjunct is only non-empty if there are no non-bathroom worlds in \(c\). If there are no non-bathroom words, then we update all the bathroom worlds with a bathroom discourse referent \(v\). This makes \(v\) familiar, if we assume bivalence.
+
+Defining the unknown extension of /might/ is now straightforward.
+
+#+name: must-undefined
+#+begin_exe
+\ex \(c[\Diamond\phi]^? = \begin{cases}
+c&c[\Diamond\phi]^+ = \emptyset \wedge c[\Diamond\phi]^- = \emptyset\\
+\emptyset &\text{otherwise} 
+\end{cases}\)
+#+end_exe
+
+We also straightforwardly define strong /must/ as the dual of /might/.
+
+* Dividing up possiblities
+
+We can define a special kind of update in terms of EUS that explores possibilities in a pointwise fashion (as in EDS); Instead of \(c[.]\), we'll use \(c\braket{.}\).
+
+#+name: ket
+#+begin_exe
+\ex \(c\braket{\phi}^{+} := \bigcup\limits_{(w,g) \in c}\set{(w,g)}[\phi]^+\)
+\ex \(c\braket{\phi}^{-} := \bigcup\limits_{(w,g) \in c}\set{(w,g)}[\phi]^-\)
+\ex \(c\braket{\phi}^{?} := \bigcup\limits_{(w,g) \in c}\set{(w,g)}[\phi]^?\)
+#+end_exe
+
+To illustrate, consider the following information state \(c_1\) (\(a,b\) are upstairs in \(w_u\); \(b\) is downstairs in \(w_d\)):
+
+#+name: bath-info
+#+begin_exe
+\ex \(\set{(w_u,[v \to a]),(w_u,[v \to b]),(w_d,[v \to b]),(w_\emptyset,[])} := c_1\)
+#+end_exe
+
+\(U(v)\) is of course not assertable at \(c_1\), since \(v\) isn't familiar at \(c_1\) (thanks to \(w_\emptyset \)).
+
+We can however explore each of the possibilities individually using \(c\braket{.}^{+,-,?}\).
+
+#+name: posses
+#+begin_exe
+\ex \(c\braket{U(v)}^+ \iff  \bigcup\limits_{(w,g) \in c_1}\set{(w,g)}[U(v)]^+ = \set{(w_u,[v \to a]),(w_u,[v \to b])}\) 
+\ex \(c\braket{U(v)}^- \iff \bigcup\limits_{(w,g) \in c_1}\set{(w,g)}[U(v)]^- = \set{(w_d,[v \to b])}\) 
+\ex \(c\braket{U(v)}^? \iff  \bigcup\limits_{(w,g) \in c_1}\set{(w,g)}[U(v)]^? = \set{(w_\emptyset ,[])}\) 
+#+end_exe
+
+\(c\braket{U(v)}^{+,-,?}\) induces a tripartition of \(c_1\), since \(U(v)\) is a test:
+
+ 1. The maximal part of \(c_1\) which \(U(v)\) is defined and true.
+ 2. the maximal part of \(c_1\) at which \(U(v)\) is defined and false.
+ 3. The maximal part of \(c_1\) at which \(U(v)\) is undefined. 
+
+It's important to note that \(c\braket{\phi }^{+,-,?}\) doesn't always partition \(c\), since it can multiply possibilities (e.g., if \(\phi \) is an existential statement). Consider the following information state:
+
+#+name: bath-info2
+#+begin_exe
+\ex \(\set{(w_u,[]),(w_d,[]),(w_\emptyset,[])} := c_2\)
+#+end_exe
+
+Exploring each of the possibilities individually via \(c\braket{.}^{+,-,?}\) introduces anaphoric information.
+
+The result is still a tripartition of a new information state \(c_3\).
+
+#+name: updates2
+#+begin_exe
+\ex \(c_2\braket{\exists_vB(v)}^+ = \set{(w_u,[v \to a]),(w_u,[v \to b]),(w_d,[v \to b])}\)
+\ex \(c_2\braket{\exists_vB(v)}^- = \set{(w_\emptyset ,[])}\)
+\ex \(c_2\braket{\exists_vB(v)}^? = \emptyset \)
+#+end_exe
+
+The possiblity of introducing anaphoric information in a pointwise fashion is what underlies our semantics for /might/.
+
+We can give a terse semantics of /might/ in terms of \(c\braket{.}\).
+
+#+name: might-new-new
+#+begin_exe
+\ex \(c[\Diamond\phi]^+ = c\braket{\phi }^{+,-,?}\text{ if }c\braket{\phi}^+ \neq \emptyset\text{ else }\emptyset  \)
+\ex \(c[\Diamond\phi]^- = c\braket{\phi }^{+,-,?}\text{ if }c\braket{\phi}^+ = \emptyset \wedge c\braket{\phi }^- \neq \emptyset \text{ else }\emptyset  \)
+\ex \(c[\Diamond\phi]^? = c\braket{\phi }^{+,-,?}\text{ if }c\braket{\phi}^+ = \emptyset \wedge c\braket{\phi }^- = \emptyset \wedge c\braket{\phi }^? \neq \emptyset  \text{ else }\emptyset  \)
+#+end_exe
+
+It's now easy to see that our semantics for /might/ is in fact /presuppositional/; \(\Diamond \phi \) presupposes at \(c\) that \(\phi \) can be verified at some point in \(c\), or \(\phi \) can be falisifed at some point in \(c\).
+
+This explains why, despite it's fairly weak requirements on the context, \(\Diamond U(v)\) is still infelicitious when there is no antecedent.
+
+#+name: might
+#+begin_exe
+\ex ??If Andreea is wearing a ring, I might confront him.
+#+end_exe
+
+* Free choice
+
+** Free choice with anaphora
+
+As we discussed last week, no theories of free choice can capture /free choice with anaphora/.
+
+#+name: fc-anaphora
+#+begin_exe
+\ex It's possible that either there's no bathroom, or it's upstairs.
+\begin{xlist}
+\a It's possible that there's no bathroom.
+\a It's possible that there's a bathroom upstairs.
+\end{xlist}
+#+end_exe
+
+Here, we'll show that by extending Goldstein's dynamic account [cite:@Goldstein2019], we can capture free choice with anaphora within the current setting.
+
+The idea will be that we can distinguish formally between /ways of verifying/ a disjunctive sentence, tracking the truth of the first and second disjuncts respectively. 
+
+#+name: verification1
+#+begin_exe
+\ex \(c[\phi \vee \psi]^{1} = c[\phi]^{+}[\psi]^{+,-,?}\)
+\ex \(c[\phi \vee \psi]^{2} = c[\phi]^{+,-,?}[\psi]^{+}\)
+#+end_exe
+
+We'll enrich our semantics for disjunction by adding the requirement that /both verification strategies for disjunction are contextually viable/:
+
+#+name: disjunction-new
+#+begin_exe
+\ex \(c[\phi \vee \psi]^+ = c[\phi \vee \psi]^{1} \cup c[\phi \vee \psi]^{2}\text{ if }c[\phi \vee \psi]^{1},c[\phi \vee \psi]^{2} \neq \emptyset\text{ else }\emptyset \)
+#+end_exe
+
+Let's see how this combines with our entry for /might/ to derive free choice with anaphora.
+
+#+name: free-choice
+#+begin_exe
+\ex \(\Diamond (\neg\,\exists_vB(v) \vee U(v))\)
+#+end_exe
+
+Recall: /might/ imposes a requirement on \(c\): there should be at least one possibility in \(c\) which is consistent with \(\neg\exists_vB(v) \vee \psi\).
+
+#+name: consist
+#+begin_exe
+\ex \(c[\Diamond (\neg\,\exists_vB(v) \vee U(v))]^+ \neq \emptyset\text{ if }c\braket{\neg\exists_vB(v) \vee U(v)}^+ \neq \emptyset\)
+#+end_exe
+
+We're now going to run into a problem \(c\braket{\neg\exists_vB(v) \vee U(v)}^+ \neq \emptyset \) just in case we can find some possibility \((w,g)\), s.t., \(\set{(w,g)}[\neg\,\exists_vB(v) \vee U(v)]^+ \neq \emptyset \).
+
+This will be impossible to meet, since for \(\set{(w,g)}[\neg\,\exists_vB(v) \vee U(v)]^+ \neq \emptyset \), it must be true that both ways of verifying the disjunction are contextually viable at \(\set{(w,g)}\), and this can never be the case.
+
+We need to modify our entry for /might/ yet again, but in a relatively harmless way. Instead of considering individual possibilities, we'll consider (sub-)information states.
+
+In fact, I think we can get away with just modifying \(c\braket{.}^{+,-,?}\).
+
+#+name: ket
+#+begin_exe
+\ex \(c\braket{\phi}^{+} := \bigcup\limits_{c' \in P(c) - \emptyset}c'[\phi]^+\)
+\ex \(c\braket{\phi}^{-} := \bigcup\limits_{c' \in P(c) - \emptyset }c'[\phi]^-\)
+\ex \(c\braket{\phi}^{?} := \bigcup\limits_{c' \in P(c) - \emptyset }c'[\phi]^?\)
+#+end_exe
+
+Now we can restate the requirement imposes by /might/ on \(c\) - there should be at least one non-empty subset of \(c\) which is consistent with \(\neg\exists_vB(v) \vee U(v)\). 
+
+This will hold just in case there is some part of \(c\) which contextually entails there's no bathroom, and some part of \(c\) which contextually entails that there's a bathroom upstairs.
+
+** Negative free choice with anaphora
+
+#+name: negative-free-choice
+#+begin_exe
+\ex I'm not certain that John both bought a\(^v\) book and read it\(_v\).
+\begin{xlist}
+\ex I'm not certain that John bought a\(^v\) book.
+\ex If John bought a book, I'm not certain that he read it\(_v\). 
+\end{xlist}
+#+end_exe
+
+We can require that both ways of falsifing a conjunction are possible.
+
+* TODO Going inquisitive
 
 * References
 
 #+print_bibliography:
 
 * Footnotes
+[fn:3] For reasons unknown to me, /it's possible that/ is the only instantiation of \(\Diamond \) that comfortably embeds in the antecedent of a conditional. 
+
+[fn:2] Thanks to Filipe for bringing up this data.
+[fn:1] Thanks to Filipe for help with this data.
 
 * File local variables                                             :noexport:
  
