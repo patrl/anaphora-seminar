@@ -51,7 +51,7 @@ We'll explore the idea that modalized sentences can make variables /partially fa
 
 We'll formalize this using plain old Heimian file contexts, using an under-exploited aspect of their expressive power.
 
-* Veltman's test semantics for epistemic /might/
+* Veltman's test
 
 The /locus classicus/ for epistemic modality in dynamic semantics is Veltman's test semantics [cite:@Veltman1996;@GroenendijkEtAl1996].
 
@@ -104,22 +104,87 @@ c&c[\phi] = c\\
 
 In Veltman's terms, /must \(\phi \)/ is true in a context \(c\) if \(\phi \) is /accepted/ in \(c \).
 
-* Lifting EDS into an update semantics
+* Modality and anaphora
 
-Implementing consistenct tests on the local context requires us to left EDS into an /update semantics/; epistemic modals need to be interpreted relative to an entire body of information, rather than a single evaluation point.
+Veltman's test semantics involves exploring properties of an information state; a modalized statement can't be judged true relative to an individual evaluation point.
+
+In other words, incorporating epistemic modals into a simple update semantics renders the resulting system /non-distributive/ [cite:@RothschildYalcin2016].
+
+In order to keep the theory of anaphora lean and restrictive, EDS is /distributive/ (but non-eliminative, just like DPL; [cite:@GroenendijkStokhof1991]).
+
+** A terse presentation of EDS
+
+#+name: def:eds-atom
+#+begin_exe
+\ex Atomic sentences: 
+\begin{xlist}
+\ex \(\eval*[w][+]{P(v_1,\ldots,v_n)} := \set{(g,h)|g = h \wedge |P(v_1,\ldots,v_n)|^{w,h}\text{ is \textbf{true}}}\)
+\ex \(\eval*[w][-]{P(v_1,\ldots,v_n)} := \set{(g,h)|g = h \wedge |P(v_1,\ldots,v_n)|^{w,h} \text{ is \textbf{false}} }\)
+\ex \(\eval*[w][u]{P(v_1,\ldots,v_n)} := \set{(g,h)|g = h \wedge |P(v_1,\ldots,v_n)|^{w,h}\text{ is \textbf{undefined}} }\)
+\end{xlist}
+\ex Negative sentences:
+\begin{xlist} 
+\ex \(\eval*[w][+]{\neg \phi } := \eval*[w][-]{\phi }\)
+\ex \(\eval*[w][-]{\neg \phi } := \eval*[w][+]{\phi }\)
+\ex\(\eval*[w][u]{\neg \phi } := \eval*[w][u]{\phi }\)
+\end{xlist}
+\ex Conjunctive sentences:
+\begin{xlist}
+\ex \(\eval*[w][+]{\phi \wedge \psi} := \eval*[w][+]{\phi } \circ \eval*[w][+]{\psi}\)
+\ex \(\eval*[w][-]{\phi \wedge \psi} := \begin{aligned}[t]
+&\eval*[w][-]{\phi} \circ \eval*[w][+,-,u]{\psi}\\
+&\cup \eval*[w][+,u]{\phi} \circ \eval*[w][-]{\psi}
+\end{aligned}\)
+\ex \(\eval*[w][u]{\phi \wedge \psi} := \begin{aligned}[t]
+&\eval*[w][+]{\phi } \circ \eval*[w][u]{\psi}\\
+&\cup \eval*[w][u]{\phi } \circ \eval*[w][+,u]{\psi}
+\end{aligned}\)
+\end{xlist}
+\ex Random assignment:
+\begin{xlist}
+\ex \(\eval*[w][+]{\varepsilon_v} := \set{(g,h)|g[v]h}\)
+\ex \(\eval*[w][-]{\varepsilon_v} := \emptyset\)
+\ex \(\eval*[w][u]{\varepsilon_v} := \emptyset\)
+\end{xlist}
+\ex Positive closure:
+\begin{xlist}
+\ex \(\eval*[w][+]{\dag\phi } := \eval*[w][+]{\phi}\)
+\ex \(\eval*[w][-]{\dag\phi } := \set{(g,h)|g = h \wedge |\phi|^{w,g}\text{ is \textbf{false}} }\)
+\ex \(\eval*[w][u]{\dag\phi } := \eval*[w][u]{\phi}\)
+\end{xlist}
+#+end_exe
+
+** From EDS to EUS
+
+Instead of interpreting sentences as /relations between assignments/ (relative to an evaluation world), we'll interpret sentences as /updates on Heimian information states/.
+
+We'll write updates using iconic infix notation \(c[.]\); in order to carry over the key design features of EDS, we'll distinguish between the /positive/, /negative/, and /unknown/ effects of sentences on information states, via \(c[.]^{+,-,?}\) (EUS is a multivalent update semantics).
 
 EDS can be straightforwardly lifted into a /multivalent update semantics/ (EUS).
 
-Atomic sentences:
+*** Atomic sentences in EUS
+
+Atomic sentences update information states: \(c[\phi]^+\) is the part of \(c\) at which \(\phi \) is true, \(c[\phi]^-\) is the part of \(c\) at which \(\phi \) is false, and \(c[\phi]^?\) is the part of \(c\) at which \(\phi \) is unknown.
 
 #+name: lifting-algo
 #+begin_exe
-\ex \(c[P(v_1\,\ldots\,v_n)]^+ := \set{(w,g) \in c||P(v_1,\ldots,v_n)|^{w,g}\text{ is \textbf{true}} \wedge \forall(w,g)[|P(v_1,\ldots,v_n)|^{w,g}\text{is \textbf{defined}} ]}\)
-\ex \(c[P(v_1\,\ldots\,v_n)]^- := \set{(w,g) \in c||P(v_1,\ldots,v_n)|^{w,g}\text{ is \textbf{false}} \wedge  \forall (w,g)[|P(v_1,\ldots,v_n)|^{w,g}\text{ is \textbf{defined}} ]}\)
-\ex \(c[P(v_1\,\ldots\,v_n)]^? := \set{(w,g) \in c|\exists (w,g) \in c[|P(v_1,\ldots,v_n)|^{w,g}\text{ is \textbf{undefined}} ]}\)
+\ex \(c[P(v_1\,\ldots\,v_n)]^+ := \set{(w,g) \in c||P(v_1,\ldots,v_n)|^{w,g}\text{ is \textbf{true}}}\)
+\ex \(c[P(v_1\,\ldots\,v_n)]^- := \set{(w,g) \in c||P(v_1,\ldots,v_n)|^{w,g}\text{ is \textbf{false}}}\)
+\ex \(c[P(v_1\,\ldots\,v_n)]^? := \set{(w,g) \in c||P(v_1,\ldots,v_n)|^{w,g}\text{ is \textbf{undefined}}}\)
 #+end_exe
 
-Negation:
+*** Bridge principle in EUS
+
+Our bridge principle requires that the unknown part of the context is empty; \(c_\#\) is the error state for context update.
+
+#+name: bridge
+#+begin_exe
+\ex \(c[\phi] := c[\phi]^+\text{ if }c[\phi]^? = \emptyset\text{ else }c_\#\)
+#+end_exe
+
+*** Negative sentences in EUS
+
+Negation is defined exactly as in EDS.
 
 #+name: neg
 #+begin_exe
@@ -128,7 +193,9 @@ Negation:
 \ex \(c[\neg\,\phi]^{?} := c[\phi]^{?}\)
 #+end_exe
 
-Random assignment:
+*** Random assignment in EUS
+
+Random assignment is a tautology, which means that it is always true throughtout the information state.
 
 #+name: ex
 #+begin_exe
@@ -137,7 +204,9 @@ Random assignment:
 \ex \(c[\varepsilon_v]^{?} := \emptyset \)
 #+end_exe
 
-Conjunction:
+*** Conjunction in EUS
+
+Conjunction is defined just as in EDS, only instead of interpreting each cell in the Strong Kleene truth table as relational composition, we interpret each cell as a successive update.
 
 #+name: ex
 #+begin_exe
@@ -145,6 +214,8 @@ Conjunction:
 \ex \(c[\phi \wedge \psi]^{-} := c[\phi]^{-}[\psi]^{+,-,?} \cup c[\phi]^{+,?}[\psi]^{-}\)
 \ex \(c[\phi \wedge \psi]^{?} := c[\phi]^{?}[\psi]^{+,?} \cup c[\phi]^{+}[\psi]^{?}\)
 #+end_exe
+
+*** Illustration: existential quantification
 
 Let's see how this works briefly:
 
@@ -156,75 +227,86 @@ Let's see how this works briefly:
 \ex \(\set{(w,h)|g[v]h \wedge (w,g) \in c \wedge h_v \in I_w(P)}\)
 #+end_exe
 
-Note: only the positive update of \(\varepsilon_v\) is non-absurd. In the context of the positive update of \(\varepsilon_v\), \(P(v)\) is always defined.
+Note that \(c[\varepsilon_v \wedge P(v)]^?\) is clearly empty for any information state \(?\), since \(c[\varepsilon_v]^?\) is empty for any information state, and \(c[\varepsilon_v]^+[P(v)]^?\) is guaranteed to be empty, since \(v\) is defined throughout.
 
-#+name: name:comp-neg
+We can compute the negative update of the sentence in much the same fashion:
+
+#+name: comp-neg
 #+begin_exe
 \ex \(c[\varepsilon_v \wedge P(v)]^-\)
 \ex \(c[\varepsilon_v]^+[P(v)]^-\)
 \ex \(\set{(w,h)|g[v]h \wedge (w,g) \in c \wedge h_v \notin I_w(P)}\)
 #+end_exe
 
+*** Closure in EUS
 
-Closure:
+One way of formulating positive closure in EUS is as follows:
 
 #+name: ex
 #+begin_exe
 \ex \(c[\dag\phi]^{+} := c[\phi]^{+}\)
-\ex \(c[\dag\phi]^{-} := \set{(w,g) \in c|(w,*) \notin c[\phi]^{+} \wedge (w,*) \in c[\phi]^-} \)
+\ex \(c[\dag\phi]^{-} := \set{(w,g) \in c|(w,*) \notin c[\phi]^{+} \wedge (w,*) \in c[\phi]^-}\)
 \ex \(c[\dag\phi]^{?} := c[\phi]^? \)
 #+end_exe
 
-Applying closure to the previous sentence, we get:
+Applying closure to ([[comp-neg]]), we get:
 
 #+name: closed
 #+begin_exe
 \ex \(c[\dag(\varepsilon_v \wedge P(v))]^- = \set{(w,g) \in c | I_w(P) = \emptyset }\)
 #+end_exe
 
-Assertion rule:
+* Adding consistency tests to EUS
 
-#+name: assertion
-#+begin_exe
-\ex The result of asserting \(\phi \) on an information state \(c\), if accepted, is \(c[\phi]^+\)
-#+end_exe
-
-** Adding consistency tests to EUS
-
-Adding consistency tests to EUS is not trivial. Let's begin with the positive extension of an epistemic modalized claim:
+Adding consistency tests to EUS is not trivial. Let's start with a naive implementation of (the positive update) of Veltman's test:
 
 #+name: epist
 #+begin_exe
 \ex \(c[\Diamond\phi]^+ = c\text{ if }c[\phi]^+ \neq \emptyset \text{ else }\emptyset\)
 #+end_exe
 
-Let's see if this helps us derive epistemic contradictions:
+This says that /might \(\phi \)/ is true at \(c\) if there's a non-empty part of \(c\) at which \(\phi \) is true.
+
+*** Epistemic contradictions
+
+One of the calling cards of the dynamic treatment of modality is that it derives /epistemic contradictions/ [cite:@Yalcin2007].
+
+#+name: raining
+#+begin_exe
+\ex ??It's raining and it might not be raining.
+#+end_exe
+
+We'll focus on the anaphoric case here [cite:@GroenendijkEtAl1996].
 
 #+name: ec1
 #+begin_exe
-\ex\ljudge{\#}Someone\(^v\) is hiding in the closet and they\(_v\) might not be hiding in the closet.
+\ex ??Someone\(^v\) is hiding in the closet and they\(_v\) might not be hiding in the closet.
 \ex \(\exists_vH(v) \wedge \Diamond\,\neg\,H(v)\)
-\ex\ljudge{\#}Someone\(^v\) hiding in the closet might not be hiding in the closet.
+\ex ??Someone\(^v\) hiding in the closet might not be hiding in the closet.
 \ex \(\exists_v(H(v) \wedge \Diamond\,\neg\,H(v))\)
 #+end_exe
 
 #+name: ec2
 #+begin_exe
 \ex \(c[\exists_vH(v)]^+ = \set{(w,h)|(w,g) \in c \wedge g[v]h \wedge h_v \in I_w(H)}\)
-\ex \(c[\Diamond\,\neg\,H(v)]^+ = c\text{ if }\forall g \in c_a[g_v \neq \#] \wedge \exists (w,g) \in c[g_v \notin I_w(H)]\text{ else }\emptyset  \)
-\ex \(c[\exists_vH(v)]^+[\Diamond\,\neg\,H(v)]^+ = c\text{ if }\exists (w,h)[(w,g) \in  c \wedge g[v]h \wedge h_v \in I_w(H) \wedge h_v \notin I_w(H)]\text{ else }\emptyset  \)
-\ex \(c[\exists_vH(v)]^+[\Diamond\,\neg\,H(v)]^+ = \emptyset \)
+\ex \(c[\Diamond\,\neg\,H(v)]^+ = c\text{ if }c[H(v)]^- \neq \emptyset\text{ else }\emptyset  \)
+\ex \(c[\exists_vH(v)]^+[\Diamond\,\neg\,H(v)]^+ = c\text{ if }\set{(w,h)|(w,g) \in  c \wedge  g[v]h \wedge h_v \in  I_w(H)}[H(v)]^- \neq \emptyset \text{ else }\emptyset  \)
+\ex \(c[\exists_vH(v)]^+[\Diamond\,\neg\,H(v)]^+ = \emptyset, \forall c\)
 #+end_exe
 
-** Disjunctive epistemic contradictions
+*** Disjunctive epistemic contradictions
+
+A virtue of EUS (over, e.g., [cite:@GroenendijkEtAl1996]) is that it also accounts for a disjunctive variant of epistemic contradictions.
 
 #+name: disj
 #+begin_exe
-\ex \# Either there's no\(^v\) bathroom upstairs, or it\(_v\) might not be upstairs.\\
-\(\neg\,\exists_vB(v) \vee \Diamond \neg\,(U(v))\)
+\ex ??Either there's no\(^v\) bathroom upstairs, or it\(_v\) might not be upstairs.\\
+\(\neg\,\exists_vU(v) \vee \Diamond\,\neg\,U(v)\)
 #+end_exe
 
-Note: not a Hurford's constraint violation, but if we spell out the local context of the second disjunct ([[disj2]]) we end up with an epistemic contradiction:
+N.b. this doesn't seem like a Hurford's constraint violation.
+
+As soon as we spell out the local context of the second disjunct ([[disj2]]) it's apparent that we have an epistemic contradiction:
 
 #+name: hurford
 #+begin_exe
@@ -232,21 +314,31 @@ Note: not a Hurford's constraint violation, but if we spell out the local contex
 \ex There's a bathroom upstairs and it's possible it's not upstairs.<<disj2>>
 #+end_exe
 
+Let's consider the EUS semantics for disjunction.
+
 #+name: ex
 #+begin_exe
-\ex \(c[\phi \vee \psi]^{-} := c[\phi]^{+}[\psi]^{+,-,?} \cup c[\phi]^{-,?}[\psi]^{+}\)
+\ex \(c[\phi \vee \psi]^{+} := c[\phi]^{+}[\psi]^{+,-,?} \cup c[\phi]^{-,?}[\psi]^{+}\)
 \ex \(c[\phi \vee \psi]^{-} := c[\phi]^-[\psi]^-\)
 \ex \(c[\phi \vee \psi]^{?} := c[\phi]^{?}[\psi]^{-,?} \cup c[\phi]^{-}[\psi]^{?}\)
 #+end_exe
 
+Now consider the semantics of the disjuncts:
+
 #+name: disj-contr 
 #+begin_exe
-\ex \(c[\neg\,\exists_vB(v)]^+ = \set{(w,g) \in c | I_w(B) = \emptyset }\)
-\ex \(c[\neg\,\exists_vB(v)]^- = \set{(w,h)| (w,g) \in c \wedge g[v]h \wedge h_v \in I_w(B) }\)
-\ex \(c[\Diamond\,\neg\,(U(v))]^+ = c\text{ if }\forall(w,g) \in c[g_v \neq \emptyset] \wedge \exists (w,g) \in c[g_v \in I_w(U)]\text{ else }\emptyset \)
+\ex \(c[\neg\,\exists_vU(v)]^+ = \set{(w,g) \in c | I_w(U) = \emptyset }\)
+\ex \(c[\neg\,\exists_vU(v)]^- = \set{(w,h)| (w,g) \in c \wedge g[v]h \wedge h_v \in I_w(U) }\)
+\ex \(c[\Diamond\,\neg\,U(v)]^+ = c\text{ if }c[U(v)]^- \neq \emptyset \text{ else }\emptyset \)
 #+end_exe
 
-** Getting the truth-conditions right
+The problem here is that one way of verifying the disjunction: namely, if the first disjunct is false, and the second is true, turns out to be an epistemic contradiction and therefore trivial.
+
+There's therefore only one way of verifying the disjunction - namely, if the first disjunct is true.
+
+The disjunction as a whole ends up being contextually equivalent to the first disjunct "there is no bathroom", and therefore redundant.
+
+* Impossibility and necessity
 
 So far, we've only established the positive extension of a modalized sentence:
 
@@ -279,12 +371,7 @@ We want "it's not possible that \(\phi \)" to ensure that (i) there are no \((w,
 \(c[\Diamond\phi]^- = c\text{ if }c[\phi]^+ = \emptyset \wedge c[\phi]^- \neq \emptyset\text{ else }\emptyset  \)
 #+end_exe
 
-What about presupposition projection? Well, epistemic modals are typically assumed to be holes, so:
-
-#+name: epist3
-#+begin_exe
-\ex \(c[\Diamond\phi]^? = c[\phi]^?\)
-#+end_exe
+What about presupposition projection? We'll come back to this later.
 
 Now that we have the negative and positive extension of \(\Diamond \phi \), we should be able to define \(\Box \) as the dual of \(\Diamond \).
 
@@ -306,9 +393,9 @@ I.e., "must \(\phi \)" makes sure that \(c\) is inconsistent with \(\neg\phi \) 
 
 It follows that (i) "must \(\phi \)" dynamically entails "might \(\phi \)", and \(\phi \).
 
-** On the anaphoric potential of modalized sentences
+* The anaphoric potential of modalized sentences
 
-Consider the following minimal pair, instantiating a modal variant of Rothschild's observation.[fn:1]
+Consider the following minimal pair, instantiating a modal variant of Rothschild's observation (i'm assuming that Andreea wearing a ring contextually entails that she has a husband).[fn:1]
 
 #+name: modalrothschild
 #+begin_exe
@@ -334,12 +421,10 @@ In Heimian pragmatics, familiarity is typically /all or nothing/ --- a variable 
 Modalized existential statements make variables /partially familiar/.
 
 We can tweak our semantics for \(\Diamond \) to predict this behaviour. The idea is as follows: when updating an information state \(c\) with \(\Diamond \phi \), first:
-- Check whether there is some point \((w,g) \in c\) at which \(\phi \) is true (consistency check).
-- Update those points \((w,g) \in c\) with the information that \(\phi \), store the result as \(c'\).
-- Update those points \((w,g) \in c\) with the information that \(\neg\,\phi \), store the result as \(c''\).
-- Take return the union of the results.
-  
-*** New entry for might  
+- Check whether there is some part of \(c\) at which \(\phi \) is true (consistency check).
+- Take the union of \(c[\phi]^+\), \(c[\phi]^-\), and \(c[\phi]^?\).
+ 
+** New entry for might  
 :PROPERTIES:
 :ID:       6b6baaa1-9f2e-40b5-8915-d2dc36a5ee38
 :END:
@@ -347,27 +432,20 @@ We can tweak our semantics for \(\Diamond \) to predict this behaviour. The idea
 #+name: might-new
 #+begin_exe
 \ex \(c[\Diamond\phi]^+ = \begin{cases}
-\bigcup\limits_{(w,g) \in c}\set{(w,h)|(w,h) \in \set{(w,g)}[\phi]^{+,-,u}}&\exists (w,g) \in c[\set{(w,g)}[\phi]^+ \neq \emptyset]\\
+c[\phi]^+ \cup c[\phi]^- \cup c[\phi]^?&c[\phi]^+ \neq \emptyset \\
 \emptyset&\text{otherwise}  
 \end{cases}\)
 #+end_exe
 
-*** Illustration
+** Illustration
 
 To illustrate concretely how this works, consider the following file context:
 
 - \(c_1 := \set{w_a,w_b,w_\emptyset } \times g_\top \)
   
-Updating \(c_1\) with "Andreea might have a\(^v\) husband", first checks wheher any \((w,g) \in c_1\) can be updated to give a non-empty information state. Either \((w_a,g_\top )\) or \((w_b,g_\top )\) will satisfy this requirement. Since the consistency check is passed, we take the union of the following:
+Updating \(c_1\) with "Andreea might have a\(^v\) husband", first checks wheher the true update is non-empty.  
 
-- \(\set{(w_a,g_\top)}[\exists_vH(v)]^+ = \set{(w_a,[v \to a])}\)
-- \(\set{(w_a,g_\top)}[\exists_vH(v)]^- = \emptyset \)
-- \(\set{(w_b,g_\top)}[\exists_vH(v)]^+ = \set{(w_b,[v \to b])}\)
-- \(\set{(w_b,g_\top)}[\exists_vH(v)]^- = \emptyset \)
-- \(\set{(w_\emptyset ,g_\top)}[\exists_vH(v)]^+ = \emptyset \)
-- \(\set{(w_\emptyset ,g_\top)}[\exists_vH(v)]^- = \set{(w_\emptyset,g_\top)} \)
-  
-Resulting in the following updated file context:
+Since the test is passed, we take the union of the true, false and unknown updates, resulting in the following updated file context:
 
 - \(c_2 := \set{(w_a,[v \to a]),(w_b,[v \to b]),(w_\emptyset,g_\top)}\)
   
