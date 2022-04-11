@@ -582,8 +582,8 @@ First, let's figure out how to compute the conjunctive update:
 
 Now, we'll update \(c_1\) with the first conjunct.
 
-- This checks for consistency with there being no bathroom (satsified by \((w_\emptyset,g_\top)\))...
-- ...and updates each \((w,g) \in c_1\) pointwise with the information that there is/isn't a bathroom, giving rise to an updated information state \(c_2\)
+- This checks that there's part of \(c_1\) at which there's no bathroom.
+- Since this test is passed, we now take the union of \(c_1[.]^{+,-,?}\), giving rise to \(c_2\)
 
 #+name: step2
 #+begin_exe
