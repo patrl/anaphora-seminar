@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2022-04-04 Mon 09:11 -->
+<!-- 2022-04-11 Mon 09:31 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>MIT topics in semantics seminar (spring 2022)</title>
@@ -191,7 +191,7 @@
     { font-size: 10px; font-weight: bold; white-space: nowrap; }
   .org-info-js_search-highlight
     { background-color: #ffff00; color: #000000; font-weight: bold; }
-  .org-svg { width: 90%; }
+  .org-svg { }
 </style>
 <link rel="stylesheet" type="text/css" href="https://gongzhitaao.org/orgcss/org.css"/>
 </head>
@@ -202,18 +202,18 @@
 <span class="subtitle">Discourse referents inside and out</span>
 </h1>
 
-<div id="org0f2d1ff" class="figure">
+<div id="org521cf77" class="figure">
 <p><img src="./bischof.jpg" alt="bischof.jpg" width="250" style="border:2px solid black;" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Zen garden of the Ryoanji Temple, Kyoto, Japan 1951 (Werner Bischof)</p>
 </div>
 
 <p>
-Last updated: "<span class="timestamp-wrapper"><span class="timestamp">[2022-04-04 Mon 09:11]</span></span>" 
+Last updated: "<span class="timestamp-wrapper"><span class="timestamp">[2022-04-11 Mon 09:31]</span></span>" 
 </p>
 
-<div id="outline-container-orgf2d241b" class="outline-2">
-<h2 id="orgf2d241b"><span class="section-number-2">1.</span> Course description</h2>
+<div id="outline-container-org5f9d6ec" class="outline-2">
+<h2 id="org5f9d6ec"><span class="section-number-2">1.</span> Course description</h2>
 <div class="outline-text-2" id="text-1">
 <blockquote>
 <p>
@@ -224,16 +224,16 @@ the machine will have to fulfill at least the following basic requirement.
 It has to be able to build a file that consists of records of all the
 individuals, that is, events, objects, etc., mentioned in the text and, for
 each individual, record whatever is said about it. Of course, for the time being at least, it seems that such a text interpreter is not a practical idea, but this should not discourage us from studying in abstract what kind of capabilities the machine would have to possess, provided that our study
-provides us with some insight into natural language in general." (<a href="#citeproc_bib_item_21">Karttunen 1976</a>)
+provides us with some insight into natural language in general." (<a href="#citeproc_bib_item_19">Karttunen 1976</a>)
 </p>
 </blockquote>
 
 <p>
-The notion of a <i>discourse referent</i> emerged from the work of Lauri Karttunen and David Lewis (<a href="#citeproc_bib_item_21">Karttunen 1976</a>; <a href="#citeproc_bib_item_28">Lewis 1979</a>), during a time of general optimism concerning connections between linguistic theory and artificial intelligence research. The central idea is that discourse participants introduce and manipulate <i>variables</i> corresponding to individuals mentioned over the course of a conversation. This powerful idea subsequently informed dynamic approaches to meaning, which essentially model anaphora as a kind of cross-referencing device (<a href="#citeproc_bib_item_18">Heim 1982</a>; <a href="#citeproc_bib_item_17">Groenendijk and Stokhof 1991</a>). Frank Veltman crystalizes the 'slogan' of dynamic approaches to meaning as follows: "You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" (<a href="#citeproc_bib_item_40">Veltman 1996</a>). Irene Heim's foundational work on <i>file change semantics</i> in the 80s lead to an explosion of insightful research applying this central idea to an impressive variety of empirical domains. At the same time, dynamic semantics incorporates powerful proprietary mechanisms for manipulating <i>contexts</i> in an apparently arbitrary fashion, and even precompiles these mechanisms into the meanings of logical vocabulary such as "or". In this seminar we'll track developments in dynamic approaches to anaphora, starting from classical theories of (singular) pronouns and their indefinite antecedents, and eventually progressing to intricate theories of modality, plurality, and quantification. In parallel, we'll consider what exactly dynamic semantics commits us to, both as a theory of <i>content</i>, and as a theory of how semantic composition proceeds. A central goal will be a re-assessment of Veltman's slogan, in light of recent work that fine-tunes the division of labor between dynamic semantics and pragmatics (<a href="#citeproc_bib_item_11">Elliott 2020b</a>; <a href="#citeproc_bib_item_29">Mandelkern 2020</a>).  
+The notion of a <i>discourse referent</i> emerged from the work of Lauri Karttunen and David Lewis (<a href="#citeproc_bib_item_19">Karttunen 1976</a>; <a href="#citeproc_bib_item_24">Lewis 1979</a>), during a time of general optimism concerning connections between linguistic theory and artificial intelligence research. The central idea is that discourse participants introduce and manipulate <i>variables</i> corresponding to individuals mentioned over the course of a conversation. This powerful idea subsequently informed dynamic approaches to meaning, which essentially model anaphora as a kind of cross-referencing device (<a href="#citeproc_bib_item_16">Heim 1982</a>; <a href="#citeproc_bib_item_15">Groenendijk and Stokhof 1991</a>). Frank Veltman crystalizes the 'slogan' of dynamic approaches to meaning as follows: "You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" (<a href="#citeproc_bib_item_35">Veltman 1996</a>). Irene Heim's foundational work on <i>file change semantics</i> in the 80s lead to an explosion of insightful research applying this central idea to an impressive variety of empirical domains. At the same time, dynamic semantics incorporates powerful proprietary mechanisms for manipulating <i>contexts</i> in an apparently arbitrary fashion, and even precompiles these mechanisms into the meanings of logical vocabulary such as "or". In this seminar we'll track developments in dynamic approaches to anaphora, starting from classical theories of (singular) pronouns and their indefinite antecedents, and eventually progressing to intricate theories of modality, plurality, and quantification. In parallel, we'll consider what exactly dynamic semantics commits us to, both as a theory of <i>content</i>, and as a theory of how semantic composition proceeds. A central goal will be a re-assessment of Veltman's slogan, in light of recent work that fine-tunes the division of labor between dynamic semantics and pragmatics (<a href="#citeproc_bib_item_9">Elliott 2020b</a>; <a href="#citeproc_bib_item_25">Mandelkern 2020</a>).  
 </p>
 
 <p>
-One of the themes of the seminar will be linguistic motivations for a <i>rich</i> notion of contexts, which goes beyond a "flat" model of information (<a href="#citeproc_bib_item_39">Stalnaker 1976</a>) and incorporates a notion of <i>aboutness</i>. Mid-way through the semester, we'll take a break from anaphora and consider a set of empirical phenomena which motivate a different kind of enrichment. Thanks to Amir Anvari for providing the following summary: 
+One of the themes of the seminar will be linguistic motivations for a <i>rich</i> notion of contexts, which goes beyond a "flat" model of information (<a href="#citeproc_bib_item_34">Stalnaker 1976</a>) and incorporates a notion of <i>aboutness</i>. Mid-way through the semester, we'll take a break from anaphora and consider a set of empirical phenomena which motivate a different kind of enrichment. Thanks to Amir Anvari for providing the following summary: 
 </p>
 
 <blockquote>
@@ -247,8 +247,8 @@ One of the themes of the seminar will be linguistic motivations for a <i>rich</i
 
 
 
-<div id="outline-container-org5f5c487" class="outline-2">
-<h2 id="org5f5c487"><span class="section-number-2">2.</span> Schedule</h2>
+<div id="outline-container-org9beadbc" class="outline-2">
+<h2 id="org9beadbc"><span class="section-number-2">2.</span> Schedule</h2>
 <div class="outline-text-2" id="text-2">
 <p>
 Seminar takes place Mondays 10:00-13:00, in 32-D461.
@@ -354,8 +354,8 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </div>
 
 
-<div id="outline-container-orgde43eb4" class="outline-2">
-<h2 id="orgde43eb4"><span class="section-number-2">3.</span> Topics</h2>
+<div id="outline-container-org3b942c6" class="outline-2">
+<h2 id="org3b942c6"><span class="section-number-2">3.</span> Topics</h2>
 <div class="outline-text-2" id="text-3">
 </div>
 <div id="outline-container-fcs" class="outline-3">
@@ -366,23 +366,23 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </p>
 </div>
 
-<div id="outline-container-org8ac1f2c" class="outline-4">
-<h4 id="org8ac1f2c"><span class="section-number-4">3.1.1.</span> Recommended readings</h4>
+<div id="outline-container-org634cc44" class="outline-4">
+<h4 id="org634cc44"><span class="section-number-4">3.1.1.</span> Recommended readings</h4>
 <div class="outline-text-4" id="text-3-1-1">
 <ul class="org-ul">
-<li>Chapter 3 of (<a href="#citeproc_bib_item_18">Heim 1982</a>).</li>
-<li>(<a href="#citeproc_bib_item_19">Heim 1983</a>)</li>
+<li>Chapter 3 of (<a href="#citeproc_bib_item_16">Heim 1982</a>).</li>
+<li>(<a href="#citeproc_bib_item_17">Heim 1983</a>)</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org8dc8d80" class="outline-4">
-<h4 id="org8dc8d80"><span class="section-number-4">3.1.2.</span> Other readings</h4>
+<div id="outline-container-org017d196" class="outline-4">
+<h4 id="org017d196"><span class="section-number-4">3.1.2.</span> Other readings</h4>
 <div class="outline-text-4" id="text-3-1-2">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_21">Karttunen 1976</a>)</li>
-<li>(<a href="#citeproc_bib_item_28">Lewis 1979</a>)</li>
-<li>(<a href="#citeproc_bib_item_36">Rothschild and Yalcin 2016</a>)</li>
+<li>(<a href="#citeproc_bib_item_19">Karttunen 1976</a>)</li>
+<li>(<a href="#citeproc_bib_item_24">Lewis 1979</a>)</li>
+<li>(<a href="#citeproc_bib_item_31">Rothschild and Yalcin 2016</a>)</li>
 </ul>
 </div>
 </div>
@@ -396,21 +396,21 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </p>
 </div>
 
-<div id="outline-container-orge6bc049" class="outline-4">
-<h4 id="orge6bc049"><span class="section-number-4">3.2.1.</span> Recommended readings</h4>
+<div id="outline-container-orgb15f921" class="outline-4">
+<h4 id="orgb15f921"><span class="section-number-4">3.2.1.</span> Recommended readings</h4>
 <div class="outline-text-4" id="text-3-2-1">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_17">Groenendijk and Stokhof 1991</a>)</li>
-<li>(<a href="#citeproc_bib_item_13">Gillies 2019</a>)</li>
+<li>(<a href="#citeproc_bib_item_15">Groenendijk and Stokhof 1991</a>)</li>
+<li>(<a href="#citeproc_bib_item_11">Gillies 2019</a>)</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org82d60b4" class="outline-4">
-<h4 id="org82d60b4"><span class="section-number-4">3.2.2.</span> Optional readings</h4>
+<div id="outline-container-org3e5c7ad" class="outline-4">
+<h4 id="org3e5c7ad"><span class="section-number-4">3.2.2.</span> Optional readings</h4>
 <div class="outline-text-4" id="text-3-2-2">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_7">Dekker 1996</a>)</li>
+<li>(<a href="#citeproc_bib_item_5">Dekker 1996</a>)</li>
 </ul>
 </div>
 </div>
@@ -424,23 +424,23 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </p>
 </div>
 
-<div id="outline-container-org1c23dda" class="outline-4">
-<h4 id="org1c23dda"><span class="section-number-4">3.3.1.</span> Recommended readings</h4>
+<div id="outline-container-orgc84b6b8" class="outline-4">
+<h4 id="orgc84b6b8"><span class="section-number-4">3.3.1.</span> Recommended readings</h4>
 <div class="outline-text-4" id="text-3-3-1">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_4">Charlow 2020</a>)</li>
-<li>Part I of (<a href="#citeproc_bib_item_3">Charlow 2014</a>)</li>
+<li>(<a href="#citeproc_bib_item_2">Charlow 2020</a>)</li>
+<li>Part I of (<a href="#citeproc_bib_item_1">Charlow 2014</a>)</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgc23f808" class="outline-4">
-<h4 id="orgc23f808"><span class="section-number-4">3.3.2.</span> Optional readings</h4>
+<div id="outline-container-org6f8cfd4" class="outline-4">
+<h4 id="org6f8cfd4"><span class="section-number-4">3.3.2.</span> Optional readings</h4>
 <div class="outline-text-4" id="text-3-3-2">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_16">Groenendijk and Stokhof 1990</a>)</li>
-<li>(<a href="#citeproc_bib_item_33">Muskens 1996</a>)</li>
-<li>(<a href="#citeproc_bib_item_5">Chierchia 1995</a>)</li>
+<li>(<a href="#citeproc_bib_item_14">Groenendijk and Stokhof 1990</a>)</li>
+<li>(<a href="#citeproc_bib_item_29">Muskens 1996</a>)</li>
+<li>(<a href="#citeproc_bib_item_3">Chierchia 1995</a>)</li>
 </ul>
 </div>
 </div>
@@ -455,24 +455,24 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </ul>
 </div>
 
-<div id="outline-container-org8525262" class="outline-4">
-<h4 id="org8525262"><span class="section-number-4">3.4.1.</span> Recommended readings</h4>
+<div id="outline-container-org50a6e8e" class="outline-4">
+<h4 id="org50a6e8e"><span class="section-number-4">3.4.1.</span> Recommended readings</h4>
 <div class="outline-text-4" id="text-3-4-1">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_11">Elliott 2020b</a>)</li>
-<li>(<a href="#citeproc_bib_item_14">Gotham 2019</a>)</li>
+<li>(<a href="#citeproc_bib_item_9">Elliott 2020b</a>)</li>
+<li>(<a href="#citeproc_bib_item_12">Gotham 2019</a>)</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-org37326d2" class="outline-4">
-<h4 id="org37326d2"><span class="section-number-4">3.4.2.</span> Optional readings</h4>
+<div id="outline-container-org4a84a37" class="outline-4">
+<h4 id="org4a84a37"><span class="section-number-4">3.4.2.</span> Optional readings</h4>
 <div class="outline-text-4" id="text-3-4-2">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_29">Mandelkern 2020</a>)</li>
-<li>(<a href="#citeproc_bib_item_20">Hofmann 2019</a>)</li>
-<li>(<a href="#citeproc_bib_item_38">Simons 1996</a>)</li>
-<li>(<a href="#citeproc_bib_item_27">Krahmer and Muskens 1995</a>)</li>
+<li>(<a href="#citeproc_bib_item_25">Mandelkern 2020</a>)</li>
+<li>(<a href="#citeproc_bib_item_18">Hofmann 2019</a>)</li>
+<li>(<a href="#citeproc_bib_item_33">Simons 1996</a>)</li>
+<li>(<a href="#citeproc_bib_item_23">Krahmer and Muskens 1995</a>)</li>
 </ul>
 </div>
 </div>
@@ -483,16 +483,16 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 <div class="outline-text-3" id="text-oddness">
 </div>
 
-<div id="outline-container-orgbe4468f" class="outline-4">
-<h4 id="orgbe4468f"><span class="section-number-4">3.5.1.</span> References</h4>
+<div id="outline-container-org758fa3f" class="outline-4">
+<h4 id="org758fa3f"><span class="section-number-4">3.5.1.</span> References</h4>
 <div class="outline-text-4" id="text-3-5-1">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_23">Katzir and Singh 2014</a>)</li>
-<li>(<a href="#citeproc_bib_item_32">Mayr and Romoli 2016</a>)</li>
-<li>(<a href="#citeproc_bib_item_30">Mandelkern and Romoli 2018</a>)</li>
-<li>(<a href="#citeproc_bib_item_31">Marty and Romoli 2021</a>)</li>
-<li>(<a href="#citeproc_bib_item_22">Katzir 2008</a>)</li>
-<li>(<a href="#citeproc_bib_item_12">Fox and Katzir 2011</a>)</li>
+<li>(<a href="#citeproc_bib_item_21">Katzir and Singh 2014</a>)</li>
+<li>(<a href="#citeproc_bib_item_28">Mayr and Romoli 2016</a>)</li>
+<li>(<a href="#citeproc_bib_item_26">Mandelkern and Romoli 2018</a>)</li>
+<li>(<a href="#citeproc_bib_item_27">Marty and Romoli 2021</a>)</li>
+<li>(<a href="#citeproc_bib_item_20">Katzir 2008</a>)</li>
+<li>(<a href="#citeproc_bib_item_10">Fox and Katzir 2011</a>)</li>
 </ul>
 </div>
 </div>
@@ -506,51 +506,33 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </ul>
 </div>
 
-<div id="outline-container-org3cb12cf" class="outline-4">
-<h4 id="org3cb12cf"><span class="section-number-4">3.6.1.</span> Recommended readings</h4>
+<div id="outline-container-org8430562" class="outline-4">
+<h4 id="org8430562"><span class="section-number-4">3.6.1.</span> Recommended readings</h4>
 <div class="outline-text-4" id="text-3-6-1">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_15">Groenendijk, Stokhof, and Veltman 1996</a>)</li>
-<li>(<a href="#citeproc_bib_item_26">Kibble 1994</a>)</li>
+<li>(<a href="#citeproc_bib_item_13">Groenendijk, Stokhof, and Veltman 1996</a>)</li>
+<li>(<a href="#citeproc_bib_item_22">Kibble 1994</a>)</li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-orgf0535ba" class="outline-4">
-<h4 id="orgf0535ba"><span class="section-number-4">3.6.2.</span> Optional readings</h4>
+<div id="outline-container-org7e7218a" class="outline-4">
+<h4 id="org7e7218a"><span class="section-number-4">3.6.2.</span> Optional readings</h4>
 <div class="outline-text-4" id="text-3-6-2">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_40">Veltman 1996</a>)</li>
-<li>(<a href="#citeproc_bib_item_35">Roberts 1989</a>)</li>
+<li>(<a href="#citeproc_bib_item_35">Veltman 1996</a>)</li>
+<li>(<a href="#citeproc_bib_item_30">Roberts 1989</a>)</li>
 </ul>
 </div>
 </div>
 </div>
 
 <div id="outline-container-quant" class="outline-3">
-<h3 id="quant"><span class="section-number-3">3.7.</span> Week 9: Plurality and quantification</h3>
+<h3 id="quant"><span class="section-number-3">3.7.</span> Week 9: Possible witnesses</h3>
 <div class="outline-text-3" id="text-quant">
-</div>
-
-<div id="outline-container-org4559d29" class="outline-4">
-<h4 id="org4559d29"><span class="section-number-4">3.7.1.</span> Recommeded readings</h4>
-<div class="outline-text-4" id="text-3-7-1">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_1">van den Berg 1996</a>)</li>
-<li>(<a href="#citeproc_bib_item_34">Nouwen 2003</a>)</li>
+<li><a href="./handout6.pdf">Handout</a></li>
 </ul>
-</div>
-</div>
-
-<div id="outline-container-org44d138c" class="outline-4">
-<h4 id="org44d138c"><span class="section-number-4">3.7.2.</span> Optional readings</h4>
-<div class="outline-text-4" id="text-3-7-2">
-<ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_2">Brasoveanu 2007</a>)</li>
-<li>(<a href="#citeproc_bib_item_24">Keshet 2018</a>)</li>
-<li>(<a href="#citeproc_bib_item_25">Keshet 2019</a>)</li>
-</ul>
-</div>
 </div>
 </div>
 
@@ -559,12 +541,12 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 <div class="outline-text-3" id="text-inq">
 </div>
 
-<div id="outline-container-org6a44ef4" class="outline-4">
-<h4 id="org6a44ef4"><span class="section-number-4">3.8.1.</span> Recommended readings</h4>
+<div id="outline-container-orgdecbb39" class="outline-4">
+<h4 id="orgdecbb39"><span class="section-number-4">3.8.1.</span> Recommended readings</h4>
 <div class="outline-text-4" id="text-3-8-1">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_9">Dotlačil and Roelofsen 2019</a>)</li>
-<li>(<a href="#citeproc_bib_item_8">Dotlacil and Roelofsen 2021</a>)</li>
+<li>(<a href="#citeproc_bib_item_7">Dotlačil and Roelofsen 2019</a>)</li>
+<li>(<a href="#citeproc_bib_item_6">Dotlacil and Roelofsen 2021</a>)</li>
 </ul>
 </div>
 </div>
@@ -575,13 +557,13 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 <div class="outline-text-3" id="text-gramm">
 </div>
 
-<div id="outline-container-orgac8150f" class="outline-4">
-<h4 id="orgac8150f"><span class="section-number-4">3.9.1.</span> Recommended readings</h4>
+<div id="outline-container-org94630b6" class="outline-4">
+<h4 id="org94630b6"><span class="section-number-4">3.9.1.</span> Recommended readings</h4>
 <div class="outline-text-4" id="text-3-9-1">
 <ul class="org-ul">
-<li>(<a href="#citeproc_bib_item_37">Schlenker 2005</a>)</li>
-<li>(<a href="#citeproc_bib_item_6">Chierchia 2020</a>)</li>
-<li>(<a href="#citeproc_bib_item_10">Elliott 2020a</a>)</li>
+<li>(<a href="#citeproc_bib_item_32">Schlenker 2005</a>)</li>
+<li>(<a href="#citeproc_bib_item_4">Chierchia 2020</a>)</li>
+<li>(<a href="#citeproc_bib_item_8">Elliott 2020a</a>)</li>
 </ul>
 </div>
 </div>
@@ -589,57 +571,52 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 </div>
 
 
-<div id="outline-container-orgaa3ba1d" class="outline-2">
-<h2 id="orgaa3ba1d"><span class="section-number-2">4.</span> References</h2>
+<div id="outline-container-org678fa37" class="outline-2">
+<h2 id="org678fa37"><span class="section-number-2">4.</span> References</h2>
 <div class="outline-text-2" id="text-4">
 <style>.csl-entry{text-indent: -1.5em; margin-left: 1.5em;}</style><div class="csl-bib-body">
-  <div class="csl-entry"><a id="citeproc_bib_item_1"></a>Berg, M. H. van den. 1996. “Some Aspects of the Internal Structure of Discourse. The Dynamics of Nominal Anaphora.” <a href="https://dare.uva.nl/search?arno.record.id=7073">https://dare.uva.nl/search?arno.record.id=7073</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_2"></a>Brasoveanu, Adrian. 2007. “Structured Nominal and Modal Reference.” PhD thesis, Rutgers University - Graduate School - New Brunswick.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_3"></a>Charlow, Simon. 2014. “On the Semantics of Exceptional Scope.” PhD thesis, New Brunswick: Rutgers University.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_4"></a>———. 2020. “Static and Dynamic Exceptional Scope.” Unpublished manuscript. Accepted at journal of semantics: Unpublished manuscript.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_5"></a>Chierchia, Gennaro. 1995. <i>Dynamics of Meaning - Anaphora, Presupposition, and the Theory of Grammar</i>. Chicago: University of Chicago Press.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_6"></a>———. 2020. “Origins of Weak Crossover - When Dynamic Semantics Meets Event Semantics.” <i>Natural Language Semantics</i>, no. 28: 23–76.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_7"></a>Dekker, Paul. 1996. “The Values of Variables in Dynamic Semantics.” <i>Linguistics and Philosophy</i> 19 (3): 211–57. <a href="https://www.jstor.org/stable/25001626">https://www.jstor.org/stable/25001626</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_8"></a>Dotlacil, Jakub, and Floris Roelofsen. 2021. “A Dynamic Semantics of Single-Wh and Multiple-Wh Questions.” <i>Semantics and Linguistic Theory</i> 30 (0, 0): 376–95. <a href="https://doi.org/10.3765/salt.v30i0.4839">https://doi.org/10.3765/salt.v30i0.4839</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_9"></a>Dotlačil, Jakub, and Floris Roelofsen. 2019. “Dynamic Inquisitive Semantics: Anaphora and Questions.” <i>Proceedings of Sinn Und Bedeutung</i>, July, 365–82 Pages. <a href="https://doi.org/10.18148/SUB/2019.V23I1.538">https://doi.org/10.18148/SUB/2019.V23I1.538</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_10"></a>Elliott, Patrick D. 2020a. “Crossover and Accessibility in Dynamic Semantics.” MIT: lingbuzz/005311. <a href="https://ling.auf.net/lingbuzz/005311">https://ling.auf.net/lingbuzz/005311</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_11"></a>———. 2020b. “Towards a Principled Logic of Anaphora.” MIT: lingbuzz/005562. <a href="https://ling.auf.net/lingbuzz/005562">https://ling.auf.net/lingbuzz/005562</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_12"></a>Fox, Danny, and Roni Katzir. 2011. “On the Characterization of Alternatives.” <i>Natural Language Semantics</i> 19 (1): 87–107. <a href="https://doi.org/10.1007/s11050-010-9065-3">https://doi.org/10.1007/s11050-010-9065-3</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_13"></a>Gillies, Anthony S. 2019. “Re-Reading ‘Dynamic Predicate Logic’.” Rutgers University.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_14"></a>Gotham, Matthew. 2019. “Double Negation, Excluded Middle and Accessibility in Dynamic Semanttics.” In <i>Proceedings of the 22nd Amsterdam Colloquium</i>, edited by Julian J. Schlöder, Dean McHugh, and Floris Roelofsen, 142–51.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_15"></a>Groenendijk, Jeroen a. G., Martin J. B. Stokhof, and Frank J. M. M. Veltman. 1996. “Coreference and Modality.” In <i>The Handbook of Contemporary Semantic Theory</i>, 176–216. Blackwell Handbooks in Linguistics. Oxford: Blackwell. <a href="https://dare.uva.nl/search?identifier=c655089e-9fae-4842-90da-30e46f37825b">https://dare.uva.nl/search?identifier=c655089e-9fae-4842-90da-30e46f37825b</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_16"></a>Groenendijk, Jeroen, and Martin Stokhof. 1990. “Dynamic Montague Grammar.” Report. <a href="https://eprints.illc.uva.nl/id/eprint/1148/">https://eprints.illc.uva.nl/id/eprint/1148/</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_17"></a>———. 1991. “Dynamic Predicate Logic.” <i>Linguistics and Philosophy</i> 14 (1): 39–100. <a href="https://www.jstor.org/stable/25001418">https://www.jstor.org/stable/25001418</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_18"></a>Heim, Irene. 1982. “The Semantics of Definite and Indefinite Noun Phrases.” PhD thesis, University of Massachusetts - Amherst.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_19"></a>———. 1983. “File Change Semantics and the Familiarity Theory of Definiteness.” In <i>File Change Semantics and the Familiarity Theory of Definiteness</i>, 164–89. De Gruyter. <a href="https://doi.org/10.1515/9783110852820.164">https://doi.org/10.1515/9783110852820.164</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_20"></a>Hofmann, Lisa. 2019. “The Anaphoric Potential of Indefinites under Negation and Disjunction.” In <i>Proceedings of the 22nd Amsterdam Colloquium</i>, edited by Julian J. Schlöder, Dean McHugh, and Floris Roelofsen, 181–90.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_21"></a>Karttunen, Lauri. 1976. “Discourse Referents.” In <i>Syntax and Semantics Vol. 7</i>, edited by J. D. McCawley, 363–86. Academic Press.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_22"></a>Katzir, Roni. 2008. “Structurally-Defined Alternatives” 30 (6): 669–90. <a href="https://doi.org/10.1007/s10988-008-9029-y">https://doi.org/10.1007/s10988-008-9029-y</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_23"></a>Katzir, Roni, and Raj Singh. 2014. “Hurford Disjunctions - Embedded Exhaustification and Structural Economy.” In <i>Proceedings of Sinn Und Bedeutung 18</i>, edited by Urtzi Etxeberria, Anamaria Fălăuş, Aritz Irurtzun, and Bryan Leferman, 201–16. University of the Basque Country (UPV/EHU).</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_24"></a>Keshet, Ezra. 2018. “Dynamic Update Anaphora Logic - A Simple Analysis of Complex Anaphora.” <i>Journal of Semantics</i> 35 (2): 263–303. <a href="https://doi.org/10.1093/jos/ffx020">https://doi.org/10.1093/jos/ffx020</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_25"></a>———. 2019. “Dynamic Unioning Plural Logic.” In <i>Proceedings of the 20th Amsterdam Colloquium, 2015</i>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_26"></a>Kibble, Rodger. 1994. “Dynamics of Epistemic Modality and Anaphora.” In <i>International Workshop on Computational Semantics</i>, 121–30.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_27"></a>Krahmer, Emiel, and Reinhard Muskens. 1995. “Negation and Disjunction in Discourse Representation Theory.” <i>Journal of Semantics</i> 12 (4): 357–76. <a href="https://doi.org/10.1093/jos/12.4.357">https://doi.org/10.1093/jos/12.4.357</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_28"></a>Lewis, David. 1979. “Scorekeeping in a Language Game.” <i>Journal of Philosophical Logic</i> 8 (1): 339–59. <a href="https://www.jstor.org/stable/30227173">https://www.jstor.org/stable/30227173</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_29"></a>Mandelkern, Matthew. 2020. “Witnesses.” Unpublished manuscript. Oxford: Unpublished manuscript.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_30"></a>Mandelkern, Matthew, and Jacopo Romoli. 2018. “Hurford Conditionals.” <i>Journal of Semantics</i> 35 (2): 357–67. <a href="https://doi.org/10.1093/jos/ffx022">https://doi.org/10.1093/jos/ffx022</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_31"></a>Marty, Paul, and Jacopo Romoli. 2021. “Varieties of Hurford Disjunction.” <a href="https://ling.auf.net/lingbuzz/005755">https://ling.auf.net/lingbuzz/005755</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_32"></a>Mayr, Clemens, and Jacopo Romoli. 2016. “A Puzzle for Theories of Redundancy: Exhaustification, Incrementality, and the Notion of Local Context.” <i>Semantics and Pragmatics</i> 9 (0, 0): 7–1-48. <a href="https://doi.org/10.3765/sp.9.7">https://doi.org/10.3765/sp.9.7</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_33"></a>Muskens, Reinhard. 1996. “Combining Montague Semantics and Discourse Representation.” <i>Linguistics and Philosophy</i> 19 (2): 143–86. <a href="https://doi.org/10.1007/BF00635836">https://doi.org/10.1007/BF00635836</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_34"></a>Nouwen, R. W. F. 2003. “Plural Pronominal Anaphora in Context : Dynamic Aspects of Quantification.” Dissertation. November 21, 2003. <a href="http://localhost/handle/1874/630">http://localhost/handle/1874/630</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_35"></a>Roberts, Craige. 1989. “Modal Subordination and Pronominal Anaphora in Discourse.” <i>Linguistics and Philosophy</i> 12 (6): 683–721. <a href="https://www.jstor.org/stable/25001367">https://www.jstor.org/stable/25001367</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_36"></a>Rothschild, Daniel, and Seth Yalcin. 2016. “Three Notions of Dynamicness in Language.” <i>Linguistics and Philosophy</i> 39 (4): 333–55. <a href="https://doi.org/10.1007/s10988-016-9188-1">https://doi.org/10.1007/s10988-016-9188-1</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_37"></a>Schlenker, Philippe. 2005. “Non-Redundancy: Towards a Semantic Reinterpretation of Binding Theory.” <i>Natural Language Semantics</i> 13 (1): 1–92. <a href="https://doi.org/10.1007/s11050-004-2440-1">https://doi.org/10.1007/s11050-004-2440-1</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_38"></a>Simons, Mandy. 1996. “Disjunction and Anaphora.” <i>Semantics and Linguistic Theory</i> 6 (0, 0): 245–60. <a href="https://doi.org/10.3765/salt.v6i0.2760">https://doi.org/10.3765/salt.v6i0.2760</a>.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_39"></a>Stalnaker, Robert. 1976. “Propositions,” edited by A. F. MacKay and D. D. Merrill, 79–91. New Haven: Yale University Press.</div>
-  <div class="csl-entry"><a id="citeproc_bib_item_40"></a>Veltman, Frank. 1996. “Defaults in Update Semantics.” <i>Journal of Philosophical Logic</i> 25 (3): 221–61. <a href="https://www.jstor.org/stable/30226572">https://www.jstor.org/stable/30226572</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_1"></a>Charlow, Simon. 2014. “On the Semantics of Exceptional Scope.” PhD thesis, New Brunswick: Rutgers University.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_2"></a>———. 2020. “Static and Dynamic Exceptional Scope.” Unpublished manuscript. Accepted at journal of semantics: Unpublished manuscript.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_3"></a>Chierchia, Gennaro. 1995. <i>Dynamics of Meaning - Anaphora, Presupposition, and the Theory of Grammar</i>. Chicago: University of Chicago Press.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_4"></a>———. 2020. “Origins of Weak Crossover - When Dynamic Semantics Meets Event Semantics.” <i>Natural Language Semantics</i>, no. 28: 23–76.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_5"></a>Dekker, Paul. 1996. “The Values of Variables in Dynamic Semantics.” <i>Linguistics and Philosophy</i> 19 (3): 211–57. <a href="https://www.jstor.org/stable/25001626">https://www.jstor.org/stable/25001626</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_6"></a>Dotlacil, Jakub, and Floris Roelofsen. 2021. “A Dynamic Semantics of Single-Wh and Multiple-Wh Questions.” <i>Semantics and Linguistic Theory</i> 30 (0, 0): 376–95. <a href="https://doi.org/10.3765/salt.v30i0.4839">https://doi.org/10.3765/salt.v30i0.4839</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_7"></a>Dotlačil, Jakub, and Floris Roelofsen. 2019. “Dynamic Inquisitive Semantics: Anaphora and Questions.” <i>Proceedings of Sinn Und Bedeutung</i>, July, 365–82 Pages. <a href="https://doi.org/10.18148/SUB/2019.V23I1.538">https://doi.org/10.18148/SUB/2019.V23I1.538</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_8"></a>Elliott, Patrick D. 2020a. “Crossover and Accessibility in Dynamic Semantics.” MIT: lingbuzz/005311. <a href="https://ling.auf.net/lingbuzz/005311">https://ling.auf.net/lingbuzz/005311</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_9"></a>———. 2020b. “Towards a Principled Logic of Anaphora.” MIT: lingbuzz/005562. <a href="https://ling.auf.net/lingbuzz/005562">https://ling.auf.net/lingbuzz/005562</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_10"></a>Fox, Danny, and Roni Katzir. 2011. “On the Characterization of Alternatives.” <i>Natural Language Semantics</i> 19 (1): 87–107. <a href="https://doi.org/10.1007/s11050-010-9065-3">https://doi.org/10.1007/s11050-010-9065-3</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_11"></a>Gillies, Anthony S. 2019. “Re-Reading ‘Dynamic Predicate Logic’.” Rutgers University.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_12"></a>Gotham, Matthew. 2019. “Double Negation, Excluded Middle and Accessibility in Dynamic Semanttics.” In <i>Proceedings of the 22nd Amsterdam Colloquium</i>, edited by Julian J. Schlöder, Dean McHugh, and Floris Roelofsen, 142–51.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_13"></a>Groenendijk, Jeroen a. G., Martin J. B. Stokhof, and Frank J. M. M. Veltman. 1996. “Coreference and Modality.” In <i>The Handbook of Contemporary Semantic Theory</i>, 176–216. Blackwell Handbooks in Linguistics. Oxford: Blackwell. <a href="https://dare.uva.nl/search?identifier=c655089e-9fae-4842-90da-30e46f37825b">https://dare.uva.nl/search?identifier=c655089e-9fae-4842-90da-30e46f37825b</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_14"></a>Groenendijk, Jeroen, and Martin Stokhof. 1990. “Dynamic Montague Grammar.” Report. <a href="https://eprints.illc.uva.nl/id/eprint/1148/">https://eprints.illc.uva.nl/id/eprint/1148/</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_15"></a>———. 1991. “Dynamic Predicate Logic.” <i>Linguistics and Philosophy</i> 14 (1): 39–100. <a href="https://www.jstor.org/stable/25001418">https://www.jstor.org/stable/25001418</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_16"></a>Heim, Irene. 1982. “The Semantics of Definite and Indefinite Noun Phrases.” PhD thesis, University of Massachusetts - Amherst.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_17"></a>———. 1983. “File Change Semantics and the Familiarity Theory of Definiteness.” In <i>File Change Semantics and the Familiarity Theory of Definiteness</i>, 164–89. De Gruyter. <a href="https://doi.org/10.1515/9783110852820.164">https://doi.org/10.1515/9783110852820.164</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_18"></a>Hofmann, Lisa. 2019. “The Anaphoric Potential of Indefinites under Negation and Disjunction.” In <i>Proceedings of the 22nd Amsterdam Colloquium</i>, edited by Julian J. Schlöder, Dean McHugh, and Floris Roelofsen, 181–90.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_19"></a>Karttunen, Lauri. 1976. “Discourse Referents.” In <i>Syntax and Semantics Vol. 7</i>, edited by J. D. McCawley, 363–86. Academic Press.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_20"></a>Katzir, Roni. 2008. “Structurally-Defined Alternatives” 30 (6): 669–90. <a href="https://doi.org/10.1007/s10988-008-9029-y">https://doi.org/10.1007/s10988-008-9029-y</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_21"></a>Katzir, Roni, and Raj Singh. 2014. “Hurford Disjunctions - Embedded Exhaustification and Structural Economy.” In <i>Proceedings of Sinn Und Bedeutung 18</i>, edited by Urtzi Etxeberria, Anamaria Fălăuş, Aritz Irurtzun, and Bryan Leferman, 201–16. University of the Basque Country (UPV/EHU).</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_22"></a>Kibble, Rodger. 1994. “Dynamics of Epistemic Modality and Anaphora.” In <i>International Workshop on Computational Semantics</i>, 121–30.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_23"></a>Krahmer, Emiel, and Reinhard Muskens. 1995. “Negation and Disjunction in Discourse Representation Theory.” <i>Journal of Semantics</i> 12 (4): 357–76. <a href="https://doi.org/10.1093/jos/12.4.357">https://doi.org/10.1093/jos/12.4.357</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_24"></a>Lewis, David. 1979. “Scorekeeping in a Language Game.” <i>Journal of Philosophical Logic</i> 8 (1): 339–59. <a href="https://www.jstor.org/stable/30227173">https://www.jstor.org/stable/30227173</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_25"></a>Mandelkern, Matthew. 2020. “Witnesses.” Unpublished manuscript. Oxford: Unpublished manuscript.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_26"></a>Mandelkern, Matthew, and Jacopo Romoli. 2018. “Hurford Conditionals.” <i>Journal of Semantics</i> 35 (2): 357–67. <a href="https://doi.org/10.1093/jos/ffx022">https://doi.org/10.1093/jos/ffx022</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_27"></a>Marty, Paul, and Jacopo Romoli. 2021. “Varieties of Hurford Disjunction.” <a href="https://ling.auf.net/lingbuzz/005755">https://ling.auf.net/lingbuzz/005755</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_28"></a>Mayr, Clemens, and Jacopo Romoli. 2016. “A Puzzle for Theories of Redundancy: Exhaustification, Incrementality, and the Notion of Local Context.” <i>Semantics and Pragmatics</i> 9 (0, 0): 7–1-48. <a href="https://doi.org/10.3765/sp.9.7">https://doi.org/10.3765/sp.9.7</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_29"></a>Muskens, Reinhard. 1996. “Combining Montague Semantics and Discourse Representation.” <i>Linguistics and Philosophy</i> 19 (2): 143–86. <a href="https://doi.org/10.1007/BF00635836">https://doi.org/10.1007/BF00635836</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_30"></a>Roberts, Craige. 1989. “Modal Subordination and Pronominal Anaphora in Discourse.” <i>Linguistics and Philosophy</i> 12 (6): 683–721. <a href="https://www.jstor.org/stable/25001367">https://www.jstor.org/stable/25001367</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_31"></a>Rothschild, Daniel, and Seth Yalcin. 2016. “Three Notions of Dynamicness in Language.” <i>Linguistics and Philosophy</i> 39 (4): 333–55. <a href="https://doi.org/10.1007/s10988-016-9188-1">https://doi.org/10.1007/s10988-016-9188-1</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_32"></a>Schlenker, Philippe. 2005. “Non-Redundancy: Towards a Semantic Reinterpretation of Binding Theory.” <i>Natural Language Semantics</i> 13 (1): 1–92. <a href="https://doi.org/10.1007/s11050-004-2440-1">https://doi.org/10.1007/s11050-004-2440-1</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_33"></a>Simons, Mandy. 1996. “Disjunction and Anaphora.” <i>Semantics and Linguistic Theory</i> 6 (0, 0): 245–60. <a href="https://doi.org/10.3765/salt.v6i0.2760">https://doi.org/10.3765/salt.v6i0.2760</a>.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_34"></a>Stalnaker, Robert. 1976. “Propositions,” edited by A. F. MacKay and D. D. Merrill, 79–91. New Haven: Yale University Press.</div>
+  <div class="csl-entry"><a id="citeproc_bib_item_35"></a>Veltman, Frank. 1996. “Defaults in Update Semantics.” <i>Journal of Philosophical Logic</i> 25 (3): 221–61. <a href="https://www.jstor.org/stable/30226572">https://www.jstor.org/stable/30226572</a>.</div>
 </div>
 </div>
 </div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Patrick D. Elliott</p>
-<p class="date">Created: 2022-04-04 Mon 09:11</p>
+<p class="date">Created: 2022-04-11 Mon 09:31</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

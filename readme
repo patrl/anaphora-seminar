@@ -12,7 +12,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./bischof.jpg]]
 
-Last updated: "[2022-04-04 09:11]" 
+Last updated: "[2022-04-11 09:31]" 
 
 * Course description
 
@@ -167,22 +167,13 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 - [cite:@Veltman1996]
 - [cite:@Roberts1989]
   
-** Week 9: Plurality and quantification 
+** Week 9: Possible witnesses
 :PROPERTIES:
 :CUSTOM_ID: quant
 :END:
 
-*** Recommeded readings
-
-- [cite:@vandenBerg1996]
-- [cite:@Nouwen2003]
-  
-*** Optional readings
-
-- [cite:@Brasoveanu2007]
-- [cite:@Keshet2018]
-- [cite:@Keshet2019]
-  
+- [[./handout6.pdf][Handout]]
+ 
 ** Week 10: Dynamic inquisitive semantics
 :PROPERTIES:
 :CUSTOM_ID: inq
