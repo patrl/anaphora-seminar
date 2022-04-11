@@ -552,7 +552,7 @@ With respect to what various dynamic proposals for epistemic modals predict - we
 
 Veltman's test semantics perform a consistency test on the /entire information state/; this straightforwardly predicts that \(c[\Diamond\phi]\) is only defined if \(c[\phi]\) is defined (i.e., presuppositions project).
 
-Our revised consistency test for /might/ however checks consistency at single evaluation points, which predicts existential projection.
+Our revised consistency test for /might/ however predicts existential projection, since all it requires is that the positive extension is non-empty.
 
 #+transclude: [[id:6b6baaa1-9f2e-40b5-8915-d2dc36a5ee38]] 
 *** Existential projection and conjunctive possibility statements
@@ -818,11 +818,11 @@ Let's see how this combines with our entry for /might/ to derive free choice wit
 \ex \(\Diamond (\neg\,\exists_vB(v) \vee U(v))\)
 #+end_exe
 
-Recall: /might/ imposes a requirement on \(c\): there should be at least one possibility in \(c\) which is consistent with \(\neg\exists_vB(v) \vee \psi\).
+Recall: /might/ imposes a requirement on \(c\): namely, there should be a part of \(c\) at which \(\neg\exists_vB(v) \vee \psi\) is true.
 
 #+name: consist
 #+begin_exe
-\ex \(c[\Diamond (\neg\,\exists_vB(v) \vee U(v))]^+ \neq \emptyset\text{ if }c\braket{\neg\exists_vB(v) \vee U(v)}^+ \neq \emptyset\)
+\ex \(c[\Diamond (\neg\,\exists_vB(v) \vee U(v))]^+ \neq \emptyset\text{ if }c[\neg\exists_vB(v) \vee U(v)]^+ \neq \emptyset\)
 #+end_exe
 
 We're now going to run into a problem \(c\braket{\neg\exists_vB(v) \vee U(v)}^+ \neq \emptyset \) just in case we can find some possibility \((w,g)\), s.t., \(\set{(w,g)}[\neg\,\exists_vB(v) \vee U(v)]^+ \neq \emptyset \).
