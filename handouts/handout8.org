@@ -1,0 +1,512 @@
+#+title: Inquisitive Dynamic Semantics
+#+author: Patrick D. Elliott 
+#+bibliography: ../../bibliography/master.bib
+#+setupfile: handout-template.org
+#+OPTIONS: ':t
+#+cite_export: biblatex
+
+#+begin_export latex
+\tikzstyle{inq}=[rounded corners,fill=gray,fill opacity=.1]
+#+end_export
+
+* Data
+
+/wh/-questions license discourse anaphora:
+
+#+name: wh-anaph
+#+begin_exe
+\ex Which\(^x\) paper did you read? Did you enjoy it\(_x\)?
+#+end_exe
+
+How do /questions/ update the context set in such a way that anaphora in a subsequent question is licensed.
+
+Some additional relevant facts - accessibility in complex questions patterns with accessibility in complex declaratives (examples after [cite:@Enguehard2021]):
+
+#+name: wh-proj
+#+begin_exe
+\ex Which\(^x\) paper did you read and did you enjoy it\(_x\)?
+\ex Did you read a\(^x\) paper, and did you enjoy it\(_x\)?
+\ex Did you NOT read a\(^x\) paper, or did you enjoy it\(_x\)?
+\ex If you read a\(^x\) paper, did you enjoy it\(_x\)?
+#+end_exe
+
+The plan:
+
+- Combine the basic ideas of dynamic semantics and inquisitive semantics (based on [cite:@DotlacilRoelofsen2019]).
+  
+* Inquisitive semantics: the basics  
+
+One of the basic ideas behind inquisitive semantics is that contexts have additional structure - instead of treating a context as an information state, we treat contexts as /downward closed sets of information states/.[fn:1] 
+
+Such structures are expressive enough to capture /issues/ while subsuming (classical) /informational content.
+
+- Concretely, the /informational content/ of an inquisitive context \(C\) is just the union of all \(s \in C\). 
+- What's at issue is represented by the /alternatives/, i.e., the maximal elements of \(C\); a context is /inquisitive/ just in case it includes more than one alternative.
+
+In standard setting, the initial context is simply the powerset of the ignorance state. We can handily represent inquisitive contexts using diagrams where maximal states are highlighted.
+
+#+begin_export latex
+\[
+  \begin{NiceArray}{cc}
+    w_{ab} & w_{a} \\
+    w_{b} & w_{\emptyset } \\
+  \CodeAfter
+ \begin{tikzpicture}
+     \node[draw,inq,fit=(1-1) (2-2)] {};
+  \end{tikzpicture}
+  \end{NiceArray}
+  \qquad
+\begin{NiceArray}{cc}
+    w_{ab} & w_{a} \\
+    w_{b} & w_{\emptyset } \\
+  \CodeAfter
+ \begin{tikzpicture}
+     \node[draw,inq,fit=(1-1) (1-2)] {};
+     \node[draw,inq,fit=(1-1) (2-1)] {};
+  \end{tikzpicture}
+  \end{NiceArray}
+\qquad
+\begin{NiceArray}{cc}
+    w_{ab} & w_{a} \\
+    w_{b} & w_{\emptyset } \\
+  \CodeAfter
+ \begin{tikzpicture}
+     \node[fit=(1-1) (1-2)] (1r) {};
+     \node[fit=(1-1) (2-1)] (1c) {};
+     \draw[inq] (1r.north west) -| (1r.south east) -| (1c.south east) -- (1c.south west) -- cycle;
+     \node[draw,inq,fit=(2-2)] {};
+  \end{tikzpicture}
+  \end{NiceArray}
+\]
+#+end_export
+
+Atomic sentences denote downward closed sets of states, i.e., the states which /support/ the sentence. Update is cashed out simply as set intersection (just as in a Stalnakerian setting).
+
+#+name: a
+#+begin_exe
+\ex \([a] := \set{s | s \vdash a}\)
+#+end_exe
+
+#+begin_export latex
+\[
+  \begin{NiceArray}{cc}
+    w_{ab} & w_{a} \\
+    w_{b} & w_{\emptyset } \\
+  \CodeAfter
+ \begin{tikzpicture}
+     \node[draw,inq,fit=(1-1) (2-2)] {};
+  \end{tikzpicture}
+  \end{NiceArray}
+  \quad\xRightarrow{a}\quad
+  \begin{NiceArray}{cc}
+    w_{ab} & w_{a}\\
+    w_{b} & w_{\emptyset }
+  \CodeAfter
+ \begin{tikzpicture}
+     \node[draw,inq,fit=(1-1) (1-2)] {};
+  \end{tikzpicture}
+  \end{NiceArray}
+  \]
+#+end_export
+
+Disjunctive sentences denote the /union/ of the states that support each disjunct; when we update a context with a disjunctive sentence, we get back an inquisitive context where each disjunct is reflected in an alternative.
+
+#+name: disj
+#+begin_exe
+\ex \([\phi \vee \psi] := [\phi] \cup [\psi]\)
+#+end_exe
+
+#+begin_export latex
+\[
+  \begin{NiceArray}{cc}
+    w_{ab} & w_{a} \\
+    w_{b} & w_{\emptyset } \\
+  \CodeAfter
+ \begin{tikzpicture}
+     \node[draw,inq,fit=(1-1) (2-2)] {};
+  \end{tikzpicture}
+  \end{NiceArray}
+  \quad\xRightarrow{a \vee b}\quad
+  \begin{NiceArray}{cc}
+    w_{ab} & w_{a} \\
+    w_{b} & w_{\emptyset } \\
+  \CodeAfter
+ \begin{tikzpicture}
+     \node[draw,inq,fit=(1-1) (1-2)] {};
+     \node[draw,inq,fit=(1-1) (2-1)] {};
+  \end{tikzpicture}
+  \end{NiceArray}
+  \]
+#+end_export
+
+* Inquisitive dynamic semantics [cite:@DotlacilRoelofsen2019] 
+
+** The basic system
+
+In standard inquistive semantics, information states are sets of possible worlds; in dynamic inquisitive semantics, we replace this notion with Heimian states.
+
+We'll start by giving a static notion of support for atomic sentences.
+
+#+begin_definition
+*Support*. Support for atomic sentences.
+
+\[\begin{aligned}[t]
+s \vdash P(x_1,\ldots,x_n) \iff \forall (w,g) \in s, (g(x_1),\ldots,g(x_n)) \in I_w(P)
+\end{aligned}\]
+#+end_definition
+
+#+begin_definition
+*Atomic sentences*. If \(\phi \) is atomic, then:
+
+- \(C[\phi] = \set{s \in C | s \vdash \phi}\)
+#+end_definition
+
+As before, we'll continue to assume that assignments are partial.
+
+- We need to say what happens if an atomic sentence isn't defined at a possibility in some information state.
+- Following [cite:@DotlacilRoelofsen2019], we'll assume that if a sentence \(\phi\) is undefined at any possibility in any state \(s \in C\), the result is undefinedness (implicitly, a weak Kleene logic).
+
+#+begin_definition
+*Conjunction*. As in update semantics, conjunction is interpreted as a successive update.
+
+- \(C[\phi \wedge \psi] = C[\phi][\psi]\)
+#+end_definition
+
+Discourse referents are introduced state-by-state via random assignment.
+
+#+begin_definition
+*Random assignment* (contexts). Random assignment at a context performs random assignment pointwise on states.[fn:2] 
+
+- \(C[\varepsilon_x] := \set{s[\varepsilon_x]|s \in C}\)
+#+end_definition
+
+In effect, an atomic sentence with a variable \(x\) presupposes at \(C\) familiarity of \(x\) at /every/ state in \(C\); random assignment guarantees familiarity at every state.
+
+The diagram below illustrates how random assignment (a) expands states and (b) an atomic sentence cuts the possibilities back down. N.b. none of the resulting contexts are inquisitive (yet).
+
+#+begin_export latex
+\[
+  \begin{NiceArray}{ccccc}
+    & w_{a} & w_{ab} & w_{b} & w_\emptyset  \\
+   [] & \bullet  & \bullet  & \bullet & \bullet\\
+  \CodeAfter
+ \begin{tikzpicture}
+     \node[draw,inq,fit=(2-2) (2-5)] {};
+  \end{tikzpicture}
+  \end{NiceArray}
+  \quad
+\xRightarrow{\varepsilon_x}
+\quad
+  \begin{NiceArray}{ccccc}
+    & w_{a} & w_{ab} & w_b & w_\emptyset \\
+   [x \to a] & \bullet  & \bullet & \bullet & \bullet \\
+   [x \to b] & \bullet  & \bullet & \bullet & \bullet
+  \CodeAfter
+ \begin{tikzpicture}
+     \node[draw,inq,fit=(2-2) (3-5)] {};
+  \end{tikzpicture}
+  \end{NiceArray}
+  \quad
+\xRightarrow{P(x)}
+\quad
+  \begin{NiceArray}{ccccc}
+    & w_{a} & w_{ab} & w_b & w_\emptyset \\
+   [x \to a] & \bullet  & \bullet & \bullet & \bullet \\
+   [x \to b] & \bullet  & \bullet & \bullet & \bullet
+  \CodeAfter
+ \begin{tikzpicture}
+ \node[fit=(2-2) (2-3)] (2-23) {};
+ \node[fit=(3-3) (3-4)] (3-34) {};
+ \draw[draw,inq] (2-23.north west) -- (2-23.north east) |- (3-34.north east) |- (3-34.south east) -- (3-34.south west) |- (2-23.south west) -- cycle;
+     \end{tikzpicture}
+  \end{NiceArray}
+  \]
+#+end_export
+
+#+begin_definition
+*Disjunction*. Disjunction parallels inquisitive disjunction and DPL's program disjunction, and as such gives rise to an inquisitive context.
+
+- \(C[\phi \vee \psi] = C[\phi] \cup C[\psi]\) 
+#+end_definition
+
+It's important to note that the disjunction that [cite:@DotlacilRoelofsen2019] assume is internally static but externally dynamic.
+
+** Issues about discourse referents
+
+Having information about the values of variables encoded in states allows us to define an interesting operation -- \(?_x\), which raises an issue about the value of \(x\) by inducing alternatives that agree on \(x\):[fn:3] 
+
+#+begin_definition
+- \(C[?_x] := \set{s \in C | \forall i, i' \in s, i \sim_x i'}\)
+#+end_definition
+
+#+begin_export latex
+\begin{equation}
+  \begin{NiceArray}{cccc}
+    & w_{a} & w_{ab} & w_{b} \\
+   [x \to a] & \bullet  & \bullet  & \bullet \\
+   [x \to b] & \bullet  & \bullet  & \bullet 
+  \CodeAfter
+ \begin{tikzpicture}
+     \node[draw,inq,fit=(2-2) (3-4)] {};
+  \end{tikzpicture}
+  \end{NiceArray}
+  \quad
+\xRightarrow{?_x}
+\quad
+  \begin{NiceArray}{cccc}
+    & w_{a} & w_{ab} & w_b\\
+   [x \to a] & \bullet  & \bullet & \bullet \\
+   [x \to b] & \bullet  & \bullet & \bullet
+  \CodeAfter
+ \begin{tikzpicture}
+     \node[draw,inq,fit=(2-2) (2-4)] {};
+     \node[draw,inq,fit=(3-2) (3-4)] {};
+  \end{tikzpicture}
+  \end{NiceArray}
+\end{equation}
+#+end_export
+
+Inquisitive existential quantification can be defined  syncategorematically in terms of random assignment and variable identification. \(\exists_x\phi \) does the following:
+
+- Randomly assigns values to \(x\), as restricted by \(\phi \).
+- Raises an issue about the value of \(x\).
+
+#+name: context3
+#+begin_exe
+\ex \(\exists_x\phi := (\varepsilon_x \wedge \phi) \wedge ?_x\)
+#+end_exe
+
+#+begin_export latex
+\begin{equation}
+  \begin{NiceArray}{ccccc}
+    & w_{a} & w_{ab} & w_{b} & w_\emptyset  \\
+   [] & \bullet  & \bullet  & \bullet & \bullet\\
+  \CodeAfter
+ \begin{tikzpicture}
+     \node[draw,inq,fit=(2-2) (2-5)] {};
+  \end{tikzpicture}
+  \end{NiceArray}
+  \quad
+\xRightarrow{\varepsilon_x \wedge P(x)}
+\quad
+  \begin{NiceArray}{ccccc}
+    & w_{a} & w_{ab} & w_b & w_\emptyset \\
+   [x \to a] & \bullet  & \bullet & \bullet & \bullet \\
+   [x \to b] & \bullet  & \bullet & \bullet & \bullet
+  \CodeAfter
+ \begin{tikzpicture}
+ \node[fit=(2-2) (2-3)] (2-23) {};
+ \node[fit=(3-3) (3-4)] (3-34) {};
+ \draw[draw,inq] (2-23.north west) -- (2-23.north east) |- (3-34.north east) |- (3-34.south east) -- (3-34.south west) |- (2-23.south west) -- cycle; 
+  \end{tikzpicture}
+  \end{NiceArray}
+  \quad
+\xRightarrow{?_x}
+\quad
+  \begin{NiceArray}{ccccc}
+    & w_{a} & w_{ab} & w_b & w_\emptyset \\
+   [x \to a] & \bullet  & \bullet & \bullet & \bullet \\
+   [x \to b] & \bullet  & \bullet & \bullet & \bullet
+  \CodeAfter
+ \begin{tikzpicture}
+ \node[draw,inq,fit=(2-2) (2-3)] {};
+ \node[draw,inq,fit=(3-3) (3-4)] {};
+  \end{tikzpicture}
+  \end{NiceArray}
+\end{equation}
+#+end_export
+
+** Discharging issues
+
+In standard inquisitive semantics /non-inquisitive closure/ (\(!\)) closes off issues associated with an inquisitive context. Its definition is simple:
+
+#+begin_definition
+*Non-inquisitive closure* (contexts). 
+
+- \(!C = P(\mathbf{info}(C))\)
+#+end_definition
+
+In inquisitive dynamic semantics, we can define a closure operator \(!\) that closes off issues in its scope but /not/ discourse referents.
+
+#+begin_definition
+*Non-inquisitive closure*. 
+
+- \(C[!\phi] := \set{s' \in !C[\phi]|\exists s \in C, s \leq s'}\)
+#+end_definition
+
+This allows us to close off the issues raised by an existential statement while retaining the introduced discourse referents. Moreover, the following are equivalent:
+
+#+name: ex
+#+begin_exe
+\ex \(!(\varepsilon_x \wedge P(x) \wedge ?_x)\)
+\ex \(\varepsilon_x \wedge P(x)\)
+#+end_exe
+
+Negation on the other hand is defined in such a way that in closes off issues (as negation does in inquisitive semantics) /and/ discourse referents (as negation does in dynamic semantics):
+
+#+begin_definition
+*Negation*. Negation of \(\phi \) at \(C\) returns the states in \(C\) which don't have a consistent substate that subsists in \(C[\phi]\)
+
+- \(C[\neg\phi] := \set{s \in C| \neg\exists t[t \neq \emptyset \wedge t \subseteq s \wedge t \prec C[\phi]]}\)
+#+end_definition
+
+Just as in standard inquisitive semantics, issues can be raised by disjunction:
+
+#+begin_definition
+*Inquisitive closure*.
+
+- \(?\phi := \phi \vee \neg\phi \)
+#+end_definition
+
+** Implication
+
+#+begin_definition
+*Implication*.
+
+- \(C[\phi \to \psi] := \set{s \in C| \forall t \subseteq s,\text{each descendant of }t\text{ in }C[\phi]\text{ subsists in }C[\phi][\psi]}\)
+#+end_definition
+
+** Empirical payoff
+
+*** Anaphora between questions
+
+#+name: which-man
+#+begin_exe
+\ex Which\(^x\) man read a\(_y\) book? Did he\(_x\) like it\(_y\)?
+\ex \(\underbrace{\varepsilon_x \wedge \varepsilon_y \wedge M(x) \wedge B(y) \wedge R(x,y) \wedge ?_x}_{\text{wh-Q}} \wedge \underbrace{?(L(x,y))}_{\text{pol-Q} }\)
+#+end_exe
+
+- The first conjunct introduces a man dref \(x\) and a book dref \(y\), s.t., \(x\) read \(y\), and raises an issue about the value of \(x\).
+- Suppose there are two men, Gabe and Al. There will be two contextual alternatives:
+  * \(\set{(w,[x \to G,y \to b])|G\text{ read }b\text{ in }w}\)
+  * \(\set{(w,[x \to A,y \to b])|A\text{ read }b\text{ in }w}\)
+- Familiarity is satisfied, since \(x\) and \(y\) are familiar throughout all states in the resulting context. Inquisitive closure introduces a new issue about whether \(x\) liked \(y\). Now we have four contextual alternatives:
+  * \(\set{(w,[x \to G,y \to b])|G\text{ read and liked }b\text{ in }w}\)
+  * \(\set{(w,[x \to G,y \to b])|G\text{ read and didn't like }b\text{ in }w}\)
+  * \(\set{(w,[x \to A,y \to b])|A\text{ read and liked }b\text{ in }w}\)
+  * \(\set{(w,[x \to A,y \to b])|A\text{ read and didn't like }b\text{ in }w}\)
+    
+*** Anaphora from polar questions
+
+In dynamic inquisitive semantics, the possibilities of anaphora from polar questions fall straightforwardly under the witness generalization.
+
+#+name: pol
+#+begin_exe
+\ex *A:* Does Andreea have a\(^x\) husband? *B:* Yes, she's married. He\(_x\)'s waiting outside.
+\ex *A:* Does Andreea have a\(^x\) husband? *B:* ???No, she isn't married. He\(_x\)'s waiting outside.
+#+end_exe
+
+The question in the first conjunct has the following logical form:
+
+#+name: lf
+#+begin_exe
+\ex \(?(\varepsilon_x \wedge H(x))\)
+#+end_exe
+
+It introduces two contextual alternatives (since negation is externally static):
+
+- \(\set{(w,[x \to h])|h\text{ is Andreea's husband in }w}\)
+- \(\set{(w,[])|\text{Andreea isn't married in }w}\)
+  
+If the alternative where Andreea isn't married is contextually eliminated, then subsequent anaphora will be licensed (but only then).
+
+* Defects
+
+Since disjunction is internally static, there's no chance of accounting for data like the following:
+
+#+name: wh-disj
+#+begin_exe
+\ex Is there no\(^x\) bathroom or is it\(_x\) upstairs?
+\ex
+\begin{xlist}
+\ex Does Andreea not have a\(^x\) husband?
+\ex No, she's married - he\(_x\)'s waiting outside.
+\end{xlist}
+#+end_exe
+
+* Extensions
+
+** Presuppositional closure
+
+
+* Going plural
+
+[cite:@DotlacilRoelofsen2021] extend the basic semantics outlined in this section to a plural setting.
+
+Instead of taking possibilities to be world-assignment pairs, they take them to be world-plural assignment pairs \((w,G)\).
+
+This is illustrated below, for an context post introduction of a dref \(x\):
+
+#+begin_export latex
+\[
+\begin{NiceArray}{rcccc}
+    & w_{a} & w_{ab} & w_b & w_\emptyset \\
+   [x \to a] & \bullet  & \bullet & \bullet & \bullet \\
+   [x \to b] & \bullet  & \bullet & \bullet & \bullet\\
+   [x \to a],[x \to b] & \bullet  & \bullet & \bullet & \bullet
+  \CodeAfter
+\begin{tikzpicture}
+ \node[fit=(2-2) (2-3)] (2-23) {};
+ \node[fit=(3-3) (3-4)] (3-34) {};
+ \node[fit=(4-3)] (43) {};
+ \draw[draw,inq] (2-23.north west) -- (2-23.north east) |- (3-34.north east) |- (3-34.south east) -| (43.south east) -- (43.south west) -- (3-34.north west) -- (2-23.south west) -- cycle;
+\end{tikzpicture}
+  \end{NiceArray}
+\]
+#+end_export
+
+Applying \(?_x\) will produce row-wise alternatives.
+
+Departing from [cite:@vandenBerg1996], [cite:@DotlacilRoelofsen2021] assume that atomic sentences are interpreted /universally/ (see also [cite:@ChampollionEtAl2017a]).
+
+#+begin_definition
+*Support* (plural assignments).
+
+- \(s \vdash P(x_1,\ldots,x_n) \iff \forall (w,G) \in s, \forall g \in G[g(x) \neq \star \to (g(x_1),\ldots,g(x_n)) \in I_w(P)]\)
+#+end_definition
+
+Plural random assignment needs to be defined as the cumulative generalization of random assignment, as Filipe discussed last week.
+
+#+begin_definition
+*Random assignment* (plural version).
+
+- \(G[x]H \iff \forall g \in G,\exists h \in H, g[x]h \wedge \forall h \in H,\exists g \in G, g[x]h\)
+#+end_definition
+
+** Q-subordination with questions
+
+One possible motivation (not discussed by [cite:@DotlacilRoelofsen2021]):
+
+#+name: pair-list-Q
+#+begin_exe
+\ex Which\(^x\) book did each\(^y\) boy read, and did they\(^y\) enjoy it\(_x\)?
+#+end_exe
+
+
+
+
+* References
+
+#+print_bibliography:
+
+* Footnotes
+[fn:3] Here we make use of an equivalence relation over possibilities \(\sim_x\), which is defined as follows:
+
+\[(w,g) \sim_x (w',h) \iff g_x = h_x\]
+
+Crucially, it's not necessary that \(w = w'\).
+
+[fn:2] We assume the standard definition of random assignment for states:
+
+\[s[\varepsilon_x] := \set{(w,h)|g[x]h \wedge (w,g) \in s}\]
+
+[fn:1] A set \(C\) is /downward closed/ iff for each element \(s \in C\), subsets of \(s\) are necessarily elements of \(C\) too (including the empty set!).
+
+* File local variables                                             :noexport:
+ 
+# Local Variables:
+# mode: org
+# org-latex-default-packages-alist: nil
+# org-latex-with-hyperref: nil
+# End:
+
