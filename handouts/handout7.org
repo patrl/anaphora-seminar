@@ -1,0 +1,216 @@
+#+title: Plural Discourse Reference
+#+author: Patrick D. Elliott 
+#+bibliography: ../../bibliography/master.bib
+#+setupfile: handout-template.org
+#+OPTIONS: ':t
+#+cite_export: biblatex
+
+* PlDPL
+
+** Information states
+
+A /state/ is a set of partial assignments.
+
+States assign variables to pluralities (i.e., sets of individuals) distributively:
+
+#+name: coll
+#+begin_exe
+\ex \(G(x) = \set{g(x) | g \in G \wedge g(x) \neq \star}\)
+#+end_exe
+
+#+begin_definition
+Assignment extension.
+
+\[g \geq h \iff  \forall x, h(x) \neq \star \rightarrow g(x) = h(x)\]
+#+end_definition
+
+This induces an ordering on states by taking the cumulative generalization of assignment extension:
+
+#+begin_definition
+State extension.
+
+\[G \geq H \iff  \forall g \in G, \exists h \in H[g \geq h] \wedge \forall h \in H,\exists g \in  G[g \geq h]\]
+#+end_definition
+
+Some examples of states \((H,G)\) s.t., \(G \geq H\).
+
+#+ATTR_LATEX: :options {0.4\textwidth}
+#+begin_minipage
+| \(x\) |
+|-------|
+| \(t\) |
+| \(d\) |
+| \(h\) |
+#+end_minipage
+#+ATTR_LATEX: :options {0.4\textwidth}
+#+begin_minipage
+| \(x\) | \(y\) |
+|-------+-------|
+| \(t\) | \(d\) |
+| \(t\) | \(h\) |
+| \(d\) | \(d\) |
+| \(d\) | \(h\) |
+| \(h\) | \(d\) |
+| \(h\) | \(h\) |
+#+end_minipage
+
+Relative to /matrices/ \(G,H\):
+
+- \(G(x)\) returns the set of all values in the column labelled \(x\).
+- \(G \geq H\) holds iff for each row \(g \in G\), there's a row \(h \in H\), which is contained by \(g\), and for each row \(h \in H\), there's a row \(g \in G\) which contains it. 
+  
+As emphasized by van den Berg, it's often useful to think of /states/ simply as assignments from variables to sets of individuals (for simple applications).
+
+** Atomic sentences
+
+Predicates are interpreted collectively.
+
+- \([P(x_1,\ldots,x_n)]^? = \set{(G,H)|G(x_1) = \emptyset \vee \ldots \vee G(x_n) = \emptyset }\)
+- \([P(x_1,\ldots,x_n)]^+ = \set{(G,H)|G = H \wedge G(x_1),\ldots,G(x_n) \neq \emptyset  \wedge (G(x_1),\ldots,G(x_n)) \in I(P)}\)
+- \([P(x_1,\ldots,x_n)]^- = \set{(G,H)|G = H \wedge G(x_1),\ldots,G(x_n) \neq \emptyset  \wedge (G(x_1),\ldots,G(x_n)) \notin I(P)}\)
+  
+The true output states are those for which \(P(x_1,\ldots,x_n)\) is true in static plural logic.
+
+Let's say that we're in a scenario where Tom loves Dick and Harry, and we interpret \(L(x,y)\) at the following state \(G_1\):
+
+| \(x\) |
+|-------|
+| \(t\) |
+
+The sentence is undefined relative to this state since \(G(y) = \emptyset\), but true relative to the following extended state \(G_2\):
+
+| \(x\) | \(y\) |
+|------ +-------|
+| \(t\) | \(d\) |
+| \(t\) | \(h\) |
+
+This is because \(G(x) = \set{t}\), and \(G(y) = \set{d,h}\) and \((\set{t},\set{d,h}) \in  I(L)\)
+
+** Random assignment
+
+We can recreate our notion of random assignment in a way parallel to our old logic:
+
+- \([\varepsilon_x]^+ = \set{(G,H)|G(x) = \emptyset \wedge G[x]H}\)
+- \([\varepsilon_x]^{-} = \emptyset \)
+- \([\varepsilon_x]^{?} = \set{(G,H)|G(x) \neq \emptyset}\)
+  
+We need to cash out exactly what \(G[x]H\) means in a plural setting. The intuition is that \(H\) introduces plural values for \(x\) without creating dependencies by multiplying assignments in the input state. I.e.:
+
+
+| \(x\) | \(y\) |
+|-------+-------|
+| \(t\) | \(d\) |
+| \(m\) | \(h\) |
+
+For each row in the input state we randomly assign values to \(z\). Here's the result of doing random assignment relative to \(z\) with a domain \(\set{t,d,h}\).
+
+#+ATTR_LATEX: :options {0.3\textwidth}
+#+begin_minipage
+| x     | y     | z     |
+|-------+-------+-------|
+| \(t\) | \(d\) | \(t\) |
+| \(m\) | \(h\) | \(t\) |
+
+| x     | y     | z     |
+|-------+-------+-------|
+| \(t\) | \(d\) | \(d\) |
+| \(m\) | \(h\) | \(d\) |
+
+| x     | y     | z     |
+|-------+-------+-------|
+| \(t\) | \(d\) | \(h\) |
+| \(m\) | \(h\) | \(h\) |
+#+end_minipage
+#+ATTR_LATEX: :options {0.3\textwidth}
+#+begin_minipage
+| x     | y     | z     |
+|-------+-------+-------|
+| \(t\) | \(d\) | \(t\) |
+| \(t\) | \(d\) | \(d\) |
+| \(m\) | \(h\) | \(t\) |
+| \(m\) | \(h\) | \(d\) |
+
+| x     | y     | z     |
+|-------+-------+-------|
+| \(t\) | \(d\) | \(t\) |
+| \(t\) | \(d\) | \(h\) |
+| \(m\) | \(h\) | \(t\) |
+| \(m\) | \(h\) | \(h\) |
+
+| x     | y     | z     |
+|-------+-------+-------|
+| \(t\) | \(d\) | \(d\) |
+| \(t\) | \(d\) | \(h\) |
+| \(m\) | \(h\) | \(d\) |
+| \(m\) | \(h\) | \(h\) |
+#+end_minipage
+#+ATTR_LATEX: :options {0.3\textwidth}
+#+begin_minipage
+| x     | y     | z     |
+|-------+-------+-------|
+| \(t\) | \(d\) | \(t\) |
+| \(t\) | \(d\) | \(d\) |
+| \(t\) | \(d\) | \(h\) |
+| \(m\) | \(h\) | \(t\) |
+| \(m\) | \(h\) | \(d\) |
+| \(m\) | \(h\) | \(h\) |
+#+end_minipage
+
+** Negation and closure
+
+*** Negation
+
+- \([\neg \phi]^+ = [\phi]^-\)
+- \([\neg \phi]^- = [\phi]^+\)
+- \([\neg \phi]^? = [\phi]^?\)
+  
+*** Closure
+
+- \([\dag\phi]^+ := [\phi]^+\)
+- \([\dag\phi]^- := \set{(G,H) | G = H \wedge \neg \exists I[(G,I) \in [\phi]^+] \wedge \exists I[(G,I) \in [\phi]^-]}\)
+- \([\dag\phi]^? := [\phi]^?\)
+  
+** Dynamic generalized quantifiers
+
+The set of sets of entities that the true outputs of a formula \(\phi \) map \(x\) to.
+
+- \(\langle\langle\phi \rangle\rangle_x(G) = \set{H(x) | (G,H) \in [\phi]^+}\)
+- \(\langle\phi\rangle_x(G) = \bigcup\set{H(x) | (G,H) \in [\phi]^+}\)
+  
+** Beaver's presupposition operator
+
+(Here \(+\))
+
+\[[+\phi]^+ = [\phi]^+\]
+\[[+\phi]^- = \emptyset\]
+\[[+\phi]^? = [\phi]^? \cup [\phi]^=\]
+
+** Induced quantifiers
+
+- \(G[Q_x(\phi,\psi)]\)
+
+
+
+
+
+
+
+
+
+
+
+
+* References
+
+#+print_bibliography:
+
+* Footnotes
+
+* File local variables                                             :noexport:
+ 
+# Local Variables:
+# mode: org
+# org-latex-default-packages-alist: nil
+# org-latex-with-hyperref: nil
+# End:
+

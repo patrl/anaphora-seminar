@@ -131,6 +131,7 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 - ([[citeproc_bib_item_12][Fox and Katzir 2011]])
 
 ** Week 8: Disjunction, possibility, and hypothetical discourse referents
+
 - [[file:./handout5.pdf][Handout]].
 
 *** Recommended readings
@@ -156,20 +157,14 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 - ([[citeproc_bib_item_24][Keshet 2018]])
 - ([[citeproc_bib_item_25][Keshet 2019]])
 
-** Week 10: Dynamic inquisitive semantics
+** Week 11: Dynamic inquisitive semantics
+
+- [[file:handout8.pdf][Handout]].
 
 *** Recommended readings
 
 - ([[citeproc_bib_item_9][Dotlačil and Roelofsen 2019]])
 - ([[citeproc_bib_item_8][Dotlacil and Roelofsen 2021]])
-
-** Week 11: Dynamic semantics and the grammar
-
-*** Recommended readings
-
-- ([[citeproc_bib_item_37][Schlenker 2005]])
-- ([[citeproc_bib_item_6][Chierchia 2020]])
-- ([[citeproc_bib_item_10][Elliott 2020a]])
 
 
 * References

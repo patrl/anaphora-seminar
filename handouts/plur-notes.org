@@ -1,0 +1,87 @@
+#+title: Plural Dynamic Semantics 
+#+author: Patrick D. Elliott 
+#+bibliography: ../../bibliography/master.bib
+#+setupfile: handout-template.org
+#+OPTIONS: ':t
+#+cite_export: biblatex
+
+* Empirical problems for DS
+
+** Quantificational subordination
+
+** Discourse plurals
+
+* Dynamic Plural Logic
+
+** Random assignment
+
+Random assignment in DPlL randomly assigns pluralities to some variable \(x\).
+
+Let's say we have three individuals in the domain \(t,d,h\), and a single variable \(x\).
+
+#+name: rand
+#+begin_exe
+\ex \([][\varepsilon_x]^+ := \Set{\begin{array}{c}
+\begin{array}{c} x\\\hline t\end{array},
+\begin{array}{c} x\\\hline d\end{array},
+\begin{array}{c} x\\\hline h\end{array},\\
+\begin{array}{c} x\\\hline t\\d\end{array},
+\begin{array}{c}x\\\hline t\\h\end{array},
+\begin{array}{c}x\\\hline d\\h\end{array},\\
+\begin{array}{c}x\\\hline t\\d\\h\end{array},
+\end{array}}\)
+#+end_exe
+
+Random assignment is tailored /not/ to create dependencies between variables.
+
+#+name: rand2
+#+begin_exe
+\ex \(\begin{array}{c}y\\\hline d\\h\end{array}[\varepsilon_x]^+ := \Set{\begin{array}{c}
+\begin{array}{cc}y&x\\\hline d&t\\h&t\end{array},
+\begin{array}{cc}y&x\\\hline d&d\\h&d\end{array},
+\begin{array}{cc}y&x\\\hline d&h\\h&h\end{array},\\
+\begin{array}{cc}y&x\\\hline d&t\\d&d\\h&t\\h&d\end{array},
+\begin{array}{cc}y&x\\\hline d&t\\d&h\\h&t\\h&h\end{array},
+\begin{array}{cc}y&x\\\hline d&d\\d&h\\h&d\\h&h\end{array},\\
+\begin{array}{cc}y&x\\\hline d&t\\d&d\\d&h\\h&t\\h&d\\h&h\end{array},
+\end{array}}\)
+#+end_exe
+
+** Atomic sentences
+
+#+name: atomic
+#+begin_exe
+\ex \(G[P(x_1,\ldots,x_n)]^+ := \set{G | (G(x_1),\ldots,G(x_n)) \in I(P)}\)
+\ex \(G[P(x_1,\ldots,x_n)]^- := \set{G | (G(x_1),\ldots,G(x_n)) \notin I(P)}\)
+#+end_exe
+
+** Distributivity
+
+In van den Berg's system, the distributivity operator introduces dependencies between variables.
+
+#+name: dist
+#+begin_exe
+\ex \(G[\delta_x(\phi)]^d := \set{H | \forall d\in G(x)[H|_{x = d} \in G|_{x = d}[\phi]^d \wedge G|_{x = \#} = H|_{x = \#}]}\)
+\ex \(G[\delta_x(\phi)]^+ := \set{H | H \in G[\phi]^d \wedge \forall d \in G(x)[H|_{x = d} \in G|_{x =d }[\phi]^+]}\)
+\ex \(G[\delta_x(\phi)]^- := \set{H | H \in G[\phi]^d \wedge G \notin G[\delta_x(\phi)]^+}\)
+#+end_exe
+
+*** Using distributivity
+
+
+
+
+* References
+
+#+print_bibliography:
+
+* Footnotes
+
+* File local variables                                             :noexport:
+ 
+# Local Variables:
+# mode: org
+# org-latex-default-packages-alist: nil
+# org-latex-with-hyperref: nil
+# End:
+

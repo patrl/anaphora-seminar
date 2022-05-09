@@ -1,4 +1,5 @@
-#+title: Inquisitive Dynamic Semantics
+#+title: Identifying discourse referents 
+#+subtitle: Dynamic semantics meets inquisitive semantics
 #+author: Patrick D. Elliott 
 #+bibliography: ../../bibliography/master.bib
 #+setupfile: handout-template.org
@@ -9,18 +10,102 @@
 \tikzstyle{inq}=[rounded corners,fill=gray,fill opacity=.1]
 #+end_export
 
-* Data
+* Resources
 
-/wh/-questions license discourse anaphora:
+- [cite:@DotlacilRoelofsen2019]
+- [cite:@DotlacilRoelofsen2021]
+- [cite:@DotlacilRoelofsen2021a]
+  
+* Initial motivations
 
-#+name: wh-anaph
+** Background
+
+In this class, we've explored theories of anaphora which rely on a fine-grained notion of information, which encodes contextual (un)certainty about the values of variables (i.e., discourse referents). Asserting an existential statement:
+
+1. Narrows down the /worldly/ possibilities.
+2. Expands the range of /anaphoric/ possibilities.
+
+In a Heimian world, asserting an existential statement both (i) narrows down the /worldly/ possibilities, and (ii) expands the range of anaphoric possibilities.
+
+Most work in dynamic semantics doesn't look beyond a classical Stalnakerian model of discourse, where Heimian file contexts are used to model the /context set/. 
+
+Heimian file contexts, while extending the classical notion of an information state, aren't expressive enough to capture /issues/ raised by interrogative sentences.
+
+** Initial motivations: questions and anaphora
+
+In truth-conditional semantics, questions are typically analyzed in terms of their resolution conditions [cite:@Hamblin1973;@Karttunen1977;@GroenendijkStokhof1984].
+
+Initial motivations for a dynamic approach to questions [cite:@Groenendijk1998;@Haida2007]: there is more to the meaning of a question than just its (classical) resolution conditions, as shown by interrogative variations of Partee's famous marble sentences:
+
+#+name: marble
 #+begin_exe
-\ex Which\(^x\) paper did you read? Did you enjoy it\(_x\)?
+\ex Of my six marbles, which\(^x\) one is not in the bag? Is it\(_x\) under the sofa?
+\ex Of my six marbles, which five are in the bag? #Is it\(_x\) under the sofa?
 #+end_exe
 
-How do /questions/ update the context set in such a way that anaphora in a subsequent question is licensed.
+** Complex interrogatives and accessibility
 
-Some additional relevant facts - accessibility in complex questions patterns with accessibility in complex declaratives (examples after [cite:@Enguehard2021]):
+/Wh/-expressions, just like indefinites, can introduce discourse referents. A subsequent pronoun can (but need not) be itself embedded in a question.
+
+#+name: who
+#+begin_exe
+\ex Who\(^x\) is at the door? How long have they\(_x\) been waiting for?
+\ex Who\(^x\) is at the door? They\(_x\)'re knocking extremely loudly.
+#+end_exe
+
+Additionally, indefinites in polar questions can license discourse anaphora (in conjunctive questions). 
+
+#+name: polar
+#+begin_exe
+\ex Did you read a paper, and did you enjoy it?
+#+end_exe
+
+The conditions under which indefinites in questions license discourse anaphora in a subsequent declarative relate to the generalization we've explored for much of this semester - a pronoun is licensed just in case a discourse referrent is contextually entailed (see also [cite:@Mandelkern2022]). 
+
+#+name: pol
+#+begin_exe
+\ex *A:* Does Andreea have a\(^x\) husband? *B:* Yes, she's married. He\(_x\)'s waiting outside.
+\ex *A:* Does Andreea have a\(^x\) husband? *B:* ???No, she isn't married. He\(_x\)'s waiting outside.
+#+end_exe
+
+Indefinites inside of /wh/-interrogatives can license discourse anaphora too:
+
+#+name: wh-etype
+#+begin_exe
+\ex Who\(^x\) is presenting a\(^y\) paper, and are they\(_x\) presenting it\(_y\) on Wednesday?
+#+end_exe
+
+One manifestation of this is the availability of so-called "e-type" readings of quantifiers under ellipsis [cite:@Merchant2001], explored in detail from a dynamic perspective by [cite:@ElliottSudo2016].[fn:4] 
+
+#+name: sluicing
+#+begin_exe
+\ex If John asks me /how/ a\(^x\) mathematical theorem was proved, I will also tell him by whom...
+\begin{xlist}
+\ex ?\dots \sout{a\(^y\) mathematical theorem was proved.}
+\ex \dots \sout{the\(_x\) mathematical theorem was proved.}
+\end{xlist}
+#+end_exe
+
+This observation extends to discourse plurals:
+
+#+name: sluicing2
+#+begin_exe
+\ex John applied to five\(^x\) graduate schools, but I don't know why...
+\begin{xlist}
+\ex \dots \sout{John applied to five graduate schools.}
+\ex \dots \sout{John applied to the\(_x\) five graduate schools.}
+\end{xlist}
+#+end_exe
+
+In addition to discourse anaphora, /donkey/ anaphora is available in /conditional questions/; unsurprisingly, both weak and strong readings are available. 
+
+#+name: donkey
+#+begin_exe
+\ex If a\(^x\) farmer owns a\(^y\) donkey, will he\(_x\) beat it\(^x\)?
+\ex If you have a\(^x\) credit card, would you mind paying with it\(_x\)?
+#+end_exe
+
+More generally, it seems that accessibility in complex questions patterns with accessibilty in complex decalaratives (see especially [cite:@Enguehard2021] on parallel presupposition projection facts).
 
 #+name: wh-proj
 #+begin_exe
@@ -30,8 +115,34 @@ Some additional relevant facts - accessibility in complex questions patterns wit
 \ex If you read a\(^x\) paper, did you enjoy it\(_x\)?
 #+end_exe
 
-The plan:
+** Intervention effects
 
+Examples from [cite:@Beck1996;@Beck2006].
+
+#+begin_export latex
+\begin{exe}
+\ex 
+\gll
+Wer hat Luise \textbf{wo} angetroffen?\\
+Who has Luise where met?\\
+\ex[*]{
+\gll
+Wer hat niemanden \textbf{wo} angetroffen?\\
+Who has nobody where met?\\}
+\ex
+\gll
+Wer hat \textbf{wo} niemanden angetroffen?\\
+Who has where nobody met?\\
+\end{exe}
+#+end_export
+
+Suspicion of the dynamic approach to intervention effects [cite:@Haida2007;@Honcoop1998]:
+
+- The operators that are responsible for intervention effects are just those that are /externally static/ in the sense of [cite:@GroenendijkStokhof1991a].
+
+** The plan
+
+- /Inquisitive semantics/ provides a framework in which a uniform notion of information captures both what is mutually known, and what is mutually taken to be at issue. This makes it extremely well-suited to providing a uniform account of how assertions/questions contribute information to the context set, as explored in a wide range of works [cite:@CiardelliEtAl2019].
 - Combine the basic ideas of dynamic semantics and inquisitive semantics (based on [cite:@DotlacilRoelofsen2019]).
   
 * Inquisitive semantics: the basics  
@@ -43,7 +154,7 @@ Such structures are expressive enough to capture /issues/ while subsuming (class
 - Concretely, the /informational content/ of an inquisitive context \(C\) is just the union of all \(s \in C\). 
 - What's at issue is represented by the /alternatives/, i.e., the maximal elements of \(C\); a context is /inquisitive/ just in case it includes more than one alternative.
 
-In standard setting, the initial context is simply the powerset of the ignorance state. We can handily represent inquisitive contexts using diagrams where maximal states are highlighted.
+In a standard inquisitive setting, the initial context is simply the powerset of the ignorance state. We can handily represent inquisitive contexts using diagrams where maximal states are highlighted.
 
 #+begin_export latex
 \[
@@ -79,6 +190,10 @@ In standard setting, the initial context is simply the powerset of the ignorance
   \end{NiceArray}
 \]
 #+end_export
+
+The middle diagram illustrates an inquisitive context with two alternatives - the result of updating the initial context with "a or b".
+
+Unlike partition semantics, inquisitive semantics by default gives rise to weak resolution conditions - the issue raised by "a or b" is resolved by the proposition "that \(a\)" and the proposition "that \(b\)" (no exclusivity inference). 
 
 Atomic sentences denote downward closed sets of states, i.e., the states which /support/ the sentence. Update is cashed out simply as set intersection (just as in a Stalnakerian setting).
 
@@ -138,6 +253,25 @@ Disjunctive sentences denote the /union/ of the states that support each disjunc
   \end{NiceArray}
   \]
 #+end_export
+
+Conjunction is just intersection:
+
+#+name: disj
+#+begin_exe
+\ex \([\phi \vee \psi] := [\phi] \cap [\psi]\)
+#+end_exe
+
+Negation closes off issues (defined derivatively here in terms of *info*):
+
+#+name: info
+#+begin_exe
+\ex \([\mathbf{info}(\phi)] := P(\bigcup[\phi])\)
+#+end_exe
+
+#+name: neg
+#+begin_exe
+\ex \([\neg\phi] := P(W - [\mathbf{info}(\phi)])\)
+#+end_exe
 
 * Inquisitive dynamic semantics [cite:@DotlacilRoelofsen2019] 
 
@@ -236,6 +370,8 @@ It's important to note that the disjunction that [cite:@DotlacilRoelofsen2019] a
 Having information about the values of variables encoded in states allows us to define an interesting operation -- \(?_x\), which raises an issue about the value of \(x\) by inducing alternatives that agree on \(x\):[fn:3] 
 
 #+begin_definition
+*Witness identification operator*.
+
 - \(C[?_x] := \set{s \in C | \forall i, i' \in s, i \sim_x i'}\)
 #+end_definition
 
@@ -342,6 +478,8 @@ This allows us to close off the issues raised by an existential statement while 
 \ex \(\varepsilon_x \wedge P(x)\)
 #+end_exe
 
+This provides tools for distinguishing between the semantic contribution of an indefinite vs. an interrogative.
+
 Negation on the other hand is defined in such a way that in closes off issues (as negation does in inquisitive semantics) /and/ discourse referents (as negation does in dynamic semantics):
 
 #+begin_definition
@@ -350,7 +488,7 @@ Negation on the other hand is defined in such a way that in closes off issues (a
 - \(C[\neg\phi] := \set{s \in C| \neg\exists t[t \neq \emptyset \wedge t \subseteq s \wedge t \prec C[\phi]]}\)
 #+end_definition
 
-Just as in standard inquisitive semantics, issues can be raised by disjunction:
+Just as in standard inquisitive semantics, issues can be raised by disjunction. Inquisitive closure is used to analyze polar questions.
 
 #+begin_definition
 *Inquisitive closure*.
@@ -410,9 +548,27 @@ It introduces two contextual alternatives (since negation is externally static):
   
 If the alternative where Andreea isn't married is contextually eliminated, then subsequent anaphora will be licensed (but only then).
 
-* Defects
+*** Defects
 
-Since disjunction is internally static, there's no chance of accounting for data like the following:
+A big problem for [cite:@DotlacilRoelofsen2019] is anaphora in conjunctive questions:
+
+#+name: conj-q
+#+begin_exe
+\ex Did you read a\(^x\) paper, and was it\(_x\) interesting?
+#+end_exe
+
+The reason is that the first conjunct introduces an alternative in which the \(x\) isn't familiar. 
+
+This case is strikingly familiar to the following:
+
+#+name: pol-q
+#+begin_exe
+\ex John might have read a\(^x\) paper, and he might have found it\(_x\) interesting.
+#+end_exe
+
+Indeed, without going into details [cite:@DotlacilRoelofsen2019] suggest that ([[conj-q]]) could be analyzed as a case of modal subordination [cite:@Roberts1989].[fn:5] 
+
+Relatedly, since disjunction is internally static, [cite:@DotlacilRoelofsen2019] have no chance of accounting for data like the following:
 
 #+name: wh-disj
 #+begin_exe
@@ -424,18 +580,97 @@ Since disjunction is internally static, there's no chance of accounting for data
 \end{xlist}
 #+end_exe
 
-* Extensions
+** Intervention effects
 
-** Presuppositional closure
+Possible intervenors [cite:@Beck2006]:
 
+- Focus sensitive operators: /only/, /even/...
+- Quantifiers: /every/, /no/, /most/, /few/, /always/, /never/...
+- Negation.
 
-* Going plural
+Note that - crucially - there is an anaphoric relation between \(\varepsilon_x\) and \(?_x\) in the formation of a question.
+
+In order to capture /intervention effects/, we can assume that, in a language such as German, the surface position of the /wh/-expression transparently reflects the scope of \(\varepsilon_x\).
+
+In order to avoid the complexities of multiple /wh/, we'll consider an idealized case involving a single /wh/ in-situ.
+
+#+name: 
+#+begin_exe
+\ex Mary didn't meet who?
+\ex \(\neg(\varepsilon_x \wedge M(m,x)) \wedge \mathord{?_x}\)
+#+end_exe
+
+Since, \(\neg\) is externally static, \(?_x\) is unbound --- given some auxiliary assumptions, this is assumed to lead to oddness. This parallels:
+
+#+name: neg
+#+begin_exe
+\ex Mary didn't meet anyone\(^x\). They\(_x\) are outside.
+#+end_exe
+
+For similar reasons, this approach does reasonably well at accounting for intervention effects caused by quantificational determiners, with an important caveat.
+
+#+name: every
+#+begin_exe
+\ex Every boy met which who?
+\ex \(\forall_x(B(x) \to \varepsilon_y \wedge M(x,y)) \wedge \mathord{?_x}\)
+#+end_exe
+
+As we learned in Filipe's class however, quantifiers aren't really externally static, so for this explanation to go through, we need to explain why \(?_x\) can't pick up a discourse plural as in the following.
+
+#+name: d-plural
+#+begin_exe
+\ex Every sophomore someone\(^x\) (different). They\(_x\) were all freshmen.
+#+end_exe
+
+[cite:@DotlacilRoelofsen2021a] mention another problem for the dynamic approach to intervention effects: focus sensitive particles don't close off anaphoric information [cite:@Haida2007].
+
+This is illustrated by ([[only]]) - anaphora is possible, even when /a paper/ takes scope below /only/ (the most salient reading, i.e., /John wrote a paper, and nobody else wrote any paper/):
+
+#+name: only
+#+begin_exe
+\ex Only JOHN wrote a\(^x\) paper. It\(_x\) was long.
+\ex Even JOHN wrote a\(^x\) paper. It was long.
+#+end_exe
+
+It might also initially seem tempting to apply the dynamic approach to intervention to intervention effects induced by disjunction in Japanese [cite:@Shibata2015], given that disjunction is typically externally-static.
+
+#+begin_export latex
+\begin{exe}
+\ex[*]{
+\gll
+Ken-ka Erika-ga nani-o yon-da no.\\
+Ken-or Erika-NOM what-ACC read-PST Q\\}
+\ex
+\gll
+Nani-o Ken-ka Erika-ga yon-da no.\\
+What-ACC Ken-or Erika-NOM read-PST Q\\
+\end{exe}
+#+end_export
+
+A putative logical form for the intervention vs. non-intervention case:
+
+#+name: lf-intervention
+#+begin_exe
+\ex \(((\varepsilon_x \wedge R(k,x)) \vee (\varepsilon_x \wedge R(e,x))) \wedge \mathord{?_x}\)
+\ex \(\varepsilon_x \wedge (R(k,x) \vee R(e,x)) \wedge \mathord{?_x}\)
+#+end_exe
+
+This would fit quite nicely with the externally static disjunction of [cite:@GroenendijkStokhof1991], but - as we know - this is inadequate for natural language, and moreover [cite:@DotlacilRoelofsen2019] explicitly adopt an externally dynamic disjunction in order to capture cases like the following [cite:@Stone1992]:
+
+#+name: program
+#+begin_exe
+\ex Bill either rented a\(^x\) blue car or a\(^x\) red car. It\(_x\) was probably a cabrolet.
+#+end_exe
+
+In fact, the putative intervention LF is exactly a case parallel to ([[program]]), involving co-indexed indefinites in each disjunct.
+
+* Extension: inquisitive dynamic plural logic
 
 [cite:@DotlacilRoelofsen2021] extend the basic semantics outlined in this section to a plural setting.
 
-Instead of taking possibilities to be world-assignment pairs, they take them to be world-plural assignment pairs \((w,G)\).
+Instead of taking possibilities to be world-assignment pairs, they take them to be pairings of worlds with plural assignments \((w,G)\).
 
-This is illustrated below, for an context post introduction of a dref \(x\):
+This is illustrated below, for an information state post introduction of a dref \(x\):
 
 #+begin_export latex
 \[
@@ -455,8 +690,6 @@ This is illustrated below, for an context post introduction of a dref \(x\):
 \]
 #+end_export
 
-Applying \(?_x\) will produce row-wise alternatives.
-
 Departing from [cite:@vandenBerg1996], [cite:@DotlacilRoelofsen2021] assume that atomic sentences are interpreted /universally/ (see also [cite:@ChampollionEtAl2017a]).
 
 #+begin_definition
@@ -471,7 +704,122 @@ Plural random assignment needs to be defined as the cumulative generalization of
 *Random assignment* (plural version).
 
 - \(G[x]H \iff \forall g \in G,\exists h \in H, g[x]h \wedge \forall h \in H,\exists g \in G, g[x]h\)
+- \(s[\varepsilon_x] := \set{(w,H)|(w,G) \in s \wedge G[x]H}\)
+- \(C[\varepsilon_x] := \set{s[\varepsilon_x]|s \in C}\)
 #+end_definition
+
+Given the expressivity of plural assignments, there are a number of different ways in which the /witness identification operator/ \(?_x\) might be defined. [cite:@DotlacilRoelofsen2021] go for the following (quite complicated) definition:
+
+#+begin_definition
+*Witness identification operator* (plural).
+
+- \(C[?_x] := \set{s \in C| \exists a[\forall w \in s_w,\exists G[(w,G) \in \mathbf{info}(C) \wedge  G_x = \set{a}]]}\)
+#+end_definition
+
+The intuition behind this is that \(?_x\) selects those states which contain enough information about the world to guarantee the existence of a unique value for \(x\) globally.
+
+If we apply \(?_x\) to our previous context, it gives rise to two contextual alternatives.
+
+#+begin_export latex
+\[
+\begin{NiceArray}{rcccc}
+    & w_{a} & w_{ab} & w_b & w_\emptyset \\
+   [x \to a] & \bullet  & \bullet & \bullet & \bullet \\
+   [x \to b] & \bullet  & \bullet & \bullet & \bullet\\
+   [x \to a],[x \to b] & \bullet  & \bullet & \bullet & \bullet
+  \CodeAfter
+\begin{tikzpicture}
+ \node[fit=(2-2) (2-3)] (2-23) {};
+ \node[fit=(3-3) (3-4)] (3-34) {};
+ \node[fit=(4-3)] (43) {};
+ \draw[draw,inq] (2-23.north west) -- (2-23.north east) |- (3-34.north east) |- (3-34.south east) -| (43.south east) -- (43.south west) -- (3-34.north west) -- (2-23.south west) -- cycle;
+\end{tikzpicture}
+  \end{NiceArray}
+  \xRightarrow{?_x}
+\begin{NiceArray}{rcccc}
+    & w_{a} & w_{ab} & w_b & w_\emptyset \\
+   [x \to a] & \bullet  & \bullet & \bullet & \bullet \\
+   [x \to b] & \bullet  & \bullet & \bullet & \bullet\\
+   [x \to a],[x \to b] & \bullet  & \bullet & \bullet & \bullet
+  \CodeAfter
+\begin{tikzpicture}
+ \node[fit=(2-2) (2-3)] (2-23) {};
+ \node[fit=(2-3)] (23) {};
+ \node[fit=(3-3) (3-4)] (3-34) {};
+ \node[fit=(4-3)] (43) {};
+ \draw[draw,inq] (2-23.north west) -- (2-23.north east) -- (43.south east) -- (43.south west) -- (3-34.north west) -- (2-23.south west) -- cycle;
+ \draw[draw,inq] (23.north west) -- (23.north east) |- (3-34.north east) |- (3-34.south east) -| (43.south east) -- (43.south west) -- cycle;
+\end{tikzpicture}
+  \end{NiceArray}
+\]
+#+end_export
+
+Note that resolving the issue raised by \(?_x\) does not necessarily uniquely specify the value of \(G_x\). This derives the /mention some/ reading of /wh/-questions.
+
+#+name: french
+#+begin_exe
+\ex What is a famous french dish?
+\ex \(\varepsilon_x \wedge Fd(x) \wedge \mathord{?_x}\)
+#+end_exe
+
+In order to derive the /mention-all/ reading, [cite:@DotlacilRoelofsen2021] make use of a maximization operator.
+
+#+begin_definition
+*Maximization*. The maximization operator (relative to a variable \(x\)) keeps around states in \(C\) which where the value collectively assigned to \(x\) is maximal relative to the information about \(x\) in \(C\) globally.
+
+- \(C[\mathbf{max}_x] := \set{s \in C | \forall (w,G) \in s, \forall (w,G') \in \mathbf{info}(C)[G'(x) \subseteq G(x)]}\)
+#+end_definition
+
+#+begin_export latex
+\[
+\begin{NiceArray}{rcccc}
+    & w_{a} & w_{ab} & w_b & w_\emptyset \\
+   [x \to a] & \bullet  & \bullet & \bullet & \bullet \\
+   [x \to b] & \bullet  & \bullet & \bullet & \bullet\\
+   [x \to a],[x \to b] & \bullet  & \bullet & \bullet & \bullet
+  \CodeAfter
+\begin{tikzpicture}
+ \node[fit=(2-2) (2-3)] (2-23) {};
+ \node[fit=(3-3) (3-4)] (3-34) {};
+ \node[fit=(4-3)] (43) {};
+ \draw[draw,inq] (2-23.north west) -- (2-23.north east) |- (3-34.north east) |- (3-34.south east) -| (43.south east) -- (43.south west) -- (3-34.north west) -- (2-23.south west) -- cycle;
+\end{tikzpicture}
+  \end{NiceArray}
+  \xRightarrow{\mathbf{max}_x}
+\begin{NiceArray}{rcccc}
+    & w_{a} & w_{ab} & w_b & w_\emptyset \\
+   [x \to a] & \bullet  & \bullet & \bullet & \bullet \\
+   [x \to b] & \bullet  & \bullet & \bullet & \bullet\\
+   [x \to a],[x \to b] & \bullet  & \bullet & \bullet & \bullet
+  \CodeAfter
+\begin{tikzpicture}
+ \node[fit=(2-2)] (22) {};
+ \node[fit=(3-4)] (34) {};
+ \node[fit=(4-3)] (43) {};
+ \draw[draw,inq] (22.north west) -| (43.north west) -| (34.north west) -- (34.north east) -- (34.south east) -| (43.south east) -- (43.south west) |- (22.south west) -- cycle;
+\end{tikzpicture}
+  \end{NiceArray}
+  \]
+#+end_export
+
+Before applying \(?_x\), let's consider the inquisitive context we're dealing with:
+
+#+name: state
+#+begin_exe
+\ex \(P(\set{(w_a,\set{[x \to a]}),(w_b,\set{[x \to b]}),(w_{ab},\set{[x \to a],[x \to b]})})\)
+#+end_exe
+
+Applying \(?_x\) at \(C\) will give us the states \(s \in C\) which satisfy the following property: there is some individual \(a\), s.t. every world in \(s\) is paired with some plural assignment \(G \in \mathbf{info}_a(C)\) s.t. \(G_x = \set{a}\). 
+
+Crucially any state containing \(w_{ab}\) will fail to satisfy this property. 
+
+This derives a uniqueness inference:
+
+#+name: mention-all
+#+begin_exe
+\ex Which\(^x\) linguist is giving a talk?
+\ex \(\varepsilon_x \wedge L(x) \wedge T(x) \wedge \mathbf{max}_x \wedge \mathord{?_x}\)
+#+end_exe
 
 ** Q-subordination with questions
 
@@ -479,17 +827,20 @@ One possible motivation (not discussed by [cite:@DotlacilRoelofsen2021]):
 
 #+name: pair-list-Q
 #+begin_exe
-\ex Which\(^x\) book did each\(^y\) boy read, and did they\(^y\) enjoy it\(_x\)?
+\ex Which\(^x\) book did each\(^y\) boy read, and did they\(^y\) each enjoy it\(_x\)?
 #+end_exe
+  
 
 
 
 
-* References
 
 #+print_bibliography:
 
 * Footnotes
+[fn:5] On Wednesday, in my LFRG presentation, I'll explore a different way of thinking about the projection/accessibility properties of sentences such as ([[pol-q]]), by treating epistemic modals as filters in the sense of [cite:@Karttunen1973]. It's possible that a similar strategy may be feasible for ([[conj-q]]), but I leave this to future work. 
+
+[fn:4] The analysis (roughly) is that ellipsis of a clause is possible if it stands in a mutual dynamic entailment relation (modulo focus) with its antecedent.
 [fn:3] Here we make use of an equivalence relation over possibilities \(\sim_x\), which is defined as follows:
 
 \[(w,g) \sim_x (w',h) \iff g_x = h_x\]
