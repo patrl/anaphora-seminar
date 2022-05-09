@@ -159,8 +159,6 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 
 ** Week 11: Dynamic inquisitive semantics
 
-- [[file:handout8.pdf][Handout]].
-
 *** Recommended readings
 
 - ([[citeproc_bib_item_9][Dotlačil and Roelofsen 2019]])

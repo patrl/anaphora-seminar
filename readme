@@ -12,7 +12,7 @@
 #+ATTR_HTML: :width 250 :style border:2px solid black;
 [[./bischof.jpg]]
 
-Last updated: "[2022-04-11 09:31]" 
+Last updated: "[2022-05-09 09:51]" 
 
 * Course description
 
@@ -57,7 +57,7 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 | +Mon Apr 4+  |  Cancelled - attend [[http://tsinghualogic.net/JRC/?page_id=3591][TLLM]]  |
 | Mon Apr 11   | [[id:inq][inquisitive dynamic semantics]]              |
 | +Mon Apr 18+ | *holiday - patriot's day*                  |
-| Mon Apr 25   |  [[id:gramm][dynamic semantics and the grammar]] |
+| +Mon Apr 25+ | cancelled |
 | Mon May 2    | Filipe Hisao Kobayashi on postsuppositions                      |
 | Mon May 9    | Student presentations                      |
 
@@ -174,28 +174,18 @@ Seminar takes place Mondays 10:00-13:00, in 32-D461.
 
 - [[./handout6.pdf][Handout]]
  
-** Week 10: Dynamic inquisitive semantics
+** Week 11: Dynamic inquisitive semantics
 :PROPERTIES:
 :CUSTOM_ID: inq
 :END:
+
+- [[./handout8.pdf][Handout]]
 
 *** Recommended readings
 
 - [cite:@DotlacilRoelofsen2019]
 - [cite:@DotlacilRoelofsen2021]
   
-** Week 11: Dynamic semantics and the grammar
-:PROPERTIES:
-:CUSTOM_ID: gramm
-:END:
-
-*** Recommended readings
-
-- [cite:@Schlenker2005]
-- [cite:@Chierchia2020]
-- [cite:@Elliott2020b]
-  
-
 * References
   
 #+print_bibliography:
