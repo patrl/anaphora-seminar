@@ -1,0 +1,890 @@
+#+title: Discourse referents inside and out
+#+author: Patrick D. Elliott 
+#+bibliography: ~/texmf/bibtex/bib/master.bib
+#+setupfile: handout-template-complete.org
+#+OPTIONS: ':t
+#+cite_export: biblatex
+
+* Introduction
+
+#+begin_quote
+"Consider a device designed to read a text in some natural language,
+interpret it, and store the content in some manner, say, for the purpose
+of being able to answer questions about it. To accomplish this task,
+the machine will have to fulfill at least the following basic requirement.
+It has to be able to build a file that consists of records of all the
+individuals, that is, events, objects, etc., mentioned in the text and, for
+each individual, record whatever is said about it. Of course, for the time being at least, it seems that such a text interpreter is not a practical idea, but this should not discourage us from studying in abstract what kind of capabilities the machine would have to possess, provided that our study
+provides us with some insight into natural language in general." [cite:@Karttunen1976]
+#+end_quote
+
+The notion of a /discourse referent/ emerged from the work of Lauri Karttunen and David Lewis [cite:@Karttunen1976;@Lewis1979], during a time of general optimism concerning connections between linguistic theory and artificial intelligence research. The central idea is that discourse participants introduce and manipulate /variables/ corresponding to individuals mentioned over the course of a conversation.
+
+#+name: example1
+#+begin_exe
+\ex
+\begin{xlist}
+\ex A\(^x\) woman was bitten by a\(^y\) dog.
+\ex She\(_x\) hit it\(_y\).
+\ex It\(_y\) jumped over a\(^z\) fence.
+\end{xlist}
+#+end_exe
+
+This powerful idea subsequently informed dynamic approaches to meaning, which essentially model anaphora as a kind of cross-referencing device [cite:@Heim1982;@GroenendijkStokhof1991]. In this course, we'll primarily be interested in /dynamic semantics/ proper, rather than discourse representation theories [cite:@Kamp1981], which are often grouped under the same umbrella.[fn:9]
+
+The dynamic slogan:
+
+#+begin_quote
+"You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" [cite:@Veltman1996].
+#+end_quote
+
+Some initial questions:
+
+- Is the dynamic slogan a good characterization of the dynamic project?
+- What does dynamic semantics commit us to as a theory of subsentential compositionality?
+- Does dynamic semantics provide an /explanatory/ theory of the phenomena it purports to account for? How might it be made more explanatory?
+- Relatedly, what does dynamic semantics teach us about the semantics of logical vocabulary, and how they interact with non-truth-conditional dimensions of meaning?
+  
+* File change semantics: context and composition
+
+** Linguistic motivations
+*** Pronoun puzzles
+
+Pronouns can be used /deictically/. The sentence in ([[deictic1]]) may be uttered, for example, while pointing at a corgi.
+
+#+name: deictic1
+#+begin_exe
+\ex *It*'s playing outside.
+#+end_exe
+
+Pronouns may also be interpreted as /bound variables/:
+
+#+name: bound1
+#+begin_exe 
+\ex No girl wants to be like *her* mother.
+#+end_exe
+
+An informal paraphrase of the meaning of ([[bound1]]) is: /no girl \(x\) is s.t., \(x\) wants to be like \(x\)'s mother/.
+
+Pronouns can also be /discourse anaphoric/ on an indefinite antecedent as in ([[discourse1]]). This is crucially not the same as the deictic use, as there does not have to be any salient individual present which the pronoun is intended to refer to.
+
+#+name: discourse1
+#+begin_exe
+\ex A boy is waiting outside. Will you talk to *him*? 
+#+end_exe
+
+In the past, these kinds of cases were taken to involve /coreference/, on the assumption that indefinites had a referential reading.
+
+There are some uses of pronouns which do not seem to involve coreference, nor be interpreted as bound variables.
+
+#+name: ex:beg1
+#+begin_exe
+\ex Every philosopher who had *a question* asked *it*.
+#+end_exe
+
+An attempt at solving this puzzle was to posit yet another reading of pronouns as covert definite descriptions (the "E-type" reading) [cite:@Evans1977].
+
+#+name: ex:beg2
+#+begin_exe
+\ex Every philosopher who had *a question* asked *the question that he had*.
+#+end_exe
+
+This was also intended to replace the referential analysis of cases like ([[discourse1]]).
+
+#+name: ex:beg3
+#+begin_exe
+\ex A boy is waiting outside. Will you talk to *the boy waiting outside*?
+#+end_exe
+
+A problem for the (simplest conception) of the E-type approach: failures of uniqueness. Heim's famous sage plant sentence poses a vivid illustration. Context: /sage plants are only sold in flats of nine/.
+
+#+name: ex:sage
+#+begin_exe
+\ex Everyone who bought a sage plant here bought it together with eight others.
+#+end_exe
+
+Other examples making a similar point (from [cite:@Kamp1981] and others):
+
+#+name: ex:bishop
+#+begin_exe
+\ex When a bishop meets another bishop, he blesses him.
+\ex Everyone who had a credit card used it.
+\ex I have a pen. It's in my bag.
+#+end_exe
+
+Assumption in dynamic semantics: pronouns are /always/ variables. Provide a uniform theory of all of these cases.
+
+*** Background to FCS: Pronouns as variables
+
+The received wisdom in classical semantics is that /pronouns are variables/ [cite:@HeimKratzer1998;@Montague1973;@Buring2005]. A variable is a simple term whose denotation is dependent on an /assignment/, i.e., a function from variables to individuals. 
+
+- him\(_x \Rightarrow x\)
+- \(\eval*[g]{x} = g_x\)
+
+For the time being, let's assume that assignments are /total functions/ from a stock of variables \(V\) to individuals. Assuming that \(V = \set{x,y,z}\), some possible assignments:
+
+
+\[g_1 := \left[\begin{aligned}[c]
+&x \to \mathtt{bunny}\\
+&y \to \mathtt{louise}\\
+&z \to \mathtt{popeye}
+\end{aligned}
+\right]
+%
+\quad
+%
+g_2 := \left[\begin{aligned}[c]
+&x \to \mathtt{bunny}\\
+&y \to \mathtt{bunny}\\
+&z \to \mathtt{louise}
+\end{aligned}
+\right]
+%
+\quad
+%
+g_3 := \left[\begin{aligned}[c]
+&x \to \mathtt{louise}\\
+&y \to \mathtt{louise}\\
+&z \to \mathtt{louise}
+\end{aligned}
+\right]
+\]
+
+Some impossible assignments:
+
+\[\left[\begin{aligned}[c]
+&x \to \mathtt{bunny}\\
+&y \to \mathtt{louise}\\
+\end{aligned}
+\right]
+%
+\quad
+%
+\left[
+\right]\]
+
+Assignments are assumed to be contextually-furnished, and the information provided by assignments flows /top down/, thanks to how functional applications are interpreted.
+
+\[\eval*[g]{\alpha(\beta)} = \eval*[g]{\alpha}(\eval*[g]{\beta})\]
+
+This models (partially) the deictic use. A sentence with a deictic pronoun translates to a formula with a corresponding free variable. The resulting denotation is fundamentally assignment-sensitive.
+
+\[\eval*[g]{\mathbf{playingOutside}(x)} = \mathtt{playingOutside}(g_x)\]
+
+In order to capture the bound-variable use, we introduce a special kind of \(\lambda \)-term - namely, a /functional abstraction/.[fn:1] 
+
+\[\eval*[g]{\lambda x \,.\,\alpha  } = f\text{ such that }f(a) = \eval*[g^{[x \to a]}]{\alpha }\] 
+
+The abstraction parameter manipulates the assignment of interpretation.
+
+#+begin_quote
+"We can think of an assignment as a store, albeit an infinite one, that
+assigns values to variables, with the role of \(.^{[x \to a]}\) being that of updating the store." [cite:@Carpenter1998]
+#+end_quote
+
+This captures the /bound variable/ use of pronouns in the way that we're all familiar with, for a sentence such as "every dog chased its tail".
+
+\[\mathbf{everyDog}(\lambda x\,.\,\mathbf{chase}(\mathbf{theTail}(x))(x))\]
+
+\[\eval*[g]{\lambda x\,.\,\mathbf{chase}(\mathbf{theTail}(x))(x))} = f\text{ s.t. }f(a) = \mathtt{chase}(\mathtt{theTail}(a))(a) \]
+
+This approach has some obvious limitations, in light of examples discussed in the previous section.
+
+** The dynamic notion of content
+*** Stalnakerian pragmatics
+
+Our account of deictic pronouns is incomplete in a way which relates to how we account for discourse anaphora (what does it mean for an assignment function to be "furnished by the context?"). We'll build on Stalnaker's influential proposal [cite:@Stalnaker1976;@Stalnaker2002] that conversational contexts can be modeled as sets of possible worlds - the worlds that are accepted by the participants of a conversation.
+
+The Stalnakerian notion of context bundles all information into a single format - propositional content. The ignorance/initial state is logical space \(W\), and the absurd state is the empty set. Update is defined as follows (in a bivalent setting - we discuss presupposition in section [[Presupposition in FCS]]):
+
+- \(c[\alpha] = c \cap \set{w | \eval*{\phi}(w) = 1}\)
+
+A brief illustration: consider a universe in which the only facts concern whether it's snowing and or raining.
+
+- \(W = \set{w_\emptyset , w_s, w_r, w_{sr}}\)
+- \(\text{it's raining} \Rightarrow \lambda w\,.\,\mathbf{raining}_w\)
+- \(\set{w | \mathbf{raining}_w } = \set{w_r,w_{rs}}\)
+- \(c[\text{it's raining} ] = W \cap \set{w_r,w_{rs}} = \set{w_r,w_{rs}}\)
+
+*** File contexts: the intuition
+
+The /dynamic/ notion of contexts is a extension of the Stalnakerian notion [cite:@Karttunen1976;@Lewis1979;@Heim1982]. The basic idea is that certain expressions, such as indefinites, trigger a representation consisting of a placeholder/label together with some information associated with that label. Consider the following contrast:
+
+#+begin_exe
+\ex David is raconteuring. ??I heard *it* before.<<david1>>
+\ex David is telling *a story*. I heard *it* before.<<david2>>
+#+end_exe
+
+Although an idealization, let's assume, for the sake of argument that the sentences "David is raconteuring" and "David is telling a story" are contextually equivalent. This means that they should induce the same change in \(c\) - so why is it that ([[david1]]) sounds odd, in comparison to ([[david2]])? The dynamic solution: content is sensitive not just to what is conveyed, but /how/ it is conveyed.
+
+The sentence "David is telling *a story*" triggers the creation of a new label \(x\), with the information that \(x\) is a story told by David. The subsequent sentence "I heard *it* before" adds the information that the speaker heard \(x\) before. We can cash out this intuition directly in the meta-language, as follows:
+
+\[\braket{x : \mathtt{story}(x), \mathtt{telling}(x)(\mathtt{david})}\]
+
+The file metaphor: variables correspond to files. Utterances with indefinites and pronouns trigger (i) the creation of a new file, and (ii) filing information in an existing file (respectively).
+
+#+begin_quote
+"A listener's task of understanding what is being said in the course of a conversation bears relevant similarities to a file clerk's task. Speaking metaphorically, let me say that to understand an utterance is to keep a file which, at every time in the course of the utterance, contains the information that has so far been conveyed by the utterance." [cite:@Heim1983a]
+#+end_quote
+
+*** Modeling file contexts
+
+A way of modeling this using conceptual primitives we're familiar with: a /file/ is a set of world-assignment pairs (we'll refine this in a little while).
+
+- \(F_4 = \set{(w,g) | \mathtt{storyToldByDavid}_w(g_x)}\)
+
+This will be a set consisting of worlds where there exists some story told by David \(s\), paired with assignments where the variable \(x\) is mapped to \(s\). The file corresponding to "David is raconteuring" will, by conjecture, just contain the following. N.b. that \(g\) isn't mentioned in the predicate.
+
+\[F_5 = \set{(w,g) | \exists s[\mathbf{storyToldByDavid}_w(s)]}\]
+
+#+begin_definition
+Truth of a file. \(\mathbf{true}_w(F) \iff \exists g[(w,g) \in F]\)
+#+end_definition
+
+We can now give a useful definition: the /world set/ of a file (following [cite:@Heim1982]).
+
+#+begin_definition
+The world set of a file $F$, $F_w$, is defined as follows:[fn:2]\\
+\(F_w = \set{w | (w,*) \in F}\)
+#+end_definition
+
+\(F_4,w = F_5,w\) - both convey the information that David is telling a story.
+
+- For \(F_5\) this is trivial.
+- For \(F_4\), this is because each world in the file must contain some story \(s\) told by David, so that the paired assignment can map \(x\) to \(s\).  
+  
+Another useful definition is the /satisfaction set/ of a particular world in a file.
+
+#+begin_definition
+The satisfaction set at file \(F\) of a world \(w \in F\), \(\mathbf{sat}_F(w)\), is defined as follows:\\
+\(\mathbf{sat}_F(w) = \set{g | (w,g) \in F}\)
+#+end_definition
+
+\(\mathbf{sat}_F\) maps worlds to the set of the assignments they are paired with in \(F\). Every world \(w \in F_5\) is mapped to an empty satisfaction set. Each world \(w \in F_4\) is mapped to the set of assignments which map \(x\) to a story told by David in \(w\). N.b. in some worlds, David may tell multiple stories, in which case the satisfaction set will contain many such assignments.
+
+Imagine that the initial context contains at least the following worlds:
+
+- \(w_1\): David tells exactly one story, \(s_1\)
+- \(w_2\): David tells exactly one story, \(s_2\)
+- \(w_{12}\): David tells two stories, \(s_1,s_2\)
+- \(w_{\emptyset }\): David doesn't tell any stories, \(s_1,s_2\)
+  
+The file of the context after an utterance of "David is telling a\(_x\) story", will contain (at least) the following information:
+
+\[F = \begin{aligned}[t]
+&\set{(w_1,g)|g_x = s_1}\\
+&\cup \set{(w_2,g)|g_x = s_2}\\
+&\cup \set{(w_{12},g)|g_x = s_1}\\
+&\cup \set{(w_{12},g)|g_x = s_2}
+\end{aligned}
+\] 
+
+- \(\mathbf{sat}_F(w_1) = \set{g | g_x = s_1}\)
+- \(\mathbf{sat}_F(w_2) = \set{g | g_x = s_2}\)
+- \(\mathbf{sat}_F(w_{12}) = \set{g | g_x = s_2 \vee g_x = s_1}\)
+  
+** File change semantics: the basics
+
+*** Context Change Potentials
+
+Heim's conjecture: sentences /by virtue of their semantic value/ operate directly on file contexts, hence - /file change semantics/.
+
+The "dynamic slogan" (mentioned in the syllabus):
+
+#+begin_quote
+"You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" [cite:@Veltman1996]
+#+end_quote
+
+Sentential meanings, for Heim will be /functions from files to files/, which she calls /Context Change Potentials/ (CCPs). So far we haven't said anything about indefinites vs. definites. Here's the intuition we'd like to capture: Indefinites introduce new labels in the file, and may not add information to existing labels. Considering the following example:
+
+#+name: novelty1
+#+begin_exe
+\ex A man walked in. A man sat down.
+#+end_exe
+
+It seems to be a fact that a sentence like ([[novelty1]]) can convey a file like ([[file1]]) but not like ([[file2]]).
+
+#+begin_exe
+\ex \(\braket{x : \mathtt{man}(x) \wedge \mathtt{walkedIn}(x), y: \mathtt{man}(y) \wedge  \mathtt{satDown}(y)}\)<<file1>>
+\ex \(\braket{x : \mathtt{man}(x) \wedge \mathtt{walkedIn}(x), \mathtt{satDown}(x)}\)<<file2>>
+#+end_exe
+
+*** /Novelty/ as a file-level notion
+
+One way of understanding this is that "A\(_x\) man sat down" is infelicitous if uttered after "A\(_x\) man walked in", however "A\(_y\) man sat down" is felicitous if uttered after "A\(_x\) man walked in". As Heim explains, we can check whether or not a variable \(x\) is "unused" in a file, if the file never discriminates between assignments that differ only at \(x\).
+
+#+name: def:novelty
+#+begin_definition
+Novelty of a variable with respect to a file.
+\[\mathbf{nov}_F(x) := \forall w, \forall g, \forall g'[g[x]g' \rightarrow ((w,g) \in F \iff (w,g') \in F)]\]
+#+end_definition
+
+In more informal terms: a variable \(x\) is /novel/ with respect to a file \(F\) iff, for any two assignments \(g\) and \(g'\) which differ /only/ in the value they assign to \(x\), \(F\) never distinguishes between \((w,g)\) and \((w,g')\), for any world \(w\).
+
+First, we can ask, for an initial context \(c_\top\), whether any given variable counts as novel. If we define the initial, or ignorance context as the product of logical space and the set of possible assignments, then it is easy to see that every variable will indeed be novel with respect to \(c_\top\) - for every world \(w \in W\), and every assignment \(g \in D_g\), \((w,g) \in c_\top\), so \(c_\top\) never distinguishes between any assignments by definition. 
+
+#+begin_fact
+Given a stock of variables \(V\), \(\forall v \in V[\mathbf{nov}_{c_\top}(v)]\).
+#+end_fact
+
+Consider how the initial context changes after an assertion of the sentence "a\(^x\) man walked in". We retain the world assignment pairs \((w,g) \in c_\top\), such that \(g\) assigns \(x\) to a man who walked in, in \(w\).
+
+#+name: ex:manwalkedin
+#+begin_exe
+\ex \(c' = \set{(w,g)|\mathbf{manWalkedIn}_w(g_x) \wedge (w,g) \in c_\top}\)
+#+end_exe
+
+Is \(x\) still novel with respect to \(c'\)? No! That's because \(c'\) places constraints \(x\); namely, it will contain a world-assignment pair \((w,g)\) where \(g_x\) is a man who walked in, in \(w\), but it won't contain a world-assignment pair \((w,g')\), where \(g'\) differs minimally from \(g\) in that \(g'_x\) isn't a man who walked in, in \(w\). The intuition that definition [[def:novelty]] captures is therefore whether or not a given file places constraints on the value of a discourse referent.
+
+What Heim goes on to suggest is that update of a context \(c\) with a sentence containing an indefinite indexed \(x\), such as "a\(^x\) man walked in" is defined just in case \(x\) is novel wrt \(c\). Consequently, if we have a sequence of utterances such as a "a\(^x\) man walked in; a\(^y\) man sat down", \(x \neq y\), otherwise updating \(c[\text{a}^x\text{ man walked in}]\) with "a\(^y\) man sat down" will be undefined.
+
+*** Familiarity
+
+A wholly derivative notion, which we'll use for the semantics of definites, is /familiarity/:
+
+#+begin_definition def:fam
+Familiarity of a variable with respect to a file.
+\[\mathbf{fam}_F(x) := \neg\ \mathbf{nov}_F(x) \]
+#+end_definition
+
+For sentences such as "He\(_x\) sat down"? Ignoring phi features, we can say that pronouns indexed \(x\) require that \(x\) /not/ be novel with respect to the file context, i.e., that the file context places constraints on the identity of \(x\). As we've discussed, one way in which a variable \(x\) can become familiar with respect to a file context is via a previous assertion involving a variable indexed \(x\). Heim suggests that variables can also become novel if the file context becomes constrained by salient features of the environment, in order to account for deictic pronouns.
+
+*** Presupposition in FCS
+
+The kinds of presuppositions we're entertaining here are different to presuppositions in a Stalnakerian setting. Recall that, for Stalnaker, contexts are sets of /evaluation points/ - instead of taking evaluation points to be world-assignment pairs, Stalnaker takes them to be worlds, as an idealization. An initial context, for Stalnaker, is just logical space.
+
+A classical analysis of presupposition, in a Stalnakerian setting: Sentences with presuppositions are translated into formula which denote functions from worlds to a (trivalent) truth-value.[fn:3]  A simple-minded implementation using Beaver's \(\delta \)-operator [cite:@Beaver2001].
+
+#+name: ex:tri
+#+begin_exe
+\ex \(
+\begin{aligned}[t]
+&\text{Gabrielle stopped smoking}\\
+&\Rightarrow \lambda w\,.\,\delta(\mathbf{usedToSmoke}_w(\mathbf{gab})) \wedge \neg\ \mathbf{smokesNow}_w(\mathbf{gab})
+\end{aligned}\)
+#+end_exe
+
+"Gabrielle stopped smoking" denotes a function which maps a world \(w\) to:
+
+- \(\mathbf{1}\) if Gabrielle used to smoke and doesn't smoke anymore in \(w\), 
+- \(\mathbf{0}\) if Gabrielle used to smoke and still smokes in \(w\), 
+- \(\mathbf{\#}\) if Gabrielle never smoked in \(w\), 
+  
+In order to model how partial propositions place requirements on the context, we need a bridge principle.
+
+#+begin_definition
+Stalnaker's bridge principle.
+
+\[c[\phi] = \begin{cases}
+c \cap \set{w | \eval*{\phi}(w) = 1}&\forall w\in c[\eval*{\phi}(w) = 1 \vee \eval*{\phi}(w) = 0]\\
+\text{undefined}&\text{else} 
+\end{cases}\]
+#+end_definition
+
+Stalnaker's bridge amounts to the requirement that the presupposition of a given sentence \(\phi \) be true at every evaluation point \(w \in c\) in order for \(c[\phi]\) to be defined. If \(c[\phi]\) is defined, then the resulting context is arrived at by picking out just the worlds \(w \in c\) at which \(\phi \) is true. 
+
+The idea that presuppositional expressions induce a truth-value gap [cite:@Strawson1950] interacts with Stalnaker's bridge - a pragmatic principle - in order to give rise to the prediction that the presuppositions of a sentence \(\phi \) must be entailed by \(c\) in order for \(c[\phi]\) to be defined. 
+
+Alternatively, we might have decided to build the effect of a asserting a sentence \(\phi \) directly into its semantic value, as in ([[ex:ccp1]]):
+
+#+name: ex:ccp1
+#+begin_exe
+\ex \(\text{It's raining} \Rightarrow \lambda c\,.\,c \cap \set{w | \mathbf{raining}_w}\)
+#+end_exe
+
+This would mean that sentence could place requirements on as part of their semantic value.
+
+#+name: ex:ccp2
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&\text{Gabrielle stopped smoking}\\
+&\Rightarrow \lambda c\,.\,\begin{cases}
+\set{w | w \in c \wedge \neg\ \mathbf{smokesNow}_w(\mathbf{gab})}&c \subseteq \set{w | \mathbf{usedToSmoke}_w(\mathbf{gab})}\\
+\text{undefined}&\text{else}  
+\end{cases}
+\end{aligned}\)
+#+end_exe
+
+Recall the "dynamic slogan", mentioned in the class syllabus.
+
+Why wouldn't we want to make this move? A semantics which treats sentence meanings as functions from contexts to contexts gives the semantics a lot of additional expressive power, and fails to capture certain generalizations about how assertions affect the context set. The precise reason that these kinds of CCPs are gratutitous is because they are \textit{distributive} and \textit{eliminative}, which means that they admit a /static reformulation/ [cite:@GroenendijkStokhof1991a].
+
+So much for the Stalnakerian view of presuppositions - back to novelty in FCS. The notion /novelty of a variable with respect to a file/ was crucially defined relative to /files/ rather than individual evaluation points. Note that there's no way to determine, just by looking at individual Heimian evaluation points, whether or not a variable is novel with respect to the file at which a sentence is evaluated.
+
+Since the novelty requirement is taken to be induced by a linguistic feature of particular sentences (i.e., indefiniteness), there is apparently no escape from treating sentences as functions from files to files (i.e., CCPs).
+
+The CCP of a sentence containing an indefinite:
+
+#+name: ex:ccp-heim1
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&\text{A}^x\text{ man walked in}\\
+&\Rightarrow \lambda F \,.\,\begin{cases}
+\set{(w,g)|(w,g) \in F \wedge \mathbf{manWalkedIn}_w(g_x)}&\mathbf{nov}_F(x)\\
+\text{undefined}&\text{else}  
+\end{cases}
+\end{aligned}\)
+#+end_exe
+
+The CCP of a sentence containing a pronoun:
+
+#+name: ex:ccp-heim2
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&\text{He}_x\text{ sat down}\\
+&\Rightarrow \lambda F\,.\,\begin{cases}
+\set{(w,g)|(w,g) \in F \wedge \mathbf{satDown}_w(g_x)}&\mathbf{fam}_F(x)\\
+\text{undefined}&\text{else}  
+\end{cases}
+\end{aligned}\)
+#+end_exe
+
+In FCS, our bridge principle is radically simplified. Update simply amounts to passing the file context in as the argument of the CCP.
+
+#+begin_definition
+Heim's bridge principle: \(c[\phi] := \eval*{\phi}(c)\)
+#+end_definition
+
+Successive assertions give rise to successive update of the context.
+
+At the heart of the account of discourse anaphora is the fact that a sentence with an indefinite such as "A\(^x\) man walked in" renders \(x\) no longer novel with respect to the updated file, satisfying the preconditions of a sentence such as "He\(_x\) sat down".
+
+#+name: 
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&c[\text{a}^x\text{ man walked in}]\\
+&= \begin{cases}
+\set{(w,g)|(w,g) \in c \wedge \mathbf{manWalkedIn}_w(g_x)}&\mathbf{nov}_c(x)\\
+\text{undefined}&\text{else}
+\end{cases}
+\end{aligned}\) 
+#+end_exe
+
+If update is successful, the result is an updated context \(c'\), such that \(x\) is no longer novel with respect to. This is because \(c'\) discriminates between assignments which differ only with respect to \(x\) - \((w,g)\) is in \(c'\), where \(g_x\) is a man who walked in in \(w\), whereas \((w,g')\) isn't in \(c'\), where \(g'\) is any assignment that minimally differs from \(g\) in mapping \(x\) to an individual that isn't a man who walked in in \(w\). 
+
+#+name: 
+#+begin_exe
+\ex \(c'[\text{he}_x\text{ sat down}] = \begin{cases}
+\set{(w,g)|(w,g) \in c' \wedge \mathbf{satDown}_w(g_x)}&\mathbf{fam}_c(x)\\
+\text{undefined}&\text{else}
+\end{cases}
+\)
+#+end_exe
+
+Since this update is guaranteed to be defined, successive update has the following result:
+
+#+name: 
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&c[\text{a}^x\text{ man walked in}][\text{he}_x\text{ sat down}]\\
+&= \begin{cases}
+\set{(w,g)|(w,g) \in c \wedge \mathbf{manWalkedIn}_w(g_x) \wedge \mathbf{satDown}_w(g_x)}&\mathbf{nov}_c(x)\\
+\text{undefined}&\text{else}  
+\end{cases}
+\end{aligned}\) 
+#+end_exe
+
+The intuition here is that successive update amounts to passing the context as the file argument of the first sentence, and then passing the resulting output file as the file argument of the second sentence. We can define an operator to perform successive update. This turns out to just be function composition. We'll write it as \(;\), and it will play a prominent role in FCS.[fn:4][fn:7]
+
+#+begin_definition
+The dynamic sequencing operator \(;\).
+
+\[p;q := \lambda F\,.\,q(p(F))\]
+#+end_definition
+
+At this point, it will be useful to define some types. Let's use \(T\) as the type of a CCP.
+
+The dynamic sequencing operator is of type \(T \to T \to T\).
+
+The sequencing operator famously serves as the meaning of conjunction in FCS. Assuming a standard Kaynean syntax for conjunction:
+
+#+name: def:conj
+#+begin_exe
+\ex \(\text{and} \Rightarrow \lambda q\,.\,\lambda p\,.\,p ; q\)\hfill\(T \to T \to T\)
+#+end_exe
+
+We'll have more to say about other logical vocabulary in FCS as we progress.
+
+A direct consequence of this definition is that successive update \(c[\phi][\psi]\) is exactly equivalent to \(c[\phi \text{ and }\psi]\). 
+
+Since dynamic sequencing is just function composition, it inherits the logical properties of function composition, e.g., it is associative. This means we'll often omit parentheses when sequencing.
+
+\[(\phi ; \psi) ; \pi \iff \phi ; (\psi ; \pi)\]
+
+Both of the following are equivalent:
+
+#+name: ex:assoc
+#+begin_exe
+\ex
+\begin{xlist}
+\ex A\(^x\) man walked in and he\(_x\) sat down. He\(_x\) started fidgeting.
+\ex A\(^x\) man walked in. He\(_x\) sat down and he\(_x\) started fidgeting.
+\end{xlist}
+#+end_exe
+
+Similarly, dynamic sequencing is not necessarily commutative (although some CCPs commute). This reflects the fact that some CCPs can set up the preconditions for other CCPs to apply.
+
+#+name: ex:comm
+#+begin_exe
+\ex A\(^x\) man walked in and he\(_x\) sat down.
+\ex ?He\(_x\) walked in and a\(^x\) man sat down.<<ex:comm2>>
+#+end_exe
+
+FCS predicts the CCP of ([[ex:comm2]]) to be undefined for /any/ file context.  It's often assumed that FCS (and dynamic semantics more generally) explains why discourse anaphora displays a left-to-right bias, as illustrated by ([[ex:comm]]).
+
+#+begin_tcolorbox
+It's important to note that all of the results stated so far must be assessed in light of a compositional proposal with sufficient resources for scope-taking. We'll come back to this. 
+#+end_tcolorbox
+
+Before talking about subsentential compositionality (and donkey anaphora!) in FCS, we'll consider a partial variant of FCS.
+
+*** A partial variant
+
+Based on how novelty is defined, a variable is novel wrt a file as long as the file places no substantive restrictions on its identity. Heim immediately identified an issue with this notion - since pronouns presuppose that their variable is non-novel, the presupposition of a pronoun is predicted to not be met in the following discourse.
+
+#+name: ex:contingent
+#+begin_exe
+\ex Something\(^x\) is identical to itself. It\(_x\) is a book.
+#+end_exe
+
+The problem here is that if our initial context is he set of all assignment-world pairs, tautological statements which (by conjecture) introduce discourse referents can't be distinguished from those that don't! The following sentences result in identical updates to the input file context, as long as \(x\) is novel with respect to the input file:
+
+#+name: ex:contingent2
+#+begin_exe
+\ex Something\(^x\) is identical to itself.
+\ex Gabe is identical to himself.
+#+end_exe
+
+In her dissertation, Heim addresses this issue by giving files an additional domain parameter [cite:@Heim1982].  Several researchers have adopted a variant of FCS which uses partial assignments, as suggested by Heim [cite:@Heim1983a]. See, e.g., [cite:@Yalcin2013;@RothschildMandelkern2017;@Mandelkern2020a;@Heim2017;@Elliott2020a].[fn:6] Partial assignments will be familiar from, e.g., [cite:@HeimKratzer1998]. A partial assignment is a /partial/ function from variables to individuals, i.e., a function whose domain is a subset of the stock of variables. This includes the empty/initial assignment \(g_\top  \), whose domain is the empty set. 
+
+In a partial setting, its natural to model the initial/ignorance file context in the following way:
+
+- \(c_\top = W \times \set{g_\top}\) 
+
+Assuming we have a universe consisting of four worlds, which vary according to whether \(a,b\) walked in, the initial context will look like the following:
+
+- \[c_\top = \set{(w_\emptyset,g_\top),(w_a,g_\top),(w_b,g_\top),(w_{ab},g_\top)}\]
+
+We cash out the familiarity presupposition in the following way: a pronoun indexed \(x\) in this setting requires that \(x\) be in the domain of every assignment in the file context. 
+
+#+name: 
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&\text{he}_x\text{ walked in}\\
+&\Rightarrow \lambda F\,.\,\begin{cases}
+\set{(w,g)|(w,g) \in F \wedge \mathbf{walkedIn}_w(g_x)}&\forall (*,g) \in F[x \in \mathbf{dom}(g)]\\
+\text{undefined}&\text{else}  
+\end{cases}
+\end{aligned}\)
+#+end_exe
+
+This presupposition clearly doesn't hold in the initial file context. So far so good.
+
+So much for pronouns, what about indefinites? Just as before, novelty and familiarity are two sides of the same coin. What's different now is that sentences with indefinites output file contexts which contain modified assignments.[fn:5] 
+
+#+name: 
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&\text{someone}^x\text{ walked in}\\
+&\Rightarrow \lambda F\,.\,\begin{cases}
+\set{(w,g^{[x \to a]})|(w,g) \in F \wedge \mathbf{walkedIn}_w(a) \wedge a \in D_e}&\forall (*,g) \in F[x \notin \mathbf{dom}(g)]\\
+\text{undefined}&\text{else}  
+\end{cases}
+\end{aligned}\)
+#+end_exe
+
+Let's consider what happens when we update \(c_\top \) with "someone\(^x\) walked in". The update is trivially defined in the file context, since every assignment has an empty domain.
+
+#+name: 
+#+begin_exe
+\ex 
+\(\begin{aligned}[t]
+&c_\top[\text{someone}^x\text{ walked in}]\\
+&= \set{(w,g^{[x \to a]})|(w,g) \in c_\top \wedge \mathbf{walkedIn}_w(a) \wedge a \in D_e}\\
+&= \set{(w_a,[x \to a]),(w_b,[x \to b]),(w_{ab},[x \to a]),(w_{ab},[x \to b])}
+\end{aligned}\)
+#+end_exe
+
+N.b. that \(\mathbf{sat}(w_{ab})\) contains /two/ assignments; a sentence with an indefinite can multiply the evaluation points in a file context. A byproduct is that \(x\) is familiar (in the new sense) in the new setting.
+
+One immediate consequence of this is that we lose an (appealing?) logical property of Heim's original FCS, which it shares with classical Stalnakerian pragmatics - /eliminativity/ [cite:@GroenendijkStokhof1991a].
+
+#+begin_definition
+\(\phi\) is /eliminative/ iff \(c[\phi] \subseteq c\), \(\forall c\)
+#+end_definition
+
+Sentenes with indefinites convey non-eliminative updates. In the original FCS /all/ updates are eliminative. This is important, since eliminativity plays an important role in characterizing exactly what it means for a semantics to be "dynamic", together with /distributivity/. We'll talk more about this when we compare FCS to DPL (Heim's FCS is eliminative but non-distributive; DPL is distributive but non-eliminative) [cite:@Benthem1989].
+
+We're now in a position to understand exactly how to resolve the puzzle that arose from tautological statements. "Someone\(^x\) is self-identical" now /does/ have an effect on an input file context which, absent an indefinite, it would lack.  Updating the initial context we've been entertaining, with this sentence would have the following result, given a domain of individuals \(\set{a,b}\):
+
+#+name: 
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&c_\top[\text{someone}^x\text{ is self-identical}]\\
+&= \set{(w_\emptyset,[x \to a]),(w_\emptyset,[x \to b]),(w_a,[x \to a]),(w_a,[x \to b]),(w_{ab},[x \to a]),(w_{ab},[x \to b])}
+\end{aligned}\) 
+#+end_exe
+
+A sentence such as "Gabe is self-identical" on the other hand, would simply return the input context unchanged. 
+
+Something interesting we can note about this partial variant: the novelty/familiarity presupposition is cashed out as a universal requirement on every evaluation point in the domain. It seems tempting to treat sentences as being simply partial functions from /evaluation points/ to "files", allowing a Stalnakerian bridge principle to take care of the universal requirement on the file context. What we would end up with is a system where sentences denote something less expressive than a CCP.
+
+Unfortunately this is incompatible with the semantics of logical vocabulary, and the account of donkey anaphora, which involve positing operators which operate on CCPs. We'll resurrect this idea when we discuss /externally-dynamic dynamic semantics/ in a couple of weeks time [cite:@Elliott2020a].
+
+** Subsentential compositionality in FCS
+
+We'll switch back to classical FCS now, although the partial variant will be mentioned from time to time. 
+
+*** The indefinite article
+
+A remarkable property of FCS is that the indefinite article itself can be given a CCP (i.e., be treated as a sentence). This captures the core semantic contribution of indefiniteness - an indefinite article is a partial identity function on files which tests whether or not a variable is novel.
+
+#+name: ex:ccp-indef
+#+begin_exe
+\ex \(\text{a}^x \Rightarrow \lambda F\,.\,\begin{cases}
+F&\mathbf{nov}_F(x)\\
+\text{undefined}&\text{else}  
+\end{cases}\)\hfill\(T\)
+#+end_exe
+
+A natural consequence is a treatment of the restrictor and nuclear scope of a determiner as open formulas, just like sentences with pronouns.
+
+#+name: ex:ccp-restrictorscope
+#+begin_exe
+\ex \(t_x\text{ man} \Rightarrow \lambda F: \neg\ \mathbf{nov}_F(x)\,.\,\set{(w,g)|(w,g) \in F \wedge \mathbf{man}_w(g_x)}\)
+\ex \(t_x\text{ sat down} \Rightarrow \lambda F: \neg\ \mathbf{nov}_F(x)\,.\,\set{(w,g)|(w,g) \in F \wedge \mathbf{satDown}_w(g_x)}\)
+#+end_exe
+
+By conjecture, dynamic sequencing is generally available as a composition principle. The logical form Heim assumed for a sentences with indefinites in FCS.
+
+#+begin_export latex
+\begin{exe}
+\ex \begin{forest}
+  [{\(T\)\\\(;\)}
+  [{\(T\)\\\(;\)}
+    [{\(T\)\\a\(^{x}\)}]
+    [{\(T\)\\\(t_x\) man}]
+  ]
+    [{\(T\)\\\(t_x\) walked in}]
+  ]
+\end{forest}
+\end{exe}
+#+end_export
+
+How to derive this syntactically? One possibility: 
+
+- A determiner indexed \(x\) moves to the edge of the DP, leaving behind a trace \(t_x\).
+- The DP inherits its index from the D head.
+- The DP moves to the edge of the sentence, leaving behind a trace \(t_x\). 
+
+A design feature of FCS is that sentences with indefinites are essentially equivalent to introducing a novel variable, and sequentially adding information to it.
+
+#+name: ex:indefinite1
+#+begin_exe
+\ex A\(^x\) man walked in.
+\ex There is someone\(^x\). He\(_x\) is a man. He\(_x\) walked in.
+#+end_exe
+
+This property is responsible for the validity of /Egli's theorem/ in dynamic theories of meaning, including FCS. Egli's theorem states that sentences of the following kind are equivalent.
+
+\[\text{A}^x\text{ man [walked in and sat down]} \iff \text{A}^x\text{ man walked in and he}_x\text{ sat down}\]
+
+We'll talk about Egli's theorem when we discuss /Dynamic Predicate Logic/ [cite:@GroenendijkStokhof1991].
+
+*** Compositionality
+
+There are many reasons to be dissatisfied with FCS as a theory of subsentential compositionality. 
+
+Every natural language constituent is treated as either (i) a CCP, or (ii) an operator on CCPs. This is a somewhat inflexible mold.
+
+- To what extent is it compatible with concurrent developments in formal semantics, in the Montagovian tradition?
+- What do predicates mean in FCS?
+- Does dynamic semantics really commit us to specific syntactic transformations? Why?  
+  
+As we'll see next week, dynamic predicate logic sidesteps these questions entirely by shifting focus from natural language to a logical language - specifically, a simple first-order calculus. There are some virtues to this approach, as an idealization. It will allow us to focus on the logical properties of a dynamic approach to meaning, as well as the semantic contributions of logical vocabulary.
+
+This doesn't mean however that we shouldn't worry about these questions. We'll talk more about dynamic approaches to subsentential compositionality in week 3.
+
+*** Quantification
+
+#+name: ex:cat
+#+begin_exe
+\ex Every cat died.
+#+end_exe
+
+In FCS, universal quantifiers are higher-order operators on CCPs, just like other logical vocabulary. Unlike conjunction however, a quantificational determiner does not trigger simple successive updates, but does something more complex.  One way of cashing out the meaning of quantificational determiners in FCS is to assume a logical form like the one given in ([[ex:catlf]]), where the indefinite is silent.
+
+#+name: ex:catlf
+#+begin_exe
+\ex every [a\(^x\) cat] [\(t_x\) died]
+#+end_exe
+
+We'll need an auxiliary equivalence relation on assignments.[fn:8]
+
+#+begin_definition
+\(F\)-equivalence for assignments.
+
+\[g \sim_F g' \iff  g_x = g'_x, \forall x \in \set{x | \mathbf{fam}_F(x)}\]
+#+end_definition
+
+We'll use this to ensure that the quantifier ranges over all possible values for *novel* variables.  Now, the meaning of /every/ (definition taken from [cite:@Heim2017]).
+
+\[\mathbf{every}(p)(q) := \lambda F\,.\,\Set{(w,g)\in F|\begin{aligned}[c]
+&\forall g'[g' \sim_F g \wedge (w,g') \in p(F)\\
+&\rightarrow \exists g''[g'' \sim_{p(F)} g' \wedge (w,g'') \in q(p(F))]]
+\end{aligned}}\]
+
+What's happening here? Let's go through it step-by-step.
+
+- Tentatively update \(F\) with with the restrictor CCP \(p\), returning \(F'\).
+- Tentatively update \(F'\) with the nuclear scope CCP \(q\), returning \(F''\).
+- Now, for each world-assignment pair \((w,g) \in F\), run the following test: 
+  * Take every \(g'\), such that \((w,g')\) in \(F'\), and \(g' \sim_F g\).
+  * Check that there is some \(g''\), s.t. \((w,g'' \in F'')\) and \(g'' \sim_F' g''\).
+- Only keep those world assignment pairs \((w,g) \in  F\) that pass the test.
+  
+In order to understand how this works, it's worth going through a concrete example. Let's consider how "every [a\(^x\) cat] [\(t_x\) died]" updates an initial context \(c_\top\). Consider the following logical space \(W\), with domain \(a,b\):
+
+- \(w_\emptyset \): \(a,b\) are cats; neither died.
+- \(w_a\): \(a\) is a cat and \(b\) is a dog; both died.
+- \(w_b\): \(a,b\) are cats; only \(b\) died.
+- \(w_{ab}\): \(a,b\) are cats, both died.
+  
+Given a stock of variables \(x,y\), the initial state is given by taking the product of \(W\) and the set of possible assignments:
+
+\[\Set{\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right],\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right],\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right],\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]}\] 
+
+\[\begin{aligned}[t]
+&c_\top[\text{every cat died}]\\
+&= \Set{(w,g)\in F|\begin{aligned}[c]
+&\forall g'[g' \sim_F g \wedge (w,g') \in p(c_\top)\\
+&\rightarrow \exists g''[g'' \sim_{p(F)} g' \wedge (w,g'') \in q(p(c_\top))]]
+\end{aligned}}
+\end{aligned}
+\]
+
+Every variable is novel in \(c_\top\) so this can be simplified as follows:
+
+\[\begin{aligned}[t]
+&c_\top[\text{every cat died}]\\
+&= \Set{(w,g)\in F|\begin{aligned}[c]
+&\forall g'[(w,g') \in p(c_\top)\\
+&\rightarrow \exists g''[g'' \sim_{p(F)} g' \wedge (w,g'') \in q(p(c_\top))]]
+\end{aligned}}
+\end{aligned}
+\]
+
+Intuitively, we want the update /every cat died/ to retain pairs \((w_a,*),(w_{ab},*)\), and eliminate pairs \((w_\emptyset,*),(w_{b},*)\). We can subsitute the results of the tentative updates into the schema for a universally quantified sentence:
+
+\[\begin{aligned}[t]
+&c_\top[\text{every cat died}]\\
+&= \Set{(w,g)\in c_\top|\begin{aligned}[c]
+&\forall g'[(w,g') \in c_\top \wedge \mathbf{cat}_w(g'_x)\\
+&\rightarrow \exists g''[g'' \sim_x g' \wedge (w,g'') \in c_\top \wedge \mathbf{catThatDied}_w(g''_x)]]
+\end{aligned}}
+\end{aligned}
+\]
+
+What this says is that \((w,*)\) is retained in the output file context iff, every assignment \(g'\) paired with \(w\) that maps \(x\) to a cat is s.t. we can find an assignment \(g''\) that maps \(x\) to the same value, and \(g''\) maps \(x\) to a cat that died in \(w\). This will clearly succeed for \((w_a,*),(w_{ab},*)\), and fail for \((w_\emptyset,*),(w_b,*)\)
+  
+One of the original motivations for FCS was giving a semantic account of pronouns in sentences such as the following.
+
+#+name: ex:donkey
+#+begin_exe
+\ex Every philosopher who had a\(^y\) question asked it\(_y\).
+#+end_exe
+
+The extension to donkey anaphora is straightforward - the schema for universal quantification ensures that the quantifier ranges over all possible values for all novel variables in the input context.
+
+Logical form for ([[ex:donkey]]):
+
+- Every [ a\(^x\) philosopher] [\(t_x\) asked it\(_y\)]
+
+The FCS approach to donkey anaphora has some well known problems, which we'll return to in future classes, namely:
+
+- Weak readings [cite:@Chierchia1995;@Kanazawa1994].
+- The proportion problem
+  
+#+name: credit2
+#+begin_exe
+\ex Everyone who had a credit card used it.
+#+end_exe
+
+#+name: proportion
+#+begin_exe
+\ex Most men who own a donkey beat it.
+#+end_exe
+
+Predicted reading: most man-donkey-he-owns pairs \((m,d)\) are s.t. \(m\) beats \(d\).
+
+Falsifying scenario: /99 men own one donkey and don't beat it; one man owns 200 and beats them all./
+
+*** TODO negation and disjunction in FCS
+
+** Conclusion
+
+We've gone through the basics of FCS, arguably the first real dynamic semantic proposal.
+
+Several issues arose over the course of the discussion:
+
+- What makes FCS /dynamic/, as opposed to a more classic semantics that treats sentence meanings as functions from evaluation points to truth-values?
+- Is the additional expressive power afforded by CCPs in the semantics warranted?
+- Is /novelty/ as a file-level notion unavoidable?
+- How does logical vocabulary such as negation and disjunction interact with anaphora? Does FCS have a satisfying story (hint: it does not).
+- Does dynamic semantics inescapably wed us to a non-standard view of subsentential composition?
+  
+Many of these questions will become more acute next week, as we discuss /Dynamic Predicate Logic/ [cite:@GroenendijkStokhof1991], which eschews a treatment of natural language, in favor of providing a dynamic interpretation for a simple predicate calculus.
+
+This will help us to get to the heart of the dynamic treatment of anaphora, better understand its treatment of logical vocabulary, and the logical properties of the system as a whole.
+
+
+* Acknowledgements
+
+Aside from the cited sources, I owe a particular debt to Yasu Sudo, who first taught me file change semantics on the whiteboard of his office at UCL. Other unpublished resources I've found useful:
+
+- Chris Barker's class on FCS from his [[https://github.com/cb125/Dynamics][NYU dynamic semantics seminar]] in 2021.
+- Irene Heim's handouts from the 2017 installment of Topics in Semantics, MIT.
+- Matt Mandelkern and Daniel Rothschild's [[http://danielrothschild.com/esslli2017/][ESSLLI course notes]] on dynamic semantics.
+- Seth Yalcin's 2013 [[https://www.dropbox.com/s/4id64r39kj4c0q2/Yalcin%202013%20dynamic%20notes.pdf][introductory notes on dynamic semantics]].
+
+* References
+
+\printbibliography[heading=none]
+
+* Footnotes
+[fn:9] See [cite:@Chierchia1995] for a detailed comparison. 
+
+[fn:8] The presentation here is based on discussion in [cite:@Heim2017]. 
+[fn:7] [cite/t:@Chierchia1995] goes as far as to suggest that a semantics is /dynamic/ iff the meaning of conjunction is function composition. We'll see many reasons to reject this characterization in the following classes.
+
+[fn:6] Another possible resolution, which to my knowledge hasn't been explored in any depth, is to adopt a non-Lewisian logical foundation in which certain tautologies can be distinguished, such as truthmaker/situation semantics [cite:@Fine2017;@Fine2017a;@Fine2017b].
+
+[fn:5] This is essentially the /random assignment/ of dynamic predicate logic [cite:@GroenendijkStokhof1991]. We'll expand on this next week. 
+[fn:4] In more traditional mathematical notation, we'd write this as \(\psi \circ \phi\). I prefer \(\phi ; \psi\), as it more directly reflects information flow in a dynamic setting. 
+
+[fn:3] Here we use Beaver's \(\delta\) operator [cite:@Beaver2001], which maps \(\mathbf{1}\) to \(\mathbf{1}\), and \(\mathbf{0}\) to \(\mathbf{\#}\). We additionally assume that \(\wedge\) denotes /weak Kleene/ conjunction. 
+
+[fn:2] We use \(*\) as a wildcard over values (i.e., an implicitly existentially-quantified variable). 
+
+[fn:1] \(g[x \to  a]\) is the unique assignment that is identical to \(g\), except for mapping \(x\) to \(a\).
+
+* File local variables                                             :noexport:
+
+# Local Variables:
+# mode: org
+# org-latex-default-packages-alist: nil
+# org-latex-with-hyperref: nil
+# jinx-local-words: "CCPs"
+# End:

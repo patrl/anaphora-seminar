@@ -1,0 +1,4 @@
+#+LaTeX_CLASS: scrartcl
+#+LaTeX_CLASS_OPTIONS: [letterpaper,parskip=half]
+#+LaTeX_HEADER: \input{boilerplate}
+#+LaTeX_COMPILER: pdflatex
