@@ -1,0 +1,86 @@
+# Created 2022-02-14 Mon 09:49
+#+options: toc:nil
+#+title: Anaphora
+#+author: Patrick D. Elliott
+#+subtitle: HHU SoSe 2025 seminar
+#+LaTeX_CLASS: scrartcl
+#+LaTeX_CLASS_OPTIONS: [a4paper]
+#+LaTeX_HEADER: \KOMAoptions{parskip=half}
+#+LaTeX_HEADER: \usepackage{mlmodern}
+#+LaTeX_HEADER: \usepackage[T1]{fontenc}
+#+LaTeX_HEADER: \usepackage[margin=2.5cm,includehead=true,includefoot=true,centering]{geometry}
+#+LaTeX_HEADER: \usepackage{booktabs}
+#+bibliography: ../../texmf/bibtex/bib/master.bib 
+#+cite_export: biblatex style=unified,backend=biber
+
+* Course description
+
+#+begin_quote
+"Consider a device designed to read a text in some natural language,
+interpret it, and store the content in some manner, say, for the purpose
+of being able to answer questions about it. To accomplish this task,
+the machine will have to fulfill at least the following basic requirement.
+It has to be able to build a file that consists of records of all the
+individuals, that is, events, objects, etc., mentioned in the text and, for
+each individual, record whatever is said about it. Of course, for the time being at least, it seems that such a text interpreter is not a practical idea, but this should not discourage us from studying in abstract what kind of capabilities the machine would have to possess, provided that our study
+provides us with some insight into natural language in general." [cite:@Karttunen1976] 
+#+end_quote
+
+The notion of a /discourse referent/ emerged from the work of Lauri Karttunen and David Lewis [cite:@Karttunen1976;@Lewis1979a] , during a time of general optimism concerning connections between linguistic theory and artificial intelligence research. The central idea is that discourse participants introduce and manipulate /variables/ corresponding to individuals mentioned over the course of a conversation. This powerful idea subsequently informed dynamic approaches to meaning, which essentially model anaphora as a kind of cross-referencing device [cite:@Heim1982;@GroenendijkStokhof1991] . Frank Veltman crystalizes the 'slogan' of dynamic approaches to meaning as follows: "You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" [cite:@Veltman1996a].
+
+Irene Heim's foundational work on /file change semantics/ in the 80s lead to an explosion of insightful research applying this central idea to an impressive variety of empirical domains. At the same time, dynamic semantics incorporates powerful proprietary mechanisms for manipulating /contexts/ in an apparently arbitrary fashion, and even precompiles these mechanisms into the meanings of logical vocabulary such as "or". In this seminar we'll track developments in dynamic approaches to anaphora, starting from classical theories of (singular) pronouns and their indefinite antecedents, and eventually progressing to intricate theories of modality, plurality, and quantification. In parallel, we'll consider what exactly dynamic semantics commits us to, both as a theory of /content/, and as a theory of how semantic composition proceeds. A central goal will be a re-assessment of Veltman's slogan, in light of recent work that fine-tunes the division of labor between dynamic semantics and pragmatics [cite:@Mandelkern2022a;@Elliott2020f].  
+
+* Tentative schedule
+
+Seminars take place Tuesdays 16:30-18:00, in 2421.05.61 (Z20).
+
+| date       | topic                                |
+|------------+--------------------------------------|
+| April 8 | File Change Semantics                |
+| April 15 | File Change Semantics ii |
+| April 22 | Dynamic Predicate Logic |
+| April 29 |  Dynamic Predicate Logic ii |
+| May 6 | Subsentential dynamics |
+| May 13 | Subsentential dynamics ii           |
+| +May 20+ | No class                             |
+| May 27 | Anaphora and presupposition |
+| June 3 | Anaphora and presupposition ii |
+| June 10 | Anaphora and modality       |
+| June 17 |  Dynamic inquisitive semantics |
+| June 24 | Plural dynamic semantics |
+| +July 1+ | No class     |
+| July 8 | Student presentation |
+| July 15 | Student presentation                |
+
+* Materials
+
+Handouts and readings will be posted in the class rocketchat channel.
+
+* Prerequisites
+
+- At least one introductory class in compositional semantics, with
+  similar coverage to /Semantics in Generative Grammar/
+  [cite:@HeimKratzer1998].
+- At least one class covering basic formal methods, i.e., logic (up to first order), and set theory. 
+  
+* Contact information
+
+- Instructor: Patrick Elliott ([[https://patrickdelliott.com]])
+- Email: ~patrick.d.elliott@gmail.com~
+- Secretary: Tim Marton: ~tim.marton@phil.hhu.de~
+- For any content questions, please use the rocket chat channel.
+- Office hours: by appointment.
+
+* Assessment
+
+** Beteiligungsnachweis
+
+- Send me a short question about the weekly reading via rocketchat, by Monday evening (the day before class).
+  * This can be as simple as "what does [this definition] mean?", but please send something.
+  
+** Abschlussprüfung
+
+- One class presentation of a research paper.
+- A short research note (max 10 pages).
+  
+#+print_bibliography:

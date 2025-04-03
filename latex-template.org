@@ -9,5 +9,4 @@
 #+LaTeX_HEADER:\theoremstyle{definition}
 #+LaTeX_HEADER: \newtheorem{definition}{Definition}[section]
 #+LaTeX_HEADER: \usepackage{booktabs}
-#+LaTeX_HEADER: \usepackage{biblatex}
 #+LaTeX_HEADER: \usepackage{gb4e}

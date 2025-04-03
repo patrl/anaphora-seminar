@@ -1,0 +1,125 @@
+% Created 2025-04-03 Thu 11:17
+% Intended LaTeX compiler: pdflatex
+\documentclass[a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{braket}
+\KOMAoptions{parskip=half}
+\usepackage{mlmodern}
+\usepackage[T1]{fontenc}
+\usepackage[margin=2.5cm,includehead=true,includefoot=true,centering]{geometry}
+\usepackage{booktabs}
+\author{Patrick D. Elliott}
+\date{\today}
+\title{Anaphora\\\medskip
+\large HHU SoSe 2025 seminar}
+\hypersetup{
+ pdfauthor={Patrick D. Elliott},
+ pdftitle={Anaphora},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={},
+ pdflang={English}}
+\usepackage[style=unified,backend=biber]{biblatex}
+\addbibresource{../../texmf/bibtex/bib/master.bib}
+\addbibresource{~/texmf/bibtex/bib/master.bib}
+\begin{document}
+
+\maketitle
+\section{Course description}
+\label{sec:org8994dbc}
+
+\begin{quote}
+"Consider a device designed to read a text in some natural language,
+interpret it, and store the content in some manner, say, for the purpose
+of being able to answer questions about it. To accomplish this task,
+the machine will have to fulfill at least the following basic requirement.
+It has to be able to build a file that consists of records of all the
+individuals, that is, events, objects, etc., mentioned in the text and, for
+each individual, record whatever is said about it. Of course, for the time being at least, it seems that such a text interpreter is not a practical idea, but this should not discourage us from studying in abstract what kind of capabilities the machine would have to possess, provided that our study
+provides us with some insight into natural language in general." \autocite{Karttunen1976} 
+\end{quote}
+
+The notion of a \emph{discourse referent} emerged from the work of Lauri Karttunen and David Lewis \autocite{Karttunen1976,Lewis1979a} , during a time of general optimism concerning connections between linguistic theory and artificial intelligence research. The central idea is that discourse participants introduce and manipulate \emph{variables} corresponding to individuals mentioned over the course of a conversation. This powerful idea subsequently informed dynamic approaches to meaning, which essentially model anaphora as a kind of cross-referencing device \autocite{Heim1982,GroenendijkStokhof1991} . Frank Veltman crystalizes the 'slogan' of dynamic approaches to meaning as follows: "You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" \autocite{Veltman1996a}.
+
+Irene Heim's foundational work on \emph{file change semantics} in the 80s lead to an explosion of insightful research applying this central idea to an impressive variety of empirical domains. At the same time, dynamic semantics incorporates powerful proprietary mechanisms for manipulating \emph{contexts} in an apparently arbitrary fashion, and even precompiles these mechanisms into the meanings of logical vocabulary such as "or". In this seminar we'll track developments in dynamic approaches to anaphora, starting from classical theories of (singular) pronouns and their indefinite antecedents, and eventually progressing to intricate theories of modality, plurality, and quantification. In parallel, we'll consider what exactly dynamic semantics commits us to, both as a theory of \emph{content}, and as a theory of how semantic composition proceeds. A central goal will be a re-assessment of Veltman's slogan, in light of recent work that fine-tunes the division of labor between dynamic semantics and pragmatics \autocite{Mandelkern2022a,Elliott2020f}.  
+\section{Tentative schedule}
+\label{sec:org04e04f2}
+
+Seminars take place Tuesdays 16:30-18:00, in 2421.05.61 (Z20).
+
+\begin{center}
+\begin{tabular}{ll}
+date & topic\\
+\hline
+April 8 & File Change Semantics\\
+April 15 & File Change Semantics ii\\
+April 22 & Dynamic Predicate Logic\\
+April 29 & Dynamic Predicate Logic ii\\
+May 6 & Subsentential dynamics\\
+May 13 & Subsentential dynamics ii\\
+\sout{May 20} & No class\\
+May 27 & Anaphora and presupposition\\
+June 3 & Anaphora and presupposition ii\\
+June 10 & Anaphora and modality\\
+June 17 & Dynamic inquisitive semantics\\
+June 24 & Plural dynamic semantics\\
+\sout{July 1} & No class\\
+July 8 & Student presentation\\
+July 15 & Student presentation\\
+\end{tabular}
+\end{center}
+\section{Materials}
+\label{sec:orgbd37626}
+
+Handouts and readings will be posted in the class rocketchat channel.
+\section{Prerequisites}
+\label{sec:org6a7d11a}
+
+\begin{itemize}
+\item At least one introductory class in compositional semantics, with
+similar coverage to \emph{Semantics in Generative Grammar}
+\autocite{HeimKratzer1998}.
+\item At least one class covering basic formal methods, i.e., logic (up to first order), and set theory.
+\end{itemize}
+\section{Contact information}
+\label{sec:org689f7e7}
+
+\begin{itemize}
+\item Instructor: Patrick Elliott (\url{https://patrickdelliott.com})
+\item Email: \texttt{patrick.d.elliott@gmail.com}
+\item Secretary: Tim Marton: \texttt{tim.marton@phil.hhu.de}
+\item For any content questions, please use the rocket chat channel.
+\item Office hours: by appointment.
+\end{itemize}
+\section{Assessment}
+\label{sec:org75845b3}
+
+\subsection{Beteiligungsnachweis}
+\label{sec:org00457d1}
+
+\begin{itemize}
+\item Send me a short question about the weekly reading via rocketchat, by Monday evening (the day before class).
+\begin{itemize}
+\item This can be as simple as "what does [this definition] mean?", but please send something.
+\end{itemize}
+\end{itemize}
+\subsection{Abschlussprüfung}
+\label{sec:org9ebf40c}
+
+\begin{itemize}
+\item One class presentation of a research paper.
+\item A short research note (max 10 pages).
+\end{itemize}
+
+\printbibliography
+\end{document}
