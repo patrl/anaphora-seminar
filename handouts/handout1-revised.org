@@ -1,0 +1,44 @@
+#+title: File change semantics: context and composition
+#+subtitle: HHU SoSe 2025
+#+author: Patrick D. Elliott 
+#+setupfile: handout-template.org
+#+OPTIONS: ':t
+#+cite_export: biblatex
+
+#+begin_quote
+"Consider a device designed to read a text in some natural language,
+interpret it, and store the content in some manner, say, for the purpose
+of being able to answer questions about it. To accomplish this task,
+the machine will have to fulfill at least the following basic requirement.
+It has to be able to build a file that consists of records of all the
+individuals, that is, events, objects, etc., mentioned in the text and, for
+each individual, record whatever is said about it. Of course, for the time being at least, it seems that such a text interpreter is not a practical idea, but this should not discourage us from studying in abstract what kind of capabilities the machine would have to possess, provided that our study
+provides us with some insight into natural language in general." [cite:@Karttunen1976]
+#+end_quote
+
+The notion of a /discourse referent/ emerged from the work of Lauri Karttunen and David Lewis [cite:@Karttunen1976;@Lewis1979a], during a time of general optimism concerning connections between linguistic theory and artificial intelligence research.
+
+The central idea is that discourse participants introduce and manipulate /variables/ corresponding to individuals mentioned over the course of a conversation.
+
+#+name: example1
+#+begin_exe
+\ex A\(^x\) woman was bitten by a\(^y\) dog.
+\ex She\(_x\) hit it\(_y\).
+\ex It\(_y\) jumped over a\(^z\) fence.
+#+end_exe
+
+This powerful idea subsequently informed dynamic approaches to meaning, which essentially model anaphora as a kind of cross-referencing device [cite:@Heim1982;@GroenendijkStokhof1991].
+
+In this course, we'll primarily be interested in /dynamic semantics/ proper, rather than discourse representation theories [cite:@Kamp1981], which are often grouped under the same umbrella.[fn:9]
+
+The dynamic slogan:
+
+#+begin_quote
+"You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" [cite:@Veltman1996a].
+#+end_quote
+
+* Footnotes
+
+[fn:9] See [cite:@Chierchia1995] for a detailed comparison. 
+
+

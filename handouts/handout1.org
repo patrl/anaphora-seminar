@@ -1,6 +1,5 @@
 #+title: File change semantics: context and composition
 #+author: Patrick D. Elliott 
-#+bibliography: ../../bibliography/master.bib
 #+setupfile: handout-template.org
 #+OPTIONS: ':t
 #+cite_export: biblatex
