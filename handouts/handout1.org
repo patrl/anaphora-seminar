@@ -291,7 +291,7 @@ A brief illustration: consider a universe in which the only facts concern whethe
 
 ** File contexts: the intuition
 
-The /dynamic/ notion of contexts is a extension of the Stalnakerian notion [cite:@Karttunen1976;@Lewis1979;@Heim1982].
+The /dynamic/ notion of contexts is a extension of the Stalnakerian notion [cite:@Karttunen1976;@Lewis1979a;@Heim1982].
 
 The basic idea is that certain expressions, such as indefinites, trigger a representation consisting of a placeholder/label together with some information associated with that label. 
 
