@@ -88,7 +88,7 @@ The satisfaction set at file \(F\) of a world \(w \in F\), \(\mathbf{sat}_F(w)\)
 #+end_definition
 
 - \(\mathbf{sat}_F\) maps worlds to the set of the assignments they are paired with in \(F\). 
-- Every world \(w \in F_5\) is mapped to an empty satisfaction set. 
+- Every world \(w \in F_5\) is mapped to the set of all assignments. 
 - Each world \(w \in F_4\) is mapped to the set of assignments which map \(x\) to a story told by David in \(w\). N.b. in some worlds, David may tell multiple stories, in which case the satisfaction set will contain many such assignments.
 - Imagine that the initial context contains at least the following worlds:
   * \(w_1\): David tells exactly one story, \(s_1\)
@@ -106,7 +106,7 @@ The satisfaction set at file \(F\) of a world \(w \in F\), \(\mathbf{sat}_F(w)\)
 \] 
 
 #+begin_tcolorbox
-Compute the satisfaction sets of each of \(w_1\), \(w_2\) and \(w_{12}\) at \(F\).
+Compute the satisfaction sets of each of \(w_1\), \(w_2\) and \(w_{12}\) at \(F\), assuming that \(x\) is the only variable.
 #+end_tcolorbox
 
 * File change semantics: the basics
@@ -560,7 +560,7 @@ What is the nature of the putative disjoint reference inference?
 \ex A^x woman walked in; she_x sat down.
 #+end_exe
 
-These facts suggest that disjoint reference should be derived as a /primary implicature/ (in the sense of [cite:@Sauerland2004]), i.e., the speaker is not certain that \(x\) and \(y\) are mapped to same individual. 
+These facts suggest that disjoint reference should be derived as a /primary implicature/ (in the sense of [cite:@Sauerland2004b]), i.e., the speaker is not certain that \(x\) and \(y\) are mapped to same individual. 
 
 In fact, this can be derived via a familiar Gricean reasoning process if the following are alternatives:
 
@@ -569,7 +569,7 @@ In fact, this can be derived via a familiar Gricean reasoning process if the fol
 
 The latter is contextually more informative than the former.  
 
-We can easily formalize /contextual informativity/ in FCS as follows (definition from [cite:@Sudo2022]):
+We can easily formalize /contextual informativity/ in FCS as follows:
 
 #+begin_definition
 Contextual informativity. A sentence \(\phi\) is /contextually more informative/ than a sentence \(\psi\) with respect to a context \(c\) iff:
@@ -579,7 +579,63 @@ Contextual informativity. A sentence \(\phi\) is /contextually more informative/
 
 - Upon hearing "A^x woman walked; a^y woman sat down", the hearer notices an alternative "A^x woman walked in; the^y woman sat down", which would have been contextually more informative.
 - The speaker didn't assert the alternative, so they must not be certain that it's true.
-- A stronger, secondary implicature could be derived pragmatically [cite:@Sauerland2004], or via an exhaustification operator geared to act on CCPs [cite:@Fox2007].
+- A stronger, secondary implicature could be derived pragmatically [cite:@Sauerland2004b], or via an exhaustification operator geared to act on CCPs [cite:@Fox2007a].
+  
+** A loose end: definite descriptions
+
+Recall that pronouns are variables with a /familiarity/ presupposition.
+
+We haven't said anything concrete yet about definite descriptions, but FCS very naturally accounts for definite descriptions in the following way, e.g., for "the_x woman sat down.":
+
+#+name: ex:definite
+#+begin_exe
+\ex \(\lambda c\,.\,\begin{cases}
+\set{(w,g) \in c\,.\,\mathbf{satDown}_w(g_x)}&\forall(w,g) \in c[\mathbf{woman}_w(g_x)]\\
+\text{undefined}&\text{else}  
+\end{cases}\)
+#+end_exe
+
+This accounts for the fact that definites behave like pronouns with an indefinite antecedent (we tailor our example here to show that uniqueness isn't required):
+
+#+name: ex:definite
+#+begin_exe
+\ex A^x woman walked in; The_x woman sat down with another woman.
+#+end_exe
+
+- Updating \(c\) with the first sentence eliminates world assignment pairs \((w,g\), where \(g_x\) isn't a woman who walked in in \(w\). 
+- Updating with the second sentence is defined iff every world assignment pair \((w,g\) in the input is s.t. \(g_x\) is a woman.
+- The requirement is satisfied, so now we eliminate \((w,g)\)s where \(g_x\) didn't sit down with another woman in \(w\).
+ - Note that the presupposition of a definite description is a strictly stronger requirement than familiarity /per se/.
+   
+We can account for \(\phi \)-features in a parallel fashion. A putative CCP for "She_x sat down" (\(\phi \)-features systematically give rise to presuppositions that must be accommodated on this view):
+
+#+name: ex:phi
+#+begin_exe
+\ex \(\lambda c\,.\,\begin{cases}
+\set{(w,g) \in c| \mathbf{satDown}_w(g_x)}&\forall (w,g) \in c[\mathbf{prefersSheHer}_w(g_x)]\\
+\text{undefined}&\text{else}  
+\end{cases}\)
+#+end_exe
+
+A problem with the approach to definite descriptions in FCS (the /familiarity theory/ of definiteness) is that it fails to account for uniqueness inferences.
+
+After all, there's a reason people believed that /uniqueness/ is entailed by definite descriptions (the examples here are a variant of data discussed by [cite:@MandelkernRothschild2020a]).
+
+#+name: date
+#+begin_exe
+\ex John went on a date; he liked the\(_x\) woman, so he planned to see her\(_x\) again.
+#+end_exe
+
+#+name: date2
+#+begin_exe
+\ex John went on dates with a few different women; ??he liked the\(_x\) woman, so he planned to see her\(_x\) again.
+#+end_exe
+
+- In sum, FCS (and dynamic theories more generally) do excellently in accounting for the fact that definites don't require uniqueness if they have an indefinite antecedent.
+- As it stands however, it is mysterious why definites require uniqueness when they don't have an antecedent. As emphasized by [cite:@MandelkernRothschild2020a], this is arguably a question of /accommodation/ - in fact, the logic is similar to the proviso problem.
+
+#+print_bibliography:
+
 
 * Footnotes
 
