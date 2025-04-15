@@ -1,0 +1,596 @@
+#+title: File change semantics ii
+#+subtitle: HHU SoSe 2025
+#+author: Patrick D. Elliott 
+#+setupfile: handout-template.org
+#+OPTIONS: ':t
+#+cite_export: biblatex
+ 
+* The dynamic notion of content
+** Stalnakerian pragmatics
+
+- Our account of deictic pronouns is incomplete in a way which relates to how we account for discourse anaphora (what does it mean for an assignment function to be "furnished by the context?").
+- We'll build on Stalnaker's influential proposal [cite:@Stalnaker1976a;@Stalnaker2002a]  that conversational contexts can be modeled as sets of possible worlds - the worlds that are accepted by the participants of a conversation.
+- The Stalnakerian notion of context bundles all information into a single format - propositional content.
+- The ignorance/initial state is logical space \(W\), and the absurd state is the empty set.
+- Update is defined as follows (in a bivalent setting - we discuss presupposition later on):
+
+\[c[\alpha] = c \cap \set{w | \eval*{\phi}(w) = 1}\]
+
+- A brief illustration: consider a universe in which the only facts concern whether it's snowing and or raining.
+
+\[W = \set{w_\emptyset , w_s, w_r, w_{sr}}\]
+
+\[c[\text{it's raining} ] = W \cap \set{w_r, w_{sr}}} = \set{w_r ,w_{sr}}\]
+ 
+** File contexts: the intuition
+
+- The /dynamic/ notion of contexts is a extension of the Stalnakerian notion [cite:@Karttunen1976;@Lewis1979a;@Heim1982].
+- The basic idea is that certain expressions, such as indefinites, trigger a representation consisting of a placeholder/label together with some information associated with that label. 
+- Consider the following contrast:
+
+#+begin_exe
+\ex David is raconteuring. ??I heard *it* before.<<david1>>
+\ex David is telling *a story*. I heard *it* before.<<david2>>
+#+end_exe
+
+- Although an idealization, let's assume, for the sake of argument that the sentences "David is raconteuring" and "David is telling a story" are contextually equivalent.
+- This means that they should induce the same change in \(c\) - so why is it that ([[david1]]) sounds odd, in comparison to ([[david2]])?
+- The dynamic solution: content is sensitive not just to what is conveyed, but /how/ it is conveyed.
+- The sentence "David is telling *a story*" triggers the creation of a new label \(x\), with the information that \(x\) is a story told by David. The subsequent sentence "I heard *it* before" adds the information that the speaker heard \(x\) before.
+- The file metaphor: variables correspond to files. Utterances with indefinites and pronouns trigger (i) the creation of a new file, and (ii) filing information in an existing file (respectively).
+
+#+begin_quote
+"A listener's task of understanding what is being said in the course of a conversation bears relevant similarities to a file clerk's task. Speaking metaphorically, let me say that to understand an utterance is to keep a file which, at every time in the course of the utterance, contains the information that has so far been conveyed by the utterance." [cite:@Heim1983b]
+#+end_quote
+
+
+** Modeling file contexts
+
+- A way of modeling this using conceptual primitives we're familiar with: a /file/ is a set of world-assignment pairs (we'll refine this in a little while).
+
+\[F_4 = \set{(w,g) | g_x \text{ is a story told by David in }w }\]
+
+- This will be a set consisting of worlds where there exists some story told by David \(s\), paired with assignments where the variable \(x\) is mapped to \(s\).
+- The file corresponding to "David is raconteuring" will, by conjecture, just contain the following. N.b. that \(g\) isn't mentioned in the predicate.
+
+\[F_5 = \set{(w,g) | \text{there's a story told by David in }w  }\]
+
+*** Truth of a file
+
+#+begin_definition
+Truth of a file.
+
+\[\mathbf{true}_w(F) \iff \exists g[(w,g) \in F]\]
+#+end_definition
+
+*** World set
+
+- We can now give a useful definition: the /world set/ of a file (following [cite:@Heim1982]).
+
+#+begin_definition
+The world set of a file $F$, $F_w$, is defined as follows:[fn:2]
+
+\[F_w = \set{w | (w,*) \in F}\]
+#+end_definition
+
+- \(F_4,w = F_5,w\) - both convey the information that David is telling a story.
+  * For \(F_5\) this is trivial.
+  * For \(F_4\), this is because each world in the file must contain some story \(s\) told by David, so that the paired assignment can map \(x\) to \(s\).  
+  
+*** Satisfaction set
+  
+- Another useful definition is the /satisfaction set/ of a particular world in a file.
+
+#+begin_definition
+The satisfaction set at file \(F\) of a world \(w \in F\), \(\mathbf{sat}_F(w)\), is defined as follows:
+
+\[\mathbf{sat}_F(w) = \set{g | (w,g) \in F}\]
+#+end_definition
+
+- \(\mathbf{sat}_F\) maps worlds to the set of the assignments they are paired with in \(F\). 
+- Every world \(w \in F_5\) is mapped to an empty satisfaction set. 
+- Each world \(w \in F_4\) is mapped to the set of assignments which map \(x\) to a story told by David in \(w\). N.b. in some worlds, David may tell multiple stories, in which case the satisfaction set will contain many such assignments.
+- Imagine that the initial context contains at least the following worlds:
+  * \(w_1\): David tells exactly one story, \(s_1\)
+  * \(w_2\): David tells exactly one story, \(s_2\)
+  * \(w_{12}\): David tells two stories, \(s_1,s_2\)
+  * \(w_{\emptyset }\): David doesn't tell any stories, \(s_1,s_2\)
+- The file of the context after an utterance of "David is telling a\(_x\) story", will contain (at least) the following information:
+
+\[F = \begin{aligned}[t]
+&\set{(w_1,g)|g_x = s_1}\\
+&\cup \set{(w_2,g)|g_x = s_2}\\
+&\cup \set{(w_{12},g)|g_x = s_1}\\
+&\cup \set{(w_{12},g)|g_x = s_2}
+\end{aligned}
+\] 
+
+#+begin_tcolorbox
+Compute the satisfaction sets of each of \(w_1\), \(w_2\) and \(w_{12}\) at \(F\).
+#+end_tcolorbox
+
+* File change semantics: the basics
+
+** Context Change Potentials
+
+- Heim's conjecture: sentences /by virtue of their semantic value/ operate directly on file contexts, hence - /file change semantics/.
+  * The "dynamic slogan" (mentioned in the syllabus):
+
+#+begin_quote
+"You know the meaning of a sentence if you know the change it brings about in the information state of anyone who accepts the news conveyed by it" [cite:@Veltman1996a]
+#+end_quote
+
+- Sentential meanings, for Heim will be /functions from files to files/, which she calls /Context Change Potentials/ (CCPs).
+- So far we haven't said anything about indefinites vs. definites. Here's the intuition we'd like to capture:
+  * Indefinites introduce new labels in the file, and may not add information to existing labels. Considering the following example:
+
+#+name: novelty1
+#+begin_exe
+\ex \(\#\)A\(_x\) man walked in. A\(_x\) man sat down.
+\ex A\(_x\) man walked in. A\(_y\) man sat down.
+#+end_exe
+
+** /Novelty/ as a file-level notion
+
+- One way of understanding this is that "A\(_x\) man sat down" is infelicitous if uttered after "A\(_x\) man walked in", however "A\(_y\) man sat down" is felicitous if uttered after "A\(_x\) man walked in".
+- As Heim explains, we can check whether or not a variable \(x\) is "unused" in a file, if the file never discriminates between assignments that differ only at \(x\).
+
+#+name: def:novelty
+#+begin_definition
+Novelty of a variable with respect to a file.
+\[\mathbf{nov}_F(x) \iff  \forall w, \forall g, \forall g'[g[x]g' \rightarrow ((w,g) \in F \iff (w,g') \in F)]\]
+#+end_definition
+
+- In more informal terms: a variable \(x\) is /novel/ with respect to a file \(F\) iff, for any two assignments \(g\) and \(g'\) which differ /only/ in the value they assign to \(x\), \(F\) never distinguishes between \((w,g)\) and \((w,g')\), for any world \(w\).
+- First, we can ask, for an initial context \(c_\top\), whether any given variable counts as novel.
+- If we define the initial, or ignorance context as the product of logical space and the set of possible assignments, then it is easy to see that every variable will indeed be novel with respect to \(c_\top\) - for every world \(w \in W\), and every assignment \(g \in D_g\), \((w,g) \in c_\top\), so \(c_\top\) never distinguishes between any assignments by definition. 
+
+#+begin_fact
+Given a stock of variables \(V\), \(\forall v \in V[\mathbf{nov}_{c_\top}(v)]\).
+#+end_fact
+
+- Consider how the initial context changes after an assertion of the sentence "a\(^x\) man walked in". We retain the world assignment pairs \((w,g) \in c_\top\), such that \(g\) assigns \(x\) to a man who walked in, in \(w\).
+
+#+name: ex:manwalkedin
+#+begin_exe
+\ex \(c' = \set{(w,g)|g_x \text{ is a man who walked in, in }w  \wedge (w,g) \in c_\top}\)
+#+end_exe
+
+- Is \(x\) still novel with respect to \(c'\)? No! That's because \(c'\) places constraints \(x\); namely, it will contain a world-assignment pair \((w,g)\) where \(g_x\) is a man who walked in, in \(w\), but it won't contain a world-assignment pair \((w,g')\), where \(g'\) differs minimally from \(g\) in that \(g'_x\) isn't a man who walked in, in \(w\).
+- The intuition that definition [[def:novelty]] captures is therefore whether or not a given file places constraints on the value of a discourse referent.
+- What Heim goes on to suggest is that update of a context \(c\) with a sentence containing an indefinite indexed \(x\), such as "a\(^x\) man walked in" is defined just in case \(x\) is novel wrt \(c\).
+- Consequently, if we have a sequence of utterances such as a "a\(^x\) man walked in; a\(^y\) man sat down", \(x \neq y\), otherwise updating \(c[\text{a}^x\text{ man walked in}]\) with "a\(^y\) man sat down" will be undefined.
+  
+** Familiarity
+
+- A wholly derivative notion, which we'll use for the semantics of definites, is /familiarity/:
+
+#+begin_definition def:fam
+Familiarity of a variable with respect to a file.
+\[\mathbf{fam}_F(x) := \neg\ \mathbf{nov}_F(x) \]
+#+end_definition
+
+- For sentences such as "He\(_x\) sat down"? Ignoring phi features, we can say that pronouns indexed \(x\) require that \(x\) /not/ be novel with respect to the file context, i.e., that the file context places constraints on the identity of \(x\).
+- As we've discussed, one way in which a variable \(x\) can become familiar with respect to a file context is via a previous assertion involving a variable indexed \(x\).
+- Heim suggests that variables can also become novel if the file context becomes constrained by salient features of the environment, in order to account for deictic pronouns.
+  
+** Discourse anaphora and discourse sequencing
+
+- The notion of /novelty/ is crucially defined relative to /files/ rather than individual evaluation points.
+  * Note that there's no way to determine, just by looking at individual Heimian evaluation points, whether or not a variable is novel with respect to the file at which a sentence is evaluated.
+- Since the novelty requirement is taken to be induced by a linguistic feature of particular sentences (i.e., indefiniteness), there is apparently no escape from treating sentences as functions from files to files (i.e., CCPs).
+- The CCP of a sentence containing an indefinite:
+
+#+name: ex:ccp-heim1
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&\text{A}^x\text{ man walked in}\\
+&\Rightarrow \lambda F \,.\,\begin{cases}
+\set{(w,g)|(w,g) \in F \wedge g_x \text{ a man who walked in in }w }&\mathbf{nov}_F(x)\\
+\text{undefined}&\text{else}  
+\end{cases}
+\end{aligned}\)
+#+end_exe
+
+- The CCP of a sentence containing a pronoun:
+
+#+name: ex:ccp-heim2
+#+begin_exe
+\ex \(\begin{aligned}[t]
+&\text{He}_x\text{ sat down}\\
+&\Rightarrow \lambda F\,.\,\begin{cases}
+\set{(w,g)|(w,g) \in F \wedge g_x \text{ sat down in }w  }&\mathbf{fam}_F(x)\\
+\text{undefined}&\text{else}  
+\end{cases}
+\end{aligned}\)
+#+end_exe
+
+- In FCS, the connection between assertion and semantic values is extremely direct. Update simply amounts to passing the file context in as the argument of the CCP.
+
+#+begin_definition
+Heim's bridge principle.
+
+Asserting a sentence \(\phi \) at context \(c\) results in an updated context \(c[\phi]\), defined as follows:
+\[c[\phi] := \eval*{\phi}(c)\]
+#+end_definition
+
+- Successive assertions give rise to successive update of the context.
+- At the heart of the account of discourse anaphora is the fact that a sentence with an indefinite such as "A\(^x\) man walked in" renders \(x\) no longer novel with respect to the updated file, satisfying the preconditions of a sentence such as "He\(_x\) sat down".
+
+\[\begin{aligned}[t]
+&c[\text{a}^x\text{ man walked in}]\\
+&= \begin{cases}
+\set{(w,g)|(w,g) \in c \wedge g_x \text{ a man who walked in in }w )}&\mathbf{nov}_c(x)\\
+\text{undefined}&\text{else}
+\end{cases}
+\end{aligned}\]
+
+- If update is successful, the result is an updated context \(c'\), such that \(x\) is no longer novel with respect to.
+- This is because \(c'\) discriminates between assignments which differ only with respect to \(x\) - \((w,g)\) is in \(c'\), where \(g_x\) is a man who walked in in \(w\), whereas \((w,g')\) isn't in \(c'\), where \(g'\) is any assignment that minimally differs from \(g\) in mapping \(x\) to an individual that isn't a man who walked in in \(w\). 
+
+\[c'[\text{he}_x\text{ sat down}] = \begin{cases}
+\set{(w,g)|(w,g) \in c' \wedge g_x \text{ sat down in }w }&\mathbf{fam}_c(x)\\
+\text{undefined}&\text{else}
+\end{cases}
+\]
+
+- Since this update is guaranteed to be defined, successive update has the following result:
+
+\[\begin{aligned}[t]
+&c[\text{a}^x\text{ man walked in}][\text{he}_x\text{ sat down}]\\
+&= \begin{cases}
+\set{(w,g)|(w,g) \in c \wedge g_x \text{ a man who walked in in }w  \wedge g_x \text{ sat down in }w )}&\mathbf{nov}_c(x)\\
+\text{undefined}&\text{else}  
+\end{cases}
+\end{aligned}\]
+
+- The intuition here is that successive update amounts to passing the context as the file argument of the first sentence, and then passing the resulting output file as the file argument of the second sentence.
+- We can define an operator to perform successive update. This turns out to just be function composition. We'll write it as \(;\), and it will play a prominent role in FCS.[fn:4][fn:7]
+
+#+begin_definition
+The dynamic sequencing operator \(;\).
+
+\[p;q := \lambda F\,.\,q(p(F))\]
+#+end_definition
+
+- The sequencing operator famously serves as the meaning of conjunction in FCS:
+
+#+name: def:conj
+#+begin_exe
+\ex \(\text{and} \Rightarrow \lambda q\,.\,\lambda p\,.\,p ; q\)
+#+end_exe
+
+- We'll have more to say about other logical vocabulary in FCS as we progress.
+- A direct consequence of this definition is that successive update \(c[\phi][\psi]\) is exactly equivalent to \(c[\phi \text{ and }\psi]\). 
+- Since dynamic sequencing is just function composition, it inherits the logical properties of function composition, e.g., it is associative. This means we'll often omit parentheses when sequencing.
+
+\[(\phi ; \psi) ; \pi \iff \phi ; (\psi ; \pi)\]
+
+- Both of the following are equivalent:
+
+#+name: ex:assoc
+#+begin_exe
+\ex A\(^x\) man walked in and he\(_x\) sat down. He\(_x\) started fidgeting.
+\ex A\(^x\) man walked in. He\(_x\) sat down and he\(_x\) started fidgeting.
+#+end_exe
+
+- Similarly, dynamic sequencing is not necessarily commutative (although some CCPs commute). This reflects the fact that some CCPs can set up the preconditions for other CCPs to apply.
+
+#+name: ex:comm
+#+begin_exe
+\ex A\(^x\) man walked in and he\(_x\) sat down.
+\ex ?He\(_x\) walked in and a\(^x\) man sat down.<<ex:comm2>>
+#+end_exe
+
+- FCS predicts the CCP of ([[ex:comm2]]) to be undefined for /any/ file context. 
+- It's often assumed that FCS (and dynamic semantics more generally) explains why discourse anaphora displays a left-to-right bias, as illustrated by ([[ex:comm]]).
+  
+** Example 1: discourse anaphora
+
+A concrete example. Let's consider the flow of information in the following discourse:
+
+#+name: ex:womagain
+#+begin_exe
+\ex A^x woman walked in; she sat down.
+#+end_exe
+
+- \(w_\emptyset\): neither walked in nor sat down.
+- \(w_a\): \(a\) walked in and sat down; \(b\) did neither.
+- \(w_a'\): \(a\) walked and didn't sit; \(b\) didn't walk in but did sit down.
+- \(w_b\): \(b\) walked in and sat down; \(a\) did neither.
+- \(w_b'\): \(b\) walked in and sat down; \(a\) didn't walk in but did sit.
+- \(w_ab\): \(a\) and \(b\) both walked in and sat down.
+  
+Variables: \(x,y\). The initial context is the Cartesian product of logical space and the set of assignments \(g: \set{x,y} \to \set{a,b}\).
+
+\[c_0 = \Set{\begin{array}{c}
+\left(w_\emptyset,\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right]\right),\left(w_\emptyset,\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right]\right),\left(w_\emptyset,\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_\emptyset,\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_a,\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right]\right),\left(w_a,\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right]\right),\left(w_a,\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_a,\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_{a'},\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right]\right),\left(w_{a'},\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right]\right),\left(w_{a'},\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_{a'},\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_b,\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right]\right),\left(w_b,\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right]\right),\left(w_b,\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_b,\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_{b'},\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right]\right),\left(w_{b'},\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right]\right),\left(w_{b'},\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_{b'},\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_{ab},\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right]\right),\left(w_{ab},\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right]\right),\left(w_{ab},\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_{ab},\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\end{array}}
+\]
+
+Update with "A^x woman walked in".
+
+- Novelty is trivially satisfied.
+- We eliminate any \((w,g)\), where \(g\) maps \(x\) to a woman who didn't walk in, in \(w\).
+
+\[c_{1} = \Set{\begin{array}{c}
+\left(w_a,\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right]\right),\left(w_a,\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_{a'},\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right]\right),\left(w_{a'},\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_b,\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_b,\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_{b'},\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_{b'},\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_{ab},\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right]\right),\left(w_{ab},\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right]\right),\left(w_{ab},\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_{ab},\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\end{array}}
+\]
+
+Now let's update \(c_1\) with "She_x sat down".
+
+- First, to check whether or not the update is defined, we check if \(x\) is familiar.
+- All that's necessary to show that \(x\) is familiar is to find some world \(w\) which discriminates between assignments that differ only at \(x\). There are plenty to choose from, but consider \(w_a\), which is paired with \([x \to a, y \to a]\) but not \([x \to b, x \to a]\).
+- Now we eliminate any \((w,g\), where \(g\) maps \(x\) to a woman who didn't sit down.
+
+\[
+c_{2} = \Set{\begin{array}{c}
+\left(w_a,\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right]\right),\left(w_a,\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_b,\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_b,\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_{b'},\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_{b'},\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_{ab},\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right]\right),\left(w_{ab},\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right]\right),\left(w_{ab},\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_{ab},\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\end{array}}
+\]
+
+We're left just with the worlds in which someone walked in and sat down.
+
+- In \(w_a\), it's \(a\) who did so, so \(w_a\) is paired with assignments that map \(x\) to \(a\).
+- In \(w_b\), it's \(b\) who did so, so \(w_b\) is paired with assignments that map \(x\) to \(b\).
+- In \(w_{ab}\), it's both \(a\) and \(b\) who did so, so \(w_{ab}\) is paired with assignments that map \(a\) to \(b\) and assignments that map \(x\) to \(b\).
+  
+Note, \(c_2\) is only true at worlds where the same woman both walked in and sat down.
+
+Let's double check that \(y\) still isn't familiar in \(c_2\) (remember, we only consider assignments which differ minimally wrt \(y\)).
+
+
+** Example 2: concurrent indefinites 
+
+Round two. Consider the following discourse:
+
+#+name: ex:awomantwice
+#+begin_exe
+\ex A^x woman walked in. A^y woman sat down.
+#+end_exe
+
+We already know what happens when we update the initial context with the first sentence, we get \(c_1\). We know that \(y\) is /novel/ in \(c_1\), so let's update \(c_1\) with "A^y woman sat down".
+
+- We eliminate any \((w,g)\), where \(g\) maps \(y\) to a woman who didn't sit down.
+
+\[c_{3} = \Set{\begin{array}{c}
+\left(w_a,\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right]\right)\\
+\left(w_{a'},\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_b,\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_{b'},\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_{b'},\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\left(w_{ab},\left[\begin{aligned}[c]
+x \to a\\
+y \to a
+\end{aligned}\right]\right),\left(w_{ab},\left[\begin{aligned}[c]
+x \to a\\
+y \to b
+\end{aligned}\right]\right),\left(w_{ab},\left[\begin{aligned}[c]
+x \to b\\
+y \to a
+\end{aligned}\right]\right),\left(w_{ab},\left[\begin{aligned}[c]
+x \to b\\
+y \to b
+\end{aligned}\right]\right)\\
+\end{array}}\] 
+
+\(c_3\) is true at worlds where the same individual both walked in and sat down (\(w_a, w_b, w_b', w_{ab}\)), but also worlds in which distinct individuals walked in and sat down (\(w_a'\)).
+
+FCS therefore doesn't derive /disjoint reference/ out of the box, for concurrent, contra-indexed indefinites.
+
+
+** Disjoint reference in FCS
+
+What is the nature of the putative disjoint reference inference?
+
+#+name: ex:disjoint2
+#+begin_exe
+\ex A woman walked in; a woman sat down. In fact, I later discovered that it was the same woman.
+#+end_exe
+
+#+name: ex:disjoint
+#+begin_exe
+\ex context: /the speaker is knows that that the same woman walked in and sat down, but isn't sure which woman walked in and sat down./
+\ex ?? A^x woman walked in; A^y woman sat down.
+\ex A^x woman walked in; she_x sat down.
+#+end_exe
+
+These facts suggest that disjoint reference should be derived as a /primary implicature/ (in the sense of [cite:@Sauerland2004]), i.e., the speaker is not certain that \(x\) and \(y\) are mapped to same individual. 
+
+In fact, this can be derived via a familiar Gricean reasoning process if the following are alternatives:
+
+- "A^x woman walked in and the\(_x\) woman/she\(_x\) sat down".
+- "A^x woman walked in and a woman\(^y\) sat down" (for any variable \(y \neq x\))
+
+The latter is contextually more informative than the former.  
+
+We can easily formalize /contextual informativity/ in FCS as follows (definition from [cite:@Sudo2022]):
+
+#+begin_definition
+Contextual informativity. A sentence \(\phi\) is /contextually more informative/ than a sentence \(\psi\) with respect to a context \(c\) iff:
+
+\[\mathbf{W}(c[\phi]) \subset \mathbf{W}(c[\psi])\] 
+#+end_definition
+
+- Upon hearing "A^x woman walked; a^y woman sat down", the hearer notices an alternative "A^x woman walked in; the^y woman sat down", which would have been contextually more informative.
+- The speaker didn't assert the alternative, so they must not be certain that it's true.
+- A stronger, secondary implicature could be derived pragmatically [cite:@Sauerland2004], or via an exhaustification operator geared to act on CCPs [cite:@Fox2007].
+
+* Footnotes
+
+[fn:9] See [cite:@Chierchia1995] for a detailed comparison. 
+
+[fn:1] \(g[x \to  a]\) is the unique assignment that is identical to \(g\), except for mapping \(x\) to \(a\).
+
+[fn:2] We use \(*\) as a wildcard over values (i.e., an implicitly existentially-quantified variable). 
+
+[fn:4] In more traditional mathematical notation, we'd write this as \(\psi \circ \phi\). I prefer \(\phi ; \psi\), as it more directly reflects information flow in a dynamic setting. 
+
+[fn:7] [cite:@Chierchia1995] goes as far as to suggest that a semantics is /dynamic/ iff the meaning of conjunction is function composition. We'll see many reasons to reject this characterization in the following classes.
+
+
