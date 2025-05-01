@@ -299,7 +299,7 @@ A concrete example. Let's consider the flow of information in the following disc
 - \(w_a'\): \(a\) walked and didn't sit; \(b\) didn't walk in but did sit down.
 - \(w_b\): \(b\) walked in and sat down; \(a\) did neither.
 - \(w_b'\): \(b\) walked in and sat down; \(a\) didn't walk in but did sit.
-- \(w_ab\): \(a\) and \(b\) both walked in and sat down.
+- \(w_{ab}\): \(a\) and \(b\) both walked in and sat down.
   
 Variables: \(x,y\). The initial context is the Cartesian product of logical space and the set of assignments \(g: \set{x,y} \to \set{a,b}\).
 
@@ -635,7 +635,6 @@ After all, there's a reason people believed that /uniqueness/ is entailed by def
 - As it stands however, it is mysterious why definites require uniqueness when they don't have an antecedent. As emphasized by [cite:@MandelkernRothschild2020a], this is arguably a question of /accommodation/ - in fact, the logic is similar to the proviso problem.
 
 #+print_bibliography:
-
 
 * Footnotes
 
